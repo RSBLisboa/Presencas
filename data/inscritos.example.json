@@ -1,0 +1,31 @@
+{
+  "schema": "inscritos@1",
+  "evento": {
+    "id": 1,
+    "titulo": "Sessão Técnica em Substâncias Perigosas",
+    "data": "2026-05-18",
+    "local": "Auditório do Metropolitano de Lisboa",
+    "horaInicio": "09:00",
+    "horaFim": "12:00",
+    "cargaHoraria": "3 horas"
+  },
+  "exportadoEm": "2026-05-17T18:00:00",
+  "inscritos": [
+    {
+      "id": 101,
+      "nome": "João Silva Exemplo",
+      "cargo": "Bombeiro Sapador",
+      "entidade": "Regimento de Sapadores Bombeiros de Lisboa",
+      "categoria": "Bombeiros Profissionais",
+      "estado": "Confirmada"
+    },
+    {
+      "id": 102,
+      "nome": "Maria Santos Exemplo",
+      "cargo": "Comandante",
+      "entidade": "Bombeiros Voluntários Lisboa",
+      "categoria": "Bombeiros Voluntários",
+      "estado": "Confirmada"
+    }
+  ]
+}

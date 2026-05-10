@@ -1,0 +1,26 @@
+{
+  "name": "Presenças RSB Lisboa",
+  "short_name": "Presenças RSB",
+  "description": "App de validação de presenças em sessões técnicas do Regimento de Sapadores Bombeiros de Lisboa.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f4f5",
+  "theme_color": "#E30613",
+  "lang": "pt-PT",
+  "icons": [
+    {
+      "src": "assets/rsb-brasao.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/rsb-brasao.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

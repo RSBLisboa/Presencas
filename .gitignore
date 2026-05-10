@@ -1,0 +1,17 @@
+# Dados reais (com PII) — não publicar.
+# Os ficheiros data/*.json são escritos pelo admin via API GitHub e devem
+# existir no remote, mas se aparecerem localmente (ex.: pull manual) ficam
+# acompanhados.
+# Os .example.json sim são versionados.
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.lnk
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
