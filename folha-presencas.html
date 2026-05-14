@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Folha de Presenças · RSB Lisboa</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/rsb-brasao.png">
+<style>
+  :root {
+    --rsb-vermelho: #E30613;
+    --texto: #1a1a1a;
+    --texto-mute: #555;
+    --linha: #c0c0c0;
+    --linha-clara: #e5e5e5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #ECECEC;
+    color: var(--texto);
+    font-family: "Inter", "Segoe UI", "Calibri", system-ui, sans-serif;
+    line-height: 1.45;
+  }
+
+  /* Barra de acções (não imprime) */
+  .toolbar {
+    background: #fff;
+    border-bottom: 1px solid var(--linha-clara);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .toolbar h2 {
+    font-size: 14px;
+    margin: 0;
+    flex: 1;
+    font-weight: 600;
+    color: var(--texto-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .toolbar button, .toolbar label {
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--linha);
+    background: #fff;
+    color: var(--texto);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+  .toolbar button.primary {
+    background: var(--rsb-vermelho);
+    color: #fff;
+    border-color: var(--rsb-vermelho);
+  }
+  .toolbar button:hover { background: #fafafa; }
+  .toolbar button.primary:hover { background: #B0040F; }
+  .toolbar input[type="checkbox"] { margin-right: 6px; }
+  .toolbar .filter {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* Estados */
+  .estado {
+    max-width: 640px;
+    margin: 60px auto;
+    padding: 32px 28px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+  .estado.erro { border-left: 4px solid var(--rsb-vermelho); }
+  .estado.aviso { border-left: 4px solid #c46c00; }
+  .estado h1 { font-size: 20px; margin: 0 0 12px; }
+  .estado p { font-size: 14px; color: var(--texto-mute); margin: 8px 0; }
+
+  /* Folha A4 retrato */
+  .folha {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 24px auto;
+    background: #fff;
+    box-shadow: 0 6px 28px rgba(0,0,0,0.12);
+    padding: 16mm 14mm 12mm;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Cabeçalho institucional */
+  .cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--rsb-vermelho);
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+  }
+  .cabecalho .brasao-rsb { height: 70px; }
+  .cabecalho .brasao-cml { height: 60px; }
+  .cabecalho .titulo-instituicao {
+    text-align: center;
+    flex: 1;
+    padding: 0 16px;
+  }
+  .cabecalho .titulo-instituicao .linha-1 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--texto-mute);
+  }
+  .cabecalho .titulo-instituicao .linha-2 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 3px;
+  }
+  .cabecalho .titulo-instituicao .linha-3 {
+    font-size: 11px;
+    color: var(--texto-mute);
+    margin-top: 2px;
+  }
+
+  /* Título da folha */
+  .titulo-folha {
+    text-align: center;
+    margin: 6px 0 14px;
+  }
+  .titulo-folha h1 {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .titulo-folha .evento {
+    font-size: 14px;
+    color: var(--rsb-vermelho);
+    font-weight: 600;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* Bloco de metadados */
+  .meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 24px;
+    background: #fafafa;
+    border: 1px solid var(--linha-clara);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 12px;
+  }
+  .meta .item { display: flex; gap: 8px; }
+  .meta .k {
+    font-weight: 600;
+    color: var(--texto-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    min-width: 72px;
+  }
+
+  /* Tabela */
+  table.lista {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-bottom: 14px;
+  }
+  table.lista th, table.lista td {
+    border: 1px solid var(--linha);
+    padding: 5px 6px;
+    text-align: left;
+    vertical-align: middle;
+  }
+  table.lista th {
+    background: #f0f0f0;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+  table.lista td.num {
+    text-align: center;
+    width: 30px;
+    color: var(--texto-mute);
+  }
+  table.lista td.hora {
+    text-align: center;
+    width: 60px;
+    font-variant-numeric: tabular-nums;
+  }
+  table.lista td.assinatura {
+    width: 130px;
+    height: 24px;
+  }
+  table.lista tr.ausente td {
+    color: #999;
+    background: #fafafa;
+  }
+  table.lista tr.ausente td.hora::after {
+    content: "—";
+  }
+
+  /* Totais */
+  .totais {
+    display: flex;
+    gap: 24px;
+    justify-content: flex-end;
+    margin-bottom: 18px;
+    font-size: 11px;
+    color: var(--texto-mute);
+  }
+  .totais strong {
+    color: var(--texto);
+    font-size: 13px;
+  }
+
+  /* Assinatura do Comandante */
+  .assinatura-comandante {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--linha-clara);
+  }
+  .assinatura-comandante p {
+    font-size: 11.5px;
+    color: var(--texto-mute);
+    margin: 0 0 36px;
+    line-height: 1.5;
+  }
+  .assinatura-comandante .linha-assinatura {
+    width: 60%;
+    border-bottom: 1px solid var(--texto);
+    margin: 0 auto 4px;
+  }
+  .assinatura-comandante .nome {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .assinatura-comandante .cargo {
+    text-align: center;
+    font-size: 11px;
+    color: var(--texto-mute);
+    margin: 2px 0 0;
+  }
+  .assinatura-comandante .data-local {
+    text-align: center;
+    font-size: 11px;
+    color: var(--texto-mute);
+    margin-top: 18px;
+  }
+
+  /* Print A4 retrato */
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none !important; }
+    .folha {
+      box-shadow: none;
+      margin: 0;
+      width: 100%;
+      min-height: 0;
+      page-break-inside: auto;
+    }
+    .cabecalho, .titulo-folha h1, .titulo-folha .evento {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    table.lista { page-break-inside: auto; }
+    table.lista tr { page-break-inside: avoid; }
+    table.lista thead { display: table-header-group; }
+    @page { size: A4 portrait; margin: 10mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h2 id="estadoToolbar">A carregar dados…</h2>
+  <label class="filter">
+    <input type="checkbox" id="filtroPresentes"> Apenas presentes
+  </label>
+  <button onclick="window.print()" class="primary">Imprimir / Guardar PDF</button>
+</div>
+
+<div id="raiz"></div>
+
+<script>
+"use strict";
+(async function() {
+  const $raiz = document.getElementById("raiz");
+  const $toolbar = document.getElementById("estadoToolbar");
+  const $filtro = document.getElementById("filtroPresentes");
+
+  function esc(s) {
+    if (s === null || s === undefined) return "";
+    return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  function mostrarErro(titulo, msg, tipo) {
+    $toolbar.textContent = titulo;
+    $raiz.innerHTML = `<div class="estado ${tipo==='aviso'?'aviso':'erro'}"><h1>${esc(titulo)}</h1><p>${esc(msg)}</p></div>`;
+  }
+
+  function fmtData(s) {
+    if (!s) return "";
+    const m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!m) return s;
+    const meses = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+    return parseInt(m[3]) + " de " + meses[parseInt(m[2])-1] + " de " + m[1];
+  }
+
+  function fmtHora(iso) {
+    if (!iso) return "";
+    const m = iso.match(/T(\d{2}):(\d{2})/);
+    return m ? m[1] + "h" + m[2] : "";
+  }
+
+  // ── Carregar JSON ────────────────────────────────────────────────────
+  async function carregar(url) {
+    const r = await fetch(url + "?_=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) throw new Error(url + " → HTTP " + r.status);
+    return r.json();
+  }
+
+  let inscritos, presencas, evento;
+  try {
+    const [iJson, pJson] = await Promise.all([
+      carregar("data/inscritos.json"),
+      carregar("data/presencas.json").catch(() => ({ marcacoes: [] }))
+    ]);
+    inscritos = iJson.inscritos || [];
+    evento = iJson.evento || {};
+    presencas = pJson.marcacoes || [];
+  } catch (err) {
+    mostrarErro("Não foi possível carregar a folha", err.message + ". Verifique que inscritos.json existe no repositório.", "erro");
+    return;
+  }
+
+  // ── Cruzar inscritos com presenças ───────────────────────────────────
+  const mapaPresenca = new Map();
+  for (const m of presencas) mapaPresenca.set(m.idInscricao, m);
+
+  const linhas = inscritos
+    .map((i, idx) => {
+      const m = mapaPresenca.get(i.id);
+      return {
+        idx: idx + 1,
+        nome: i.nome,
+        cargo: i.cargo || "",
+        entidade: i.entidade || "",
+        presente: !!(m && m.presente),
+        horaEntrada: m && m.presente ? fmtHora(m.horaEntrada) : ""
+      };
+    })
+    .sort((a, b) => a.nome.localeCompare(b.nome, "pt-PT"));
+
+  const totalInscritos = linhas.length;
+  const totalPresentes = linhas.filter(l => l.presente).length;
+  const totalAusentes = totalInscritos - totalPresentes;
+
+  // ── Render ───────────────────────────────────────────────────────────
+  function renderizar() {
+    const apenasPresentes = $filtro.checked;
+    const linhasMostrar = apenasPresentes ? linhas.filter(l => l.presente) : linhas;
+
+    $toolbar.textContent = apenasPresentes
+      ? `Folha de presenças (${totalPresentes} presentes)`
+      : `Folha de presenças (${totalInscritos} inscritos · ${totalPresentes} presentes · ${totalAusentes} ausentes)`;
+
+    const dataSesFmt = fmtData(evento.data);
+    const titulo = evento.titulo || "Sessão Técnica";
+    const local = evento.local || "";
+    const horaInicio = evento.horaInicio || "";
+    const horaFim = evento.horaFim || "";
+    const cargaHoraria = evento.cargaHoraria || "";
+
+    const hoje = new Date();
+    const meses = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+    const dataEmissao = hoje.getDate() + " de " + meses[hoje.getMonth()] + " de " + hoje.getFullYear();
+
+    let linhasHtml = "";
+    linhasMostrar.forEach((l, idx) => {
+      linhasHtml += `
+        <tr class="${l.presente ? "" : "ausente"}">
+          <td class="num">${idx + 1}</td>
+          <td>${esc(l.nome)}</td>
+          <td>${esc(l.cargo)}</td>
+          <td>${esc(l.entidade)}</td>
+          <td class="hora">${esc(l.horaEntrada)}</td>
+          <td class="assinatura"></td>
+        </tr>`;
+    });
+
+    $raiz.innerHTML = `
+      <div class="folha">
+        <div class="cabecalho">
+          <img src="assets/rsb-brasao.png" alt="RSB" class="brasao-rsb">
+          <div class="titulo-instituicao">
+            <div class="linha-1">Câmara Municipal de Lisboa</div>
+            <div class="linha-2">Regimento de Sapadores Bombeiros de Lisboa</div>
+            <div class="linha-3">Núcleo de Formação · ERSBL</div>
+          </div>
+          <img src="assets/lisboa-cml-transparent.png" alt="CML" class="brasao-cml">
+        </div>
+
+        <div class="titulo-folha">
+          <h1>Folha de Presenças</h1>
+          <div class="evento">${esc(titulo)}</div>
+        </div>
+
+        <div class="meta">
+          <div class="item"><span class="k">Data</span><span>${esc(dataSesFmt)}</span></div>
+          <div class="item"><span class="k">Hora</span><span>${esc(horaInicio)} — ${esc(horaFim)}</span></div>
+          <div class="item"><span class="k">Local</span><span>${esc(local)}</span></div>
+          <div class="item"><span class="k">Duração</span><span>${esc(cargaHoraria)}</span></div>
+        </div>
+
+        <table class="lista">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+              <th>Cargo</th>
+              <th>Entidade</th>
+              <th>Hora Entrada</th>
+              <th>Assinatura</th>
+            </tr>
+          </thead>
+          <tbody>${linhasHtml || '<tr><td colspan="6" style="text-align:center;padding:20px;color:#999">Sem registos para mostrar</td></tr>'}</tbody>
+        </table>
+
+        <div class="totais">
+          <span>Inscritos: <strong>${totalInscritos}</strong></span>
+          <span>Presentes: <strong>${totalPresentes}</strong></span>
+          <span>Ausentes: <strong>${totalAusentes}</strong></span>
+        </div>
+
+        <div class="assinatura-comandante">
+          <p>Para os devidos efeitos, certifico que as pessoas acima identificadas estiveram presentes na sessão técnica supra mencionada, na qualidade indicada em frente do respectivo nome.</p>
+          <div class="linha-assinatura"></div>
+          <p class="nome">TCor Eng. Alexandre Rodrigues</p>
+          <p class="cargo">Comandante do Regimento de Sapadores Bombeiros de Lisboa</p>
+          <p class="data-local">Lisboa, ${esc(dataEmissao)}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  $filtro.addEventListener("change", renderizar);
+  renderizar();
+})();
+</script>
+
+</body>
+</html>

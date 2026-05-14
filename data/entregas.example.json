@@ -1,0 +1,18 @@
+{
+  "schema": "entregas@1",
+  "eventoId": 1,
+  "actualizadoEm": "2026-05-18T13:32:00",
+  "versao": 4,
+  "entregas": [
+    {
+      "idInscricao": 101,
+      "entregueEm": "2026-05-18T13:05:18",
+      "entreguePor": "tablet-balcao"
+    },
+    {
+      "idInscricao": 105,
+      "entregueEm": "2026-05-18T13:11:02",
+      "entreguePor": "tablet-balcao"
+    }
+  ]
+}

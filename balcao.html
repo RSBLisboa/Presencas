@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#E30613">
+<meta name="description" content="Balcão de entrega de livretos · Sessão Técnica RSB Lisboa.">
+<title>Balcão · RSB Lisboa</title>
+<link rel="icon" href="assets/rsb-brasao.png">
+<style>
+  :root {
+    --rsb-vermelho: #E30613;
+    --rsb-vermelho-escuro: #B0040F;
+    --rsb-vermelho-claro: #FCE4E6;
+    --texto: #1a1a1a;
+    --texto-mute: #6b6b6b;
+    --linha: #d8d8d8;
+    --fundo: #f4f4f5;
+    --verde: #1e8a3a;
+    --verde-claro: #e8f5ec;
+    --azul: #1565c0;
+    --azul-claro: #e3f0fb;
+    --aviso: #c46c00;
+    --aviso-claro: #fff8ed;
+    --erro: #b1131e;
+    --erro-claro: #fdf2f3;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Calibri", sans-serif;
+    color: var(--texto);
+    background: var(--fundo);
+    overscroll-behavior: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  header {
+    background: var(--rsb-vermelho);
+    color: #fff;
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    position: sticky; top: 0; z-index: 50;
+  }
+  header img { height: 36px; width: auto; }
+  header .titulo { flex: 1; line-height: 1.2; }
+  header h1 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: 0.02em; text-transform: uppercase; }
+  header .sub { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+  header .menu-btn {
+    background: rgba(255,255,255,0.15); border: none; color: #fff;
+    width: 40px; height: 40px; border-radius: 8px; font-size: 22px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  header .menu-btn:active { background: rgba(255,255,255,0.3); }
+
+  .stats {
+    display: flex; background: #fff;
+    border-bottom: 1px solid var(--linha);
+    position: sticky; top: 64px; z-index: 40;
+  }
+  .stat { flex: 1; padding: 10px 6px; text-align: center; border-right: 1px solid var(--linha); }
+  .stat:last-child { border-right: none; }
+  .stat .n { font-size: 22px; font-weight: 800; line-height: 1; }
+  .stat .l { font-size: 11px; color: var(--texto-mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .stat.pres .n { color: var(--azul); }
+  .stat.resp .n { color: var(--verde); }
+  .stat.entr .n { color: var(--rsb-vermelho); }
+
+  .sync {
+    padding: 6px 16px; font-size: 12px;
+    border-bottom: 1px solid var(--linha);
+    display: flex; align-items: center; gap: 8px;
+    background: #fafafa;
+    position: sticky; top: 122px; z-index: 30;
+  }
+  .sync .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--texto-mute); flex-shrink: 0; }
+  .sync.ok .dot { background: var(--verde); }
+  .sync.pending .dot { background: var(--aviso); animation: pulse 1.4s infinite; }
+  .sync.err .dot { background: var(--erro); }
+  .sync.offline .dot { background: var(--texto-mute); }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .search-wrap {
+    padding: 12px 16px 8px; background: #fff;
+    border-bottom: 1px solid var(--linha);
+    position: sticky; top: 152px; z-index: 20;
+  }
+  .search-wrap input {
+    width: 100%; padding: 14px 16px; font-size: 16px;
+    border: 1px solid var(--linha); border-radius: 10px;
+    background: #fafafa; font-family: inherit;
+    user-select: text; -webkit-user-select: text;
+  }
+  .search-wrap input:focus { outline: none; border-color: var(--rsb-vermelho); background: #fff; }
+
+  .filtros {
+    padding: 8px 16px;
+    background: #fff;
+    border-bottom: 1px solid var(--linha);
+    display: flex; gap: 6px; overflow-x: auto;
+    position: sticky; top: 218px; z-index: 19;
+  }
+  .filtros button {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-family: inherit;
+    background: #fff;
+    border: 1px solid var(--linha);
+    border-radius: 999px;
+    color: var(--texto-mute);
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .filtros button.active {
+    background: var(--rsb-vermelho);
+    color: #fff;
+    border-color: var(--rsb-vermelho);
+  }
+
+  .lista { padding: 8px 0 80px; }
+  .vazio { text-align: center; padding: 60px 24px; color: var(--texto-mute); font-size: 14px; }
+
+  .row {
+    display: flex; align-items: center; gap: 12px;
+    background: #fff;
+    margin: 0 12px 8px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--linha);
+    min-height: 70px;
+    position: relative;
+  }
+  .row.respondeu { background: var(--verde-claro); border-color: var(--verde); }
+  .row.entregue { background: var(--rsb-vermelho-claro); border-color: var(--rsb-vermelho); }
+
+  .row .info { flex: 1; min-width: 0; }
+  .row .info .nome { font-size: 15px; font-weight: 700; line-height: 1.2; }
+  .row .info .meta { font-size: 12px; color: var(--texto-mute); margin-top: 3px; }
+  .row .info .hora {
+    font-size: 11px; color: var(--verde);
+    margin-top: 3px;
+    font-weight: 600;
+  }
+  .row.entregue .info .hora { color: var(--rsb-vermelho-escuro); }
+
+  .row .acao {
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    min-width: 90px;
+  }
+  .row .acao.qr {
+    background: var(--azul);
+    color: #fff;
+  }
+  .row .acao.qr:active { background: #0d4f9c; }
+  .row .acao.entregar {
+    background: var(--rsb-vermelho);
+    color: #fff;
+  }
+  .row .acao.entregar:active { background: var(--rsb-vermelho-escuro); }
+  .row .acao.entregue {
+    background: transparent;
+    color: var(--rsb-vermelho);
+    border: none;
+    font-size: 18px;
+    min-width: 40px;
+  }
+
+  /* Modal QR */
+  .modal-fundo {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .modal-fundo.hide { display: none; }
+  .modal {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 380px;
+    width: 100%;
+    padding: 24px 22px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .modal h2 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    color: var(--texto);
+  }
+  .modal .meta {
+    font-size: 12px;
+    color: var(--texto-mute);
+    margin-bottom: 18px;
+  }
+  .modal .qr {
+    margin: 16px auto;
+    padding: 14px;
+    background: #fff;
+    border: 1px solid var(--linha);
+    border-radius: 8px;
+    display: inline-block;
+  }
+  .modal .qr canvas, .modal .qr img {
+    display: block;
+  }
+  .modal .ajuda {
+    font-size: 13px;
+    color: var(--texto);
+    background: var(--azul-claro);
+    border-left: 3px solid var(--azul);
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin: 14px 0 16px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .modal .url {
+    font-size: 10px;
+    color: var(--texto-mute);
+    word-break: break-all;
+    margin: 10px 0 16px;
+    font-family: "SF Mono", Consolas, monospace;
+  }
+  .modal button {
+    width: 100%;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: var(--rsb-vermelho);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .modal button.fechar {
+    background: #fff;
+    color: var(--texto);
+    border: 1px solid var(--linha);
+    margin-top: 8px;
+  }
+
+  /* Login */
+  .login-overlay {
+    position: fixed; inset: 0;
+    background: var(--fundo);
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 60px 20px;
+    z-index: 200;
+    overflow-y: auto;
+  }
+  .login-overlay.hide { display: none; }
+  .login-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .login-card .logo {
+    text-align: center; margin-bottom: 18px;
+  }
+  .login-card .logo img { height: 60px; }
+  .login-card h2 {
+    text-align: center;
+    margin: 0 0 4px;
+    font-size: 18px;
+    color: var(--texto);
+  }
+  .login-card .papel {
+    text-align: center;
+    margin: 0 0 24px;
+    font-size: 12px;
+    color: var(--rsb-vermelho);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  .login-card label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--texto-mute);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+    margin-top: 14px;
+    font-weight: 600;
+  }
+  .login-card input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid var(--linha);
+    border-radius: 8px;
+    font-family: inherit;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+  .login-card input:focus { outline: none; border-color: var(--rsb-vermelho); }
+  .login-card button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: var(--rsb-vermelho);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .login-card .erro {
+    color: var(--erro);
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .login-card .ajuda {
+    font-size: 11px;
+    color: var(--texto-mute);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--texto);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s;
+    z-index: 150;
+    max-width: 90vw;
+    text-align: center;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+  .toast.ok { background: var(--verde); }
+  .toast.err { background: var(--erro); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-overlay" id="login">
+  <div class="login-card">
+    <div class="logo"><img src="assets/rsb-brasao.png" alt="RSB"></div>
+    <h2>Balcão de Saída</h2>
+    <p class="papel">Entrega de livretos</p>
+
+    <label>PIN</label>
+    <input type="password" id="pin" inputmode="numeric" autocomplete="off">
+
+    <label>Token GitHub</label>
+    <input type="password" id="token" autocomplete="off">
+    <div class="ajuda">Mesmo token utilizado no tablet de entrada.</div>
+
+    <button id="btn-login">Entrar</button>
+    <div class="erro" id="login-erro"></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header style="display:none" id="hdr">
+  <img src="assets/rsb-brasao.png" alt="RSB">
+  <div class="titulo">
+    <h1>Balcão · Livretos</h1>
+    <div class="sub" id="sub-titulo">Sessão Técnica</div>
+  </div>
+  <button class="menu-btn" id="btn-menu" title="Recarregar">↻</button>
+</header>
+
+<!-- STATS -->
+<div class="stats" style="display:none" id="stats">
+  <div class="stat pres"><div class="n" id="n-pres">0</div><div class="l">Presentes</div></div>
+  <div class="stat resp"><div class="n" id="n-resp">0</div><div class="l">Responderam</div></div>
+  <div class="stat entr"><div class="n" id="n-entr">0</div><div class="l">Livretos</div></div>
+</div>
+
+<!-- SYNC -->
+<div class="sync" style="display:none" id="sync-bar">
+  <span class="dot"></span><span id="sync-text">A iniciar…</span>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap" style="display:none" id="search-wrap">
+  <input type="search" id="search" placeholder="Procurar por nome ou entidade…">
+</div>
+
+<!-- FILTROS -->
+<div class="filtros" style="display:none" id="filtros">
+  <button data-f="todos" class="active">Todos</button>
+  <button data-f="presentes">Presentes</button>
+  <button data-f="respondeu">Responderam</button>
+  <button data-f="pendente">Pendentes</button>
+  <button data-f="entregue">Entregues</button>
+</div>
+
+<div class="lista" id="lista"></div>
+
+<!-- MODAL QR -->
+<div class="modal-fundo hide" id="modal-qr">
+  <div class="modal">
+    <h2 id="qr-nome"></h2>
+    <p class="meta" id="qr-meta"></p>
+    <div class="qr" id="qr-canvas-wrap"></div>
+    <div class="ajuda">Peça ao participante para apontar a câmara do telemóvel ao código QR. O questionário abre automaticamente.</div>
+    <div class="url" id="qr-url"></div>
+    <button class="fechar" onclick="fecharModalQR()">Fechar</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- QR library -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
+<script>
+"use strict";
+(function() {
+  // ── CONFIG ────────────────────────────────────────────────────────────
+  const CONFIG = {
+    githubOwner: "RSBLisboa",
+    githubRepo:  "Presencas",
+    githubBranch: "main",
+    pinHash: "8b9423d1ff0c597462594af22b8f9aca3ae427e307c4c954a6a7e214e0a56394", // PIN 309057 (mudar antes de produção)
+    postoId: "tablet-balcao",
+    apreciacaoPollMs: 10000,
+    presencasPollMs: 15000,
+    BASE_URL_APRECIACAO: "https://rsblisboa.github.io/Certificados/apreciacao.html"
+  };
+
+  // ── ESTADO ────────────────────────────────────────────────────────────
+  const ST = {
+    inscritos: [],          // [{id, nome, cargo, entidade, tokenApreciacao}]
+    evento: null,
+    presentes: new Set(),   // Set<idInscricao>
+    respostas: new Map(),   // idInscricao → submetidoEm (ISO)
+    entregas: new Map(),    // idInscricao → {entregueEm, entreguePor}
+    entregasSha: null,
+    filtro: "todos",
+    busca: "",
+    pollAprTimer: null,
+    pollPresTimer: null,
+    syncStatus: "idle"
+  };
+
+  // ── UTILS ─────────────────────────────────────────────────────────────
+  const $ = id => document.getElementById(id);
+  const $$ = sel => document.querySelectorAll(sel);
+
+  async function sha256Hex(s) {
+    const buf = new TextEncoder().encode(s);
+    const hash = await crypto.subtle.digest("SHA-256", buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,"0")).join("");
+  }
+  function utf8ToBase64(s) { return btoa(unescape(encodeURIComponent(s))); }
+  function base64ToUtf8(b) { return decodeURIComponent(escape(atob(b))); }
+  function nowIso() {
+    const d = new Date(), pad = n => String(n).padStart(2,"0");
+    return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds());
+  }
+  function fmtHora(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return "";
+    return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+  }
+  function normalizar(s) {
+    return (s||"").toString().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  }
+  function esc(s) {
+    return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+  function toast(msg, kind) {
+    const el = $("toast");
+    el.textContent = msg;
+    el.className = "toast show" + (kind ? " " + kind : "");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.remove("show"), 2400);
+  }
+  function setSync(status, text) {
+    ST.syncStatus = status;
+    $("sync-bar").className = "sync " + status;
+    $("sync-text").textContent = text;
+  }
+
+  // ── GITHUB API ────────────────────────────────────────────────────────
+  function ghHeaders() {
+    const tok = sessionStorage.getItem("gh_token");
+    if (!tok) throw new Error("Sem token em sessão.");
+    return {
+      "Authorization": "Bearer " + tok,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    };
+  }
+  function ghContentsUrl(path) {
+    return "https://api.github.com/repos/"+CONFIG.githubOwner+"/"+CONFIG.githubRepo+"/contents/"+encodeURI(path)+"?ref="+CONFIG.githubBranch;
+  }
+  async function ghValidarToken() {
+    const url = "https://api.github.com/repos/"+CONFIG.githubOwner+"/"+CONFIG.githubRepo;
+    const res = await fetch(url, { headers: ghHeaders() });
+    if (res.status === 401 || res.status === 403) throw new Error("Token inválido ou sem permissões.");
+    if (!res.ok) throw new Error("GitHub HTTP " + res.status);
+    return true;
+  }
+  async function ghLer(path) {
+    try {
+      const res = await fetch(ghContentsUrl(path), { headers: ghHeaders() });
+      if (res.status === 404) return { sha: null, payload: null };
+      if (!res.ok) throw new Error("GET " + path + ": " + res.status);
+      const j = await res.json();
+      const text = base64ToUtf8(j.content.replace(/\n/g,""));
+      return { sha: j.sha, payload: JSON.parse(text) };
+    } catch (e) {
+      throw e;
+    }
+  }
+  async function ghEscrever(path, payload, sha, msg) {
+    const body = {
+      message: msg || ("update " + path + " " + nowIso()),
+      content: utf8ToBase64(JSON.stringify(payload, null, 2)),
+      branch: CONFIG.githubBranch
+    };
+    if (sha) body.sha = sha;
+    const res = await fetch(
+      "https://api.github.com/repos/"+CONFIG.githubOwner+"/"+CONFIG.githubRepo+"/contents/"+encodeURI(path),
+      { method: "PUT", headers: ghHeaders(), body: JSON.stringify(body) }
+    );
+    if (res.status === 409 || res.status === 422) {
+      const e = new Error("CONFLICT"); e.code = "CONFLICT"; throw e;
+    }
+    if (!res.ok) throw new Error("PUT " + path + ": " + res.status);
+    const j = await res.json();
+    return j.content.sha;
+  }
+
+  // ── CARREGAMENTO INICIAL ──────────────────────────────────────────────
+  async function carregarInscritos() {
+    const r = await fetch("data/inscritos.json?t=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) throw new Error("inscritos.json HTTP " + r.status);
+    const data = await r.json();
+    if (!data.evento || !Array.isArray(data.inscritos)) throw new Error("Formato inválido.");
+    ST.evento = data.evento;
+    ST.inscritos = data.inscritos.slice().sort((a,b) =>
+      normalizar(a.nome).localeCompare(normalizar(b.nome))
+    );
+    const semToken = ST.inscritos.filter(i => !i.tokenApreciacao).length;
+    if (semToken > 0) {
+      toast("AVISO: " + semToken + " inscritos sem token de apreciação. Republicar no Eventos.", "err");
+    }
+  }
+  async function carregarPresencas() {
+    try {
+      const r = await fetch("data/presencas.json?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) { ST.presentes = new Set(); return; }
+      const data = await r.json();
+      ST.presentes = new Set();
+      for (const m of (data.marcacoes || [])) {
+        if (m.presente) ST.presentes.add(m.idInscricao);
+      }
+    } catch (e) { ST.presentes = new Set(); }
+  }
+  async function carregarApreciacoes() {
+    try {
+      const r = await fetch("data/apreciacao.json?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) { ST.respostas = new Map(); return false; }
+      const data = await r.json();
+      const novo = new Map();
+      let mudou = false;
+      for (const resp of (data.respostas || [])) {
+        novo.set(resp.idInscricao, resp.submetidoEm);
+        if (!ST.respostas.has(resp.idInscricao)) mudou = true;
+      }
+      ST.respostas = novo;
+      return mudou;
+    } catch (e) { return false; }
+  }
+  async function carregarEntregas() {
+    try {
+      const { sha, payload } = await ghLer("data/entregas.json");
+      ST.entregasSha = sha;
+      ST.entregas = new Map();
+      if (payload && Array.isArray(payload.entregas)) {
+        for (const e of payload.entregas) {
+          ST.entregas.set(e.idInscricao, { entregueEm: e.entregueEm, entreguePor: e.entreguePor });
+        }
+      }
+    } catch (e) {
+      console.warn("Falha a carregar entregas:", e);
+      ST.entregas = new Map();
+      ST.entregasSha = null;
+    }
+  }
+
+  // ── ENTREGAS · escrita ────────────────────────────────────────────────
+  function buildEntregasPayload() {
+    return {
+      schema: "entregas@1",
+      eventoId: ST.evento ? ST.evento.id : null,
+      actualizadoEm: nowIso(),
+      versao: (Date.now() % 1e6),
+      entregas: Array.from(ST.entregas.entries()).map(([id, e]) => ({
+        idInscricao: id,
+        entregueEm: e.entregueEm,
+        entreguePor: e.entreguePor
+      }))
+    };
+  }
+  async function marcarEntregue(idInscricao) {
+    const nome = ST.inscritos.find(i => i.id === idInscricao)?.nome || "?";
+    if (ST.entregas.has(idInscricao)) {
+      toast("Livreto já entregue a " + nome, "ok");
+      return;
+    }
+    // Optimistic UI
+    const ts = nowIso();
+    ST.entregas.set(idInscricao, { entregueEm: ts, entreguePor: CONFIG.postoId });
+    render();
+    setSync("pending", "A registar entrega…");
+    try {
+      const payload = buildEntregasPayload();
+      try {
+        const newSha = await ghEscrever("data/entregas.json", payload, ST.entregasSha,
+          "entregas: livreto a inscricao " + idInscricao);
+        ST.entregasSha = newSha;
+        setSync("ok", "Sincronizado · " + new Date().toLocaleTimeString("pt-PT"));
+        toast("Livreto entregue a " + nome, "ok");
+      } catch (e) {
+        if (e.code === "CONFLICT") {
+          // refetch + merge + retry
+          await carregarEntregas();
+          ST.entregas.set(idInscricao, { entregueEm: ts, entreguePor: CONFIG.postoId });
+          const novo = buildEntregasPayload();
+          const finalSha = await ghEscrever("data/entregas.json", novo, ST.entregasSha,
+            "entregas: livreto a inscricao " + idInscricao + " (apos merge)");
+          ST.entregasSha = finalSha;
+          setSync("ok", "Sincronizado (apos merge)");
+          toast("Livreto entregue a " + nome, "ok");
+        } else { throw e; }
+      }
+    } catch (e) {
+      // Reverter optimistic UI
+      ST.entregas.delete(idInscricao);
+      render();
+      setSync("err", "Falha de sync");
+      toast("Erro a registar: " + e.message, "err");
+    }
+  }
+
+  // ── POLLING ───────────────────────────────────────────────────────────
+  async function pollApreciacao() {
+    const mudou = await carregarApreciacoes();
+    if (mudou) {
+      render();
+      setSync("ok", "Novas respostas · " + new Date().toLocaleTimeString("pt-PT"));
+    }
+  }
+  async function pollPresencas() {
+    const antes = ST.presentes.size;
+    await carregarPresencas();
+    if (ST.presentes.size !== antes) render();
+  }
+
+  // ── RENDER ────────────────────────────────────────────────────────────
+  function render() {
+    const presentes = ST.inscritos.filter(i => ST.presentes.has(i.id));
+    const responderam = presentes.filter(i => ST.respostas.has(i.id)).length;
+    const entregues = presentes.filter(i => ST.entregas.has(i.id)).length;
+    $("n-pres").textContent = presentes.length;
+    $("n-resp").textContent = responderam;
+    $("n-entr").textContent = entregues;
+
+    let lista = presentes.slice();
+    // Filtro
+    if (ST.filtro === "respondeu") lista = lista.filter(i => ST.respostas.has(i.id));
+    else if (ST.filtro === "pendente") lista = lista.filter(i => ST.respostas.has(i.id) && !ST.entregas.has(i.id));
+    else if (ST.filtro === "entregue") lista = lista.filter(i => ST.entregas.has(i.id));
+    else if (ST.filtro === "presentes") lista = lista.filter(i => !ST.respostas.has(i.id));
+    // todos = sem filtro
+
+    // Busca
+    if (ST.busca) {
+      const q = normalizar(ST.busca);
+      lista = lista.filter(i =>
+        normalizar(i.nome).includes(q) ||
+        normalizar(i.entidade).includes(q) ||
+        normalizar(i.cargo).includes(q));
+    }
+
+    // Ordenar: pendentes (respondeu mas sem livreto) primeiro, depois respondeu+entregue, depois só presente
+    lista.sort((a, b) => {
+      const aRespAndPend = ST.respostas.has(a.id) && !ST.entregas.has(a.id);
+      const bRespAndPend = ST.respostas.has(b.id) && !ST.entregas.has(b.id);
+      if (aRespAndPend !== bRespAndPend) return aRespAndPend ? -1 : 1;
+      return normalizar(a.nome).localeCompare(normalizar(b.nome));
+    });
+
+    if (lista.length === 0) {
+      $("lista").innerHTML = '<div class="vazio">Sem resultados para os filtros actuais.</div>';
+      return;
+    }
+
+    $("lista").innerHTML = lista.map(i => {
+      const respondeu = ST.respostas.has(i.id);
+      const entrega = ST.entregas.get(i.id);
+      let estado = "", classRow = "", acao = "";
+
+      if (entrega) {
+        classRow = "entregue";
+        const hora = fmtHora(entrega.entregueEm);
+        estado = `<div class="hora">Livreto entregue às ${esc(hora)}</div>`;
+        acao = `<button class="acao entregue" disabled title="Entregue">✓</button>`;
+      } else if (respondeu) {
+        classRow = "respondeu";
+        const hora = fmtHora(ST.respostas.get(i.id));
+        estado = `<div class="hora">Respondeu às ${esc(hora)} · entregar livreto</div>`;
+        acao = `<button class="acao entregar" data-action="entregar" data-id="${i.id}">Entregar</button>`;
+      } else {
+        estado = `<div class="meta">Aguarda resposta ao questionário</div>`;
+        acao = `<button class="acao qr" data-action="qr" data-id="${i.id}">QR</button>`;
+      }
+
+      return `
+        <div class="row ${classRow}">
+          <div class="info">
+            <div class="nome">${esc(i.nome)}</div>
+            <div class="meta">${esc(i.cargo || "")} · ${esc(i.entidade || "")}</div>
+            ${estado}
+          </div>
+          ${acao}
+        </div>`;
+    }).join("");
+  }
+
+  // ── MODAL QR ──────────────────────────────────────────────────────────
+  function abrirModalQR(idInscricao) {
+    const insc = ST.inscritos.find(i => i.id === idInscricao);
+    if (!insc) return;
+    if (!insc.tokenApreciacao) {
+      toast("Inscrito sem token de apreciação. Republicar no Eventos.", "err");
+      return;
+    }
+    const url = CONFIG.BASE_URL_APRECIACAO + "?id=" + encodeURIComponent(insc.id) + "&t=" + insc.tokenApreciacao;
+
+    $("qr-nome").textContent = insc.nome;
+    $("qr-meta").textContent = (insc.cargo || "") + " · " + (insc.entidade || "");
+    $("qr-url").textContent = url;
+
+    // Gerar QR
+    const wrap = $("qr-canvas-wrap");
+    wrap.innerHTML = "";
+    try {
+      const qr = qrcode(0, "M");
+      qr.addData(url);
+      qr.make();
+      const cellSize = 6;
+      const margin = 4;
+      wrap.innerHTML = qr.createImgTag(cellSize, margin);
+    } catch (err) {
+      wrap.innerHTML = '<div style="color:#b1131e;padding:14px">Erro a gerar QR: ' + esc(err.message) + '</div>';
+    }
+
+    $("modal-qr").classList.remove("hide");
+  }
+  window.fecharModalQR = function() {
+    $("modal-qr").classList.add("hide");
+  };
+
+  // ── EVENT DELEGATION ──────────────────────────────────────────────────
+  $("lista").addEventListener("click", function(e) {
+    const btn = e.target.closest("button[data-action]");
+    if (!btn) return;
+    const id = parseInt(btn.dataset.id, 10);
+    if (btn.dataset.action === "qr") abrirModalQR(id);
+    else if (btn.dataset.action === "entregar") marcarEntregue(id);
+  });
+
+  $("modal-qr").addEventListener("click", function(e) {
+    if (e.target === this) fecharModalQR();
+  });
+
+  $("filtros").addEventListener("click", function(e) {
+    const btn = e.target.closest("button[data-f]");
+    if (!btn) return;
+    ST.filtro = btn.dataset.f;
+    $$(".filtros button").forEach(b => b.classList.toggle("active", b === btn));
+    render();
+  });
+
+  $("search").addEventListener("input", function(e) {
+    ST.busca = e.target.value;
+    render();
+  });
+
+  $("btn-menu").addEventListener("click", async function() {
+    setSync("pending", "A recarregar…");
+    try {
+      await Promise.all([
+        carregarInscritos(),
+        carregarPresencas(),
+        carregarApreciacoes(),
+        carregarEntregas()
+      ]);
+      render();
+      setSync("ok", "Recarregado · " + new Date().toLocaleTimeString("pt-PT"));
+    } catch (e) {
+      setSync("err", "Falha: " + e.message);
+    }
+  });
+
+  // ── LOGIN ─────────────────────────────────────────────────────────────
+  $("btn-login").addEventListener("click", entrar);
+  $("pin").addEventListener("keypress", e => { if (e.key === "Enter") $("token").focus(); });
+  $("token").addEventListener("keypress", e => { if (e.key === "Enter") entrar(); });
+
+  async function entrar() {
+    const pin = $("pin").value.trim();
+    const token = $("token").value.trim();
+    const err = $("login-erro");
+    err.textContent = "";
+    if (!pin || !token) { err.textContent = "PIN e token obrigatórios."; return; }
+    try {
+      const hash = await sha256Hex(pin);
+      if (hash !== CONFIG.pinHash) { err.textContent = "PIN incorrecto."; return; }
+      sessionStorage.setItem("gh_token", token);
+      await ghValidarToken();
+      // Login OK
+      $("login").classList.add("hide");
+      $("hdr").style.display = "flex";
+      $("stats").style.display = "flex";
+      $("sync-bar").style.display = "flex";
+      $("search-wrap").style.display = "block";
+      $("filtros").style.display = "flex";
+      await iniciar();
+    } catch (e) {
+      sessionStorage.removeItem("gh_token");
+      err.textContent = e.message;
+    }
+  }
+
+  async function iniciar() {
+    setSync("pending", "A carregar dados…");
+    try {
+      await carregarInscritos();
+      $("sub-titulo").textContent = (ST.evento && ST.evento.titulo) || "Sessão Técnica";
+      await Promise.all([
+        carregarPresencas(),
+        carregarApreciacoes(),
+        carregarEntregas()
+      ]);
+      render();
+      setSync("ok", "Pronto · " + new Date().toLocaleTimeString("pt-PT"));
+
+      // Iniciar polling
+      ST.pollAprTimer = setInterval(pollApreciacao, CONFIG.apreciacaoPollMs);
+      ST.pollPresTimer = setInterval(pollPresencas, CONFIG.presencasPollMs);
+    } catch (e) {
+      setSync("err", "Falha: " + e.message);
+      toast("Falha a iniciar: " + e.message, "err");
+    }
+  }
+
+  // Reentrada automática se já tem token em sessão (refresh do separador)
+  if (sessionStorage.getItem("gh_token")) {
+    (async () => {
+      try {
+        await ghValidarToken();
+        $("login").classList.add("hide");
+        $("hdr").style.display = "flex";
+        $("stats").style.display = "flex";
+        $("sync-bar").style.display = "flex";
+        $("search-wrap").style.display = "block";
+        $("filtros").style.display = "flex";
+        await iniciar();
+      } catch (e) {
+        sessionStorage.removeItem("gh_token");
+      }
+    })();
+  }
+})();
+</script>
+
+</body>
+</html>

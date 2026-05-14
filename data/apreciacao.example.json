@@ -1,0 +1,32 @@
+{
+  "schema": "apreciacao@1",
+  "eventoId": 1,
+  "actualizadoEm": "2026-05-18T13:14:00",
+  "total": 2,
+  "respostas": [
+    {
+      "idInscricao": 101,
+      "submetidoEm": "2026-05-18T13:02:12",
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "3",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 102,
+      "submetidoEm": "2026-05-18T13:08:51",
+      "respostas": {
+        "q1": "3",
+        "q2": "4",
+        "q3": "4",
+        "q4": "3",
+        "q5": "4",
+        "q6": "3"
+      }
+    }
+  ]
+}
