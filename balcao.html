@@ -136,6 +136,19 @@
     position: relative;
   }
   .row.entregue { background: var(--rsb-vermelho-claro); border-color: var(--rsb-vermelho); }
+  .row.qr-mostrado { background: var(--azul-claro); border-color: var(--azul); }
+  .row .badge-qr {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--azul);
+    color: #fff;
+    margin-top: 4px;
+  }
 
   .row .info { flex: 1; min-width: 0; }
   .row .info .nome { font-size: 15px; font-weight: 700; line-height: 1.2; }
@@ -170,6 +183,12 @@
     color: #fff;
   }
   .row .acao.entregar:active { background: var(--rsb-vermelho-escuro); }
+  .row .acao.entregar.bloqueada {
+    background: #b8b8b8;
+    color: #fff;
+    cursor: not-allowed;
+    opacity: 0.85;
+  }
   .row .acao.entregue {
     background: transparent;
     color: var(--rsb-vermelho);
@@ -436,9 +455,25 @@
     <h2 id="qr-nome"></h2>
     <p class="meta" id="qr-meta"></p>
     <div class="qr" id="qr-canvas-wrap"></div>
-    <div class="ajuda">Peça ao participante para apontar a câmara do telemóvel ao código QR. O questionário abre automaticamente.</div>
+    <div class="ajuda">Peça ao participante para apontar a câmara do telemóvel ao código QR. O questionário abre automaticamente. Quando aparecer o ecrã verde <strong>"Obrigado pela sua resposta"</strong>, feche este aviso e clique <strong>Entregar</strong>.</div>
     <div class="url" id="qr-url"></div>
-    <button class="fechar" onclick="fecharModalQR()">Fechar</button>
+    <button class="fechar" onclick="fecharModalQR()">Fechar (questionário aberto)</button>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMAÇÃO ENTREGA -->
+<div class="modal-fundo hide" id="modal-conf">
+  <div class="modal">
+    <h2>Confirmar entrega</h2>
+    <p class="meta">Vai entregar o livreto a <strong id="conf-nome"></strong>.</p>
+    <div class="ajuda" id="conf-aviso-qr" style="background:var(--aviso-claro);border-left-color:var(--aviso);display:none">
+      ⚠ Ainda não foi mostrado o QR a este participante. Tens a certeza que ele respondeu ao questionário?
+    </div>
+    <div class="ajuda" style="margin-top:14px">
+      Confirmas que viste o ecrã verde <strong>"Obrigado pela sua resposta"</strong> do questionário no telemóvel do participante?
+    </div>
+    <button id="conf-ok">Sim, entregar livreto</button>
+    <button class="fechar" id="conf-cancel">Cancelar</button>
   </div>
 </div>
 
@@ -469,6 +504,7 @@
     presentes: new Set(),   // Set<idInscricao>
     entregas: new Map(),    // idInscricao → {entregueEm, entreguePor}
     entregasSha: null,
+    qrMostrado: new Set(),  // Set<idInscricao> · QR ja apresentado nesta sessao (transiente)
     filtro: "todos",
     busca: "",
     pollPresTimer: null,
@@ -715,16 +751,20 @@
             <button class="acao entregue" disabled title="Entregue">✓</button>
           </div>`;
       }
+      const qrFeito = ST.qrMostrado.has(i.id);
+      const instr = qrFeito
+        ? `<div class="badge-qr">QR apresentado · aguarda resposta</div>`
+        : `<div class="meta" style="margin-top:4px">1. <strong>QR</strong> para o participante responder ao questionário. 2. Após ecrã verde, <strong>Entregar</strong>.</div>`;
       return `
-        <div class="row">
+        <div class="row${qrFeito ? " qr-mostrado" : ""}">
           <div class="info">
             <div class="nome">${esc(i.nome)}</div>
             <div class="meta">${esc(i.cargo || "")} · ${esc(i.entidade || "")}</div>
-            <div class="meta" style="margin-top:4px">Toque <strong>QR</strong> para apresentar ao participante. Após o ecrã verde de submissão, <strong>Entregar</strong>.</div>
+            ${instr}
           </div>
           <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
-            <button class="acao qr" data-action="qr" data-id="${i.id}">QR</button>
-            <button class="acao entregar" data-action="entregar" data-id="${i.id}">Entregar</button>
+            <button class="acao qr" data-action="qr" data-id="${i.id}">${qrFeito ? "Repetir QR" : "QR"}</button>
+            <button class="acao entregar${qrFeito ? "" : " bloqueada"}" data-action="entregar" data-id="${i.id}" title="${qrFeito ? "Confirmar submissão e entregar livreto" : "Mostre primeiro o QR ao participante"}">Entregar</button>
           </div>
         </div>`;
     }).join("");
@@ -756,10 +796,23 @@
     }
 
     $("modal-qr").classList.remove("hide");
+    // Marcar este participante como "QR apresentado" para destravar o Entregar
+    ST.qrMostrado.add(idInscricao);
+    render();
   }
   window.fecharModalQR = function() {
     $("modal-qr").classList.add("hide");
   };
+
+  // ── MODAL CONFIRMAÇÃO DE ENTREGA ──────────────────────────────────────
+  function pedirConfirmacaoEntrega(idInscricao) {
+    const insc = ST.inscritos.find(i => i.id === idInscricao);
+    if (!insc) return;
+    $("conf-nome").textContent = insc.nome;
+    $("conf-aviso-qr").style.display = ST.qrMostrado.has(idInscricao) ? "none" : "block";
+    $("modal-conf").dataset.id = idInscricao;
+    $("modal-conf").classList.remove("hide");
+  }
 
   // ── EVENT DELEGATION ──────────────────────────────────────────────────
   $("lista").addEventListener("click", function(e) {
@@ -767,11 +820,23 @@
     if (!btn) return;
     const id = parseInt(btn.dataset.id, 10);
     if (btn.dataset.action === "qr") abrirModalQR(id);
-    else if (btn.dataset.action === "entregar") marcarEntregue(id);
+    else if (btn.dataset.action === "entregar") pedirConfirmacaoEntrega(id);
   });
 
   $("modal-qr").addEventListener("click", function(e) {
     if (e.target === this) fecharModalQR();
+  });
+
+  $("conf-ok").addEventListener("click", function() {
+    const id = parseInt($("modal-conf").dataset.id, 10);
+    $("modal-conf").classList.add("hide");
+    if (!isNaN(id)) marcarEntregue(id);
+  });
+  $("conf-cancel").addEventListener("click", function() {
+    $("modal-conf").classList.add("hide");
+  });
+  $("modal-conf").addEventListener("click", function(e) {
+    if (e.target === this) $("modal-conf").classList.add("hide");
   });
 
   $("filtros").addEventListener("click", function(e) {
