@@ -135,7 +135,6 @@
     min-height: 70px;
     position: relative;
   }
-  .row.respondeu { background: var(--verde-claro); border-color: var(--verde); }
   .row.entregue { background: var(--rsb-vermelho-claro); border-color: var(--rsb-vermelho); }
 
   .row .info { flex: 1; min-width: 0; }
@@ -408,8 +407,8 @@
 <!-- STATS -->
 <div class="stats" style="display:none" id="stats">
   <div class="stat pres"><div class="n" id="n-pres">0</div><div class="l">Presentes</div></div>
-  <div class="stat resp"><div class="n" id="n-resp">0</div><div class="l">Responderam</div></div>
-  <div class="stat entr"><div class="n" id="n-entr">0</div><div class="l">Livretos</div></div>
+  <div class="stat entr"><div class="n" id="n-entr">0</div><div class="l">Livretos entregues</div></div>
+  <div class="stat pres"><div class="n" id="n-pend">0</div><div class="l">Por entregar</div></div>
 </div>
 
 <!-- SYNC -->
@@ -425,9 +424,7 @@
 <!-- FILTROS -->
 <div class="filtros" style="display:none" id="filtros">
   <button data-f="todos" class="active">Todos</button>
-  <button data-f="presentes">Presentes</button>
-  <button data-f="respondeu">Responderam</button>
-  <button data-f="pendente">Pendentes</button>
+  <button data-f="pendente">Por entregar</button>
   <button data-f="entregue">Entregues</button>
 </div>
 
@@ -461,22 +458,19 @@
     githubBranch: "main",
     pinHash: "8b9423d1ff0c597462594af22b8f9aca3ae427e307c4c954a6a7e214e0a56394", // PIN 309057 (mudar antes de produção)
     postoId: "tablet-balcao",
-    apreciacaoPollMs: 10000,
     presencasPollMs: 15000,
     BASE_URL_APRECIACAO: "https://rsblisboa.github.io/Certificados/apreciacao.html"
   };
 
   // ── ESTADO ────────────────────────────────────────────────────────────
   const ST = {
-    inscritos: [],          // [{id, nome, cargo, entidade, tokenApreciacao}]
+    inscritos: [],          // [{id, nome, cargo, entidade}]
     evento: null,
     presentes: new Set(),   // Set<idInscricao>
-    respostas: new Map(),   // idInscricao → submetidoEm (ISO)
     entregas: new Map(),    // idInscricao → {entregueEm, entreguePor}
     entregasSha: null,
     filtro: "todos",
     busca: "",
-    pollAprTimer: null,
     pollPresTimer: null,
     syncStatus: "idle"
   };
@@ -582,10 +576,6 @@
     ST.inscritos = data.inscritos.slice().sort((a,b) =>
       normalizar(a.nome).localeCompare(normalizar(b.nome))
     );
-    const semToken = ST.inscritos.filter(i => !i.tokenApreciacao).length;
-    if (semToken > 0) {
-      toast("AVISO: " + semToken + " inscritos sem token de apreciação. Republicar no Eventos.", "err");
-    }
   }
   async function carregarPresencas() {
     try {
@@ -597,21 +587,6 @@
         if (m.presente) ST.presentes.add(m.idInscricao);
       }
     } catch (e) { ST.presentes = new Set(); }
-  }
-  async function carregarApreciacoes() {
-    try {
-      const r = await fetch("data/apreciacao.json?t=" + Date.now(), { cache: "no-store" });
-      if (!r.ok) { ST.respostas = new Map(); return false; }
-      const data = await r.json();
-      const novo = new Map();
-      let mudou = false;
-      for (const resp of (data.respostas || [])) {
-        novo.set(resp.idInscricao, resp.submetidoEm);
-        if (!ST.respostas.has(resp.idInscricao)) mudou = true;
-      }
-      ST.respostas = novo;
-      return mudou;
-    } catch (e) { return false; }
   }
   async function carregarEntregas() {
     try {
@@ -686,13 +661,6 @@
   }
 
   // ── POLLING ───────────────────────────────────────────────────────────
-  async function pollApreciacao() {
-    const mudou = await carregarApreciacoes();
-    if (mudou) {
-      render();
-      setSync("ok", "Novas respostas · " + new Date().toLocaleTimeString("pt-PT"));
-    }
-  }
   async function pollPresencas() {
     const antes = ST.presentes.size;
     await carregarPresencas();
@@ -702,21 +670,16 @@
   // ── RENDER ────────────────────────────────────────────────────────────
   function render() {
     const presentes = ST.inscritos.filter(i => ST.presentes.has(i.id));
-    const responderam = presentes.filter(i => ST.respostas.has(i.id)).length;
     const entregues = presentes.filter(i => ST.entregas.has(i.id)).length;
+    const pendentes = presentes.length - entregues;
     $("n-pres").textContent = presentes.length;
-    $("n-resp").textContent = responderam;
     $("n-entr").textContent = entregues;
+    $("n-pend").textContent = pendentes;
 
     let lista = presentes.slice();
-    // Filtro
-    if (ST.filtro === "respondeu") lista = lista.filter(i => ST.respostas.has(i.id));
-    else if (ST.filtro === "pendente") lista = lista.filter(i => ST.respostas.has(i.id) && !ST.entregas.has(i.id));
+    if (ST.filtro === "pendente") lista = lista.filter(i => !ST.entregas.has(i.id));
     else if (ST.filtro === "entregue") lista = lista.filter(i => ST.entregas.has(i.id));
-    else if (ST.filtro === "presentes") lista = lista.filter(i => !ST.respostas.has(i.id));
-    // todos = sem filtro
 
-    // Busca
     if (ST.busca) {
       const q = normalizar(ST.busca);
       lista = lista.filter(i =>
@@ -725,11 +688,11 @@
         normalizar(i.cargo).includes(q));
     }
 
-    // Ordenar: pendentes (respondeu mas sem livreto) primeiro, depois respondeu+entregue, depois só presente
+    // Ordenar: por entregar primeiro
     lista.sort((a, b) => {
-      const aRespAndPend = ST.respostas.has(a.id) && !ST.entregas.has(a.id);
-      const bRespAndPend = ST.respostas.has(b.id) && !ST.entregas.has(b.id);
-      if (aRespAndPend !== bRespAndPend) return aRespAndPend ? -1 : 1;
+      const aPend = !ST.entregas.has(a.id);
+      const bPend = !ST.entregas.has(b.id);
+      if (aPend !== bPend) return aPend ? -1 : 1;
       return normalizar(a.nome).localeCompare(normalizar(b.nome));
     });
 
@@ -739,33 +702,30 @@
     }
 
     $("lista").innerHTML = lista.map(i => {
-      const respondeu = ST.respostas.has(i.id);
       const entrega = ST.entregas.get(i.id);
-      let estado = "", classRow = "", acao = "";
-
       if (entrega) {
-        classRow = "entregue";
         const hora = fmtHora(entrega.entregueEm);
-        estado = `<div class="hora">Livreto entregue às ${esc(hora)}</div>`;
-        acao = `<button class="acao entregue" disabled title="Entregue">✓</button>`;
-      } else if (respondeu) {
-        classRow = "respondeu";
-        const hora = fmtHora(ST.respostas.get(i.id));
-        estado = `<div class="hora">Respondeu às ${esc(hora)} · entregar livreto</div>`;
-        acao = `<button class="acao entregar" data-action="entregar" data-id="${i.id}">Entregar</button>`;
-      } else {
-        estado = `<div class="meta">Aguarda resposta ao questionário</div>`;
-        acao = `<button class="acao qr" data-action="qr" data-id="${i.id}">QR</button>`;
+        return `
+          <div class="row entregue">
+            <div class="info">
+              <div class="nome">${esc(i.nome)}</div>
+              <div class="meta">${esc(i.cargo || "")} · ${esc(i.entidade || "")}</div>
+              <div class="hora">Livreto entregue às ${esc(hora)}</div>
+            </div>
+            <button class="acao entregue" disabled title="Entregue">✓</button>
+          </div>`;
       }
-
       return `
-        <div class="row ${classRow}">
+        <div class="row">
           <div class="info">
             <div class="nome">${esc(i.nome)}</div>
             <div class="meta">${esc(i.cargo || "")} · ${esc(i.entidade || "")}</div>
-            ${estado}
+            <div class="meta" style="margin-top:4px">Toque <strong>QR</strong> para apresentar ao participante. Após o ecrã verde de submissão, <strong>Entregar</strong>.</div>
           </div>
-          ${acao}
+          <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
+            <button class="acao qr" data-action="qr" data-id="${i.id}">QR</button>
+            <button class="acao entregar" data-action="entregar" data-id="${i.id}">Entregar</button>
+          </div>
         </div>`;
     }).join("");
   }
@@ -774,11 +734,8 @@
   function abrirModalQR(idInscricao) {
     const insc = ST.inscritos.find(i => i.id === idInscricao);
     if (!insc) return;
-    if (!insc.tokenApreciacao) {
-      toast("Inscrito sem token de apreciação. Republicar no Eventos.", "err");
-      return;
-    }
-    const url = CONFIG.BASE_URL_APRECIACAO + "?id=" + encodeURIComponent(insc.id) + "&t=" + insc.tokenApreciacao;
+    // URL aponta para apreciacao.html que redirecciona ao MS Forms com pre-fill.
+    const url = CONFIG.BASE_URL_APRECIACAO + "?id=" + encodeURIComponent(insc.id);
 
     $("qr-nome").textContent = insc.nome;
     $("qr-meta").textContent = (insc.cargo || "") + " · " + (insc.entidade || "");
@@ -836,7 +793,6 @@
       await Promise.all([
         carregarInscritos(),
         carregarPresencas(),
-        carregarApreciacoes(),
         carregarEntregas()
       ]);
       render();
@@ -883,14 +839,12 @@
       $("sub-titulo").textContent = (ST.evento && ST.evento.titulo) || "Sessão Técnica";
       await Promise.all([
         carregarPresencas(),
-        carregarApreciacoes(),
         carregarEntregas()
       ]);
       render();
       setSync("ok", "Pronto · " + new Date().toLocaleTimeString("pt-PT"));
 
-      // Iniciar polling
-      ST.pollAprTimer = setInterval(pollApreciacao, CONFIG.apreciacaoPollMs);
+      // Iniciar polling de presencas (apreciacao.json deixou de existir na arquitectura Microsoft)
       ST.pollPresTimer = setInterval(pollPresencas, CONFIG.presencasPollMs);
     } catch (e) {
       setSync("err", "Falha: " + e.message);
