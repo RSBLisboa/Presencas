@@ -1,0 +1,17 @@
+{
+  "schema": "certificados@1",
+  "eventoId": 1,
+  "actualizadoEm": "2026-05-15T05:44:54",
+  "total": 1,
+  "certificados": [
+    {
+      "numero": "2026/0001",
+      "idInscricao": 64,
+      "hash": "d30168434eb9",
+      "link": "https://rsblisboa.github.io/Certificados/?n=Paulo%20Roberto%20Caba%C3%A7o%20Cabrito&c=Subchefe%202.%C2%AA%20Classe&id=2026%2F0001&d=18%20de%20maio%20de%202026&e=15%20de%20maio%20de%202026&h=3%20horas&t=Sess%C3%A3o%20T%C3%A9cnica%20em%20Subst%C3%A2ncias%20Perigosas&l=Audit%C3%B3rio%20do%20Metropolitano%20de%20Lisboa&v=d30168434eb9",
+      "dataEmissao": "2026-05-15T05:44:54",
+      "dataEnvioEmail": null,
+      "anulado": false
+    }
+  ]
+}
