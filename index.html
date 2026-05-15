@@ -440,18 +440,39 @@
 
 <div class="lista" id="lista"></div>
 
-<!-- Modal: PIN + Token (login) -->
+<!-- Modal: Utilizador + Palavra-passe (login) -->
 <div class="modal" id="modal-login">
   <div class="card">
     <h2>Acesso à app de presenças</h2>
-    <p>Introduza o PIN da equipa de check-in e o token GitHub fornecido pelo secretariado. O token é guardado apenas nesta sessão (até fechar o separador).</p>
-    <label for="in-pin">PIN</label>
-    <input type="password" id="in-pin" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off">
-    <label for="in-token">Token GitHub <span style="font-weight:400;text-transform:none;letter-spacing:0">(fine-grained)</span></label>
-    <input type="password" id="in-token" autocomplete="off" placeholder="github_pat_…">
+    <p>Escolha o seu utilizador e introduza a palavra-passe configurada pelo admin.</p>
+    <label for="in-user">Utilizador</label>
+    <select id="in-user" style="width:100%;padding:12px 14px;font-size:15px;border:1px solid var(--linha);border-radius:8px;background:#fff;font-family:inherit">
+      <option value="">— a carregar lista —</option>
+    </select>
+    <label for="in-pass">Palavra-passe</label>
+    <input type="password" id="in-pass" autocomplete="off">
     <div class="erro-msg hide" id="login-erro"></div>
+    <div id="tablet-status-porta" style="margin-top:14px;padding:8px 12px;border-radius:6px;font-size:11.5px;text-align:center;background:#f5f5f5;color:var(--texto-mute)">A verificar estado do tablet…</div>
+    <div style="text-align:center;margin-top:10px">
+      <a href="#" id="link-config-tablet-porta" style="font-size:11px;color:var(--texto-mute);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase">Configurar tablet</a>
+    </div>
     <div class="actions">
       <button class="primary" id="btn-login">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Configurar tablet (PAT em localStorage) -->
+<div class="modal hide" id="modal-tablet-porta">
+  <div class="card">
+    <h2>Configurar tablet</h2>
+    <p>Cola o token GitHub PAT — fica gravado neste tablet (localStorage) até ser limpo.</p>
+    <input type="password" id="tablet-token-porta" placeholder="ghp_… ou github_pat_…" style="width:100%;padding:12px 14px;font-size:14px;border:1px solid var(--linha);border-radius:8px;font-family:'SF Mono',Consolas,monospace">
+    <div class="erro-msg hide" id="tablet-erro-porta" style="margin-top:8px"></div>
+    <div class="actions" style="margin-top:14px">
+      <button class="secondary" id="tablet-cancel-porta">Fechar</button>
+      <button class="secondary" id="tablet-clear-porta">Limpar token</button>
+      <button class="primary" id="tablet-save-porta">Validar e gravar</button>
     </div>
   </div>
 </div>
@@ -484,13 +505,7 @@
     githubRepo:  'Presencas',
     githubBranch: 'main',
 
-    // Hash SHA-256 (hex) do PIN. Gera com:
-    //   crypto.subtle.digest em Console: ver README "Configurar PIN".
-    // PIN actual gerado em Mai/2026: 309057. Para mudar, ver DEPLOY.md > Passo 4.
-    pinHash: '8b9423d1ff0c597462594af22b8f9aca3ae427e307c4c954a6a7e214e0a56394',
-
     // Identificador deste tablet/posto (gravado em cada marcação).
-    // Será sobreposto pelo nome do dispositivo se introduzido no menu.
     postoIdDefault: 'tablet-porta',
 
     // Debounce do sync (ms desde último toque até push para GitHub).
@@ -498,7 +513,14 @@
 
     // Polling do servidor para detectar marcações de outros tablets (ms).
     serverPollMs: 20000,
+
+    // Auth: PAT persistente em localStorage; lista de users vive em evento.json.
+    LS_PAT_KEY: 'rsb_pat_tablet',
+    URL_EVENTO_PUBLICO: 'https://rsblisboa.github.io/Presencas/data/evento.json'
   };
+  function getPAT() { return localStorage.getItem(CONFIG.LS_PAT_KEY) || ''; }
+  function setPAT(t) { if (t) localStorage.setItem(CONFIG.LS_PAT_KEY, t); else localStorage.removeItem(CONFIG.LS_PAT_KEY); }
+  let USERS_CACHE = [];
 
   // ════════════════════════════════════════════════════════════════════════════
   // ESTADO
@@ -604,8 +626,8 @@
   // GITHUB API
   // ════════════════════════════════════════════════════════════════════════════
   function ghHeaders() {
-    const tok = sessionStorage.getItem('gh_token');
-    if (!tok) throw new Error('Token GitHub não está em sessão.');
+    const tok = getPAT();
+    if (!tok) throw new Error('Tablet sem PAT configurado.');
     return {
       'Authorization': 'Bearer ' + tok,
       'Accept': 'application/vnd.github+json',
@@ -923,41 +945,135 @@
   }
 
   // ════════════════════════════════════════════════════════════════════════════
-  // LOGIN (PIN + Token)
+  // LOGIN (Utilizador + Palavra-passe)
+  // PAT do GitHub é persistente em localStorage (configurado pelo admin).
+  // Lista de utilizadores vem de data/evento.json publicado (passwords em hash).
   // ════════════════════════════════════════════════════════════════════════════
+  async function carregarUsers() {
+    try {
+      const r = await fetch(CONFIG.URL_EVENTO_PUBLICO + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return [];
+      const e = await r.json();
+      return Array.isArray(e.users) ? e.users.filter(u => u.nome && u.passHash) : [];
+    } catch (_) { return []; }
+  }
+  function popularDropdownUsers(users) {
+    const sel = $('in-user');
+    if (!users.length) {
+      sel.innerHTML = '<option value="">— nenhum acesso configurado —</option>';
+      return;
+    }
+    sel.innerHTML = '<option value="">— escolher utilizador —</option>' +
+      users.map(u => `<option value="${escapeHtml(u.nome)}">${escapeHtml(u.nome)}</option>`).join('');
+  }
+  function actualizarTabletStatusPorta() {
+    const el = $('tablet-status-porta');
+    if (!el) return;
+    if (getPAT()) {
+      el.textContent = '✓ Tablet autorizado';
+      el.style.background = '#e8f5ec';
+      el.style.color = '#1e8a3a';
+      el.style.fontWeight = '600';
+    } else {
+      el.textContent = '⚠ Tablet por configurar — admin tem de definir o PAT';
+      el.style.background = '#fff8ed';
+      el.style.color = '#c46c00';
+      el.style.fontWeight = '600';
+    }
+  }
+
   async function tentarLogin() {
-    const pin = $('in-pin').value.trim();
-    const token = $('in-token').value.trim();
+    const nome = $('in-user').value;
+    const pass = $('in-pass').value;
     const erro = $('login-erro');
     erro.classList.add('hide');
 
-    if (!pin || !token) {
-      erro.textContent = 'Preencha o PIN e o token.';
+    if (!getPAT()) {
+      erro.textContent = 'Tablet não configurado. Pede ao admin para configurar primeiro.';
       erro.classList.remove('hide');
       return;
     }
-    const hash = await sha256Hex(pin);
-    if (hash !== CONFIG.pinHash) {
-      erro.textContent = 'PIN incorrecto.';
+    if (!nome) {
+      erro.textContent = 'Escolhe o utilizador.';
       erro.classList.remove('hide');
       return;
     }
-    sessionStorage.setItem('gh_token', token);
+    if (!pass) {
+      erro.textContent = 'Palavra-passe obrigatória.';
+      erro.classList.remove('hide');
+      return;
+    }
+    const u = USERS_CACHE.find(x => x.nome === nome);
+    if (!u) {
+      erro.textContent = 'Utilizador desconhecido. Recarrega a página.';
+      erro.classList.remove('hide');
+      return;
+    }
+    const hash = await sha256Hex(pass);
+    if (hash !== u.passHash) {
+      erro.textContent = 'Palavra-passe incorrecta.';
+      erro.classList.remove('hide');
+      return;
+    }
     try {
       await ghValidarToken();
     } catch (e) {
-      sessionStorage.removeItem('gh_token');
-      erro.textContent = e.message;
+      erro.textContent = 'PAT do tablet inválido: ' + e.message;
       erro.classList.remove('hide');
       return;
     }
-    sessionStorage.setItem('autenticado', '1');
+    sessionStorage.setItem('rsb_user', nome);
     $('modal-login').classList.add('hide');
     iniciar();
   }
 
+  async function bootstrapAuth() {
+    USERS_CACHE = await carregarUsers();
+    popularDropdownUsers(USERS_CACHE);
+    actualizarTabletStatusPorta();
+  }
+
+  // Modal "Configurar tablet"
+  function vincularConfigTablet() {
+    const link = $('link-config-tablet-porta');
+    if (link) link.addEventListener('click', e => {
+      e.preventDefault();
+      $('tablet-token-porta').value = '';
+      $('tablet-erro-porta').classList.add('hide');
+      $('modal-tablet-porta').classList.remove('hide');
+    });
+    const cancel = $('tablet-cancel-porta');
+    if (cancel) cancel.addEventListener('click', () => $('modal-tablet-porta').classList.add('hide'));
+    const clear = $('tablet-clear-porta');
+    if (clear) clear.addEventListener('click', () => {
+      setPAT('');
+      actualizarTabletStatusPorta();
+      $('modal-tablet-porta').classList.add('hide');
+    });
+    const save = $('tablet-save-porta');
+    if (save) save.addEventListener('click', async () => {
+      const tok = $('tablet-token-porta').value.trim();
+      const err = $('tablet-erro-porta');
+      err.classList.add('hide');
+      if (!tok) { err.textContent = 'Cola o token PAT.'; err.classList.remove('hide'); return; }
+      try {
+        const r = await fetch(`https://api.github.com/repos/${CONFIG.githubOwner}/${CONFIG.githubRepo}`, {
+          headers: { 'Authorization': 'Bearer ' + tok, 'Accept': 'application/vnd.github+json' }
+        });
+        if (r.status === 401 || r.status === 403) { err.textContent = 'PAT sem permissões.'; err.classList.remove('hide'); return; }
+        if (!r.ok) { err.textContent = 'GitHub HTTP ' + r.status; err.classList.remove('hide'); return; }
+        setPAT(tok);
+        actualizarTabletStatusPorta();
+        $('modal-tablet-porta').classList.add('hide');
+      } catch (e) {
+        err.textContent = 'Falha: ' + e.message;
+        err.classList.remove('hide');
+      }
+    });
+  }
+
   function precisaLogin() {
-    return !sessionStorage.getItem('autenticado') || !sessionStorage.getItem('gh_token');
+    return !sessionStorage.getItem('rsb_user') || !getPAT();
   }
 
   // ════════════════════════════════════════════════════════════════════════════
@@ -1042,16 +1158,16 @@
 
     $('m-logout').addEventListener('click', () => {
       $('menu').classList.add('hide');
-      confirmar('Terminar sessão', 'Vai apagar o token desta sessão. Continuar?', () => {
-        sessionStorage.removeItem('gh_token');
-        sessionStorage.removeItem('autenticado');
+      confirmar('Terminar sessão', 'Vai sair desta sessão neste tablet. O PAT mantém-se gravado. Continuar?', () => {
+        sessionStorage.removeItem('rsb_user');
         location.reload();
       });
     });
 
     $('btn-login').addEventListener('click', tentarLogin);
-    $('in-pin').addEventListener('keydown', e => { if (e.key === 'Enter') $('in-token').focus(); });
-    $('in-token').addEventListener('keydown', e => { if (e.key === 'Enter') tentarLogin(); });
+    $('in-pass').addEventListener('keydown', e => { if (e.key === 'Enter') tentarLogin(); });
+    vincularConfigTablet();
+    bootstrapAuth();
 
     window.addEventListener('online', () => {
       setSync('pending', 'Online novamente — a sincronizar…');
@@ -1091,7 +1207,7 @@
   if (precisaLogin()) {
     $('loading').classList.add('hide');
     $('modal-login').classList.remove('hide');
-    setTimeout(() => $('in-pin').focus(), 100);
+    setTimeout(() => $('in-user').focus(), 100);
   } else {
     $('modal-login').classList.add('hide');
     iniciar();
