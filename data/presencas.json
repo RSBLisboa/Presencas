@@ -1,14 +1,7 @@
 {
   "schema": "presencas@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-16T02:54:54",
-  "versao": 4,
-  "marcacoes": [
-    {
-      "idInscricao": 64,
-      "presente": true,
-      "horaEntrada": "2026-05-16T02:54:52",
-      "marcadoPor": "tablet-porta"
-    }
-  ]
+  "actualizadoEm": "2026-05-16T03:35:07",
+  "versao": 3,
+  "marcacoes": []
 }
