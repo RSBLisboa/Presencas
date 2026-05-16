@@ -172,6 +172,7 @@
   .pill.on-pres { background: var(--verde-claro); color: var(--verde); }
   .pill.on-entr { background: var(--rsb-vermelho-claro); color: var(--rsb-vermelho-escuro); }
   .pill.on-qst { background: var(--azul-claro); color: var(--azul); }
+  .pill.on-cert { background: #f3e5f5; color: #6a1b9a; }
 
   /* Botões de acção em rows (Livreto) */
   .row .acoes { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
@@ -594,6 +595,9 @@
     // Apreciação
     respondeu: new Set(),
 
+    // Certificados emitidos
+    certificadosSet: new Set(),  // idInscricao dos certificados não anulados
+
     // UI
     tab: "geral",
     busca: "",
@@ -790,6 +794,18 @@
       ST.entregas = new Map();
       ST.entregasSha = null;
     }
+  }
+
+  async function carregarCertificados() {
+    try {
+      const r = await fetch("data/certificados.json?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) { ST.certificadosSet = new Set(); return; }
+      const data = await r.json();
+      ST.certificadosSet = new Set();
+      for (const c of (data.certificados || [])) {
+        if (c.idInscricao != null && !c.anulado) ST.certificadosSet.add(c.idInscricao);
+      }
+    } catch (_) { ST.certificadosSet = new Set(); }
   }
 
   async function carregarApreciacao() {
@@ -1099,6 +1115,7 @@
       const pres = !!ST.presencasMap.get(i.id)?.presente;
       const entr = ST.entregas.has(i.id);
       const qst = ST.respondeu.has(i.id);
+      const cert = ST.certificadosSet.has(i.id);
       const horaPres = pres ? fmtHora(ST.presencasMap.get(i.id).horaEntrada) : "";
       return `
         <div class="row${pres ? " presente" : ""}" data-id="${i.id}">
@@ -1107,8 +1124,9 @@
             <div class="meta">${esc((i.cargo || "") + (i.entidade ? " · " + i.entidade : ""))}</div>
             <div class="pills">
               <span class="pill${pres ? " on-pres" : ""}">${pres ? "Presente" + (horaPres ? " " + horaPres : "") : "Ausente"}</span>
-              <span class="pill${entr ? " on-entr" : ""}">${entr ? "Livreto ✓" : "Livreto –"}</span>
               <span class="pill${qst ? " on-qst" : ""}">${qst ? "Resposta ✓" : "Resposta –"}</span>
+              <span class="pill${entr ? " on-entr" : ""}">${entr ? "Livreto ✓" : "Livreto –"}</span>
+              <span class="pill${cert ? " on-cert" : ""}">${cert ? "Cert ✓" : "Cert –"}</span>
             </div>
           </div>
         </div>`;
@@ -1572,7 +1590,7 @@
     try {
       await carregarInscritos();
       $("evt-titulo").textContent = (ST.evento && ST.evento.titulo) || "Acolhimento";
-      await Promise.all([carregarPresencas(), carregarEntregas(), carregarApreciacao()]);
+      await Promise.all([carregarPresencas(), carregarEntregas(), carregarApreciacao(), carregarCertificados()]);
       // Tab inicial via ?tab= na URL (ex: ?tab=livreto). Default = geral.
       const tabParam = new URLSearchParams(location.search).get("tab");
       const tabsValidos = ["geral", "presenca", "livreto", "ficha"];
@@ -1654,7 +1672,7 @@
       $("modal-menu").classList.add("hide");
       setSync("pending", "A recarregar…");
       try {
-        await Promise.all([carregarInscritos(), carregarPresencas(), carregarEntregas(), carregarApreciacao()]);
+        await Promise.all([carregarInscritos(), carregarPresencas(), carregarEntregas(), carregarApreciacao(), carregarCertificados()]);
         renderAtivo();
         setSync("ok", "Recarregado · " + new Date().toLocaleTimeString("pt-PT"));
       } catch (e) { setSync("err", "Falha: " + e.message); }
