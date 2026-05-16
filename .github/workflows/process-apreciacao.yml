@@ -25,6 +25,7 @@ jobs:
           script: |
             const fs = require('fs');
             const path = 'data/apreciacao.json';
+            const inscritosPath = 'data/inscritos.json';
             const issueNumber = context.payload.issue.number;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
@@ -73,9 +74,14 @@ jobs:
             }
 
             // 4. Append + write
+            // Normaliza autorizaContacto para boolean (aceita "Sim"/"Não", true/false, "1"/"0")
+            const autorizaRaw = String(payload.autorizaContacto ?? '').trim().toLowerCase();
+            const autorizaContacto = ['sim', 'true', '1', 'yes', 'y', 's'].includes(autorizaRaw);
             const nova = {
               idInscricao,
               submetidoEm: String(payload.submetidoEm || new Date().toISOString().slice(0,19)),
+              email: String(payload.email ?? '').trim(),
+              autorizaContacto,
               respostas: {
                 q1: String(payload.q1 ?? ''),
                 q2: String(payload.q2 ?? ''),
@@ -90,12 +96,44 @@ jobs:
             json.actualizadoEm = new Date().toISOString().slice(0,19);
             fs.writeFileSync(path, JSON.stringify(json, null, 2) + '\n');
 
+            // 4b. Propagar email + autorizaContacto para inscritos.json (ficha do participante)
+            let inscritosTouched = false;
+            try {
+              const inscritosJson = JSON.parse(fs.readFileSync(inscritosPath, 'utf8'));
+              const lista = inscritosJson.inscritos || [];
+              const idx = lista.findIndex(p => p.id === idInscricao);
+              if (idx >= 0) {
+                const antesEmail = lista[idx].email || '';
+                const antesAut = lista[idx].autorizaContacto;
+                if (nova.email && lista[idx].email !== nova.email) {
+                  lista[idx].email = nova.email;
+                  inscritosTouched = true;
+                }
+                if (lista[idx].autorizaContacto !== autorizaContacto) {
+                  lista[idx].autorizaContacto = autorizaContacto;
+                  inscritosTouched = true;
+                }
+                if (inscritosTouched) {
+                  inscritosJson.actualizadoEm = new Date().toISOString().slice(0,19);
+                  fs.writeFileSync(inscritosPath, JSON.stringify(inscritosJson, null, 2) + '\n');
+                  await comment(`Ficha actualizada: id=${idInscricao} email='${antesEmail}'->'${nova.email}', autorizaContacto=${antesAut}->${autorizaContacto}.`);
+                }
+              } else {
+                await comment(`Aviso: id=${idInscricao} nao encontrado em inscritos.json (apreciacao gravada na mesma).`);
+              }
+            } catch (e) {
+              await comment(`Aviso: falha a actualizar inscritos.json: ${e.message} (apreciacao gravada na mesma).`);
+            }
+
             // 5. Commit + push
             const { execSync } = require('child_process');
             execSync('git config user.name "github-actions[bot]"');
             execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"');
-            execSync(`git add ${path}`);
-            execSync(`git commit -m "apreciacao: +1 resposta id=${idInscricao} (issue #${issueNumber})"`);
+            execSync(`git add ${path}${inscritosTouched ? ' ' + inscritosPath : ''}`);
+            const msg = inscritosTouched
+              ? `apreciacao+ficha: id=${idInscricao} (issue #${issueNumber})`
+              : `apreciacao: +1 resposta id=${idInscricao} (issue #${issueNumber})`;
+            execSync(`git commit -m "${msg}"`);
             execSync('git push');
 
             // 6. Close issue
