@@ -542,6 +542,7 @@
     entregas: new Map(),    // idInscricao → {entregueEm, entreguePor}
     entregasSha: null,
     qrMostrado: new Set(),  // Set<idInscricao> · QR ja apresentado nesta sessao (transiente)
+    respondeu: new Set(),   // Set<idInscricao> · respostas confirmadas em apreciacao.json (Power Automate)
     filtro: "todos",
     busca: "",
     pollPresTimer: null,
@@ -677,6 +678,17 @@
       ST.entregasSha = null;
     }
   }
+  async function carregarApreciacao() {
+    try {
+      const r = await fetch("data/apreciacao.json?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) { ST.respondeu = new Set(); return; }
+      const data = await r.json();
+      ST.respondeu = new Set();
+      for (const x of (data.respostas || [])) {
+        if (x.idInscricao != null) ST.respondeu.add(x.idInscricao);
+      }
+    } catch (e) { ST.respondeu = new Set(); }
+  }
 
   // ── ENTREGAS · escrita ────────────────────────────────────────────────
   function buildEntregasPayload() {
@@ -734,10 +746,11 @@
   }
 
   // ── POLLING ───────────────────────────────────────────────────────────
-  async function pollPresencas() {
-    const antes = ST.presentes.size;
-    await carregarPresencas();
-    if (ST.presentes.size !== antes) render();
+  async function pollAtualizar() {
+    const antesP = ST.presentes.size;
+    const antesR = ST.respondeu.size;
+    await Promise.all([carregarPresencas(), carregarApreciacao()]);
+    if (ST.presentes.size !== antesP || ST.respondeu.size !== antesR) render();
   }
 
   // ── RENDER ────────────────────────────────────────────────────────────
@@ -789,11 +802,15 @@
           </div>`;
       }
       const qrFeito = ST.qrMostrado.has(i.id);
-      const instr = qrFeito
-        ? `<div class="badge-qr">QR apresentado · aguarda resposta</div>`
-        : `<div class="meta" style="margin-top:4px">1. <strong>QR</strong> para o participante responder ao questionário. 2. Após ecrã verde, <strong>Entregar</strong>.</div>`;
+      const respondeu = ST.respondeu.has(i.id);
+      const destrava = qrFeito || respondeu;
+      const instr = respondeu
+        ? `<div class="badge-qr" style="background:#1f8a3a;color:#fff;">✓ Respondeu ao questionário</div>`
+        : qrFeito
+          ? `<div class="badge-qr">QR apresentado · aguarda resposta</div>`
+          : `<div class="meta" style="margin-top:4px">1. <strong>QR</strong> para o participante responder ao questionário. 2. Aguarde detecção automática ou ecrã verde, depois <strong>Entregar</strong>.</div>`;
       return `
-        <div class="row${qrFeito ? " qr-mostrado" : ""}">
+        <div class="row${destrava ? " qr-mostrado" : ""}">
           <div class="info">
             <div class="nome">${esc(i.nome)}</div>
             <div class="meta">${esc(i.cargo || "")} · ${esc(i.entidade || "")}</div>
@@ -801,7 +818,7 @@
           </div>
           <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
             <button class="acao qr" data-action="qr" data-id="${i.id}">${qrFeito ? "Repetir QR" : "QR"}</button>
-            <button class="acao entregar${qrFeito ? "" : " bloqueada"}" data-action="entregar" data-id="${i.id}" title="${qrFeito ? "Confirmar submissão e entregar livreto" : "Mostre primeiro o QR ao participante"}">Entregar</button>
+            <button class="acao entregar${destrava ? "" : " bloqueada"}" data-action="entregar" data-id="${i.id}" title="${destrava ? "Confirmar entrega do livreto" : "Mostre primeiro o QR ao participante"}">Entregar</button>
           </div>
         </div>`;
     }).join("");
@@ -846,7 +863,8 @@
     const insc = ST.inscritos.find(i => i.id === idInscricao);
     if (!insc) return;
     $("conf-nome").textContent = insc.nome;
-    $("conf-aviso-qr").style.display = ST.qrMostrado.has(idInscricao) ? "none" : "block";
+    const temSinal = ST.qrMostrado.has(idInscricao) || ST.respondeu.has(idInscricao);
+    $("conf-aviso-qr").style.display = temSinal ? "none" : "block";
     $("modal-conf").dataset.id = idInscricao;
     $("modal-conf").classList.remove("hide");
   }
@@ -1089,13 +1107,14 @@
       $("sub-titulo").textContent = (ST.evento && ST.evento.titulo) || "Sessão Técnica";
       await Promise.all([
         carregarPresencas(),
-        carregarEntregas()
+        carregarEntregas(),
+        carregarApreciacao()
       ]);
       render();
       setSync("ok", "Pronto · " + new Date().toLocaleTimeString("pt-PT"));
 
-      // Iniciar polling de presencas (apreciacao.json deixou de existir na arquitectura Microsoft)
-      ST.pollPresTimer = setInterval(pollPresencas, CONFIG.presencasPollMs);
+      // Polling: presencas + apreciacao (Power Automate escreve em data/apreciacao.json)
+      ST.pollPresTimer = setInterval(pollAtualizar, CONFIG.presencasPollMs);
     } catch (e) {
       setSync("err", "Falha: " + e.message);
       toast("Falha a iniciar: " + e.message, "err");

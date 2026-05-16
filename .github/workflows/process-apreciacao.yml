@@ -1,0 +1,103 @@
+name: Process Apreciacao Issues
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: apreciacao-write
+  cancel-in-progress: false
+
+jobs:
+  process:
+    if: github.event.issue.title == 'apreciacao-pending'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse issue, update apreciacao.json, close issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = 'data/apreciacao.json';
+            const issueNumber = context.payload.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const comment = async (body) => github.rest.issues.createComment({
+              owner, repo, issue_number: issueNumber, body
+            });
+            const closeWith = async (state_reason) => github.rest.issues.update({
+              owner, repo, issue_number: issueNumber, state: 'closed', state_reason
+            });
+
+            // 1. Parse issue body as JSON (tolerant to markdown code fences)
+            let payload;
+            try {
+              let body = (context.payload.issue.body || '').trim();
+              body = body.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
+              payload = JSON.parse(body);
+            } catch (e) {
+              await comment(`Erro parse JSON: ${e.message}`);
+              await closeWith('not_planned');
+              return;
+            }
+
+            const idStr = String(payload.idInscricao ?? '').trim();
+            const idInscricao = parseInt(idStr, 10);
+            if (isNaN(idInscricao)) {
+              await comment(`ID invalido: '${idStr}'`);
+              await closeWith('not_planned');
+              return;
+            }
+
+            // 2. Load current apreciacao.json
+            let json;
+            try {
+              json = JSON.parse(fs.readFileSync(path, 'utf8'));
+            } catch (e) {
+              json = { schema: 'apreciacao@1', eventoId: 1, actualizadoEm: '', total: 0, respostas: [] };
+            }
+
+            // 3. Idempotency
+            const exists = (json.respostas || []).some(r => r.idInscricao === idInscricao);
+            if (exists) {
+              await comment(`Skip: id=${idInscricao} ja existe em apreciacao.json.`);
+              await closeWith('completed');
+              return;
+            }
+
+            // 4. Append + write
+            const nova = {
+              idInscricao,
+              submetidoEm: String(payload.submetidoEm || new Date().toISOString().slice(0,19)),
+              respostas: {
+                q1: String(payload.q1 ?? ''),
+                q2: String(payload.q2 ?? ''),
+                q3: String(payload.q3 ?? ''),
+                q4: String(payload.q4 ?? ''),
+                q5: String(payload.q5 ?? ''),
+                q6: String(payload.q6 ?? '')
+              }
+            };
+            json.respostas = (json.respostas || []).concat([nova]);
+            json.total = json.respostas.length;
+            json.actualizadoEm = new Date().toISOString().slice(0,19);
+            fs.writeFileSync(path, JSON.stringify(json, null, 2) + '\n');
+
+            // 5. Commit + push
+            const { execSync } = require('child_process');
+            execSync('git config user.name "github-actions[bot]"');
+            execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"');
+            execSync(`git add ${path}`);
+            execSync(`git commit -m "apreciacao: +1 resposta id=${idInscricao} (issue #${issueNumber})"`);
+            execSync('git push');
+
+            // 6. Close issue
+            await comment(`OK: id=${idInscricao} adicionado a apreciacao.json.`);
+            await closeWith('completed');
