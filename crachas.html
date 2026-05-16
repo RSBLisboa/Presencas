@@ -432,7 +432,9 @@ function gerarQrImgTag(url) {
 }
 
 function renderVerso(inscrito) {
-  const url = BASE_URL_APRECIACAO + "?id=" + encodeURIComponent(inscrito.id);
+  const tokenOrId = inscrito.token || inscrito.id;
+  const param = inscrito.token ? "t" : "id";
+  const url = BASE_URL_APRECIACAO + "?" + param + "=" + encodeURIComponent(tokenOrId);
   return `
     <div class="cracha verso">
       <div class="topo">Crachá Digital · 3 Funções num Único QR</div>

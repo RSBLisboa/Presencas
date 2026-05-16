@@ -843,8 +843,10 @@
   function abrirModalQR(idInscricao) {
     const insc = ST.inscritos.find(i => i.id === idInscricao);
     if (!insc) return;
-    // URL aponta para apreciacao.html que redirecciona ao MS Forms com pre-fill.
-    const url = CONFIG.BASE_URL_APRECIACAO + "?id=" + encodeURIComponent(insc.id);
+    // URL aponta para p.html com token (param canonico) ou fallback para id.
+    const tokenOrId = insc.token || insc.id;
+    const param = insc.token ? "t" : "id";
+    const url = CONFIG.BASE_URL_APRECIACAO + "?" + param + "=" + encodeURIComponent(tokenOrId);
 
     $("qr-nome").textContent = insc.nome;
     $("qr-meta").textContent = (insc.cargo || "") + " · " + (insc.entidade || "");
@@ -977,24 +979,30 @@
     $("modal-scan").classList.add("hide");
   }
   function extrairIdDoQr(texto) {
-    // Aceita URL completa (https://…/p.html?id=27) ou apenas o ID nu (27).
-    if (/^\d+$/.test(texto.trim())) return parseInt(texto.trim(), 10);
+    // Aceita URL completa (p.html?t=<token> ou p.html?id=27), token nu (8 chars [A-Z0-9]) ou ID nu (27).
+    const t = String(texto || "").trim();
+    if (/^[A-Z0-9]{8}$/.test(t)) return { token: t };
+    if (/^\d+$/.test(t)) return { id: parseInt(t, 10) };
     try {
-      const u = new URL(texto);
-      const id = u.searchParams.get("id");
-      if (id && /^\d+$/.test(id)) return parseInt(id, 10);
+      const u = new URL(t);
+      const tok = u.searchParams.get("t") || u.searchParams.get("token");
+      if (tok && /^[A-Z0-9]{8}$/.test(tok)) return { token: tok };
+      const idu = u.searchParams.get("id");
+      if (idu && /^\d+$/.test(idu)) return { id: parseInt(idu, 10) };
     } catch (_) { /* não é URL */ }
     return null;
   }
   function onScanSucesso(texto) {
-    const id = extrairIdDoQr(texto);
-    if (!id) {
+    const ref = extrairIdDoQr(texto);
+    if (!ref) {
       $("scan-msg").textContent = "QR ilegível ou não é de crachá. Tente novamente.";
       return;
     }
-    const insc = ST.inscritos.find(i => Number(i.id) === id);
+    const insc = ref.token
+      ? ST.inscritos.find(i => i.token === ref.token)
+      : ST.inscritos.find(i => Number(i.id) === ref.id);
     if (!insc) {
-      $("scan-msg").textContent = "ID " + id + " não consta na lista de inscritos.";
+      $("scan-msg").textContent = (ref.token ? "Token " + ref.token : "ID " + ref.id) + " não consta na lista de inscritos.";
       return;
     }
     // Sucesso · fechar scanner e focar inscrito

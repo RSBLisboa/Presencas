@@ -49,15 +49,40 @@ jobs:
               return;
             }
 
+            // Aceita token (canonico) ou idInscricao (legado). Token tem prioridade.
+            const tokenRaw = String(payload.token ?? '').trim().toUpperCase();
             const idStr = String(payload.idInscricao ?? '').trim();
-            const idInscricao = parseInt(idStr, 10);
+
+            // 2a. Carregar inscritos.json para resolver token -> id (se necessario).
+            let inscritosJson;
+            try {
+              inscritosJson = JSON.parse(fs.readFileSync(inscritosPath, 'utf8'));
+            } catch (e) {
+              await comment(`Erro a ler inscritos.json: ${e.message}`);
+              await closeWith('not_planned');
+              return;
+            }
+            const listaInscritos = inscritosJson.inscritos || [];
+
+            let idInscricao = NaN;
+            if (/^[A-Z0-9]{8}$/.test(tokenRaw)) {
+              const insc = listaInscritos.find(p => p.token === tokenRaw);
+              if (!insc) {
+                await comment(`Token '${tokenRaw}' nao consta em inscritos.json.`);
+                await closeWith('not_planned');
+                return;
+              }
+              idInscricao = Number(insc.id);
+            } else if (idStr) {
+              idInscricao = parseInt(idStr, 10);
+            }
             if (isNaN(idInscricao)) {
-              await comment(`ID invalido: '${idStr}'`);
+              await comment(`Payload sem token valido nem idInscricao. Recebido token='${tokenRaw}' idStr='${idStr}'.`);
               await closeWith('not_planned');
               return;
             }
 
-            // 2. Load current apreciacao.json
+            // 2b. Load current apreciacao.json
             let json;
             try {
               json = JSON.parse(fs.readFileSync(path, 'utf8'));
@@ -79,6 +104,7 @@ jobs:
             const autorizaContacto = ['sim', 'true', '1', 'yes', 'y', 's'].includes(autorizaRaw);
             const nova = {
               idInscricao,
+              token: tokenRaw || null,
               submetidoEm: String(payload.submetidoEm || new Date().toISOString().slice(0,19)),
               email: String(payload.email ?? '').trim(),
               autorizaContacto,
@@ -97,9 +123,9 @@ jobs:
             fs.writeFileSync(path, JSON.stringify(json, null, 2) + '\n');
 
             // 4b. Propagar email + autorizaContacto para inscritos.json (ficha do participante)
+            // Reusa inscritosJson ja carregada acima para resolver token -> id.
             let inscritosTouched = false;
             try {
-              const inscritosJson = JSON.parse(fs.readFileSync(inscritosPath, 'utf8'));
               const lista = inscritosJson.inscritos || [];
               const idx = lista.findIndex(p => p.id === idInscricao);
               if (idx >= 0) {
