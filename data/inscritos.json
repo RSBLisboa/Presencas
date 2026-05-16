@@ -2029,7 +2029,8 @@
       "eraConvidado": "Sim",
       "naoEnviar": false,
       "idRespostaForms": 5,
-      "categoria": "Bombeiros Profissionais"
+      "categoria": "Bombeiros Profissionais",
+      "autorizaContacto": false
     },
     {
       "id": 111,
@@ -2564,5 +2565,6 @@
       "naoEnviar": false,
       "idRespostaForms": 159
     }
-  ]
+  ],
+  "actualizadoEm": "2026-05-16T22:44:14.098Z"
 }
