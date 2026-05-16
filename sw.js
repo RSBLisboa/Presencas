@@ -7,7 +7,7 @@
 //
 // Bump da versão sempre que houver alterações ao app shell.
 
-const CACHE_VERSION = 'rsb-presencas-v5-admin';
+const CACHE_VERSION = 'rsb-presencas-v6-admin-porta';
 const SHELL = [
   './',
   './index.html',

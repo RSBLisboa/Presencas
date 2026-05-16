@@ -462,6 +462,20 @@
   </div>
 </div>
 
+<!-- Modal: Autorização admin (gate antes de configurar tablet) -->
+<div class="modal hide" id="modal-admin-auth-porta">
+  <div class="card">
+    <h2>Autorização admin</h2>
+    <p>Apenas o administrador pode configurar tablets. Introduz a password admin para continuar.</p>
+    <input type="password" id="admin-pass-porta" placeholder="Password admin" style="width:100%;padding:12px 14px;font-size:14px;border:1px solid var(--linha);border-radius:8px" autocomplete="current-password">
+    <div class="erro-msg hide" id="admin-pass-erro-porta" style="margin-top:8px"></div>
+    <div class="actions" style="margin-top:14px">
+      <button class="secondary" id="admin-pass-cancel-porta">Cancelar</button>
+      <button class="primary" id="admin-pass-ok-porta">Confirmar</button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal: Configurar tablet (PAT em localStorage) -->
 <div class="modal hide" id="modal-tablet-porta">
   <div class="card">
@@ -1033,11 +1047,62 @@
     actualizarTabletStatusPorta();
   }
 
+  // ── ADMIN AUTH GATE ───────────────────────────────────────────────────
+  // Password admin (SHA-256 de "RSBL18Mai2026"). Operadores normais nao podem
+  // configurar tablets. Para mudar, gera novo hash:
+  // python -c "import hashlib; print(hashlib.sha256(b'NOVA_PASS').hexdigest())"
+  const ADMIN_PASS_HASH_PORTA = "ddf8f268f1f55f479bca66b18836d46c2c10f99317ec7814edc58371a93d4536";
+  const ADMIN_SESSION_KEY_PORTA = "rsb_admin_auth";
+  function isAdminAuthedPorta() {
+    try {
+      const v = sessionStorage.getItem(ADMIN_SESSION_KEY_PORTA);
+      return !!v && (Date.now() - parseInt(v, 10) < 30 * 60 * 1000);
+    } catch (_) { return false; }
+  }
+  function setAdminAuthedPorta() {
+    try { sessionStorage.setItem(ADMIN_SESSION_KEY_PORTA, String(Date.now())); } catch (_) {}
+  }
+  function pedirAdminAuthPorta() {
+    return new Promise(resolve => {
+      $('admin-pass-porta').value = '';
+      $('admin-pass-erro-porta').classList.add('hide');
+      $('modal-admin-auth-porta').classList.remove('hide');
+      setTimeout(() => $('admin-pass-porta').focus(), 50);
+      const ok = $('admin-pass-ok-porta');
+      const cancel = $('admin-pass-cancel-porta');
+      const input = $('admin-pass-porta');
+      const fechar = (resultado) => {
+        $('modal-admin-auth-porta').classList.add('hide');
+        ok.removeEventListener('click', handleOk);
+        cancel.removeEventListener('click', handleCancel);
+        input.removeEventListener('keypress', handleEnter);
+        resolve(resultado);
+      };
+      const handleOk = async () => {
+        const p = input.value;
+        const err = $('admin-pass-erro-porta');
+        if (!p) { err.textContent = 'Introduz a password.'; err.classList.remove('hide'); return; }
+        const h = await sha256Hex(p);
+        if (h === ADMIN_PASS_HASH_PORTA) { setAdminAuthedPorta(); fechar(true); }
+        else { err.textContent = 'Password incorrecta.'; err.classList.remove('hide'); }
+      };
+      const handleCancel = () => fechar(false);
+      const handleEnter = e => { if (e.key === 'Enter') handleOk(); };
+      ok.addEventListener('click', handleOk);
+      cancel.addEventListener('click', handleCancel);
+      input.addEventListener('keypress', handleEnter);
+    });
+  }
+
   // Modal "Configurar tablet"
   function vincularConfigTablet() {
     const link = $('link-config-tablet-porta');
-    if (link) link.addEventListener('click', e => {
+    if (link) link.addEventListener('click', async e => {
       e.preventDefault();
+      if (!isAdminAuthedPorta()) {
+        const okAdmin = await pedirAdminAuthPorta();
+        if (!okAdmin) return;
+      }
       $('tablet-token-porta').value = '';
       $('tablet-erro-porta').classList.add('hide');
       $('modal-tablet-porta').classList.remove('hide');
