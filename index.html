@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#E30613">
-<meta name="description" content="App de validação de presenças — Regimento de Sapadores Bombeiros de Lisboa.">
-<title>Presenças · RSB Lisboa</title>
-<link rel="manifest" href="manifest.webmanifest">
+<meta name="description" content="Acolhimento RSB · Presença + Livreto + Ficha — Sessão Técnica Substâncias Perigosas.">
+<title>Acolhimento · RSB Lisboa</title>
 <link rel="icon" href="assets/rsb-brasao.png">
 <link rel="apple-touch-icon" href="assets/rsb-brasao.png">
 <style>
@@ -20,14 +19,14 @@
     --fundo: #f4f4f5;
     --verde: #1e8a3a;
     --verde-claro: #e8f5ec;
+    --azul: #1565c0;
+    --azul-claro: #e3f0fb;
     --aviso: #c46c00;
     --aviso-claro: #fff8ed;
     --erro: #b1131e;
     --erro-claro: #fdf2f3;
   }
-
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
   html, body {
     margin: 0; padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Calibri", sans-serif;
@@ -38,464 +37,475 @@
     -webkit-user-select: none;
   }
 
-  /* ── Header ── */
   header {
     background: var(--rsb-vermelho);
     color: #fff;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    padding: 10px 14px 6px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    position: sticky;
-    top: 0;
-    z-index: 50;
+    position: sticky; top: 0; z-index: 50;
   }
-  header img { height: 36px; width: auto; }
-  header .titulo {
-    flex: 1;
-    line-height: 1.2;
+  header .top { display: flex; align-items: center; gap: 12px; }
+  header img { height: 32px; width: auto; }
+  header .titulo { flex: 1; line-height: 1.15; min-width: 0; }
+  header h1 { font-size: 14px; font-weight: 700; margin: 0; letter-spacing: 0.02em; text-transform: uppercase; }
+  header .sub { font-size: 11px; opacity: 0.85; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  header .icon-btn {
+    background: rgba(255,255,255,0.15); border: none; color: #fff;
+    width: 36px; height: 36px; border-radius: 8px; font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  header h1 {
-    font-size: 16px;
-    font-weight: 700;
-    margin: 0;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
+  header .icon-btn:active { background: rgba(255,255,255,0.3); }
+  header .tabs {
+    display: flex; gap: 4px; margin-top: 8px; overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  header .sub {
-    font-size: 12px;
-    opacity: 0.85;
-    margin-top: 2px;
+  header .tabs button {
+    flex: 1; min-width: 70px;
+    padding: 8px 6px; font-size: 11.5px; font-family: inherit;
+    background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.78);
+    border: none; border-radius: 8px; cursor: pointer;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    white-space: nowrap;
   }
-  header .menu-btn {
-    background: rgba(255,255,255,0.15);
-    border: none;
-    color: #fff;
-    width: 40px; height: 40px;
-    border-radius: 8px;
-    font-size: 22px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  header .menu-btn:active { background: rgba(255,255,255,0.3); }
+  header .tabs button.active { background: #fff; color: var(--rsb-vermelho); }
 
-  /* ── Stats bar ── */
   .stats {
-    display: flex;
-    background: #fff;
+    display: flex; background: #fff;
     border-bottom: 1px solid var(--linha);
-    position: sticky;
-    top: 64px;
-    z-index: 40;
+    position: sticky; top: 92px; z-index: 40;
   }
-  .stat {
-    flex: 1;
-    padding: 10px 6px;
-    text-align: center;
-    border-right: 1px solid var(--linha);
-  }
+  .stat { flex: 1; padding: 9px 6px; text-align: center; border-right: 1px solid var(--linha); }
   .stat:last-child { border-right: none; }
-  .stat .n { font-size: 22px; font-weight: 800; line-height: 1; }
-  .stat .l { font-size: 11px; color: var(--texto-mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .stat .n { font-size: 20px; font-weight: 800; line-height: 1; }
+  .stat .l { font-size: 10.5px; color: var(--texto-mute); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
   .stat.pres .n { color: var(--verde); }
   .stat.aus .n { color: var(--texto-mute); }
+  .stat.entr .n { color: var(--rsb-vermelho); }
+  .stat.qst .n { color: var(--azul); }
 
-  /* ── Sync indicator ── */
   .sync {
-    padding: 6px 16px;
-    font-size: 12px;
+    padding: 5px 14px; font-size: 11.5px;
     border-bottom: 1px solid var(--linha);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; align-items: center; gap: 8px;
     background: #fafafa;
-    position: sticky;
-    top: 122px;
-    z-index: 30;
+    position: sticky; top: 148px; z-index: 30;
   }
-  .sync .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--texto-mute);
-    flex-shrink: 0;
-  }
+  .sync .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--texto-mute); flex-shrink: 0; }
   .sync.ok .dot { background: var(--verde); }
   .sync.pending .dot { background: var(--aviso); animation: pulse 1.4s infinite; }
   .sync.err .dot { background: var(--erro); }
   .sync.offline .dot { background: var(--texto-mute); }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-  /* ── Search ── */
   .search-wrap {
-    padding: 12px 16px 8px;
-    background: #fff;
+    padding: 10px 14px 6px; background: #fff;
     border-bottom: 1px solid var(--linha);
-    position: sticky;
-    top: 152px;
-    z-index: 20;
+    position: sticky; top: 174px; z-index: 20;
   }
   .search-wrap input {
-    width: 100%;
-    padding: 14px 16px;
-    font-size: 16px;
-    border: 1px solid var(--linha);
-    border-radius: 10px;
-    background: #fafafa;
-    font-family: inherit;
-    user-select: text;
-    -webkit-user-select: text;
+    width: 100%; padding: 12px 14px; font-size: 16px;
+    border: 1px solid var(--linha); border-radius: 10px;
+    background: #fafafa; font-family: inherit;
+    user-select: text; -webkit-user-select: text;
   }
-  .search-wrap input:focus {
-    outline: none;
-    border-color: var(--rsb-vermelho);
-    background: #fff;
-  }
+  .search-wrap input:focus { outline: none; border-color: var(--rsb-vermelho); background: #fff; }
 
-  /* ── Lista ── */
-  .lista {
-    padding: 8px 0 80px;
-  }
-  .vazio {
-    text-align: center;
-    padding: 60px 24px;
-    color: var(--texto-mute);
-    font-size: 14px;
-  }
-  .row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+  .filtros {
+    padding: 6px 14px;
     background: #fff;
-    margin: 0 12px 8px;
-    padding: 14px 16px;
+    border-bottom: 1px solid var(--linha);
+    display: flex; gap: 6px; overflow-x: auto;
+    position: sticky; top: 232px; z-index: 19;
+  }
+  .filtros button {
+    flex-shrink: 0; padding: 5px 12px; font-size: 11.5px; font-family: inherit;
+    background: #fff; border: 1px solid var(--linha); border-radius: 999px;
+    color: var(--texto-mute); cursor: pointer; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .filtros button.active { background: var(--rsb-vermelho); color: #fff; border-color: var(--rsb-vermelho); }
+
+  .lista { padding: 8px 0 80px; }
+  .vazio { text-align: center; padding: 60px 24px; color: var(--texto-mute); font-size: 14px; }
+
+  /* Row genérica (Geral, Presença) */
+  .row {
+    display: flex; align-items: center; gap: 12px;
+    background: #fff;
+    margin: 0 10px 6px;
+    padding: 12px 14px;
     border-radius: 12px;
     border: 1px solid var(--linha);
     cursor: pointer;
-    transition: background 0.12s, border-color 0.12s;
     min-height: 64px;
+    transition: background 0.12s, border-color 0.12s;
   }
   .row:active { background: var(--rsb-vermelho-claro); }
-  .row.presente {
-    background: var(--verde-claro);
-    border-color: var(--verde);
-  }
+  .row.presente { background: var(--verde-claro); border-color: var(--verde); }
   .row.presente:active { background: #d4ecda; }
+  .row.entregue { background: var(--rsb-vermelho-claro); border-color: var(--rsb-vermelho); }
+  .row.qr-mostrado { background: var(--azul-claro); border-color: var(--azul); }
 
   .row .check {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 2px solid var(--linha);
-    background: #fff;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 2px solid var(--linha); background: #fff;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
     transition: all 0.15s;
   }
-  .row.presente .check {
-    background: var(--verde);
-    border-color: var(--verde);
-  }
-  .row .check svg {
-    width: 18px; height: 18px;
-    stroke: #fff;
-    stroke-width: 3;
-    fill: none;
-    opacity: 0;
-    transition: opacity 0.15s;
-  }
+  .row.presente .check { background: var(--verde); border-color: var(--verde); }
+  .row .check svg { width: 16px; height: 16px; stroke: #fff; stroke-width: 3; fill: none; opacity: 0; transition: opacity 0.15s; }
   .row.presente .check svg { opacity: 1; }
 
   .row .info { flex: 1; min-width: 0; }
-  .row .nome {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.25;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .row .meta {
-    font-size: 12.5px;
-    color: var(--texto-mute);
-    margin-top: 3px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .row .hora {
-    font-size: 12px;
-    color: var(--verde);
-    font-weight: 700;
-    flex-shrink: 0;
-    background: rgba(30,138,58,0.1);
-    padding: 4px 8px;
-    border-radius: 6px;
-  }
-  .row:not(.presente) .hora { display: none; }
+  .row .nome { font-size: 15px; font-weight: 600; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .row .meta { font-size: 12px; color: var(--texto-mute); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .row .hora { font-size: 11.5px; color: var(--verde); font-weight: 700; flex-shrink: 0;
+    background: rgba(30,138,58,0.1); padding: 3px 7px; border-radius: 6px; }
+  .row.entregue .hora { background: rgba(227,6,19,0.1); color: var(--rsb-vermelho-escuro); }
 
-  /* ── Modal genérico ── */
-  .modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    backdrop-filter: blur(2px);
+  /* Pills (estado na aba Geral) */
+  .pills { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
+  .pill {
+    font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 2px 7px; border-radius: 999px; background: #eee; color: var(--texto-mute);
   }
-  .modal.hide { display: none; }
-  .modal .card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 24px;
-    max-width: 420px;
-    width: 100%;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  .modal h2 {
-    margin: 0 0 16px;
-    color: var(--rsb-vermelho);
-    font-size: 18px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-  .modal p { font-size: 14px; line-height: 1.5; margin: 0 0 14px; color: var(--texto-mute); }
-  .modal label {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--texto-mute);
-    margin: 12px 0 6px;
-  }
-  .modal input {
-    width: 100%;
-    padding: 12px 14px;
-    font-size: 15px;
-    border: 1px solid var(--linha);
-    border-radius: 8px;
-    font-family: inherit;
-    user-select: text;
-    -webkit-user-select: text;
-  }
-  .modal input:focus {
-    outline: none;
-    border-color: var(--rsb-vermelho);
-  }
-  .modal .actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 20px;
-  }
-  .modal button {
-    flex: 1;
-    padding: 14px;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: inherit;
-  }
-  .modal button.primary {
-    background: var(--rsb-vermelho);
-    color: #fff;
-  }
-  .modal button.primary:active { background: var(--rsb-vermelho-escuro); }
-  .modal button.secondary {
-    background: #f0f0f0;
-    color: var(--texto);
-  }
-  .modal .erro-msg {
-    background: var(--erro-claro);
-    color: var(--erro);
-    padding: 10px 12px;
-    border-radius: 6px;
-    font-size: 13px;
-    margin-top: 8px;
-    border: 1px solid #f0c0c4;
-  }
-  .modal .erro-msg.hide { display: none; }
+  .pill.on-pres { background: var(--verde-claro); color: var(--verde); }
+  .pill.on-entr { background: var(--rsb-vermelho-claro); color: var(--rsb-vermelho-escuro); }
+  .pill.on-qst { background: var(--azul-claro); color: var(--azul); }
 
-  /* ── Menu ── */
-  .menu {
-    position: absolute;
-    top: 56px;
-    right: 12px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    overflow: hidden;
-    z-index: 60;
-    min-width: 220px;
+  /* Botões de acção em rows (Livreto) */
+  .row .acoes { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+  .row .acao {
+    padding: 8px 12px; font-size: 11.5px; font-weight: 700; font-family: inherit;
+    text-transform: uppercase; letter-spacing: 0.06em; border-radius: 8px; border: none;
+    cursor: pointer; min-width: 84px;
   }
-  .menu.hide { display: none; }
-  .menu button {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 14px 16px;
-    background: #fff;
-    border: none;
-    border-bottom: 1px solid var(--linha);
-    font-size: 14px;
-    cursor: pointer;
-    font-family: inherit;
-    color: var(--texto);
-  }
-  .menu button:last-child { border-bottom: none; }
-  .menu button:active { background: var(--fundo); }
-  .menu button.danger { color: var(--erro); }
+  .row .acao.qr { background: var(--azul); color: #fff; }
+  .row .acao.qr:active { background: #0d4f9c; }
+  .row .acao.entregar { background: var(--rsb-vermelho); color: #fff; }
+  .row .acao.entregar:active { background: var(--rsb-vermelho-escuro); }
+  .row .acao.entregar.bloqueada { background: #b8b8b8; color: #fff; cursor: not-allowed; opacity: 0.85; }
+  .row .acao.entregue { background: transparent; color: var(--rsb-vermelho); border: none; font-size: 16px; min-width: 32px; }
+  .badge-qr { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 2px 7px; border-radius: 999px; background: var(--azul); color: #fff; margin-top: 4px; }
 
-  /* ── Toast ── */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--texto);
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    z-index: 200;
-    transition: opacity 0.3s, transform 0.3s;
-    opacity: 0;
-    pointer-events: none;
-    max-width: 90vw;
-    text-align: center;
+  /* Modal genérico */
+  .modal-fundo { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200;
+    display: flex; align-items: center; justify-content: center; padding: 16px; backdrop-filter: blur(2px); }
+  .modal-fundo.hide { display: none; }
+  .modal-card {
+    background: #fff; border-radius: 14px; padding: 22px;
+    max-width: 440px; width: 100%; max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.25);
   }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(-8px);
+  .modal-card h2 { margin: 0 0 8px; color: var(--rsb-vermelho); font-size: 17px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .modal-card h3 { font-size: 13px; color: var(--texto); margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .modal-card .meta-mod { font-size: 12.5px; color: var(--texto-mute); margin: 0 0 10px; }
+  .modal-card label { display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--texto-mute); margin: 12px 0 5px; }
+  .modal-card input, .modal-card select, .modal-card textarea {
+    width: 100%; padding: 11px 13px; font-size: 14px; border: 1px solid var(--linha);
+    border-radius: 8px; font-family: inherit; user-select: text; -webkit-user-select: text; background: #fff;
   }
-  .toast.err { background: var(--erro); }
+  .modal-card input:focus, .modal-card select:focus, .modal-card textarea:focus { outline: none; border-color: var(--rsb-vermelho); }
+  .modal-card .check-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .modal-card .check-row input[type=checkbox] { width: auto; }
+  .modal-card .actions { display: flex; gap: 8px; margin-top: 18px; }
+  .modal-card button {
+    flex: 1; padding: 12px; font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; border: none; border-radius: 8px; cursor: pointer; font-family: inherit;
+  }
+  .modal-card button.primary { background: var(--rsb-vermelho); color: #fff; }
+  .modal-card button.primary:active { background: var(--rsb-vermelho-escuro); }
+  .modal-card button.secondary { background: #f0f0f0; color: var(--texto); }
+  .modal-card button.danger { background: var(--erro); color: #fff; }
+  .modal-card .erro-msg { background: var(--erro-claro); color: var(--erro);
+    padding: 9px 11px; border-radius: 6px; font-size: 12.5px; margin-top: 8px; border: 1px solid #f0c0c4; }
+  .modal-card .erro-msg.hide { display: none; }
+  .modal-card .qr { margin: 14px auto; padding: 12px; background: #fff; border: 1px solid var(--linha);
+    border-radius: 8px; display: inline-block; }
+  .modal-card .qr img, .modal-card .qr canvas { display: block; }
+  .modal-card .url { font-size: 10px; color: var(--texto-mute); word-break: break-all; margin: 8px 0 14px;
+    font-family: "SF Mono", Consolas, monospace; text-align: center; }
+  .modal-card .ajuda { font-size: 12.5px; color: var(--texto); background: var(--azul-claro);
+    border-left: 3px solid var(--azul); padding: 9px 11px; border-radius: 4px; margin: 12px 0; line-height: 1.4; }
+  .modal-card .ajuda-aviso { background: var(--aviso-claro); border-left-color: var(--aviso); }
+
+  /* Drawer participante (núcleo da aba Geral) */
+  .drawer-fundo { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 210;
+    display: flex; align-items: flex-end; justify-content: center; backdrop-filter: blur(2px); }
+  .drawer-fundo.hide { display: none; }
+  .drawer {
+    background: #fff; border-radius: 18px 18px 0 0; width: 100%; max-width: 520px;
+    padding: 22px 20px 24px; max-height: 92vh; overflow-y: auto;
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.3);
+  }
+  .drawer .handle { width: 40px; height: 4px; background: #ccc; border-radius: 4px; margin: -4px auto 14px; }
+  .drawer .nome-grande { font-size: 18px; font-weight: 700; line-height: 1.2; margin-bottom: 2px; }
+  .drawer .meta-grande { font-size: 13px; color: var(--texto-mute); }
+  .drawer .seccao-estado {
+    margin: 14px 0; padding: 10px 12px; background: #fafafa;
+    border: 1px solid var(--linha); border-radius: 10px;
+  }
+  .drawer .estado-linha { display: flex; align-items: center; gap: 10px; font-size: 13.5px; padding: 4px 0; }
+  .drawer .estado-linha .icon { font-size: 16px; flex-shrink: 0; width: 22px; }
+  .drawer .estado-linha.on { color: var(--verde); font-weight: 600; }
+  .drawer .estado-linha.off { color: var(--texto-mute); }
+  .drawer .estado-linha .hora-pequena { margin-left: auto; font-size: 11.5px; color: var(--texto-mute); }
+  .drawer .accoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .drawer .accoes button {
+    padding: 12px 8px; font-size: 12.5px; font-weight: 700; font-family: inherit;
+    text-transform: uppercase; letter-spacing: 0.05em; border: none; border-radius: 10px; cursor: pointer;
+  }
+  .drawer .accoes button.primario { background: var(--rsb-vermelho); color: #fff; grid-column: 1 / -1; }
+  .drawer .accoes button.primario:active { background: var(--rsb-vermelho-escuro); }
+  .drawer .accoes button.secundario { background: #f0f0f0; color: var(--texto); }
+  .drawer .accoes button.azul { background: var(--azul); color: #fff; }
+  .drawer .accoes button.verde { background: var(--verde); color: #fff; }
+  .drawer .accoes button.danger { background: var(--erro); color: #fff; }
+  .drawer .accoes button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .drawer .fechar-drawer { width: 100%; margin-top: 12px; padding: 10px; background: transparent;
+    border: 1px solid var(--linha); border-radius: 10px; font-family: inherit; font-size: 13px; color: var(--texto-mute); }
+
+  /* Login overlay */
+  .login-overlay { position: fixed; inset: 0; background: var(--fundo);
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 60px 20px; z-index: 220; overflow-y: auto; }
+  .login-overlay.hide { display: none; }
+  .login-card {
+    background: #fff; border-radius: 12px; padding: 30px 26px;
+    max-width: 380px; width: 100%; box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .login-card .logo { text-align: center; margin-bottom: 16px; }
+  .login-card .logo img { height: 60px; }
+  .login-card h2 { text-align: center; margin: 0 0 4px; font-size: 18px; color: var(--texto); }
+  .login-card .papel { text-align: center; margin: 0 0 22px; font-size: 11.5px;
+    color: var(--rsb-vermelho); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+  .login-card label { display: block; font-size: 11.5px; text-transform: uppercase;
+    color: var(--texto-mute); letter-spacing: 0.06em; margin-bottom: 5px; margin-top: 12px; font-weight: 600; }
+  .login-card input, .login-card select {
+    width: 100%; padding: 11px 13px; font-size: 14.5px;
+    border: 1px solid var(--linha); border-radius: 8px; font-family: inherit; background: #fff;
+    user-select: text; -webkit-user-select: text;
+  }
+  .login-card input:focus, .login-card select:focus { outline: none; border-color: var(--rsb-vermelho); }
+  .login-card button.entrar {
+    width: 100%; margin-top: 20px; padding: 13px; font-size: 13.5px;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: #fff; background: var(--rsb-vermelho); border: none;
+    border-radius: 8px; cursor: pointer; font-family: inherit;
+  }
+  .login-card .erro { color: var(--erro); font-size: 12.5px; margin-top: 10px; text-align: center; }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--texto); color: #fff;
+    padding: 12px 22px; border-radius: 24px; font-size: 14px; font-weight: 500;
+    opacity: 0; pointer-events: none; transition: all 0.25s; z-index: 250;
+    max-width: 90vw; text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
   .toast.ok { background: var(--verde); }
+  .toast.err { background: var(--erro); }
 
-  /* ── Loading ── */
-  #loading {
-    position: fixed;
-    inset: 0;
-    background: var(--fundo);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 16px;
-    z-index: 90;
+  /* Loading */
+  #loading { position: fixed; inset: 0; background: var(--fundo);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 16px; z-index: 90;
   }
   #loading.hide { display: none; }
-  .spinner {
-    width: 36px; height: 36px;
-    border: 3px solid var(--linha);
-    border-top-color: var(--rsb-vermelho);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+  .spinner { width: 36px; height: 36px; border: 3px solid var(--linha);
+    border-top-color: var(--rsb-vermelho); border-radius: 50%; animation: spin 0.8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Tabela aba Geral (lista combinada) */
+  .lista-geral .row .info .nome { font-size: 14px; }
+  .lista-geral .row .info .meta { font-size: 11.5px; }
 </style>
 </head>
 <body>
 
-<header>
-  <img src="assets/rsb-brasao.png" alt="Brasão RSB">
-  <div class="titulo">
-    <h1 id="evt-titulo">Presenças</h1>
-    <div class="sub" id="evt-sub">RSB Lisboa</div>
+<!-- ═══════════════ LOGIN OVERLAY ═══════════════ -->
+<div class="login-overlay" id="login">
+  <div class="login-card">
+    <div class="logo"><img src="assets/rsb-brasao.png" alt="RSB"></div>
+    <h2>Acolhimento RSB</h2>
+    <p class="papel">Presença · Livreto · Ficha</p>
+
+    <label>Utilizador</label>
+    <select id="user-select"><option value="">— a carregar lista —</option></select>
+
+    <label>Palavra-passe</label>
+    <input type="password" id="user-pass" autocomplete="off">
+
+    <button class="entrar" id="btn-login">Entrar</button>
+    <div class="erro" id="login-erro"></div>
+
+    <div id="tablet-status" style="margin-top:16px;padding:9px 12px;border-radius:6px;font-size:11.5px;text-align:center;background:#f5f5f5;color:var(--texto-mute)">A verificar tablet…</div>
+    <div style="text-align:center;margin-top:12px">
+      <a href="#" id="link-config-tablet" style="font-size:11px;color:var(--texto-mute);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase">Configurar tablet</a>
+    </div>
   </div>
-  <button class="menu-btn" id="btn-menu" aria-label="Menu">⋮</button>
+</div>
+
+<!-- ═══════════════ MODAL ADMIN AUTH ═══════════════ -->
+<div class="modal-fundo hide" id="modal-admin-auth">
+  <div class="modal-card">
+    <h2>Autorização admin</h2>
+    <p class="meta-mod">Apenas o administrador pode configurar tablets. Introduz a password admin para continuar.</p>
+    <input type="password" id="admin-pass" placeholder="Password admin" autocomplete="current-password">
+    <div class="erro-msg hide" id="admin-pass-erro"></div>
+    <div class="actions">
+      <button class="secondary" id="admin-pass-cancel">Cancelar</button>
+      <button class="primary" id="admin-pass-ok">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL CONFIGURAR TABLET ═══════════════ -->
+<div class="modal-fundo hide" id="modal-tablet">
+  <div class="modal-card">
+    <h2>Configurar tablet</h2>
+    <p class="meta-mod">Cola o Personal Access Token (PAT) do GitHub. Fica gravado neste tablet (localStorage) até ser limpo.</p>
+    <input type="password" id="tablet-token" placeholder="ghp_… ou github_pat_…" style="font-family:'SF Mono',Consolas,monospace">
+    <div class="erro-msg hide" id="tablet-erro"></div>
+    <div class="actions">
+      <button class="secondary" id="tablet-cancel">Fechar</button>
+      <button class="secondary" id="tablet-clear">Limpar</button>
+      <button class="primary" id="tablet-save">Validar e gravar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header style="display:none" id="hdr">
+  <div class="top">
+    <img src="assets/rsb-brasao.png" alt="RSB">
+    <div class="titulo">
+      <h1 id="evt-titulo">Acolhimento</h1>
+      <div class="sub" id="evt-sub">RSB Lisboa</div>
+    </div>
+    <button class="icon-btn" id="btn-scan" title="Ler QR">📷</button>
+    <button class="icon-btn" id="btn-menu" title="Menu">⋮</button>
+  </div>
+  <div class="tabs">
+    <button data-tab="geral" class="active">Geral</button>
+    <button data-tab="presenca">Presença</button>
+    <button data-tab="livreto">Livreto</button>
+    <button data-tab="ficha">Ficha</button>
+  </div>
 </header>
 
-<div class="menu hide" id="menu">
-  <button id="m-recarregar">Recarregar lista</button>
-  <button id="m-forcar-sync">Forçar sincronização</button>
-  <button id="m-exportar">Exportar JSON local</button>
-  <button id="m-tudo-ausente" class="danger">Marcar todos ausentes</button>
-  <button id="m-logout" class="danger">Terminar sessão</button>
+<!-- ═══════════════ STATS (dinâmico por tab) ═══════════════ -->
+<div class="stats" style="display:none" id="stats"></div>
+
+<!-- ═══════════════ SYNC ═══════════════ -->
+<div class="sync" style="display:none" id="sync-bar"><span class="dot"></span><span id="sync-text">A iniciar…</span></div>
+
+<!-- ═══════════════ SEARCH ═══════════════ -->
+<div class="search-wrap" style="display:none" id="search-wrap">
+  <input type="search" id="search" placeholder="Procurar nome ou entidade…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
 </div>
 
-<div class="stats">
-  <div class="stat pres"><div class="n" id="n-pres">0</div><div class="l">Presentes</div></div>
-  <div class="stat"><div class="n" id="n-tot">0</div><div class="l">Inscritos</div></div>
-  <div class="stat aus"><div class="n" id="n-aus">0</div><div class="l">Por marcar</div></div>
-</div>
+<!-- ═══════════════ FILTROS (dinâmico) ═══════════════ -->
+<div class="filtros" style="display:none" id="filtros"></div>
 
-<div class="sync" id="sync-bar"><span class="dot"></span><span id="sync-text">A iniciar…</span></div>
-
-<div class="search-wrap">
-  <input type="search" id="search" placeholder="Pesquisar nome ou entidade…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-</div>
-
+<!-- ═══════════════ LISTA ═══════════════ -->
 <div class="lista" id="lista"></div>
 
-<!-- Modal: Utilizador + Palavra-passe (login) -->
-<div class="modal" id="modal-login">
-  <div class="card">
-    <h2>Acesso à app de presenças</h2>
-    <p>Escolha o seu utilizador e introduza a palavra-passe configurada pelo admin.</p>
-    <label for="in-user">Utilizador</label>
-    <select id="in-user" style="width:100%;padding:12px 14px;font-size:15px;border:1px solid var(--linha);border-radius:8px;background:#fff;font-family:inherit">
-      <option value="">— a carregar lista —</option>
-    </select>
-    <label for="in-pass">Palavra-passe</label>
-    <input type="password" id="in-pass" autocomplete="off">
-    <div class="erro-msg hide" id="login-erro"></div>
-    <div id="tablet-status-porta" style="margin-top:14px;padding:8px 12px;border-radius:6px;font-size:11.5px;text-align:center;background:#f5f5f5;color:var(--texto-mute)">A verificar estado do tablet…</div>
-    <div style="text-align:center;margin-top:10px">
-      <a href="#" id="link-config-tablet-porta" style="font-size:11px;color:var(--texto-mute);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase">Configurar tablet</a>
+<!-- ═══════════════ MENU DROPDOWN ═══════════════ -->
+<div class="modal-fundo hide" id="modal-menu">
+  <div class="modal-card">
+    <h2>Menu</h2>
+    <button class="secondary" id="m-recarregar" style="margin-top:8px;width:100%;padding:12px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;border:none;border-radius:8px;cursor:pointer;font-family:inherit;background:#f0f0f0;color:var(--texto)">Recarregar dados</button>
+    <button class="secondary" id="m-forcar-sync" style="margin-top:8px;width:100%;padding:12px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;border:none;border-radius:8px;cursor:pointer;font-family:inherit;background:#f0f0f0;color:var(--texto)">Forçar sincronização</button>
+    <button class="danger" id="m-logout" style="margin-top:8px;width:100%;padding:12px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;border:none;border-radius:8px;cursor:pointer;font-family:inherit;background:var(--erro);color:#fff">Terminar sessão</button>
+    <button class="secondary" id="m-fechar" style="margin-top:14px;width:100%;padding:10px;background:transparent;border:1px solid var(--linha);border-radius:8px;font-family:inherit;font-size:13px;color:var(--texto-mute);cursor:pointer">Fechar</button>
+  </div>
+</div>
+
+<!-- ═══════════════ DRAWER PARTICIPANTE (núcleo) ═══════════════ -->
+<div class="drawer-fundo hide" id="drawer-fundo">
+  <div class="drawer" id="drawer">
+    <div class="handle"></div>
+    <div class="nome-grande" id="dw-nome">—</div>
+    <div class="meta-grande" id="dw-meta">—</div>
+
+    <div class="seccao-estado">
+      <div class="estado-linha" id="dw-estado-pres">
+        <span class="icon">⚪</span><span id="dw-pres-txt">Não presente</span>
+        <span class="hora-pequena" id="dw-pres-hora"></span>
+      </div>
+      <div class="estado-linha" id="dw-estado-entr">
+        <span class="icon">⚪</span><span id="dw-entr-txt">Livreto por entregar</span>
+        <span class="hora-pequena" id="dw-entr-hora"></span>
+      </div>
+      <div class="estado-linha" id="dw-estado-qst">
+        <span class="icon">⚪</span><span id="dw-qst-txt">Sem resposta ao questionário</span>
+      </div>
     </div>
+
+    <div class="accoes" id="dw-accoes">
+      <button class="primario" id="dw-marcar-presenca">Marcar presença</button>
+      <button class="azul" id="dw-mostrar-qr">Mostrar QR</button>
+      <button class="verde" id="dw-entregar-livreto" disabled>Entregar livreto</button>
+      <button class="secundario" id="dw-editar-ficha">Editar ficha</button>
+    </div>
+    <button class="fechar-drawer" id="dw-fechar">Fechar</button>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL QR (Livreto) ═══════════════ -->
+<div class="modal-fundo hide" id="modal-qr">
+  <div class="modal-card" style="text-align:center">
+    <h2 id="qr-nome"></h2>
+    <p class="meta-mod" id="qr-meta"></p>
+    <div class="qr" id="qr-canvas-wrap"></div>
+    <div class="ajuda">Peça ao participante para apontar a câmara do telemóvel ao código QR. Quando aparecer o ecrã verde <strong>"Obrigado pela sua resposta"</strong> no telemóvel dele, feche este aviso e use <strong>Entregar</strong>.</div>
+    <div class="url" id="qr-url"></div>
+    <button class="secondary" id="qr-fechar" style="width:100%">Fechar</button>
+  </div>
+</div>
+
+<!-- ═══════════════ MODAL SCANNER ═══════════════ -->
+<div class="modal-fundo hide" id="modal-scan">
+  <div class="modal-card">
+    <h2>Ler crachá</h2>
+    <p class="meta-mod">Aponte a câmara ao QR. Detecta automaticamente.</p>
+    <div style="position:relative;width:100%;aspect-ratio:1/1;background:#000;border-radius:8px;overflow:hidden;margin:10px 0">
+      <div id="qr-reader" style="width:100%;height:100%"></div>
+    </div>
+    <p id="scan-msg" style="font-size:13px;color:var(--texto-mute);margin:8px 0;min-height:20px"></p>
     <div class="actions">
-      <button class="primary" id="btn-login">Entrar</button>
+      <button class="secondary" id="scan-alternar">↺ Câmara</button>
+      <button class="secondary" id="scan-cancel">Cancelar</button>
     </div>
   </div>
 </div>
 
-<!-- Modal: Autorização admin (gate antes de configurar tablet) -->
-<div class="modal hide" id="modal-admin-auth-porta">
-  <div class="card">
-    <h2>Autorização admin</h2>
-    <p>Apenas o administrador pode configurar tablets. Introduz a password admin para continuar.</p>
-    <input type="password" id="admin-pass-porta" placeholder="Password admin" style="width:100%;padding:12px 14px;font-size:14px;border:1px solid var(--linha);border-radius:8px" autocomplete="current-password">
-    <div class="erro-msg hide" id="admin-pass-erro-porta" style="margin-top:8px"></div>
-    <div class="actions" style="margin-top:14px">
-      <button class="secondary" id="admin-pass-cancel-porta">Cancelar</button>
-      <button class="primary" id="admin-pass-ok-porta">Confirmar</button>
+<!-- ═══════════════ MODAL CONFIRMAÇÃO ENTREGA ═══════════════ -->
+<div class="modal-fundo hide" id="modal-conf-entrega">
+  <div class="modal-card">
+    <h2>Confirmar entrega</h2>
+    <p class="meta-mod">Vai entregar o livreto a <strong id="conf-nome"></strong>.</p>
+    <div class="ajuda ajuda-aviso" id="conf-aviso-qr" style="display:none">
+      ⚠ Ainda não foi mostrado o QR nem confirmada resposta deste participante.
+    </div>
+    <div class="ajuda">Confirma que viste o ecrã verde <strong>"Obrigado pela sua resposta"</strong> no telemóvel do participante?</div>
+    <div class="actions">
+      <button class="secondary" id="conf-cancel">Cancelar</button>
+      <button class="primary" id="conf-ok">Sim, entregar</button>
     </div>
   </div>
 </div>
 
-<!-- Modal: Configurar tablet (PAT em localStorage) -->
-<div class="modal hide" id="modal-tablet-porta">
-  <div class="card">
-    <h2>Configurar tablet</h2>
-    <p>Cola o token GitHub PAT — fica gravado neste tablet (localStorage) até ser limpo.</p>
-    <input type="password" id="tablet-token-porta" placeholder="ghp_… ou github_pat_…" style="width:100%;padding:12px 14px;font-size:14px;border:1px solid var(--linha);border-radius:8px;font-family:'SF Mono',Consolas,monospace">
-    <div class="erro-msg hide" id="tablet-erro-porta" style="margin-top:8px"></div>
-    <div class="actions" style="margin-top:14px">
-      <button class="secondary" id="tablet-cancel-porta">Fechar</button>
-      <button class="secondary" id="tablet-clear-porta">Limpar token</button>
-      <button class="primary" id="tablet-save-porta">Validar e gravar</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: confirmação genérica -->
-<div class="modal hide" id="modal-confirm">
-  <div class="card">
+<!-- ═══════════════ MODAL CONFIRMAR GENÉRICO ═══════════════ -->
+<div class="modal-fundo hide" id="modal-confirm">
+  <div class="modal-card">
     <h2 id="cf-titulo">Confirmar</h2>
-    <p id="cf-msg"></p>
+    <p class="meta-mod" id="cf-msg"></p>
     <div class="actions">
       <button class="secondary" id="cf-cancel">Cancelar</button>
       <button class="primary" id="cf-ok">Confirmar</button>
@@ -503,213 +513,307 @@
   </div>
 </div>
 
+<!-- ═══════════════ MODAL EDITAR FICHA ═══════════════ -->
+<div class="modal-fundo hide" id="modal-ficha">
+  <div class="modal-card">
+    <h2>Editar ficha do participante</h2>
+    <p class="meta-mod" id="ficha-id">ID: —</p>
+    <label>Nome completo</label>
+    <input type="text" id="ficha-nome" autocomplete="off">
+    <label>Cargo / Posto</label>
+    <input type="text" id="ficha-cargo" autocomplete="off">
+    <label>Entidade</label>
+    <input type="text" id="ficha-entidade" autocomplete="off">
+    <label>Email</label>
+    <input type="email" id="ficha-email" autocomplete="off">
+    <div class="check-row">
+      <input type="checkbox" id="ficha-autoriza">
+      <label for="ficha-autoriza" style="margin:0;text-transform:none;letter-spacing:0;font-size:13px;font-weight:400;color:var(--texto)">Autoriza contacto para iniciativas RSB</label>
+    </div>
+    <div class="erro-msg hide" id="ficha-erro"></div>
+    <div class="actions">
+      <button class="secondary" id="ficha-cancel">Cancelar</button>
+      <button class="primary" id="ficha-save">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TOAST + LOADING ═══════════════ -->
 <div class="toast" id="toast"></div>
-<div id="loading"><div class="spinner"></div><div style="font-size:14px;color:var(--texto-mute)">A carregar inscritos…</div></div>
+<div id="loading" class="hide"><div class="spinner"></div><div style="font-size:14px;color:var(--texto-mute)">A carregar…</div></div>
+
+<!-- QR libs -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
 <script>
+"use strict";
 (function () {
-  'use strict';
-
-  // ════════════════════════════════════════════════════════════════════════════
-  // CONFIGURAÇÃO
-  // ════════════════════════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════════════════════
+  // CONFIG
+  // ═════════════════════════════════════════════════════════════════════════
   const CONFIG = {
-    // Repo onde estão data/inscritos.json e data/presencas.json
-    githubOwner: 'RSBLisboa',
-    githubRepo:  'Presencas',
-    githubBranch: 'main',
-
-    // Identificador deste tablet/posto (gravado em cada marcação).
-    postoIdDefault: 'tablet-porta',
-
-    // Debounce do sync (ms desde último toque até push para GitHub).
+    githubOwner: "RSBLisboa",
+    githubRepo: "Presencas",
+    githubBranch: "main",
+    postoIdDefault: "tablet-acolhimento",
     syncDebounceMs: 1500,
-
-    // Polling do servidor para detectar marcações de outros tablets (ms).
     serverPollMs: 20000,
-
-    // Auth: PAT persistente em localStorage; lista de users vive em evento.json.
-    LS_PAT_KEY: 'rsb_pat_tablet',
-    URL_EVENTO_PUBLICO: 'https://rsblisboa.github.io/Presencas/data/evento.json'
+    presencasPollMs: 15000,
+    BASE_URL_APRECIACAO: "https://rsblisboa.github.io/Certificados/p.html",
+    LS_PAT_KEY: "rsb_pat_tablet",
+    URL_EVENTO_PUBLICO: "https://rsblisboa.github.io/Presencas/data/evento.json"
   };
-  function getPAT() { return localStorage.getItem(CONFIG.LS_PAT_KEY) || ''; }
+  const ADMIN_PASS_HASH = "ddf8f268f1f55f479bca66b18836d46c2c10f99317ec7814edc58371a93d4536";
+  const ADMIN_SESSION_KEY = "rsb_admin_auth";
+
+  function getPAT() { return localStorage.getItem(CONFIG.LS_PAT_KEY) || ""; }
   function setPAT(t) { if (t) localStorage.setItem(CONFIG.LS_PAT_KEY, t); else localStorage.removeItem(CONFIG.LS_PAT_KEY); }
   let USERS_CACHE = [];
 
-  // ════════════════════════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════════════════════
   // ESTADO
-  // ════════════════════════════════════════════════════════════════════════════
-  const STATE = {
-    inscritos: [],          // [{id, nome, cargo, entidade, categoria, estado}]
-    evento: null,           // {id, titulo, data, local, ...}
-    presencasMap: new Map(),// idInscricao → {presente, horaEntrada, marcadoPor}
-    presencasSha: null,     // sha do ficheiro presencas.json no repo
-    versao: 0,              // contador local de mutações
-    filtro: '',
+  // ═════════════════════════════════════════════════════════════════════════
+  const ST = {
+    inscritos: [],            // [{id, token, nome, cargo, entidade, email, ...}]
+    inscritosSha: null,       // sha de data/inscritos.json (necessário para edit ficha)
+    evento: null,
+
+    // Porta
+    presencasMap: new Map(),  // idInscricao → {presente, horaEntrada, marcadoPor}
+    presencasSha: null,
+    presencasVersao: 0,
+    pendingPres: false,
     syncTimer: null,
+
+    // Balcão
+    entregas: new Map(),      // idInscricao → {entregueEm, entreguePor}
+    entregasSha: null,
+    qrMostrado: new Set(),
+
+    // Apreciação
+    respondeu: new Set(),
+
+    // UI
+    tab: "geral",
+    busca: "",
+    filtroGeral: "todos",
+    filtroPresenca: "todos",
+    filtroLivreto: "todos",
     pollTimer: null,
-    syncStatus: 'idle',     // 'idle' | 'pending' | 'syncing' | 'ok' | 'err' | 'offline'
-    lastSyncAt: null,
-    pendingMutations: false,
+    syncStatus: "idle",
     posto: CONFIG.postoIdDefault,
+    drawerId: null
   };
 
-  // ════════════════════════════════════════════════════════════════════════════
-  // UTILITÁRIOS
-  // ════════════════════════════════════════════════════════════════════════════
-  function $(id) { return document.getElementById(id); }
-  function $$(sel) { return document.querySelectorAll(sel); }
+  // ═════════════════════════════════════════════════════════════════════════
+  // UTILS
+  // ═════════════════════════════════════════════════════════════════════════
+  const $ = id => document.getElementById(id);
+  const $$ = sel => document.querySelectorAll(sel);
 
   async function sha256Hex(s) {
     const buf = new TextEncoder().encode(s);
-    const hash = await crypto.subtle.digest('SHA-256', buf);
-    return Array.from(new Uint8Array(hash))
-      .map(b => b.toString(16).padStart(2, '0')).join('');
+    const hash = await crypto.subtle.digest("SHA-256", buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,"0")).join("");
   }
-
-  function utf8ToBase64(s) {
-    return btoa(unescape(encodeURIComponent(s)));
-  }
-  function base64ToUtf8(b) {
-    return decodeURIComponent(escape(atob(b)));
-  }
-
+  function utf8ToBase64(s) { return btoa(unescape(encodeURIComponent(s))); }
+  function base64ToUtf8(b) { return decodeURIComponent(escape(atob(b))); }
   function nowIso() {
-    const d = new Date();
-    const pad = n => String(n).padStart(2, '0');
-    return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) +
-      'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    const d = new Date(), pad = n => String(n).padStart(2,"0");
+    return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds());
   }
-
   function fmtHora(iso) {
-    if (!iso) return '';
+    if (!iso) return "";
     const d = new Date(iso);
-    if (isNaN(d.getTime())) return '';
-    return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+    if (isNaN(d.getTime())) return "";
+    return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
   }
-
-  function toast(msg, kind) {
-    const el = $('toast');
-    el.textContent = msg;
-    el.className = 'toast show' + (kind ? ' ' + kind : '');
-    clearTimeout(toast._t);
-    toast._t = setTimeout(() => el.classList.remove('show'), 2400);
-  }
-
-  function setSync(status, text) {
-    STATE.syncStatus = status;
-    const bar = $('sync-bar');
-    bar.className = 'sync ' + status;
-    $('sync-text').textContent = text;
-  }
-
   function normalizar(s) {
-    return (s || '').toString().toLowerCase()
-      .normalize('NFD').replace(/[̀-ͯ]/g, '');
+    return (s||"").toString().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  }
+  function esc(s) {
+    return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+  function toast(msg, kind) {
+    const el = $("toast");
+    el.textContent = msg;
+    el.className = "toast show" + (kind ? " " + kind : "");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.remove("show"), 2400);
+  }
+  function setSync(status, text) {
+    ST.syncStatus = status;
+    const bar = $("sync-bar");
+    bar.className = "sync " + status;
+    $("sync-text").textContent = text;
+  }
+  function confirmarGenerico(titulo, msg) {
+    return new Promise(resolve => {
+      $("cf-titulo").textContent = titulo;
+      $("cf-msg").textContent = msg;
+      $("modal-confirm").classList.remove("hide");
+      const handler = ok => {
+        $("modal-confirm").classList.add("hide");
+        $("cf-ok").removeEventListener("click", oh);
+        $("cf-cancel").removeEventListener("click", ch);
+        resolve(ok);
+      };
+      const oh = () => handler(true);
+      const ch = () => handler(false);
+      $("cf-ok").addEventListener("click", oh);
+      $("cf-cancel").addEventListener("click", ch);
+    });
   }
 
-  // ════════════════════════════════════════════════════════════════════════════
-  // PERSISTÊNCIA LOCAL
-  // ════════════════════════════════════════════════════════════════════════════
-  const LS_PRESENCAS = 'rsb_presencas_v1';
-
-  function gravarLocal() {
-    const obj = {
-      eventoId: STATE.evento ? STATE.evento.id : null,
-      versao: STATE.versao,
-      marcacoes: Array.from(STATE.presencasMap.entries()).map(([id, m]) => ({
-        idInscricao: id,
-        presente: m.presente,
-        horaEntrada: m.horaEntrada || null,
-        marcadoPor: m.marcadoPor || null
-      })),
-      sha: STATE.presencasSha
-    };
-    try { localStorage.setItem(LS_PRESENCAS, JSON.stringify(obj)); } catch (e) {}
-  }
-
-  function carregarLocal() {
-    try {
-      const raw = localStorage.getItem(LS_PRESENCAS);
-      if (!raw) return null;
-      return JSON.parse(raw);
-    } catch (e) { return null; }
-  }
-
-  // ════════════════════════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════════════════════
   // GITHUB API
-  // ════════════════════════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════════════════════
   function ghHeaders() {
     const tok = getPAT();
-    if (!tok) throw new Error('Tablet sem PAT configurado.');
+    if (!tok) throw new Error("Tablet sem PAT configurado.");
     return {
-      'Authorization': 'Bearer ' + tok,
-      'Accept': 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28'
+      "Authorization": "Bearer " + tok,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
     };
   }
-
   function ghContentsUrl(path) {
-    return 'https://api.github.com/repos/' + CONFIG.githubOwner + '/' + CONFIG.githubRepo +
-      '/contents/' + encodeURI(path) + '?ref=' + CONFIG.githubBranch;
+    return "https://api.github.com/repos/" + CONFIG.githubOwner + "/" + CONFIG.githubRepo + "/contents/" + encodeURI(path) + "?ref=" + CONFIG.githubBranch;
   }
-
   async function ghValidarToken() {
-    // Simples: tenta ler metadata do repo.
-    const url = 'https://api.github.com/repos/' + CONFIG.githubOwner + '/' + CONFIG.githubRepo;
+    const url = "https://api.github.com/repos/" + CONFIG.githubOwner + "/" + CONFIG.githubRepo;
     const res = await fetch(url, { headers: ghHeaders() });
-    if (res.status === 401 || res.status === 403)
-      throw new Error('Token inválido ou sem permissões para este repositório.');
-    if (!res.ok) throw new Error('GitHub respondeu ' + res.status);
+    if (res.status === 401 || res.status === 403) throw new Error("Token inválido ou sem permissões.");
+    if (!res.ok) throw new Error("GitHub HTTP " + res.status);
     return true;
   }
-
-  async function ghLerPresencas() {
-    try {
-      const res = await fetch(ghContentsUrl('data/presencas.json'), { headers: ghHeaders() });
-      if (res.status === 404) return { sha: null, payload: null };
-      if (!res.ok) throw new Error('GET presencas.json: ' + res.status);
-      const j = await res.json();
-      const text = base64ToUtf8(j.content.replace(/\n/g, ''));
-      return { sha: j.sha, payload: JSON.parse(text) };
-    } catch (e) {
-      throw e;
-    }
+  async function ghLer(path) {
+    const res = await fetch(ghContentsUrl(path), { headers: ghHeaders() });
+    if (res.status === 404) return { sha: null, payload: null };
+    if (!res.ok) throw new Error("GET " + path + ": " + res.status);
+    const j = await res.json();
+    const text = base64ToUtf8(j.content.replace(/\n/g,""));
+    return { sha: j.sha, payload: JSON.parse(text) };
   }
-
-  async function ghEscreverPresencas(payload, sha) {
+  async function ghEscrever(path, payload, sha, msg) {
     const body = {
-      message: 'presencas: actualização ' + nowIso() + ' (' + STATE.posto + ')',
+      message: msg || ("update " + path + " " + nowIso()),
       content: utf8ToBase64(JSON.stringify(payload, null, 2)),
       branch: CONFIG.githubBranch
     };
     if (sha) body.sha = sha;
-
     const res = await fetch(
-      'https://api.github.com/repos/' + CONFIG.githubOwner + '/' + CONFIG.githubRepo + '/contents/data/presencas.json',
-      { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body) }
+      "https://api.github.com/repos/" + CONFIG.githubOwner + "/" + CONFIG.githubRepo + "/contents/" + encodeURI(path),
+      { method: "PUT", headers: ghHeaders(), body: JSON.stringify(body) }
     );
     if (res.status === 409 || res.status === 422) {
-      // Conflito: alguém escreveu entretanto. O caller faz merge.
-      const e = new Error('CONFLICT');
-      e.code = 'CONFLICT';
-      throw e;
+      const e = new Error("CONFLICT"); e.code = "CONFLICT"; throw e;
     }
-    if (!res.ok) throw new Error('PUT presencas.json: ' + res.status);
+    if (!res.ok) throw new Error("PUT " + path + ": " + res.status);
     const j = await res.json();
     return j.content.sha;
   }
 
-  // ════════════════════════════════════════════════════════════════════════════
-  // SYNC
-  // ════════════════════════════════════════════════════════════════════════════
-  function buildPayload() {
+  // ═════════════════════════════════════════════════════════════════════════
+  // CARREGAMENTO
+  // ═════════════════════════════════════════════════════════════════════════
+  async function carregarInscritos() {
+    // Lê via GitHub API para obter sha (precisamos para o edit da ficha).
+    try {
+      const { sha, payload } = await ghLer("data/inscritos.json");
+      ST.inscritosSha = sha;
+      if (!payload || !payload.evento || !Array.isArray(payload.inscritos))
+        throw new Error("Formato inválido em inscritos.json.");
+      ST.evento = payload.evento;
+      ST.inscritos = payload.inscritos.slice().sort((a,b) =>
+        normalizar(a.nome).localeCompare(normalizar(b.nome))
+      );
+    } catch (e) {
+      // Fallback público (sem sha — edit de ficha vai falhar mas leitura funciona)
+      const r = await fetch("data/inscritos.json?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) throw new Error("inscritos.json HTTP " + r.status);
+      const data = await r.json();
+      if (!data.evento || !Array.isArray(data.inscritos)) throw new Error("Formato inválido em inscritos.json.");
+      ST.evento = data.evento;
+      ST.inscritos = data.inscritos.slice().sort((a,b) =>
+        normalizar(a.nome).localeCompare(normalizar(b.nome))
+      );
+      ST.inscritosSha = null;
+    }
+  }
+
+  async function carregarPresencas() {
+    try {
+      const { sha, payload } = await ghLer("data/presencas.json");
+      ST.presencasSha = sha;
+      ST.presencasMap = new Map();
+      if (payload && Array.isArray(payload.marcacoes)) {
+        for (const m of payload.marcacoes) {
+          ST.presencasMap.set(m.idInscricao, {
+            presente: !!m.presente,
+            horaEntrada: m.horaEntrada || null,
+            marcadoPor: m.marcadoPor || null
+          });
+        }
+        ST.presencasVersao = payload.versao || 0;
+      }
+    } catch (e) {
+      // Fallback público
+      try {
+        const r = await fetch("data/presencas.json?t=" + Date.now(), { cache: "no-store" });
+        if (!r.ok) return;
+        const data = await r.json();
+        for (const m of (data.marcacoes || [])) {
+          ST.presencasMap.set(m.idInscricao, {
+            presente: !!m.presente,
+            horaEntrada: m.horaEntrada || null,
+            marcadoPor: m.marcadoPor || null
+          });
+        }
+        ST.presencasVersao = data.versao || 0;
+      } catch (_) {}
+    }
+  }
+
+  async function carregarEntregas() {
+    try {
+      const { sha, payload } = await ghLer("data/entregas.json");
+      ST.entregasSha = sha;
+      ST.entregas = new Map();
+      if (payload && Array.isArray(payload.entregas)) {
+        for (const e of payload.entregas) {
+          ST.entregas.set(e.idInscricao, { entregueEm: e.entregueEm, entreguePor: e.entreguePor });
+        }
+      }
+    } catch (e) {
+      ST.entregas = new Map();
+      ST.entregasSha = null;
+    }
+  }
+
+  async function carregarApreciacao() {
+    try {
+      const r = await fetch("data/apreciacao.json?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) { ST.respondeu = new Set(); return; }
+      const data = await r.json();
+      ST.respondeu = new Set();
+      for (const x of (data.respostas || [])) {
+        if (x.idInscricao != null) ST.respondeu.add(x.idInscricao);
+      }
+    } catch (_) { ST.respondeu = new Set(); }
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // SYNC · PRESENÇAS (porta)
+  // ═════════════════════════════════════════════════════════════════════════
+  function buildPresencasPayload() {
     return {
-      schema: 'presencas@1',
-      eventoId: STATE.evento ? STATE.evento.id : null,
+      schema: "presencas@1",
+      eventoId: ST.evento ? ST.evento.id : null,
       actualizadoEm: nowIso(),
-      versao: STATE.versao,
-      marcacoes: Array.from(STATE.presencasMap.entries())
+      versao: ST.presencasVersao,
+      marcacoes: Array.from(ST.presencasMap.entries())
         .filter(([id, m]) => m.presente || m.horaEntrada)
         .map(([id, m]) => ({
           idInscricao: id,
@@ -720,570 +824,954 @@
     };
   }
 
-  function mergeRemote(remote) {
-    // last-write-wins por idInscricao com base em horaEntrada (timestamp).
+  function mergePresencasRemote(remote) {
     if (!remote || !remote.marcacoes) return;
     for (const m of remote.marcacoes) {
-      const local = STATE.presencasMap.get(m.idInscricao);
+      const local = ST.presencasMap.get(m.idInscricao);
       if (!local) {
-        STATE.presencasMap.set(m.idInscricao, {
+        ST.presencasMap.set(m.idInscricao, {
           presente: !!m.presente,
           horaEntrada: m.horaEntrada || null,
           marcadoPor: m.marcadoPor || null
         });
         continue;
       }
-      // Se ambos presentes mas remote tem hora mais antiga, mantém hora antiga.
-      // Se um é presente=true e outro false, fica o mais recente (temos timestamp na nossa local).
       const localTs = local.horaEntrada ? Date.parse(local.horaEntrada) : 0;
       const remoteTs = m.horaEntrada ? Date.parse(m.horaEntrada) : 0;
       if (remoteTs > localTs && m.presente !== local.presente) {
-        STATE.presencasMap.set(m.idInscricao, {
+        ST.presencasMap.set(m.idInscricao, {
           presente: !!m.presente,
           horaEntrada: m.horaEntrada || null,
           marcadoPor: m.marcadoPor || null
         });
       } else if (m.presente && local.presente && remoteTs > 0 && (localTs === 0 || remoteTs < localTs)) {
-        // Manter a primeira hora de entrada (a mais antiga válida).
         local.horaEntrada = m.horaEntrada;
       }
     }
   }
 
-  async function pushSync() {
-    if (STATE.syncStatus === 'syncing') return;
-    if (!navigator.onLine) {
-      setSync('offline', 'Offline — alterações guardadas localmente');
-      return;
-    }
-    setSync('syncing', 'A sincronizar…');
+  async function pushPresencas() {
+    if (ST.syncStatus === "syncing") return;
+    if (!navigator.onLine) { setSync("offline", "Offline — alterações locais"); return; }
+    setSync("syncing", "A sincronizar presenças…");
     try {
-      const payload = buildPayload();
+      const payload = buildPresencasPayload();
       try {
-        const newSha = await ghEscreverPresencas(payload, STATE.presencasSha);
-        STATE.presencasSha = newSha;
-        STATE.lastSyncAt = new Date();
-        STATE.pendingMutations = false;
-        setSync('ok', 'Sincronizado · ' + STATE.lastSyncAt.toLocaleTimeString('pt-PT'));
-        gravarLocal();
+        const newSha = await ghEscrever("data/presencas.json", payload, ST.presencasSha, "presencas: " + nowIso() + " (" + ST.posto + ")");
+        ST.presencasSha = newSha;
+        ST.pendingPres = false;
+        setSync("ok", "Sincronizado · " + new Date().toLocaleTimeString("pt-PT"));
       } catch (e) {
-        if (e.code === 'CONFLICT') {
-          // Refetch + merge + retry uma vez
-          const { sha, payload: remote } = await ghLerPresencas();
-          STATE.presencasSha = sha;
-          mergeRemote(remote);
-          render();
-          const novo = buildPayload();
-          const finalSha = await ghEscreverPresencas(novo, STATE.presencasSha);
-          STATE.presencasSha = finalSha;
-          STATE.lastSyncAt = new Date();
-          STATE.pendingMutations = false;
-          setSync('ok', 'Sincronizado (após merge) · ' + STATE.lastSyncAt.toLocaleTimeString('pt-PT'));
-          gravarLocal();
-        } else {
-          throw e;
-        }
+        if (e.code === "CONFLICT") {
+          const { sha, payload: remote } = await ghLer("data/presencas.json");
+          ST.presencasSha = sha;
+          mergePresencasRemote(remote);
+          renderAtivo();
+          const novo = buildPresencasPayload();
+          const finalSha = await ghEscrever("data/presencas.json", novo, ST.presencasSha, "presencas: " + nowIso() + " (após merge)");
+          ST.presencasSha = finalSha;
+          ST.pendingPres = false;
+          setSync("ok", "Sincronizado (após merge)");
+        } else { throw e; }
       }
     } catch (e) {
-      console.error(e);
-      setSync('err', 'Falha de sync — tentar novamente em segundos');
-      toast('Falha a sincronizar: ' + e.message, 'err');
-      // Retentativa em 8s
-      setTimeout(() => { if (STATE.pendingMutations) agendarSync(0); }, 8000);
+      setSync("err", "Falha de sync");
+      toast("Falha a sincronizar: " + e.message, "err");
+      setTimeout(() => { if (ST.pendingPres) agendarSyncPresencas(0); }, 8000);
     }
   }
 
-  function agendarSync(delayMs) {
-    STATE.pendingMutations = true;
-    if (STATE.syncStatus !== 'syncing') {
-      setSync('pending', 'Alterações por sincronizar…');
-    }
-    clearTimeout(STATE.syncTimer);
+  function agendarSyncPresencas(delayMs) {
+    ST.pendingPres = true;
+    if (ST.syncStatus !== "syncing") setSync("pending", "Alterações por sincronizar…");
+    clearTimeout(ST.syncTimer);
     const ms = (delayMs == null) ? CONFIG.syncDebounceMs : delayMs;
-    STATE.syncTimer = setTimeout(pushSync, ms);
+    ST.syncTimer = setTimeout(pushPresencas, ms);
   }
 
   async function pollServidor() {
-    if (STATE.syncStatus === 'syncing' || STATE.pendingMutations) return;
+    if (ST.syncStatus === "syncing" || ST.pendingPres) return;
     if (!navigator.onLine) return;
     try {
-      const { sha, payload: remote } = await ghLerPresencas();
-      if (sha && sha !== STATE.presencasSha) {
-        STATE.presencasSha = sha;
-        if (remote) mergeRemote(remote);
-        render();
-        gravarLocal();
-        setSync('ok', 'Actualizado de outro dispositivo · ' + new Date().toLocaleTimeString('pt-PT'));
+      const { sha, payload: remote } = await ghLer("data/presencas.json");
+      let mudou = false;
+      if (sha && sha !== ST.presencasSha) {
+        ST.presencasSha = sha;
+        if (remote) mergePresencasRemote(remote);
+        mudou = true;
       }
-    } catch (e) {
-      // Ignorar — não interromper UX. Fica visível na próxima escrita.
-    }
+      // Polling do apreciacao também:
+      const antesR = ST.respondeu.size;
+      await carregarApreciacao();
+      if (ST.respondeu.size !== antesR) mudou = true;
+      if (mudou) renderAtivo();
+    } catch (_) {}
   }
 
-  // ════════════════════════════════════════════════════════════════════════════
-  // CARREGAMENTO INICIAL
-  // ════════════════════════════════════════════════════════════════════════════
-  async function carregarInscritos() {
-    // Tentar via raw + cache busting (não exige token; ficheiro público no Pages)
-    const url = 'data/inscritos.json?t=' + Date.now();
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) throw new Error('Não foi possível carregar inscritos.json (HTTP ' + res.status + ')');
-    const data = await res.json();
-    if (!data.evento || !Array.isArray(data.inscritos))
-      throw new Error('Formato inválido em inscritos.json');
-    STATE.evento = data.evento;
-    STATE.inscritos = data.inscritos.slice().sort((a,b) =>
-      normalizar(a.nome).localeCompare(normalizar(b.nome))
-    );
-  }
-
-  async function carregarPresencas() {
-    // 1) Tentar do GitHub (autoritativo entre dispositivos)
-    try {
-      const { sha, payload } = await ghLerPresencas();
-      STATE.presencasSha = sha;
-      if (payload && payload.marcacoes) {
-        for (const m of payload.marcacoes) {
-          STATE.presencasMap.set(m.idInscricao, {
-            presente: !!m.presente,
-            horaEntrada: m.horaEntrada || null,
-            marcadoPor: m.marcadoPor || null
-          });
-        }
-        STATE.versao = payload.versao || 0;
-      }
-    } catch (e) {
-      console.warn('Falha a carregar presencas do GitHub, a usar local', e);
-      // 2) Fallback: local
-      const local = carregarLocal();
-      if (local && local.eventoId === STATE.evento.id) {
-        for (const m of local.marcacoes || []) {
-          STATE.presencasMap.set(m.idInscricao, {
-            presente: !!m.presente,
-            horaEntrada: m.horaEntrada || null,
-            marcadoPor: m.marcadoPor || null
-          });
-        }
-        STATE.versao = local.versao || 0;
-        STATE.presencasSha = local.sha || null;
-      }
-    }
-  }
-
-  // ════════════════════════════════════════════════════════════════════════════
-  // RENDER
-  // ════════════════════════════════════════════════════════════════════════════
-  function render() {
-    const lista = $('lista');
-    const filtro = normalizar(STATE.filtro);
-    const visiveis = filtro
-      ? STATE.inscritos.filter(i => normalizar(i.nome).includes(filtro) ||
-                                     normalizar(i.entidade).includes(filtro) ||
-                                     normalizar(i.cargo).includes(filtro))
-      : STATE.inscritos;
-
-    const html = visiveis.length === 0
-      ? '<div class="vazio">Nenhum inscrito encontrado.</div>'
-      : visiveis.map(i => {
-          const m = STATE.presencasMap.get(i.id);
-          const pres = m && m.presente;
-          const hora = m && m.horaEntrada ? fmtHora(m.horaEntrada) : '';
-          return '<div class="row' + (pres ? ' presente' : '') + '" data-id="' + i.id + '">' +
-            '<div class="check"><svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"/></svg></div>' +
-            '<div class="info">' +
-              '<div class="nome">' + escapeHtml(i.nome) + '</div>' +
-              '<div class="meta">' + escapeHtml((i.cargo || '') + (i.entidade ? ' · ' + i.entidade : '')) + '</div>' +
-            '</div>' +
-            '<div class="hora">' + hora + '</div>' +
-          '</div>';
-        }).join('');
-    lista.innerHTML = html;
-
-    // Stats
-    let totPres = 0;
-    for (const m of STATE.presencasMap.values()) if (m.presente) totPres++;
-    $('n-tot').textContent = STATE.inscritos.length;
-    $('n-pres').textContent = totPres;
-    $('n-aus').textContent = STATE.inscritos.length - totPres;
-
-    // Header
-    if (STATE.evento) {
-      $('evt-titulo').textContent = STATE.evento.titulo || 'Presenças';
-      const sub = [];
-      if (STATE.evento.data) sub.push(formatarData(STATE.evento.data));
-      if (STATE.evento.local) sub.push(STATE.evento.local);
-      $('evt-sub').textContent = sub.join(' · ') || 'RSB Lisboa';
-    }
-  }
-
-  function escapeHtml(s) {
-    return (s || '').toString()
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  function formatarData(iso) {
-    // "2026-05-18" → "18 de maio de 2026"
-    const meses = ['janeiro','fevereiro','março','abril','maio','junho',
-                   'julho','agosto','setembro','outubro','novembro','dezembro'];
-    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
-    if (!m) return iso;
-    return parseInt(m[3],10) + ' de ' + meses[parseInt(m[2],10)-1] + ' de ' + m[1];
-  }
-
-  // ════════════════════════════════════════════════════════════════════════════
-  // INTERAÇÃO
-  // ════════════════════════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════════════════════
+  // ACÇÕES
+  // ═════════════════════════════════════════════════════════════════════════
   function alternarPresenca(id) {
-    const actual = STATE.presencasMap.get(id);
+    const actual = ST.presencasMap.get(id);
     const novoPresente = !(actual && actual.presente);
     if (novoPresente) {
-      STATE.presencasMap.set(id, {
+      ST.presencasMap.set(id, {
         presente: true,
         horaEntrada: (actual && actual.horaEntrada) || nowIso(),
-        marcadoPor: STATE.posto
+        marcadoPor: ST.posto
       });
     } else {
-      STATE.presencasMap.set(id, {
-        presente: false,
-        horaEntrada: null,
-        marcadoPor: STATE.posto
-      });
+      ST.presencasMap.set(id, { presente: false, horaEntrada: null, marcadoPor: ST.posto });
     }
-    STATE.versao = (STATE.versao || 0) + 1;
-    gravarLocal();
-    render();
-    agendarSync();
+    ST.presencasVersao = (ST.presencasVersao || 0) + 1;
+    renderAtivo();
+    refreshDrawer();
+    agendarSyncPresencas();
   }
 
-  // ════════════════════════════════════════════════════════════════════════════
-  // LOGIN (Utilizador + Palavra-passe)
-  // PAT do GitHub é persistente em localStorage (configurado pelo admin).
-  // Lista de utilizadores vem de data/evento.json publicado (passwords em hash).
-  // ════════════════════════════════════════════════════════════════════════════
+  function buildEntregasPayload() {
+    return {
+      schema: "entregas@1",
+      eventoId: ST.evento ? ST.evento.id : null,
+      actualizadoEm: nowIso(),
+      versao: (Date.now() % 1e6),
+      entregas: Array.from(ST.entregas.entries()).map(([id, e]) => ({
+        idInscricao: id,
+        entregueEm: e.entregueEm,
+        entreguePor: e.entreguePor
+      }))
+    };
+  }
+
+  async function marcarEntregue(idInscricao) {
+    const insc = ST.inscritos.find(i => i.id === idInscricao);
+    const nome = insc ? insc.nome : "?";
+    if (ST.entregas.has(idInscricao)) { toast("Livreto já entregue a " + nome, "ok"); return; }
+    const ts = nowIso();
+    ST.entregas.set(idInscricao, { entregueEm: ts, entreguePor: "tablet-balcao" });
+    renderAtivo();
+    refreshDrawer();
+    setSync("pending", "A registar entrega…");
+    try {
+      const payload = buildEntregasPayload();
+      try {
+        const newSha = await ghEscrever("data/entregas.json", payload, ST.entregasSha, "entregas: id=" + idInscricao);
+        ST.entregasSha = newSha;
+        setSync("ok", "Sincronizado · " + new Date().toLocaleTimeString("pt-PT"));
+        toast("Livreto entregue a " + nome, "ok");
+      } catch (e) {
+        if (e.code === "CONFLICT") {
+          await carregarEntregas();
+          ST.entregas.set(idInscricao, { entregueEm: ts, entreguePor: "tablet-balcao" });
+          const novo = buildEntregasPayload();
+          const finalSha = await ghEscrever("data/entregas.json", novo, ST.entregasSha, "entregas: id=" + idInscricao + " (após merge)");
+          ST.entregasSha = finalSha;
+          setSync("ok", "Sincronizado (após merge)");
+          toast("Livreto entregue a " + nome, "ok");
+        } else { throw e; }
+      }
+    } catch (e) {
+      ST.entregas.delete(idInscricao);
+      renderAtivo();
+      refreshDrawer();
+      setSync("err", "Falha de sync");
+      toast("Erro a registar entrega: " + e.message, "err");
+    }
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // FICHA · escrever data/inscritos.json (edit single inscrito)
+  // ═════════════════════════════════════════════════════════════════════════
+  async function gravarFicha(idInscricao, novosCampos) {
+    // Read-modify-write para minimizar conflitos. Refetch sha primeiro.
+    setSync("syncing", "A gravar ficha…");
+    try {
+      const { sha, payload } = await ghLer("data/inscritos.json");
+      if (!payload || !Array.isArray(payload.inscritos)) throw new Error("inscritos.json corrompido");
+      const idx = payload.inscritos.findIndex(i => i.id === idInscricao);
+      if (idx < 0) throw new Error("Inscrito id=" + idInscricao + " não encontrado.");
+      // Object.assign preserva campos desconhecidos (token, idRespostaForms, etc.)
+      payload.inscritos[idx] = Object.assign({}, payload.inscritos[idx], novosCampos);
+      payload.actualizadoEm = new Date().toISOString();
+      const novoSha = await ghEscrever("data/inscritos.json", payload, sha, "ficha: id=" + idInscricao + " editada via acolhimento");
+      ST.inscritosSha = novoSha;
+      // Refletir localmente
+      const localIdx = ST.inscritos.findIndex(i => i.id === idInscricao);
+      if (localIdx >= 0) ST.inscritos[localIdx] = Object.assign({}, ST.inscritos[localIdx], novosCampos);
+      ST.inscritos.sort((a,b) => normalizar(a.nome).localeCompare(normalizar(b.nome)));
+      setSync("ok", "Ficha actualizada · " + new Date().toLocaleTimeString("pt-PT"));
+      toast("Ficha actualizada", "ok");
+      return true;
+    } catch (e) {
+      setSync("err", "Falha ao gravar ficha");
+      toast("Erro: " + e.message, "err");
+      return false;
+    }
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // RENDER · cada tab
+  // ═════════════════════════════════════════════════════════════════════════
+  function renderAtivo() {
+    if (ST.tab === "geral") renderGeral();
+    else if (ST.tab === "presenca") renderPresenca();
+    else if (ST.tab === "livreto") renderLivreto();
+    else if (ST.tab === "ficha") renderFicha();
+    renderStats();
+  }
+
+  function renderStats() {
+    const tot = ST.inscritos.length;
+    let pres = 0;
+    for (const m of ST.presencasMap.values()) if (m.presente) pres++;
+    const entr = ST.entregas.size;
+    const qst = ST.respondeu.size;
+    let html = "";
+    if (ST.tab === "geral") {
+      html = `
+        <div class="stat pres"><div class="n">${pres}</div><div class="l">Presentes</div></div>
+        <div class="stat entr"><div class="n">${entr}</div><div class="l">Livretos</div></div>
+        <div class="stat qst"><div class="n">${qst}</div><div class="l">Resposta</div></div>
+        <div class="stat"><div class="n">${tot}</div><div class="l">Inscritos</div></div>`;
+    } else if (ST.tab === "presenca") {
+      html = `
+        <div class="stat pres"><div class="n">${pres}</div><div class="l">Presentes</div></div>
+        <div class="stat"><div class="n">${tot}</div><div class="l">Inscritos</div></div>
+        <div class="stat aus"><div class="n">${tot - pres}</div><div class="l">Por marcar</div></div>`;
+    } else if (ST.tab === "livreto") {
+      html = `
+        <div class="stat pres"><div class="n">${pres}</div><div class="l">Presentes</div></div>
+        <div class="stat entr"><div class="n">${entr}</div><div class="l">Entregues</div></div>
+        <div class="stat"><div class="n">${pres - entr}</div><div class="l">Por entregar</div></div>`;
+    } else if (ST.tab === "ficha") {
+      const comEmail = ST.inscritos.filter(i => i.email).length;
+      html = `
+        <div class="stat"><div class="n">${tot}</div><div class="l">Total</div></div>
+        <div class="stat pres"><div class="n">${comEmail}</div><div class="l">Com email</div></div>
+        <div class="stat aus"><div class="n">${tot - comEmail}</div><div class="l">Sem email</div></div>`;
+    }
+    $("stats").innerHTML = html;
+  }
+
+  function renderFiltros() {
+    const f = $("filtros");
+    let html = "";
+    if (ST.tab === "geral") {
+      const opts = [
+        ["todos", "Todos"],
+        ["presentes", "Presentes"],
+        ["por-marcar", "Por marcar"],
+        ["entregues", "Livretos entregues"],
+        ["pendentes-livreto", "Por entregar livreto"]
+      ];
+      html = opts.map(([k, l]) => `<button data-fg="${k}" class="${ST.filtroGeral === k ? "active" : ""}">${l}</button>`).join("");
+    } else if (ST.tab === "livreto") {
+      const opts = [["todos", "Todos"], ["pendente", "Por entregar"], ["entregue", "Entregues"]];
+      html = opts.map(([k, l]) => `<button data-fl="${k}" class="${ST.filtroLivreto === k ? "active" : ""}">${l}</button>`).join("");
+    } else if (ST.tab === "ficha") {
+      const opts = [["todos", "Todos"], ["sem-email", "Sem email"], ["com-email", "Com email"]];
+      html = opts.map(([k, l]) => `<button data-ff="${k}" class="${ST.filtroPresenca === k ? "active" : ""}">${l}</button>`).join("");
+    }
+    f.innerHTML = html;
+    f.style.display = html ? "flex" : "none";
+  }
+
+  function filtrarPorBusca(lista) {
+    if (!ST.busca) return lista;
+    const q = normalizar(ST.busca);
+    return lista.filter(i =>
+      normalizar(i.nome).includes(q) ||
+      normalizar(i.entidade).includes(q) ||
+      normalizar(i.cargo).includes(q));
+  }
+
+  // ── GERAL ─────────────────────────────────────────────────────────────
+  function renderGeral() {
+    let lista = ST.inscritos.slice();
+    if (ST.filtroGeral === "presentes") lista = lista.filter(i => ST.presencasMap.get(i.id)?.presente);
+    else if (ST.filtroGeral === "por-marcar") lista = lista.filter(i => !ST.presencasMap.get(i.id)?.presente);
+    else if (ST.filtroGeral === "entregues") lista = lista.filter(i => ST.entregas.has(i.id));
+    else if (ST.filtroGeral === "pendentes-livreto") lista = lista.filter(i => ST.presencasMap.get(i.id)?.presente && !ST.entregas.has(i.id));
+    lista = filtrarPorBusca(lista);
+
+    if (lista.length === 0) { $("lista").innerHTML = '<div class="vazio">Sem resultados.</div>'; return; }
+    const html = lista.map(i => {
+      const pres = !!ST.presencasMap.get(i.id)?.presente;
+      const entr = ST.entregas.has(i.id);
+      const qst = ST.respondeu.has(i.id);
+      const horaPres = pres ? fmtHora(ST.presencasMap.get(i.id).horaEntrada) : "";
+      return `
+        <div class="row${pres ? " presente" : ""}" data-id="${i.id}">
+          <div class="info">
+            <div class="nome">${esc(i.nome)}</div>
+            <div class="meta">${esc((i.cargo || "") + (i.entidade ? " · " + i.entidade : ""))}</div>
+            <div class="pills">
+              <span class="pill${pres ? " on-pres" : ""}">${pres ? "Presente" + (horaPres ? " " + horaPres : "") : "Ausente"}</span>
+              <span class="pill${entr ? " on-entr" : ""}">${entr ? "Livreto ✓" : "Livreto –"}</span>
+              <span class="pill${qst ? " on-qst" : ""}">${qst ? "Resposta ✓" : "Resposta –"}</span>
+            </div>
+          </div>
+        </div>`;
+    }).join("");
+    $("lista").className = "lista lista-geral";
+    $("lista").innerHTML = html;
+  }
+
+  // ── PRESENÇA ──────────────────────────────────────────────────────────
+  function renderPresenca() {
+    const lista = filtrarPorBusca(ST.inscritos);
+    if (lista.length === 0) { $("lista").innerHTML = '<div class="vazio">Sem resultados.</div>'; return; }
+    const html = lista.map(i => {
+      const m = ST.presencasMap.get(i.id);
+      const pres = m && m.presente;
+      const hora = m && m.horaEntrada ? fmtHora(m.horaEntrada) : "";
+      return `
+        <div class="row${pres ? " presente" : ""}" data-id="${i.id}" data-toggle="presenca">
+          <div class="check"><svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"/></svg></div>
+          <div class="info">
+            <div class="nome">${esc(i.nome)}</div>
+            <div class="meta">${esc((i.cargo || "") + (i.entidade ? " · " + i.entidade : ""))}</div>
+          </div>
+          ${pres ? `<div class="hora">${hora}</div>` : ""}
+        </div>`;
+    }).join("");
+    $("lista").className = "lista";
+    $("lista").innerHTML = html;
+  }
+
+  // ── LIVRETO ───────────────────────────────────────────────────────────
+  function renderLivreto() {
+    let presentes = ST.inscritos.filter(i => ST.presencasMap.get(i.id)?.presente);
+    let lista = presentes.slice();
+    if (ST.filtroLivreto === "pendente") lista = lista.filter(i => !ST.entregas.has(i.id));
+    else if (ST.filtroLivreto === "entregue") lista = lista.filter(i => ST.entregas.has(i.id));
+    lista = filtrarPorBusca(lista);
+
+    lista.sort((a, b) => {
+      const aPend = !ST.entregas.has(a.id);
+      const bPend = !ST.entregas.has(b.id);
+      if (aPend !== bPend) return aPend ? -1 : 1;
+      return normalizar(a.nome).localeCompare(normalizar(b.nome));
+    });
+
+    if (lista.length === 0) { $("lista").innerHTML = '<div class="vazio">Sem participantes presentes ou todos os livretos já entregues.</div>'; return; }
+    const html = lista.map(i => {
+      const entrega = ST.entregas.get(i.id);
+      if (entrega) {
+        const hora = fmtHora(entrega.entregueEm);
+        return `
+          <div class="row entregue">
+            <div class="info">
+              <div class="nome">${esc(i.nome)}</div>
+              <div class="meta">${esc(i.cargo || "")} · ${esc(i.entidade || "")}</div>
+              <div class="hora" style="display:inline-block;margin-top:4px">Entregue ${esc(hora)}</div>
+            </div>
+            <button class="acao entregue" disabled title="Entregue">✓</button>
+          </div>`;
+      }
+      const qrFeito = ST.qrMostrado.has(i.id);
+      const respondeu = ST.respondeu.has(i.id);
+      const destrava = qrFeito || respondeu;
+      const instr = respondeu
+        ? `<div class="badge-qr" style="background:#1f8a3a">✓ Respondeu</div>`
+        : qrFeito
+          ? `<div class="badge-qr">QR apresentado</div>`
+          : `<div class="meta" style="margin-top:4px">1. QR → 2. Entregar</div>`;
+      return `
+        <div class="row${destrava ? " qr-mostrado" : ""}">
+          <div class="info">
+            <div class="nome">${esc(i.nome)}</div>
+            <div class="meta">${esc(i.cargo || "")} · ${esc(i.entidade || "")}</div>
+            ${instr}
+          </div>
+          <div class="acoes">
+            <button class="acao qr" data-action="qr" data-id="${i.id}">${qrFeito ? "Repetir" : "QR"}</button>
+            <button class="acao entregar${destrava ? "" : " bloqueada"}" data-action="entregar" data-id="${i.id}" title="${destrava ? "Confirmar entrega" : "Mostre primeiro o QR"}">Entregar</button>
+          </div>
+        </div>`;
+    }).join("");
+    $("lista").className = "lista";
+    $("lista").innerHTML = html;
+  }
+
+  // ── FICHA ─────────────────────────────────────────────────────────────
+  function renderFicha() {
+    let lista = ST.inscritos.slice();
+    if (ST.filtroPresenca === "com-email") lista = lista.filter(i => i.email);
+    else if (ST.filtroPresenca === "sem-email") lista = lista.filter(i => !i.email);
+    lista = filtrarPorBusca(lista);
+
+    if (lista.length === 0) { $("lista").innerHTML = '<div class="vazio">Sem resultados.</div>'; return; }
+    const html = lista.map(i => `
+      <div class="row" data-id="${i.id}" data-open="ficha">
+        <div class="info">
+          <div class="nome">${esc(i.nome)}</div>
+          <div class="meta">${esc((i.cargo || "") + (i.entidade ? " · " + i.entidade : ""))}</div>
+          <div class="meta" style="margin-top:3px;${i.email ? "color:var(--verde)" : "color:var(--aviso)"}">
+            ${i.email ? "✉ " + esc(i.email) : "Sem email"}
+            ${i.autorizaContacto ? " · ✓ autoriza contacto" : ""}
+          </div>
+        </div>
+      </div>`).join("");
+    $("lista").className = "lista";
+    $("lista").innerHTML = html;
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // DRAWER PARTICIPANTE
+  // ═════════════════════════════════════════════════════════════════════════
+  function abrirDrawer(id) {
+    const insc = ST.inscritos.find(i => i.id === id);
+    if (!insc) return;
+    ST.drawerId = id;
+    $("dw-nome").textContent = insc.nome;
+    $("dw-meta").textContent = (insc.cargo || "") + (insc.entidade ? " · " + insc.entidade : "");
+    refreshDrawer();
+    $("drawer-fundo").classList.remove("hide");
+  }
+
+  function refreshDrawer() {
+    if (ST.drawerId == null) return;
+    const id = ST.drawerId;
+    const m = ST.presencasMap.get(id);
+    const pres = m && m.presente;
+    const horaPres = pres && m.horaEntrada ? fmtHora(m.horaEntrada) : "";
+    const ePres = $("dw-estado-pres");
+    ePres.className = "estado-linha " + (pres ? "on" : "off");
+    ePres.querySelector(".icon").textContent = pres ? "✓" : "○";
+    $("dw-pres-txt").textContent = pres ? "Presente" : "Não presente";
+    $("dw-pres-hora").textContent = horaPres ? "às " + horaPres : "";
+
+    const entrega = ST.entregas.get(id);
+    const eEntr = $("dw-estado-entr");
+    eEntr.className = "estado-linha " + (entrega ? "on" : "off");
+    eEntr.querySelector(".icon").textContent = entrega ? "✓" : "○";
+    $("dw-entr-txt").textContent = entrega ? "Livreto entregue" : "Livreto por entregar";
+    $("dw-entr-hora").textContent = entrega ? "às " + fmtHora(entrega.entregueEm) : "";
+
+    const respondeu = ST.respondeu.has(id);
+    const eQst = $("dw-estado-qst");
+    eQst.className = "estado-linha " + (respondeu ? "on" : "off");
+    eQst.querySelector(".icon").textContent = respondeu ? "✓" : "○";
+    $("dw-qst-txt").textContent = respondeu ? "Respondeu ao questionário" : "Sem resposta ao questionário";
+
+    // Botões
+    $("dw-marcar-presenca").textContent = pres ? "Desmarcar presença" : "Marcar presença";
+    $("dw-marcar-presenca").className = pres ? "danger" : "primario";
+    $("dw-entregar-livreto").disabled = !pres || !!entrega;
+    $("dw-entregar-livreto").textContent = entrega ? "Livreto entregue ✓" : "Entregar livreto";
+  }
+
+  function fecharDrawer() {
+    $("drawer-fundo").classList.add("hide");
+    ST.drawerId = null;
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // MODAL QR
+  // ═════════════════════════════════════════════════════════════════════════
+  function abrirModalQR(idInscricao) {
+    const insc = ST.inscritos.find(i => i.id === idInscricao);
+    if (!insc) return;
+    const tokenOrId = insc.token || insc.id;
+    const param = insc.token ? "t" : "id";
+    const url = CONFIG.BASE_URL_APRECIACAO + "?" + param + "=" + encodeURIComponent(tokenOrId);
+    $("qr-nome").textContent = insc.nome;
+    $("qr-meta").textContent = (insc.cargo || "") + " · " + (insc.entidade || "");
+    $("qr-url").textContent = url;
+    const wrap = $("qr-canvas-wrap");
+    wrap.innerHTML = "";
+    try {
+      const qr = qrcode(0, "M");
+      qr.addData(url);
+      qr.make();
+      wrap.innerHTML = qr.createImgTag(6, 4);
+    } catch (err) {
+      wrap.innerHTML = '<div style="color:#b1131e;padding:14px">Erro a gerar QR: ' + esc(err.message) + "</div>";
+    }
+    $("modal-qr").classList.remove("hide");
+    ST.qrMostrado.add(idInscricao);
+    renderAtivo();
+    refreshDrawer();
+  }
+  function fecharModalQR() { $("modal-qr").classList.add("hide"); }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // MODAL CONFIRMAÇÃO ENTREGA
+  // ═════════════════════════════════════════════════════════════════════════
+  function pedirConfirmacaoEntrega(idInscricao) {
+    const insc = ST.inscritos.find(i => i.id === idInscricao);
+    if (!insc) return;
+    if (!ST.presencasMap.get(idInscricao)?.presente) { toast("Marca presença primeiro", "err"); return; }
+    if (ST.entregas.has(idInscricao)) { toast("Livreto já entregue", "ok"); return; }
+    $("conf-nome").textContent = insc.nome;
+    const temSinal = ST.qrMostrado.has(idInscricao) || ST.respondeu.has(idInscricao);
+    $("conf-aviso-qr").style.display = temSinal ? "none" : "block";
+    $("modal-conf-entrega").dataset.id = idInscricao;
+    $("modal-conf-entrega").classList.remove("hide");
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // MODAL FICHA (editar inscrito)
+  // ═════════════════════════════════════════════════════════════════════════
+  function abrirModalFicha(idInscricao) {
+    const insc = ST.inscritos.find(i => i.id === idInscricao);
+    if (!insc) return;
+    $("modal-ficha").dataset.id = idInscricao;
+    $("ficha-id").textContent = "ID: " + insc.id + (insc.token ? " · Token: " + insc.token : "");
+    $("ficha-nome").value = insc.nome || "";
+    $("ficha-cargo").value = insc.cargo || "";
+    $("ficha-entidade").value = insc.entidade || "";
+    $("ficha-email").value = insc.email || "";
+    $("ficha-autoriza").checked = !!insc.autorizaContacto;
+    $("ficha-erro").classList.add("hide");
+    $("modal-ficha").classList.remove("hide");
+    setTimeout(() => $("ficha-nome").focus(), 50);
+  }
+
+  async function salvarFicha() {
+    const id = parseInt($("modal-ficha").dataset.id, 10);
+    const nome = $("ficha-nome").value.trim();
+    if (!nome) {
+      const err = $("ficha-erro");
+      err.textContent = "Nome é obrigatório.";
+      err.classList.remove("hide");
+      return;
+    }
+    const dados = {
+      nome,
+      cargo: $("ficha-cargo").value.trim(),
+      entidade: $("ficha-entidade").value.trim(),
+      email: $("ficha-email").value.trim(),
+      autorizaContacto: $("ficha-autoriza").checked
+    };
+    $("ficha-save").disabled = true;
+    const ok = await gravarFicha(id, dados);
+    $("ficha-save").disabled = false;
+    if (ok) {
+      $("modal-ficha").classList.add("hide");
+      renderAtivo();
+      refreshDrawer();
+    }
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // SCANNER QR
+  // ═════════════════════════════════════════════════════════════════════════
+  let html5QrCode = null;
+  let _camMode = "environment";
+  let _camList = null;
+
+  async function startCamera() {
+    if (!html5QrCode) html5QrCode = new Html5Qrcode("qr-reader", { verbose: false });
+    const config = (_camMode === "environment" || _camMode === "user")
+      ? { facingMode: _camMode }
+      : { deviceId: { exact: _camMode } };
+    await html5QrCode.start(
+      config,
+      { fps: 10, qrbox: { width: 240, height: 240 }, aspectRatio: 1.0 },
+      onScanSucesso,
+      () => {}
+    );
+  }
+  async function abrirScanner() {
+    $("scan-msg").textContent = "";
+    $("modal-scan").classList.remove("hide");
+    if (!window.Html5Qrcode) { $("scan-msg").textContent = "Biblioteca não carregada. Recarregue."; return; }
+    if (_camList === null) {
+      try { _camList = await Html5Qrcode.getCameras(); } catch (_) { _camList = []; }
+    }
+    try { await startCamera(); }
+    catch (err) {
+      if (_camMode === "environment") {
+        _camMode = "user";
+        try { await startCamera(); return; }
+        catch (e2) { $("scan-msg").textContent = "Falha ao abrir câmara: " + e2.message; return; }
+      }
+      $("scan-msg").textContent = "Falha ao abrir câmara: " + err.message;
+    }
+  }
+  async function alternarCamera() {
+    $("scan-msg").textContent = "A alternar câmara…";
+    try { if (html5QrCode && html5QrCode.isScanning) await html5QrCode.stop(); } catch(_) {}
+    if (_camList && _camList.length > 1) {
+      const idx = _camList.findIndex(c => c.id === _camMode);
+      const next = _camList[(idx + 1) % _camList.length];
+      _camMode = next.id;
+      $("scan-msg").textContent = "Câmara: " + (next.label || next.id);
+    } else {
+      _camMode = (_camMode === "environment") ? "user" : "environment";
+      $("scan-msg").textContent = "Câmara: " + (_camMode === "environment" ? "traseira" : "frontal");
+    }
+    try { await startCamera(); }
+    catch (err) { $("scan-msg").textContent = "Falha: " + err.message; }
+  }
+  async function fecharScanner() {
+    try { if (html5QrCode && html5QrCode.isScanning) await html5QrCode.stop(); } catch(_) {}
+    $("modal-scan").classList.add("hide");
+  }
+  function extrairIdDoQr(texto) {
+    const t = String(texto || "").trim().replace(/[^\x21-\x7E]/g, "").toUpperCase();
+    if (/^[A-Z0-9]{8}$/.test(t)) return { token: t };
+    if (/^\d+$/.test(t)) return { id: parseInt(t, 10) };
+    try {
+      const u = new URL(texto);
+      const tok = u.searchParams.get("t") || u.searchParams.get("token");
+      if (tok) {
+        const tn = String(tok).trim().replace(/[^\x21-\x7E]/g, "").toUpperCase();
+        if (/^[A-Z0-9]{8}$/.test(tn)) return { token: tn };
+      }
+      const idu = u.searchParams.get("id");
+      if (idu && /^\d+$/.test(idu)) return { id: parseInt(idu, 10) };
+    } catch (_) {}
+    return null;
+  }
+  function onScanSucesso(texto) {
+    const ref = extrairIdDoQr(texto);
+    if (!ref) { $("scan-msg").textContent = "QR ilegível. Tente novamente."; return; }
+    const insc = ref.token
+      ? ST.inscritos.find(i => i.token === ref.token)
+      : ST.inscritos.find(i => Number(i.id) === ref.id);
+    if (!insc) {
+      $("scan-msg").textContent = (ref.token ? "Token " + ref.token : "ID " + ref.id) + " não consta.";
+      return;
+    }
+    $("scan-msg").textContent = "✓ " + insc.nome;
+    fecharScanner();
+    // Comportamento por tab
+    if (ST.tab === "presenca") {
+      alternarPresenca(insc.id);
+      toast((ST.presencasMap.get(insc.id)?.presente ? "Presença marcada" : "Presença desmarcada") + ": " + insc.nome, "ok");
+    } else if (ST.tab === "livreto") {
+      if (!ST.presencasMap.get(insc.id)?.presente) { toast("Marca presença primeiro", "err"); return; }
+      if (!ST.entregas.has(insc.id)) {
+        ST.qrMostrado.add(insc.id);
+        renderAtivo();
+        setTimeout(() => pedirConfirmacaoEntrega(insc.id), 300);
+      } else { toast("Livreto já entregue a " + insc.nome, "ok"); }
+    } else if (ST.tab === "ficha") {
+      abrirModalFicha(insc.id);
+    } else {
+      // geral → abre drawer
+      abrirDrawer(insc.id);
+    }
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // LOGIN
+  // ═════════════════════════════════════════════════════════════════════════
   async function carregarUsers() {
     try {
-      const r = await fetch(CONFIG.URL_EVENTO_PUBLICO + '?t=' + Date.now(), { cache: 'no-store' });
+      const r = await fetch(CONFIG.URL_EVENTO_PUBLICO + "?t=" + Date.now(), { cache: "no-store" });
       if (!r.ok) return [];
       const e = await r.json();
       return Array.isArray(e.users) ? e.users.filter(u => u.nome && u.passHash) : [];
     } catch (_) { return []; }
   }
   function popularDropdownUsers(users) {
-    const sel = $('in-user');
-    if (!users.length) {
-      sel.innerHTML = '<option value="">— nenhum acesso configurado —</option>';
-      return;
-    }
+    const sel = $("user-select");
+    if (!users.length) { sel.innerHTML = '<option value="">— nenhum acesso configurado —</option>'; return; }
     sel.innerHTML = '<option value="">— escolher utilizador —</option>' +
-      users.map(u => `<option value="${escapeHtml(u.nome)}">${escapeHtml(u.nome)}</option>`).join('');
+      users.map(u => `<option value="${esc(u.nome)}">${esc(u.nome)}</option>`).join("");
   }
-  function actualizarTabletStatusPorta() {
-    const el = $('tablet-status-porta');
-    if (!el) return;
+  function actualizarTabletStatus() {
+    const el = $("tablet-status");
     if (getPAT()) {
-      el.textContent = '✓ Tablet autorizado';
-      el.style.background = '#e8f5ec';
-      el.style.color = '#1e8a3a';
-      el.style.fontWeight = '600';
+      el.textContent = "✓ Tablet autorizado";
+      el.style.background = "var(--verde-claro)";
+      el.style.color = "var(--verde)";
+      el.style.fontWeight = "600";
     } else {
-      el.textContent = '⚠ Tablet por configurar — admin tem de definir o PAT';
-      el.style.background = '#fff8ed';
-      el.style.color = '#c46c00';
-      el.style.fontWeight = '600';
+      el.textContent = "⚠ Tablet por configurar — admin tem de definir o PAT";
+      el.style.background = "var(--aviso-claro)";
+      el.style.color = "var(--aviso)";
+      el.style.fontWeight = "600";
     }
   }
-
-  async function tentarLogin() {
-    const nome = $('in-user').value;
-    const pass = $('in-pass').value;
-    const erro = $('login-erro');
-    erro.classList.add('hide');
-
-    if (!getPAT()) {
-      erro.textContent = 'Tablet não configurado. Pede ao admin para configurar primeiro.';
-      erro.classList.remove('hide');
-      return;
-    }
-    if (!nome) {
-      erro.textContent = 'Escolhe o utilizador.';
-      erro.classList.remove('hide');
-      return;
-    }
-    if (!pass) {
-      erro.textContent = 'Palavra-passe obrigatória.';
-      erro.classList.remove('hide');
-      return;
-    }
-    const u = USERS_CACHE.find(x => x.nome === nome);
-    if (!u) {
-      erro.textContent = 'Utilizador desconhecido. Recarrega a página.';
-      erro.classList.remove('hide');
-      return;
-    }
-    const hash = await sha256Hex(pass);
-    if (hash !== u.passHash) {
-      erro.textContent = 'Palavra-passe incorrecta.';
-      erro.classList.remove('hide');
-      return;
-    }
+  async function entrar() {
+    const nome = $("user-select").value;
+    const pass = $("user-pass").value;
+    const err = $("login-erro");
+    err.textContent = "";
+    if (!getPAT()) { err.textContent = "Tablet não configurado."; return; }
+    if (!nome) { err.textContent = "Escolhe o utilizador."; return; }
+    if (!pass) { err.textContent = "Palavra-passe obrigatória."; return; }
     try {
+      const u = USERS_CACHE.find(x => x.nome === nome);
+      if (!u) { err.textContent = "Utilizador desconhecido. Recarrega."; return; }
+      const hash = await sha256Hex(pass);
+      if (hash !== u.passHash) { err.textContent = "Palavra-passe incorrecta."; return; }
       await ghValidarToken();
+      sessionStorage.setItem("rsb_user", nome);
+      ST.posto = "tablet-" + normalizar(nome).replace(/[^a-z0-9]/g, "").slice(0, 12) || "tablet";
+      mostrarApp();
+      $("evt-sub").textContent = "Operador: " + nome;
+      await iniciar();
     } catch (e) {
-      erro.textContent = 'PAT do tablet inválido: ' + e.message;
-      erro.classList.remove('hide');
-      return;
+      err.textContent = e.message;
     }
-    sessionStorage.setItem('rsb_user', nome);
-    $('modal-login').classList.add('hide');
-    iniciar();
+  }
+  function mostrarApp() {
+    $("login").classList.add("hide");
+    $("hdr").style.display = "block";
+    $("stats").style.display = "flex";
+    $("sync-bar").style.display = "flex";
+    $("search-wrap").style.display = "block";
   }
 
-  async function bootstrapAuth() {
-    USERS_CACHE = await carregarUsers();
-    popularDropdownUsers(USERS_CACHE);
-    actualizarTabletStatusPorta();
-  }
-
-  // ── ADMIN AUTH GATE ───────────────────────────────────────────────────
-  // Password admin (SHA-256 de "RSBL18Mai2026"). Operadores normais nao podem
-  // configurar tablets. Para mudar, gera novo hash:
-  // python -c "import hashlib; print(hashlib.sha256(b'NOVA_PASS').hexdigest())"
-  const ADMIN_PASS_HASH_PORTA = "ddf8f268f1f55f479bca66b18836d46c2c10f99317ec7814edc58371a93d4536";
-  const ADMIN_SESSION_KEY_PORTA = "rsb_admin_auth";
-  function isAdminAuthedPorta() {
+  // ═════════════════════════════════════════════════════════════════════════
+  // ADMIN GATE
+  // ═════════════════════════════════════════════════════════════════════════
+  function isAdminAuthed() {
     try {
-      const v = sessionStorage.getItem(ADMIN_SESSION_KEY_PORTA);
+      const v = sessionStorage.getItem(ADMIN_SESSION_KEY);
       return !!v && (Date.now() - parseInt(v, 10) < 30 * 60 * 1000);
     } catch (_) { return false; }
   }
-  function setAdminAuthedPorta() {
-    try { sessionStorage.setItem(ADMIN_SESSION_KEY_PORTA, String(Date.now())); } catch (_) {}
+  function setAdminAuthed() {
+    try { sessionStorage.setItem(ADMIN_SESSION_KEY, String(Date.now())); } catch (_) {}
   }
-  function pedirAdminAuthPorta() {
+  async function pedirAdminAuth() {
     return new Promise(resolve => {
-      $('admin-pass-porta').value = '';
-      $('admin-pass-erro-porta').classList.add('hide');
-      $('modal-admin-auth-porta').classList.remove('hide');
-      setTimeout(() => $('admin-pass-porta').focus(), 50);
-      const ok = $('admin-pass-ok-porta');
-      const cancel = $('admin-pass-cancel-porta');
-      const input = $('admin-pass-porta');
-      const fechar = (resultado) => {
-        $('modal-admin-auth-porta').classList.add('hide');
-        ok.removeEventListener('click', handleOk);
-        cancel.removeEventListener('click', handleCancel);
-        input.removeEventListener('keypress', handleEnter);
-        resolve(resultado);
+      $("admin-pass").value = "";
+      $("admin-pass-erro").classList.add("hide");
+      $("modal-admin-auth").classList.remove("hide");
+      setTimeout(() => $("admin-pass").focus(), 50);
+      const ok = $("admin-pass-ok");
+      const cancel = $("admin-pass-cancel");
+      const input = $("admin-pass");
+      const fechar = res => {
+        $("modal-admin-auth").classList.add("hide");
+        ok.removeEventListener("click", handleOk);
+        cancel.removeEventListener("click", handleCancel);
+        input.removeEventListener("keypress", handleEnter);
+        resolve(res);
       };
       const handleOk = async () => {
         const p = input.value;
-        const err = $('admin-pass-erro-porta');
-        if (!p) { err.textContent = 'Introduz a password.'; err.classList.remove('hide'); return; }
+        const err = $("admin-pass-erro");
+        if (!p) { err.textContent = "Introduz a password."; err.classList.remove("hide"); return; }
         const h = await sha256Hex(p);
-        if (h === ADMIN_PASS_HASH_PORTA) { setAdminAuthedPorta(); fechar(true); }
-        else { err.textContent = 'Password incorrecta.'; err.classList.remove('hide'); }
+        if (h === ADMIN_PASS_HASH) { setAdminAuthed(); fechar(true); }
+        else { err.textContent = "Password incorrecta."; err.classList.remove("hide"); }
       };
       const handleCancel = () => fechar(false);
-      const handleEnter = e => { if (e.key === 'Enter') handleOk(); };
-      ok.addEventListener('click', handleOk);
-      cancel.addEventListener('click', handleCancel);
-      input.addEventListener('keypress', handleEnter);
+      const handleEnter = e => { if (e.key === "Enter") handleOk(); };
+      ok.addEventListener("click", handleOk);
+      cancel.addEventListener("click", handleCancel);
+      input.addEventListener("keypress", handleEnter);
     });
   }
 
-  // Modal "Configurar tablet"
-  function vincularConfigTablet() {
-    const link = $('link-config-tablet-porta');
-    if (link) link.addEventListener('click', async e => {
-      e.preventDefault();
-      if (!isAdminAuthedPorta()) {
-        const okAdmin = await pedirAdminAuthPorta();
-        if (!okAdmin) return;
-      }
-      $('tablet-token-porta').value = '';
-      $('tablet-erro-porta').classList.add('hide');
-      $('modal-tablet-porta').classList.remove('hide');
-    });
-    const cancel = $('tablet-cancel-porta');
-    if (cancel) cancel.addEventListener('click', () => $('modal-tablet-porta').classList.add('hide'));
-    const clear = $('tablet-clear-porta');
-    if (clear) clear.addEventListener('click', () => {
-      setPAT('');
-      actualizarTabletStatusPorta();
-      $('modal-tablet-porta').classList.add('hide');
-    });
-    const save = $('tablet-save-porta');
-    if (save) save.addEventListener('click', async () => {
-      const tok = $('tablet-token-porta').value.trim();
-      const err = $('tablet-erro-porta');
-      err.classList.add('hide');
-      if (!tok) { err.textContent = 'Cola o token PAT.'; err.classList.remove('hide'); return; }
-      try {
-        const r = await fetch(`https://api.github.com/repos/${CONFIG.githubOwner}/${CONFIG.githubRepo}`, {
-          headers: { 'Authorization': 'Bearer ' + tok, 'Accept': 'application/vnd.github+json' }
-        });
-        if (r.status === 401 || r.status === 403) { err.textContent = 'PAT sem permissões.'; err.classList.remove('hide'); return; }
-        if (!r.ok) { err.textContent = 'GitHub HTTP ' + r.status; err.classList.remove('hide'); return; }
-        setPAT(tok);
-        actualizarTabletStatusPorta();
-        $('modal-tablet-porta').classList.add('hide');
-      } catch (e) {
-        err.textContent = 'Falha: ' + e.message;
-        err.classList.remove('hide');
-      }
-    });
-  }
-
-  function precisaLogin() {
-    return !sessionStorage.getItem('rsb_user') || !getPAT();
-  }
-
-  // ════════════════════════════════════════════════════════════════════════════
-  // INÍCIO
-  // ════════════════════════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════════════════════
+  // INICIAR
+  // ═════════════════════════════════════════════════════════════════════════
   async function iniciar() {
+    setSync("pending", "A carregar dados…");
+    $("loading").classList.remove("hide");
     try {
-      $('loading').classList.remove('hide');
-      setSync('idle', 'A carregar…');
       await carregarInscritos();
-      await carregarPresencas();
-      render();
-      $('loading').classList.add('hide');
-      setSync('ok', 'Carregado · ' + new Date().toLocaleTimeString('pt-PT'));
-      // Polling
-      clearInterval(STATE.pollTimer);
-      STATE.pollTimer = setInterval(pollServidor, CONFIG.serverPollMs);
+      $("evt-titulo").textContent = (ST.evento && ST.evento.titulo) || "Acolhimento";
+      await Promise.all([carregarPresencas(), carregarEntregas(), carregarApreciacao()]);
+      switchTab("geral");
+      $("loading").classList.add("hide");
+      setSync("ok", "Pronto · " + new Date().toLocaleTimeString("pt-PT"));
+      ST.pollTimer = setInterval(pollServidor, CONFIG.serverPollMs);
     } catch (e) {
-      $('loading').classList.add('hide');
-      setSync('err', 'Erro: ' + e.message);
-      toast('Erro a carregar: ' + e.message, 'err');
+      $("loading").classList.add("hide");
+      setSync("err", "Falha: " + e.message);
+      toast("Falha a iniciar: " + e.message, "err");
     }
   }
 
-  // ════════════════════════════════════════════════════════════════════════════
-  // EVENTOS
-  // ════════════════════════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════════════════════
+  // TAB SWITCH
+  // ═════════════════════════════════════════════════════════════════════════
+  function switchTab(tab) {
+    ST.tab = tab;
+    $$(".tabs button").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+    renderFiltros();
+    renderAtivo();
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // BIND EVENTOS
+  // ═════════════════════════════════════════════════════════════════════════
   function bindEventos() {
-    $('lista').addEventListener('click', e => {
-      const row = e.target.closest('.row');
+    // Login
+    $("btn-login").addEventListener("click", entrar);
+    $("user-pass").addEventListener("keypress", e => { if (e.key === "Enter") entrar(); });
+
+    // Tabs
+    document.querySelector(".tabs").addEventListener("click", e => {
+      const btn = e.target.closest("button[data-tab]");
+      if (btn) switchTab(btn.dataset.tab);
+    });
+
+    // Search
+    $("search").addEventListener("input", e => { ST.busca = e.target.value; renderAtivo(); });
+
+    // Filtros
+    $("filtros").addEventListener("click", e => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      if (btn.dataset.fg) ST.filtroGeral = btn.dataset.fg;
+      else if (btn.dataset.fl) ST.filtroLivreto = btn.dataset.fl;
+      else if (btn.dataset.ff) ST.filtroPresenca = btn.dataset.ff;
+      renderFiltros();
+      renderAtivo();
+    });
+
+    // Lista (event delegation)
+    $("lista").addEventListener("click", e => {
+      const btnAccao = e.target.closest("button[data-action]");
+      if (btnAccao) {
+        const id = parseInt(btnAccao.dataset.id, 10);
+        if (btnAccao.dataset.action === "qr") abrirModalQR(id);
+        else if (btnAccao.dataset.action === "entregar") pedirConfirmacaoEntrega(id);
+        return;
+      }
+      const row = e.target.closest(".row[data-id]");
       if (!row) return;
       const id = parseInt(row.dataset.id, 10);
-      alternarPresenca(id);
-    });
-
-    $('search').addEventListener('input', e => {
-      STATE.filtro = e.target.value;
-      render();
-    });
-
-    $('btn-menu').addEventListener('click', e => {
-      e.stopPropagation();
-      $('menu').classList.toggle('hide');
-    });
-    document.addEventListener('click', () => $('menu').classList.add('hide'));
-
-    $('m-recarregar').addEventListener('click', async () => {
-      $('menu').classList.add('hide');
-      try {
-        STATE.presencasMap.clear();
-        await carregarInscritos();
-        await carregarPresencas();
-        render();
-        toast('Lista recarregada', 'ok');
-      } catch (e) { toast('Erro: ' + e.message, 'err'); }
-    });
-
-    $('m-forcar-sync').addEventListener('click', () => {
-      $('menu').classList.add('hide');
-      agendarSync(0);
-    });
-
-    $('m-exportar').addEventListener('click', () => {
-      $('menu').classList.add('hide');
-      const blob = new Blob([JSON.stringify(buildPayload(), null, 2)], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'presencas-' + nowIso().replace(/[:T]/g,'-') + '.json';
-      document.body.appendChild(a); a.click(); a.remove();
-    });
-
-    $('m-tudo-ausente').addEventListener('click', () => {
-      $('menu').classList.add('hide');
-      confirmar('Marcar todos ausentes', 'Vai limpar TODAS as marcações de presença. Continuar?', () => {
-        STATE.presencasMap.clear();
-        STATE.versao++;
-        gravarLocal();
-        render();
-        agendarSync(0);
-      });
-    });
-
-    $('m-logout').addEventListener('click', () => {
-      $('menu').classList.add('hide');
-      confirmar('Terminar sessão', 'Vai sair desta sessão neste tablet. O PAT mantém-se gravado. Continuar?', () => {
-        sessionStorage.removeItem('rsb_user');
-        location.reload();
-      });
-    });
-
-    $('btn-login').addEventListener('click', tentarLogin);
-    $('in-pass').addEventListener('keydown', e => { if (e.key === 'Enter') tentarLogin(); });
-    vincularConfigTablet();
-    bootstrapAuth();
-
-    window.addEventListener('online', () => {
-      setSync('pending', 'Online novamente — a sincronizar…');
-      if (STATE.pendingMutations) agendarSync(0);
-    });
-    window.addEventListener('offline', () => setSync('offline', 'Sem rede — alterações ficam locais'));
-
-    // Avisar antes de fechar com alterações pendentes
-    window.addEventListener('beforeunload', e => {
-      if (STATE.pendingMutations) {
-        e.preventDefault();
-        e.returnValue = '';
+      if (row.dataset.toggle === "presenca") {
+        alternarPresenca(id);
+      } else if (row.dataset.open === "ficha") {
+        abrirModalFicha(id);
+      } else {
+        abrirDrawer(id);
       }
     });
-  }
 
-  function confirmar(titulo, msg, onOk) {
-    $('cf-titulo').textContent = titulo;
-    $('cf-msg').textContent = msg;
-    $('modal-confirm').classList.remove('hide');
-    const handler = ok => {
-      $('modal-confirm').classList.add('hide');
-      $('cf-ok').removeEventListener('click', okH);
-      $('cf-cancel').removeEventListener('click', cH);
-      if (ok) onOk();
-    };
-    const okH = () => handler(true);
-    const cH = () => handler(false);
-    $('cf-ok').addEventListener('click', okH);
-    $('cf-cancel').addEventListener('click', cH);
-  }
-
-  // ════════════════════════════════════════════════════════════════════════════
-  // BOOT
-  // ════════════════════════════════════════════════════════════════════════════
-  bindEventos();
-  if (precisaLogin()) {
-    $('loading').classList.add('hide');
-    $('modal-login').classList.remove('hide');
-    setTimeout(() => $('in-user').focus(), 100);
-  } else {
-    $('modal-login').classList.add('hide');
-    iniciar();
-  }
-
-  // Service worker (offline cache)
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
+    // Menu
+    $("btn-menu").addEventListener("click", () => $("modal-menu").classList.remove("hide"));
+    $("m-fechar").addEventListener("click", () => $("modal-menu").classList.add("hide"));
+    $("modal-menu").addEventListener("click", e => { if (e.target === e.currentTarget) $("modal-menu").classList.add("hide"); });
+    $("m-recarregar").addEventListener("click", async () => {
+      $("modal-menu").classList.add("hide");
+      setSync("pending", "A recarregar…");
+      try {
+        await Promise.all([carregarInscritos(), carregarPresencas(), carregarEntregas(), carregarApreciacao()]);
+        renderAtivo();
+        setSync("ok", "Recarregado · " + new Date().toLocaleTimeString("pt-PT"));
+      } catch (e) { setSync("err", "Falha: " + e.message); }
     });
+    $("m-forcar-sync").addEventListener("click", () => {
+      $("modal-menu").classList.add("hide");
+      agendarSyncPresencas(0);
+    });
+    $("m-logout").addEventListener("click", async () => {
+      $("modal-menu").classList.add("hide");
+      const ok = await confirmarGenerico("Terminar sessão", "Vai sair desta sessão neste tablet. O PAT mantém-se gravado.");
+      if (ok) { sessionStorage.removeItem("rsb_user"); location.reload(); }
+    });
+
+    // Scanner
+    $("btn-scan").addEventListener("click", abrirScanner);
+    $("scan-cancel").addEventListener("click", fecharScanner);
+    $("scan-alternar").addEventListener("click", alternarCamera);
+    $("modal-scan").addEventListener("click", e => { if (e.target === e.currentTarget) fecharScanner(); });
+
+    // Modal QR
+    $("qr-fechar").addEventListener("click", fecharModalQR);
+    $("modal-qr").addEventListener("click", e => { if (e.target === e.currentTarget) fecharModalQR(); });
+
+    // Modal confirmação entrega
+    $("conf-ok").addEventListener("click", () => {
+      const id = parseInt($("modal-conf-entrega").dataset.id, 10);
+      $("modal-conf-entrega").classList.add("hide");
+      if (!isNaN(id)) marcarEntregue(id);
+    });
+    $("conf-cancel").addEventListener("click", () => $("modal-conf-entrega").classList.add("hide"));
+    $("modal-conf-entrega").addEventListener("click", e => { if (e.target === e.currentTarget) $("modal-conf-entrega").classList.add("hide"); });
+
+    // Drawer
+    $("dw-fechar").addEventListener("click", fecharDrawer);
+    $("drawer-fundo").addEventListener("click", e => { if (e.target === e.currentTarget) fecharDrawer(); });
+    $("dw-marcar-presenca").addEventListener("click", () => { if (ST.drawerId != null) alternarPresenca(ST.drawerId); });
+    $("dw-mostrar-qr").addEventListener("click", () => { if (ST.drawerId != null) abrirModalQR(ST.drawerId); });
+    $("dw-entregar-livreto").addEventListener("click", () => {
+      if (ST.drawerId != null) { fecharDrawer(); pedirConfirmacaoEntrega(ST.drawerId); }
+    });
+    $("dw-editar-ficha").addEventListener("click", () => {
+      if (ST.drawerId != null) { fecharDrawer(); abrirModalFicha(ST.drawerId); }
+    });
+
+    // Modal Ficha
+    $("ficha-save").addEventListener("click", salvarFicha);
+    $("ficha-cancel").addEventListener("click", () => $("modal-ficha").classList.add("hide"));
+    $("modal-ficha").addEventListener("click", e => { if (e.target === e.currentTarget) $("modal-ficha").classList.add("hide"); });
+
+    // Configurar tablet
+    $("link-config-tablet").addEventListener("click", async e => {
+      e.preventDefault();
+      if (!isAdminAuthed()) {
+        const ok = await pedirAdminAuth();
+        if (!ok) return;
+      }
+      $("tablet-token").value = "";
+      $("tablet-erro").classList.add("hide");
+      $("modal-tablet").classList.remove("hide");
+      setTimeout(() => $("tablet-token").focus(), 50);
+    });
+    $("tablet-cancel").addEventListener("click", () => $("modal-tablet").classList.add("hide"));
+    $("tablet-clear").addEventListener("click", () => {
+      setPAT("");
+      $("modal-tablet").classList.add("hide");
+      actualizarTabletStatus();
+      toast("Token removido", "ok");
+    });
+    $("tablet-save").addEventListener("click", async () => {
+      const tok = $("tablet-token").value.trim();
+      const err = $("tablet-erro");
+      err.classList.add("hide");
+      if (!tok) { err.textContent = "Cola o token PAT."; err.classList.remove("hide"); return; }
+      try {
+        const r = await fetch(`https://api.github.com/repos/${CONFIG.githubOwner}/${CONFIG.githubRepo}`, {
+          headers: { "Authorization": "Bearer " + tok, "Accept": "application/vnd.github+json" }
+        });
+        if (r.status === 401 || r.status === 403) { err.textContent = "Token sem permissões."; err.classList.remove("hide"); return; }
+        if (!r.ok) { err.textContent = "GitHub HTTP " + r.status; err.classList.remove("hide"); return; }
+        setPAT(tok);
+        $("modal-tablet").classList.add("hide");
+        actualizarTabletStatus();
+        toast("Tablet autorizado", "ok");
+      } catch (e) {
+        err.textContent = "Falha: " + e.message;
+        err.classList.remove("hide");
+      }
+    });
+    $("modal-tablet").addEventListener("click", e => { if (e.target === e.currentTarget) $("modal-tablet").classList.add("hide"); });
+
+    // Online/offline
+    window.addEventListener("online", () => {
+      setSync("pending", "Online — a sincronizar…");
+      if (ST.pendingPres) agendarSyncPresencas(0);
+    });
+    window.addEventListener("offline", () => setSync("offline", "Sem rede — alterações locais"));
   }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // BOOT
+  // ═════════════════════════════════════════════════════════════════════════
+  bindEventos();
+  (async () => {
+    actualizarTabletStatus();
+    USERS_CACHE = await carregarUsers();
+    popularDropdownUsers(USERS_CACHE);
+    const userActivo = sessionStorage.getItem("rsb_user");
+    if (userActivo && getPAT() && USERS_CACHE.find(u => u.nome === userActivo)) {
+      try {
+        await ghValidarToken();
+        ST.posto = "tablet-" + normalizar(userActivo).replace(/[^a-z0-9]/g, "").slice(0, 12) || "tablet";
+        mostrarApp();
+        $("evt-sub").textContent = "Operador: " + userActivo;
+        await iniciar();
+      } catch (e) {
+        sessionStorage.removeItem("rsb_user");
+      }
+    }
+  })();
 })();
 </script>
 

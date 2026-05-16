@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#E30613">
+<meta name="description" content="App de validação de presenças — Regimento de Sapadores Bombeiros de Lisboa.">
+<title>Presenças · RSB Lisboa</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/rsb-brasao.png">
+<link rel="apple-touch-icon" href="assets/rsb-brasao.png">
+<style>
+  :root {
+    --rsb-vermelho: #E30613;
+    --rsb-vermelho-escuro: #B0040F;
+    --rsb-vermelho-claro: #FCE4E6;
+    --texto: #1a1a1a;
+    --texto-mute: #6b6b6b;
+    --linha: #d8d8d8;
+    --fundo: #f4f4f5;
+    --verde: #1e8a3a;
+    --verde-claro: #e8f5ec;
+    --aviso: #c46c00;
+    --aviso-claro: #fff8ed;
+    --erro: #b1131e;
+    --erro-claro: #fdf2f3;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Calibri", sans-serif;
+    color: var(--texto);
+    background: var(--fundo);
+    overscroll-behavior: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--rsb-vermelho);
+    color: #fff;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  header img { height: 36px; width: auto; }
+  header .titulo {
+    flex: 1;
+    line-height: 1.2;
+  }
+  header h1 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  header .sub {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+  header .menu-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  header .menu-btn:active { background: rgba(255,255,255,0.3); }
+
+  /* ── Stats bar ── */
+  .stats {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid var(--linha);
+    position: sticky;
+    top: 64px;
+    z-index: 40;
+  }
+  .stat {
+    flex: 1;
+    padding: 10px 6px;
+    text-align: center;
+    border-right: 1px solid var(--linha);
+  }
+  .stat:last-child { border-right: none; }
+  .stat .n { font-size: 22px; font-weight: 800; line-height: 1; }
+  .stat .l { font-size: 11px; color: var(--texto-mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .stat.pres .n { color: var(--verde); }
+  .stat.aus .n { color: var(--texto-mute); }
+
+  /* ── Sync indicator ── */
+  .sync {
+    padding: 6px 16px;
+    font-size: 12px;
+    border-bottom: 1px solid var(--linha);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fafafa;
+    position: sticky;
+    top: 122px;
+    z-index: 30;
+  }
+  .sync .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--texto-mute);
+    flex-shrink: 0;
+  }
+  .sync.ok .dot { background: var(--verde); }
+  .sync.pending .dot { background: var(--aviso); animation: pulse 1.4s infinite; }
+  .sync.err .dot { background: var(--erro); }
+  .sync.offline .dot { background: var(--texto-mute); }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* ── Search ── */
+  .search-wrap {
+    padding: 12px 16px 8px;
+    background: #fff;
+    border-bottom: 1px solid var(--linha);
+    position: sticky;
+    top: 152px;
+    z-index: 20;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+    border: 1px solid var(--linha);
+    border-radius: 10px;
+    background: #fafafa;
+    font-family: inherit;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+  .search-wrap input:focus {
+    outline: none;
+    border-color: var(--rsb-vermelho);
+    background: #fff;
+  }
+
+  /* ── Lista ── */
+  .lista {
+    padding: 8px 0 80px;
+  }
+  .vazio {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--texto-mute);
+    font-size: 14px;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    margin: 0 12px 8px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--linha);
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s;
+    min-height: 64px;
+  }
+  .row:active { background: var(--rsb-vermelho-claro); }
+  .row.presente {
+    background: var(--verde-claro);
+    border-color: var(--verde);
+  }
+  .row.presente:active { background: #d4ecda; }
+
+  .row .check {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--linha);
+    background: #fff;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .row.presente .check {
+    background: var(--verde);
+    border-color: var(--verde);
+  }
+  .row .check svg {
+    width: 18px; height: 18px;
+    stroke: #fff;
+    stroke-width: 3;
+    fill: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .row.presente .check svg { opacity: 1; }
+
+  .row .info { flex: 1; min-width: 0; }
+  .row .nome {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .row .meta {
+    font-size: 12.5px;
+    color: var(--texto-mute);
+    margin-top: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .row .hora {
+    font-size: 12px;
+    color: var(--verde);
+    font-weight: 700;
+    flex-shrink: 0;
+    background: rgba(30,138,58,0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .row:not(.presente) .hora { display: none; }
+
+  /* ── Modal genérico ── */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    backdrop-filter: blur(2px);
+  }
+  .modal.hide { display: none; }
+  .modal .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal h2 {
+    margin: 0 0 16px;
+    color: var(--rsb-vermelho);
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .modal p { font-size: 14px; line-height: 1.5; margin: 0 0 14px; color: var(--texto-mute); }
+  .modal label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--texto-mute);
+    margin: 12px 0 6px;
+  }
+  .modal input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid var(--linha);
+    border-radius: 8px;
+    font-family: inherit;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+  .modal input:focus {
+    outline: none;
+    border-color: var(--rsb-vermelho);
+  }
+  .modal .actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .modal button {
+    flex: 1;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .modal button.primary {
+    background: var(--rsb-vermelho);
+    color: #fff;
+  }
+  .modal button.primary:active { background: var(--rsb-vermelho-escuro); }
+  .modal button.secondary {
+    background: #f0f0f0;
+    color: var(--texto);
+  }
+  .modal .erro-msg {
+    background: var(--erro-claro);
+    color: var(--erro);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 8px;
+    border: 1px solid #f0c0c4;
+  }
+  .modal .erro-msg.hide { display: none; }
+
+  /* ── Menu ── */
+  .menu {
+    position: absolute;
+    top: 56px;
+    right: 12px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    overflow: hidden;
+    z-index: 60;
+    min-width: 220px;
+  }
+  .menu.hide { display: none; }
+  .menu button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 14px 16px;
+    background: #fff;
+    border: none;
+    border-bottom: 1px solid var(--linha);
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--texto);
+  }
+  .menu button:last-child { border-bottom: none; }
+  .menu button:active { background: var(--fundo); }
+  .menu button.danger { color: var(--erro); }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--texto);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    z-index: 200;
+    transition: opacity 0.3s, transform 0.3s;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 90vw;
+    text-align: center;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px);
+  }
+  .toast.err { background: var(--erro); }
+  .toast.ok { background: var(--verde); }
+
+  /* ── Loading ── */
+  #loading {
+    position: fixed;
+    inset: 0;
+    background: var(--fundo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 90;
+  }
+  #loading.hide { display: none; }
+  .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--linha);
+    border-top-color: var(--rsb-vermelho);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="assets/rsb-brasao.png" alt="Brasão RSB">
+  <div class="titulo">
+    <h1 id="evt-titulo">Presenças</h1>
+    <div class="sub" id="evt-sub">RSB Lisboa</div>
+  </div>
+  <button class="menu-btn" id="btn-menu" aria-label="Menu">⋮</button>
+</header>
+
+<div class="menu hide" id="menu">
+  <button id="m-recarregar">Recarregar lista</button>
+  <button id="m-forcar-sync">Forçar sincronização</button>
+  <button id="m-exportar">Exportar JSON local</button>
+  <button id="m-tudo-ausente" class="danger">Marcar todos ausentes</button>
+  <button id="m-logout" class="danger">Terminar sessão</button>
+</div>
+
+<div class="stats">
+  <div class="stat pres"><div class="n" id="n-pres">0</div><div class="l">Presentes</div></div>
+  <div class="stat"><div class="n" id="n-tot">0</div><div class="l">Inscritos</div></div>
+  <div class="stat aus"><div class="n" id="n-aus">0</div><div class="l">Por marcar</div></div>
+</div>
+
+<div class="sync" id="sync-bar"><span class="dot"></span><span id="sync-text">A iniciar…</span></div>
+
+<div class="search-wrap">
+  <input type="search" id="search" placeholder="Pesquisar nome ou entidade…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+</div>
+
+<div class="lista" id="lista"></div>
+
+<!-- Modal: Utilizador + Palavra-passe (login) -->
+<div class="modal" id="modal-login">
+  <div class="card">
+    <h2>Acesso à app de presenças</h2>
+    <p>Escolha o seu utilizador e introduza a palavra-passe configurada pelo admin.</p>
+    <label for="in-user">Utilizador</label>
+    <select id="in-user" style="width:100%;padding:12px 14px;font-size:15px;border:1px solid var(--linha);border-radius:8px;background:#fff;font-family:inherit">
+      <option value="">— a carregar lista —</option>
+    </select>
+    <label for="in-pass">Palavra-passe</label>
+    <input type="password" id="in-pass" autocomplete="off">
+    <div class="erro-msg hide" id="login-erro"></div>
+    <div id="tablet-status-porta" style="margin-top:14px;padding:8px 12px;border-radius:6px;font-size:11.5px;text-align:center;background:#f5f5f5;color:var(--texto-mute)">A verificar estado do tablet…</div>
+    <div style="text-align:center;margin-top:10px">
+      <a href="#" id="link-config-tablet-porta" style="font-size:11px;color:var(--texto-mute);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase">Configurar tablet</a>
+    </div>
+    <div class="actions">
+      <button class="primary" id="btn-login">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Autorização admin (gate antes de configurar tablet) -->
+<div class="modal hide" id="modal-admin-auth-porta">
+  <div class="card">
+    <h2>Autorização admin</h2>
+    <p>Apenas o administrador pode configurar tablets. Introduz a password admin para continuar.</p>
+    <input type="password" id="admin-pass-porta" placeholder="Password admin" style="width:100%;padding:12px 14px;font-size:14px;border:1px solid var(--linha);border-radius:8px" autocomplete="current-password">
+    <div class="erro-msg hide" id="admin-pass-erro-porta" style="margin-top:8px"></div>
+    <div class="actions" style="margin-top:14px">
+      <button class="secondary" id="admin-pass-cancel-porta">Cancelar</button>
+      <button class="primary" id="admin-pass-ok-porta">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Configurar tablet (PAT em localStorage) -->
+<div class="modal hide" id="modal-tablet-porta">
+  <div class="card">
+    <h2>Configurar tablet</h2>
+    <p>Cola o token GitHub PAT — fica gravado neste tablet (localStorage) até ser limpo.</p>
+    <input type="password" id="tablet-token-porta" placeholder="ghp_… ou github_pat_…" style="width:100%;padding:12px 14px;font-size:14px;border:1px solid var(--linha);border-radius:8px;font-family:'SF Mono',Consolas,monospace">
+    <div class="erro-msg hide" id="tablet-erro-porta" style="margin-top:8px"></div>
+    <div class="actions" style="margin-top:14px">
+      <button class="secondary" id="tablet-cancel-porta">Fechar</button>
+      <button class="secondary" id="tablet-clear-porta">Limpar token</button>
+      <button class="primary" id="tablet-save-porta">Validar e gravar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: confirmação genérica -->
+<div class="modal hide" id="modal-confirm">
+  <div class="card">
+    <h2 id="cf-titulo">Confirmar</h2>
+    <p id="cf-msg"></p>
+    <div class="actions">
+      <button class="secondary" id="cf-cancel">Cancelar</button>
+      <button class="primary" id="cf-ok">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div id="loading"><div class="spinner"></div><div style="font-size:14px;color:var(--texto-mute)">A carregar inscritos…</div></div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // CONFIGURAÇÃO
+  // ════════════════════════════════════════════════════════════════════════════
+  const CONFIG = {
+    // Repo onde estão data/inscritos.json e data/presencas.json
+    githubOwner: 'RSBLisboa',
+    githubRepo:  'Presencas',
+    githubBranch: 'main',
+
+    // Identificador deste tablet/posto (gravado em cada marcação).
+    postoIdDefault: 'tablet-porta',
+
+    // Debounce do sync (ms desde último toque até push para GitHub).
+    syncDebounceMs: 1500,
+
+    // Polling do servidor para detectar marcações de outros tablets (ms).
+    serverPollMs: 20000,
+
+    // Auth: PAT persistente em localStorage; lista de users vive em evento.json.
+    LS_PAT_KEY: 'rsb_pat_tablet',
+    URL_EVENTO_PUBLICO: 'https://rsblisboa.github.io/Presencas/data/evento.json'
+  };
+  function getPAT() { return localStorage.getItem(CONFIG.LS_PAT_KEY) || ''; }
+  function setPAT(t) { if (t) localStorage.setItem(CONFIG.LS_PAT_KEY, t); else localStorage.removeItem(CONFIG.LS_PAT_KEY); }
+  let USERS_CACHE = [];
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // ESTADO
+  // ════════════════════════════════════════════════════════════════════════════
+  const STATE = {
+    inscritos: [],          // [{id, nome, cargo, entidade, categoria, estado}]
+    evento: null,           // {id, titulo, data, local, ...}
+    presencasMap: new Map(),// idInscricao → {presente, horaEntrada, marcadoPor}
+    presencasSha: null,     // sha do ficheiro presencas.json no repo
+    versao: 0,              // contador local de mutações
+    filtro: '',
+    syncTimer: null,
+    pollTimer: null,
+    syncStatus: 'idle',     // 'idle' | 'pending' | 'syncing' | 'ok' | 'err' | 'offline'
+    lastSyncAt: null,
+    pendingMutations: false,
+    posto: CONFIG.postoIdDefault,
+  };
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // UTILITÁRIOS
+  // ════════════════════════════════════════════════════════════════════════════
+  function $(id) { return document.getElementById(id); }
+  function $$(sel) { return document.querySelectorAll(sel); }
+
+  async function sha256Hex(s) {
+    const buf = new TextEncoder().encode(s);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash))
+      .map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function utf8ToBase64(s) {
+    return btoa(unescape(encodeURIComponent(s)));
+  }
+  function base64ToUtf8(b) {
+    return decodeURIComponent(escape(atob(b)));
+  }
+
+  function nowIso() {
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) +
+      'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+
+  function fmtHora(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  }
+
+  function toast(msg, kind) {
+    const el = $('toast');
+    el.textContent = msg;
+    el.className = 'toast show' + (kind ? ' ' + kind : '');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.remove('show'), 2400);
+  }
+
+  function setSync(status, text) {
+    STATE.syncStatus = status;
+    const bar = $('sync-bar');
+    bar.className = 'sync ' + status;
+    $('sync-text').textContent = text;
+  }
+
+  function normalizar(s) {
+    return (s || '').toString().toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '');
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // PERSISTÊNCIA LOCAL
+  // ════════════════════════════════════════════════════════════════════════════
+  const LS_PRESENCAS = 'rsb_presencas_v1';
+
+  function gravarLocal() {
+    const obj = {
+      eventoId: STATE.evento ? STATE.evento.id : null,
+      versao: STATE.versao,
+      marcacoes: Array.from(STATE.presencasMap.entries()).map(([id, m]) => ({
+        idInscricao: id,
+        presente: m.presente,
+        horaEntrada: m.horaEntrada || null,
+        marcadoPor: m.marcadoPor || null
+      })),
+      sha: STATE.presencasSha
+    };
+    try { localStorage.setItem(LS_PRESENCAS, JSON.stringify(obj)); } catch (e) {}
+  }
+
+  function carregarLocal() {
+    try {
+      const raw = localStorage.getItem(LS_PRESENCAS);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) { return null; }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // GITHUB API
+  // ════════════════════════════════════════════════════════════════════════════
+  function ghHeaders() {
+    const tok = getPAT();
+    if (!tok) throw new Error('Tablet sem PAT configurado.');
+    return {
+      'Authorization': 'Bearer ' + tok,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
+  }
+
+  function ghContentsUrl(path) {
+    return 'https://api.github.com/repos/' + CONFIG.githubOwner + '/' + CONFIG.githubRepo +
+      '/contents/' + encodeURI(path) + '?ref=' + CONFIG.githubBranch;
+  }
+
+  async function ghValidarToken() {
+    // Simples: tenta ler metadata do repo.
+    const url = 'https://api.github.com/repos/' + CONFIG.githubOwner + '/' + CONFIG.githubRepo;
+    const res = await fetch(url, { headers: ghHeaders() });
+    if (res.status === 401 || res.status === 403)
+      throw new Error('Token inválido ou sem permissões para este repositório.');
+    if (!res.ok) throw new Error('GitHub respondeu ' + res.status);
+    return true;
+  }
+
+  async function ghLerPresencas() {
+    try {
+      const res = await fetch(ghContentsUrl('data/presencas.json'), { headers: ghHeaders() });
+      if (res.status === 404) return { sha: null, payload: null };
+      if (!res.ok) throw new Error('GET presencas.json: ' + res.status);
+      const j = await res.json();
+      const text = base64ToUtf8(j.content.replace(/\n/g, ''));
+      return { sha: j.sha, payload: JSON.parse(text) };
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async function ghEscreverPresencas(payload, sha) {
+    const body = {
+      message: 'presencas: actualização ' + nowIso() + ' (' + STATE.posto + ')',
+      content: utf8ToBase64(JSON.stringify(payload, null, 2)),
+      branch: CONFIG.githubBranch
+    };
+    if (sha) body.sha = sha;
+
+    const res = await fetch(
+      'https://api.github.com/repos/' + CONFIG.githubOwner + '/' + CONFIG.githubRepo + '/contents/data/presencas.json',
+      { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body) }
+    );
+    if (res.status === 409 || res.status === 422) {
+      // Conflito: alguém escreveu entretanto. O caller faz merge.
+      const e = new Error('CONFLICT');
+      e.code = 'CONFLICT';
+      throw e;
+    }
+    if (!res.ok) throw new Error('PUT presencas.json: ' + res.status);
+    const j = await res.json();
+    return j.content.sha;
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // SYNC
+  // ════════════════════════════════════════════════════════════════════════════
+  function buildPayload() {
+    return {
+      schema: 'presencas@1',
+      eventoId: STATE.evento ? STATE.evento.id : null,
+      actualizadoEm: nowIso(),
+      versao: STATE.versao,
+      marcacoes: Array.from(STATE.presencasMap.entries())
+        .filter(([id, m]) => m.presente || m.horaEntrada)
+        .map(([id, m]) => ({
+          idInscricao: id,
+          presente: !!m.presente,
+          horaEntrada: m.horaEntrada || null,
+          marcadoPor: m.marcadoPor || null
+        }))
+    };
+  }
+
+  function mergeRemote(remote) {
+    // last-write-wins por idInscricao com base em horaEntrada (timestamp).
+    if (!remote || !remote.marcacoes) return;
+    for (const m of remote.marcacoes) {
+      const local = STATE.presencasMap.get(m.idInscricao);
+      if (!local) {
+        STATE.presencasMap.set(m.idInscricao, {
+          presente: !!m.presente,
+          horaEntrada: m.horaEntrada || null,
+          marcadoPor: m.marcadoPor || null
+        });
+        continue;
+      }
+      // Se ambos presentes mas remote tem hora mais antiga, mantém hora antiga.
+      // Se um é presente=true e outro false, fica o mais recente (temos timestamp na nossa local).
+      const localTs = local.horaEntrada ? Date.parse(local.horaEntrada) : 0;
+      const remoteTs = m.horaEntrada ? Date.parse(m.horaEntrada) : 0;
+      if (remoteTs > localTs && m.presente !== local.presente) {
+        STATE.presencasMap.set(m.idInscricao, {
+          presente: !!m.presente,
+          horaEntrada: m.horaEntrada || null,
+          marcadoPor: m.marcadoPor || null
+        });
+      } else if (m.presente && local.presente && remoteTs > 0 && (localTs === 0 || remoteTs < localTs)) {
+        // Manter a primeira hora de entrada (a mais antiga válida).
+        local.horaEntrada = m.horaEntrada;
+      }
+    }
+  }
+
+  async function pushSync() {
+    if (STATE.syncStatus === 'syncing') return;
+    if (!navigator.onLine) {
+      setSync('offline', 'Offline — alterações guardadas localmente');
+      return;
+    }
+    setSync('syncing', 'A sincronizar…');
+    try {
+      const payload = buildPayload();
+      try {
+        const newSha = await ghEscreverPresencas(payload, STATE.presencasSha);
+        STATE.presencasSha = newSha;
+        STATE.lastSyncAt = new Date();
+        STATE.pendingMutations = false;
+        setSync('ok', 'Sincronizado · ' + STATE.lastSyncAt.toLocaleTimeString('pt-PT'));
+        gravarLocal();
+      } catch (e) {
+        if (e.code === 'CONFLICT') {
+          // Refetch + merge + retry uma vez
+          const { sha, payload: remote } = await ghLerPresencas();
+          STATE.presencasSha = sha;
+          mergeRemote(remote);
+          render();
+          const novo = buildPayload();
+          const finalSha = await ghEscreverPresencas(novo, STATE.presencasSha);
+          STATE.presencasSha = finalSha;
+          STATE.lastSyncAt = new Date();
+          STATE.pendingMutations = false;
+          setSync('ok', 'Sincronizado (após merge) · ' + STATE.lastSyncAt.toLocaleTimeString('pt-PT'));
+          gravarLocal();
+        } else {
+          throw e;
+        }
+      }
+    } catch (e) {
+      console.error(e);
+      setSync('err', 'Falha de sync — tentar novamente em segundos');
+      toast('Falha a sincronizar: ' + e.message, 'err');
+      // Retentativa em 8s
+      setTimeout(() => { if (STATE.pendingMutations) agendarSync(0); }, 8000);
+    }
+  }
+
+  function agendarSync(delayMs) {
+    STATE.pendingMutations = true;
+    if (STATE.syncStatus !== 'syncing') {
+      setSync('pending', 'Alterações por sincronizar…');
+    }
+    clearTimeout(STATE.syncTimer);
+    const ms = (delayMs == null) ? CONFIG.syncDebounceMs : delayMs;
+    STATE.syncTimer = setTimeout(pushSync, ms);
+  }
+
+  async function pollServidor() {
+    if (STATE.syncStatus === 'syncing' || STATE.pendingMutations) return;
+    if (!navigator.onLine) return;
+    try {
+      const { sha, payload: remote } = await ghLerPresencas();
+      if (sha && sha !== STATE.presencasSha) {
+        STATE.presencasSha = sha;
+        if (remote) mergeRemote(remote);
+        render();
+        gravarLocal();
+        setSync('ok', 'Actualizado de outro dispositivo · ' + new Date().toLocaleTimeString('pt-PT'));
+      }
+    } catch (e) {
+      // Ignorar — não interromper UX. Fica visível na próxima escrita.
+    }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // CARREGAMENTO INICIAL
+  // ════════════════════════════════════════════════════════════════════════════
+  async function carregarInscritos() {
+    // Tentar via raw + cache busting (não exige token; ficheiro público no Pages)
+    const url = 'data/inscritos.json?t=' + Date.now();
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Não foi possível carregar inscritos.json (HTTP ' + res.status + ')');
+    const data = await res.json();
+    if (!data.evento || !Array.isArray(data.inscritos))
+      throw new Error('Formato inválido em inscritos.json');
+    STATE.evento = data.evento;
+    STATE.inscritos = data.inscritos.slice().sort((a,b) =>
+      normalizar(a.nome).localeCompare(normalizar(b.nome))
+    );
+  }
+
+  async function carregarPresencas() {
+    // 1) Tentar do GitHub (autoritativo entre dispositivos)
+    try {
+      const { sha, payload } = await ghLerPresencas();
+      STATE.presencasSha = sha;
+      if (payload && payload.marcacoes) {
+        for (const m of payload.marcacoes) {
+          STATE.presencasMap.set(m.idInscricao, {
+            presente: !!m.presente,
+            horaEntrada: m.horaEntrada || null,
+            marcadoPor: m.marcadoPor || null
+          });
+        }
+        STATE.versao = payload.versao || 0;
+      }
+    } catch (e) {
+      console.warn('Falha a carregar presencas do GitHub, a usar local', e);
+      // 2) Fallback: local
+      const local = carregarLocal();
+      if (local && local.eventoId === STATE.evento.id) {
+        for (const m of local.marcacoes || []) {
+          STATE.presencasMap.set(m.idInscricao, {
+            presente: !!m.presente,
+            horaEntrada: m.horaEntrada || null,
+            marcadoPor: m.marcadoPor || null
+          });
+        }
+        STATE.versao = local.versao || 0;
+        STATE.presencasSha = local.sha || null;
+      }
+    }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // RENDER
+  // ════════════════════════════════════════════════════════════════════════════
+  function render() {
+    const lista = $('lista');
+    const filtro = normalizar(STATE.filtro);
+    const visiveis = filtro
+      ? STATE.inscritos.filter(i => normalizar(i.nome).includes(filtro) ||
+                                     normalizar(i.entidade).includes(filtro) ||
+                                     normalizar(i.cargo).includes(filtro))
+      : STATE.inscritos;
+
+    const html = visiveis.length === 0
+      ? '<div class="vazio">Nenhum inscrito encontrado.</div>'
+      : visiveis.map(i => {
+          const m = STATE.presencasMap.get(i.id);
+          const pres = m && m.presente;
+          const hora = m && m.horaEntrada ? fmtHora(m.horaEntrada) : '';
+          return '<div class="row' + (pres ? ' presente' : '') + '" data-id="' + i.id + '">' +
+            '<div class="check"><svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"/></svg></div>' +
+            '<div class="info">' +
+              '<div class="nome">' + escapeHtml(i.nome) + '</div>' +
+              '<div class="meta">' + escapeHtml((i.cargo || '') + (i.entidade ? ' · ' + i.entidade : '')) + '</div>' +
+            '</div>' +
+            '<div class="hora">' + hora + '</div>' +
+          '</div>';
+        }).join('');
+    lista.innerHTML = html;
+
+    // Stats
+    let totPres = 0;
+    for (const m of STATE.presencasMap.values()) if (m.presente) totPres++;
+    $('n-tot').textContent = STATE.inscritos.length;
+    $('n-pres').textContent = totPres;
+    $('n-aus').textContent = STATE.inscritos.length - totPres;
+
+    // Header
+    if (STATE.evento) {
+      $('evt-titulo').textContent = STATE.evento.titulo || 'Presenças';
+      const sub = [];
+      if (STATE.evento.data) sub.push(formatarData(STATE.evento.data));
+      if (STATE.evento.local) sub.push(STATE.evento.local);
+      $('evt-sub').textContent = sub.join(' · ') || 'RSB Lisboa';
+    }
+  }
+
+  function escapeHtml(s) {
+    return (s || '').toString()
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function formatarData(iso) {
+    // "2026-05-18" → "18 de maio de 2026"
+    const meses = ['janeiro','fevereiro','março','abril','maio','junho',
+                   'julho','agosto','setembro','outubro','novembro','dezembro'];
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    if (!m) return iso;
+    return parseInt(m[3],10) + ' de ' + meses[parseInt(m[2],10)-1] + ' de ' + m[1];
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // INTERAÇÃO
+  // ════════════════════════════════════════════════════════════════════════════
+  function alternarPresenca(id) {
+    const actual = STATE.presencasMap.get(id);
+    const novoPresente = !(actual && actual.presente);
+    if (novoPresente) {
+      STATE.presencasMap.set(id, {
+        presente: true,
+        horaEntrada: (actual && actual.horaEntrada) || nowIso(),
+        marcadoPor: STATE.posto
+      });
+    } else {
+      STATE.presencasMap.set(id, {
+        presente: false,
+        horaEntrada: null,
+        marcadoPor: STATE.posto
+      });
+    }
+    STATE.versao = (STATE.versao || 0) + 1;
+    gravarLocal();
+    render();
+    agendarSync();
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // LOGIN (Utilizador + Palavra-passe)
+  // PAT do GitHub é persistente em localStorage (configurado pelo admin).
+  // Lista de utilizadores vem de data/evento.json publicado (passwords em hash).
+  // ════════════════════════════════════════════════════════════════════════════
+  async function carregarUsers() {
+    try {
+      const r = await fetch(CONFIG.URL_EVENTO_PUBLICO + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return [];
+      const e = await r.json();
+      return Array.isArray(e.users) ? e.users.filter(u => u.nome && u.passHash) : [];
+    } catch (_) { return []; }
+  }
+  function popularDropdownUsers(users) {
+    const sel = $('in-user');
+    if (!users.length) {
+      sel.innerHTML = '<option value="">— nenhum acesso configurado —</option>';
+      return;
+    }
+    sel.innerHTML = '<option value="">— escolher utilizador —</option>' +
+      users.map(u => `<option value="${escapeHtml(u.nome)}">${escapeHtml(u.nome)}</option>`).join('');
+  }
+  function actualizarTabletStatusPorta() {
+    const el = $('tablet-status-porta');
+    if (!el) return;
+    if (getPAT()) {
+      el.textContent = '✓ Tablet autorizado';
+      el.style.background = '#e8f5ec';
+      el.style.color = '#1e8a3a';
+      el.style.fontWeight = '600';
+    } else {
+      el.textContent = '⚠ Tablet por configurar — admin tem de definir o PAT';
+      el.style.background = '#fff8ed';
+      el.style.color = '#c46c00';
+      el.style.fontWeight = '600';
+    }
+  }
+
+  async function tentarLogin() {
+    const nome = $('in-user').value;
+    const pass = $('in-pass').value;
+    const erro = $('login-erro');
+    erro.classList.add('hide');
+
+    if (!getPAT()) {
+      erro.textContent = 'Tablet não configurado. Pede ao admin para configurar primeiro.';
+      erro.classList.remove('hide');
+      return;
+    }
+    if (!nome) {
+      erro.textContent = 'Escolhe o utilizador.';
+      erro.classList.remove('hide');
+      return;
+    }
+    if (!pass) {
+      erro.textContent = 'Palavra-passe obrigatória.';
+      erro.classList.remove('hide');
+      return;
+    }
+    const u = USERS_CACHE.find(x => x.nome === nome);
+    if (!u) {
+      erro.textContent = 'Utilizador desconhecido. Recarrega a página.';
+      erro.classList.remove('hide');
+      return;
+    }
+    const hash = await sha256Hex(pass);
+    if (hash !== u.passHash) {
+      erro.textContent = 'Palavra-passe incorrecta.';
+      erro.classList.remove('hide');
+      return;
+    }
+    try {
+      await ghValidarToken();
+    } catch (e) {
+      erro.textContent = 'PAT do tablet inválido: ' + e.message;
+      erro.classList.remove('hide');
+      return;
+    }
+    sessionStorage.setItem('rsb_user', nome);
+    $('modal-login').classList.add('hide');
+    iniciar();
+  }
+
+  async function bootstrapAuth() {
+    USERS_CACHE = await carregarUsers();
+    popularDropdownUsers(USERS_CACHE);
+    actualizarTabletStatusPorta();
+  }
+
+  // ── ADMIN AUTH GATE ───────────────────────────────────────────────────
+  // Password admin (SHA-256 de "RSBL18Mai2026"). Operadores normais nao podem
+  // configurar tablets. Para mudar, gera novo hash:
+  // python -c "import hashlib; print(hashlib.sha256(b'NOVA_PASS').hexdigest())"
+  const ADMIN_PASS_HASH_PORTA = "ddf8f268f1f55f479bca66b18836d46c2c10f99317ec7814edc58371a93d4536";
+  const ADMIN_SESSION_KEY_PORTA = "rsb_admin_auth";
+  function isAdminAuthedPorta() {
+    try {
+      const v = sessionStorage.getItem(ADMIN_SESSION_KEY_PORTA);
+      return !!v && (Date.now() - parseInt(v, 10) < 30 * 60 * 1000);
+    } catch (_) { return false; }
+  }
+  function setAdminAuthedPorta() {
+    try { sessionStorage.setItem(ADMIN_SESSION_KEY_PORTA, String(Date.now())); } catch (_) {}
+  }
+  function pedirAdminAuthPorta() {
+    return new Promise(resolve => {
+      $('admin-pass-porta').value = '';
+      $('admin-pass-erro-porta').classList.add('hide');
+      $('modal-admin-auth-porta').classList.remove('hide');
+      setTimeout(() => $('admin-pass-porta').focus(), 50);
+      const ok = $('admin-pass-ok-porta');
+      const cancel = $('admin-pass-cancel-porta');
+      const input = $('admin-pass-porta');
+      const fechar = (resultado) => {
+        $('modal-admin-auth-porta').classList.add('hide');
+        ok.removeEventListener('click', handleOk);
+        cancel.removeEventListener('click', handleCancel);
+        input.removeEventListener('keypress', handleEnter);
+        resolve(resultado);
+      };
+      const handleOk = async () => {
+        const p = input.value;
+        const err = $('admin-pass-erro-porta');
+        if (!p) { err.textContent = 'Introduz a password.'; err.classList.remove('hide'); return; }
+        const h = await sha256Hex(p);
+        if (h === ADMIN_PASS_HASH_PORTA) { setAdminAuthedPorta(); fechar(true); }
+        else { err.textContent = 'Password incorrecta.'; err.classList.remove('hide'); }
+      };
+      const handleCancel = () => fechar(false);
+      const handleEnter = e => { if (e.key === 'Enter') handleOk(); };
+      ok.addEventListener('click', handleOk);
+      cancel.addEventListener('click', handleCancel);
+      input.addEventListener('keypress', handleEnter);
+    });
+  }
+
+  // Modal "Configurar tablet"
+  function vincularConfigTablet() {
+    const link = $('link-config-tablet-porta');
+    if (link) link.addEventListener('click', async e => {
+      e.preventDefault();
+      if (!isAdminAuthedPorta()) {
+        const okAdmin = await pedirAdminAuthPorta();
+        if (!okAdmin) return;
+      }
+      $('tablet-token-porta').value = '';
+      $('tablet-erro-porta').classList.add('hide');
+      $('modal-tablet-porta').classList.remove('hide');
+    });
+    const cancel = $('tablet-cancel-porta');
+    if (cancel) cancel.addEventListener('click', () => $('modal-tablet-porta').classList.add('hide'));
+    const clear = $('tablet-clear-porta');
+    if (clear) clear.addEventListener('click', () => {
+      setPAT('');
+      actualizarTabletStatusPorta();
+      $('modal-tablet-porta').classList.add('hide');
+    });
+    const save = $('tablet-save-porta');
+    if (save) save.addEventListener('click', async () => {
+      const tok = $('tablet-token-porta').value.trim();
+      const err = $('tablet-erro-porta');
+      err.classList.add('hide');
+      if (!tok) { err.textContent = 'Cola o token PAT.'; err.classList.remove('hide'); return; }
+      try {
+        const r = await fetch(`https://api.github.com/repos/${CONFIG.githubOwner}/${CONFIG.githubRepo}`, {
+          headers: { 'Authorization': 'Bearer ' + tok, 'Accept': 'application/vnd.github+json' }
+        });
+        if (r.status === 401 || r.status === 403) { err.textContent = 'PAT sem permissões.'; err.classList.remove('hide'); return; }
+        if (!r.ok) { err.textContent = 'GitHub HTTP ' + r.status; err.classList.remove('hide'); return; }
+        setPAT(tok);
+        actualizarTabletStatusPorta();
+        $('modal-tablet-porta').classList.add('hide');
+      } catch (e) {
+        err.textContent = 'Falha: ' + e.message;
+        err.classList.remove('hide');
+      }
+    });
+  }
+
+  function precisaLogin() {
+    return !sessionStorage.getItem('rsb_user') || !getPAT();
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // INÍCIO
+  // ════════════════════════════════════════════════════════════════════════════
+  async function iniciar() {
+    try {
+      $('loading').classList.remove('hide');
+      setSync('idle', 'A carregar…');
+      await carregarInscritos();
+      await carregarPresencas();
+      render();
+      $('loading').classList.add('hide');
+      setSync('ok', 'Carregado · ' + new Date().toLocaleTimeString('pt-PT'));
+      // Polling
+      clearInterval(STATE.pollTimer);
+      STATE.pollTimer = setInterval(pollServidor, CONFIG.serverPollMs);
+    } catch (e) {
+      $('loading').classList.add('hide');
+      setSync('err', 'Erro: ' + e.message);
+      toast('Erro a carregar: ' + e.message, 'err');
+    }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // EVENTOS
+  // ════════════════════════════════════════════════════════════════════════════
+  function bindEventos() {
+    $('lista').addEventListener('click', e => {
+      const row = e.target.closest('.row');
+      if (!row) return;
+      const id = parseInt(row.dataset.id, 10);
+      alternarPresenca(id);
+    });
+
+    $('search').addEventListener('input', e => {
+      STATE.filtro = e.target.value;
+      render();
+    });
+
+    $('btn-menu').addEventListener('click', e => {
+      e.stopPropagation();
+      $('menu').classList.toggle('hide');
+    });
+    document.addEventListener('click', () => $('menu').classList.add('hide'));
+
+    $('m-recarregar').addEventListener('click', async () => {
+      $('menu').classList.add('hide');
+      try {
+        STATE.presencasMap.clear();
+        await carregarInscritos();
+        await carregarPresencas();
+        render();
+        toast('Lista recarregada', 'ok');
+      } catch (e) { toast('Erro: ' + e.message, 'err'); }
+    });
+
+    $('m-forcar-sync').addEventListener('click', () => {
+      $('menu').classList.add('hide');
+      agendarSync(0);
+    });
+
+    $('m-exportar').addEventListener('click', () => {
+      $('menu').classList.add('hide');
+      const blob = new Blob([JSON.stringify(buildPayload(), null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'presencas-' + nowIso().replace(/[:T]/g,'-') + '.json';
+      document.body.appendChild(a); a.click(); a.remove();
+    });
+
+    $('m-tudo-ausente').addEventListener('click', () => {
+      $('menu').classList.add('hide');
+      confirmar('Marcar todos ausentes', 'Vai limpar TODAS as marcações de presença. Continuar?', () => {
+        STATE.presencasMap.clear();
+        STATE.versao++;
+        gravarLocal();
+        render();
+        agendarSync(0);
+      });
+    });
+
+    $('m-logout').addEventListener('click', () => {
+      $('menu').classList.add('hide');
+      confirmar('Terminar sessão', 'Vai sair desta sessão neste tablet. O PAT mantém-se gravado. Continuar?', () => {
+        sessionStorage.removeItem('rsb_user');
+        location.reload();
+      });
+    });
+
+    $('btn-login').addEventListener('click', tentarLogin);
+    $('in-pass').addEventListener('keydown', e => { if (e.key === 'Enter') tentarLogin(); });
+    vincularConfigTablet();
+    bootstrapAuth();
+
+    window.addEventListener('online', () => {
+      setSync('pending', 'Online novamente — a sincronizar…');
+      if (STATE.pendingMutations) agendarSync(0);
+    });
+    window.addEventListener('offline', () => setSync('offline', 'Sem rede — alterações ficam locais'));
+
+    // Avisar antes de fechar com alterações pendentes
+    window.addEventListener('beforeunload', e => {
+      if (STATE.pendingMutations) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    });
+  }
+
+  function confirmar(titulo, msg, onOk) {
+    $('cf-titulo').textContent = titulo;
+    $('cf-msg').textContent = msg;
+    $('modal-confirm').classList.remove('hide');
+    const handler = ok => {
+      $('modal-confirm').classList.add('hide');
+      $('cf-ok').removeEventListener('click', okH);
+      $('cf-cancel').removeEventListener('click', cH);
+      if (ok) onOk();
+    };
+    const okH = () => handler(true);
+    const cH = () => handler(false);
+    $('cf-ok').addEventListener('click', okH);
+    $('cf-cancel').addEventListener('click', cH);
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // BOOT
+  // ════════════════════════════════════════════════════════════════════════════
+  bindEventos();
+  if (precisaLogin()) {
+    $('loading').classList.add('hide');
+    $('modal-login').classList.remove('hide');
+    setTimeout(() => $('in-user').focus(), 100);
+  } else {
+    $('modal-login').classList.add('hide');
+    iniciar();
+  }
+
+  // Service worker (offline cache)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
