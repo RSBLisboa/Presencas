@@ -1573,7 +1573,10 @@
       await carregarInscritos();
       $("evt-titulo").textContent = (ST.evento && ST.evento.titulo) || "Acolhimento";
       await Promise.all([carregarPresencas(), carregarEntregas(), carregarApreciacao()]);
-      switchTab("geral");
+      // Tab inicial via ?tab= na URL (ex: ?tab=livreto). Default = geral.
+      const tabParam = new URLSearchParams(location.search).get("tab");
+      const tabsValidos = ["geral", "presenca", "livreto", "ficha"];
+      switchTab(tabsValidos.includes(tabParam) ? tabParam : "geral");
       $("loading").classList.add("hide");
       setSync("ok", "Pronto · " + new Date().toLocaleTimeString("pt-PT"));
       ST.pollTimer = setInterval(pollServidor, CONFIG.serverPollMs);
@@ -1691,10 +1694,12 @@
     $("dw-marcar-presenca").addEventListener("click", () => { if (ST.drawerId != null) alternarPresenca(ST.drawerId); });
     $("dw-mostrar-qr").addEventListener("click", () => { if (ST.drawerId != null) abrirModalQR(ST.drawerId); });
     $("dw-entregar-livreto").addEventListener("click", () => {
-      if (ST.drawerId != null) { fecharDrawer(); pedirConfirmacaoEntrega(ST.drawerId); }
+      const id = ST.drawerId;
+      if (id != null) { fecharDrawer(); pedirConfirmacaoEntrega(id); }
     });
     $("dw-editar-ficha").addEventListener("click", () => {
-      if (ST.drawerId != null) { fecharDrawer(); abrirModalFicha(ST.drawerId); }
+      const id = ST.drawerId;
+      if (id != null) { fecharDrawer(); abrirModalFicha(id); }
     });
 
     // Modal Ficha
