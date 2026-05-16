@@ -202,7 +202,7 @@
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.6);
-    z-index: 100;
+    z-index: 300;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -416,6 +416,18 @@
     <div style="text-align:center;margin-top:12px">
       <a href="#" id="link-config-tablet" style="font-size:11px;color:var(--texto-mute);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase">Configurar tablet</a>
     </div>
+  </div>
+</div>
+
+<!-- MODAL ADMIN AUTH (gate antes de configurar tablet) -->
+<div class="modal-fundo hide" id="modal-admin-auth">
+  <div class="modal" style="max-width:420px">
+    <h2>Autorização admin</h2>
+    <p class="meta">Apenas o administrador pode configurar tablets. Introduz a password admin para continuar.</p>
+    <input type="password" id="admin-pass" placeholder="Password admin" style="width:100%;padding:12px 14px;font-size:14px;border:1px solid var(--linha);border-radius:8px;margin-top:10px" autocomplete="current-password">
+    <div class="erro" id="admin-pass-erro" style="margin-top:10px"></div>
+    <button id="admin-pass-ok" style="margin-top:14px">Confirmar</button>
+    <button class="fechar" id="admin-pass-cancel" style="margin-top:8px">Cancelar</button>
   </div>
 </div>
 
@@ -1107,9 +1119,57 @@
     }
   }
 
+  // ── ADMIN AUTH GATE ───────────────────────────────────────────────────
+  // Password admin (SHA-256 de "RSBL18Mai2026"). Operadores normais nao podem
+  // configurar tablets — so admin com password sabe. Para mudar, gera novo hash
+  // com: python -c "import hashlib; print(hashlib.sha256(b'NOVA_PASS').hexdigest())"
+  const ADMIN_PASS_HASH = "ddf8f268f1f55f479bca66b18836d46c2c10f99317ec7814edc58371a93d4536";
+  const ADMIN_SESSION_KEY = "rsb_admin_auth";
+  function isAdminAuthed() {
+    try {
+      const v = sessionStorage.getItem(ADMIN_SESSION_KEY);
+      return !!v && (Date.now() - parseInt(v, 10) < 30 * 60 * 1000); // 30 min
+    } catch (_) { return false; }
+  }
+  function setAdminAuthed() {
+    try { sessionStorage.setItem(ADMIN_SESSION_KEY, String(Date.now())); } catch (_) {}
+  }
+  async function pedirAdminAuth() {
+    return new Promise(resolve => {
+      $("admin-pass").value = "";
+      $("admin-pass-erro").textContent = "";
+      $("modal-admin-auth").classList.remove("hide");
+      $("admin-pass").focus();
+      const fechar = (ok) => {
+        $("modal-admin-auth").classList.add("hide");
+        $("admin-pass-ok").removeEventListener("click", handleOk);
+        $("admin-pass-cancel").removeEventListener("click", handleCancel);
+        $("admin-pass").removeEventListener("keypress", handleEnter);
+        resolve(ok);
+      };
+      const handleOk = async () => {
+        const p = $("admin-pass").value;
+        if (!p) { $("admin-pass-erro").textContent = "Introduz a password."; return; }
+        const h = await sha256Hex(p);
+        if (h === ADMIN_PASS_HASH) { setAdminAuthed(); fechar(true); }
+        else $("admin-pass-erro").textContent = "Password incorrecta.";
+      };
+      const handleCancel = () => fechar(false);
+      const handleEnter = e => { if (e.key === "Enter") handleOk(); };
+      $("admin-pass-ok").addEventListener("click", handleOk);
+      $("admin-pass-cancel").addEventListener("click", handleCancel);
+      $("admin-pass").addEventListener("keypress", handleEnter);
+    });
+  }
+
   // ── CONFIGURAR TABLET (PAT em localStorage) ───────────────────────────
-  $("link-config-tablet").addEventListener("click", function(e) {
+  $("link-config-tablet").addEventListener("click", async function(e) {
     e.preventDefault();
+    // Admin gate: 30min de sessao apos auth correcta
+    if (!isAdminAuthed()) {
+      const ok = await pedirAdminAuth();
+      if (!ok) return;
+    }
     $("tablet-token").value = "";
     $("tablet-erro").textContent = "";
     $("modal-tablet").classList.remove("hide");
