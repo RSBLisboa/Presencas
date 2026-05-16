@@ -490,7 +490,10 @@
       <div id="qr-reader" style="width:100%;height:100%"></div>
     </div>
     <p id="scan-msg" style="font-size:13px;color:var(--texto-mute);margin:8px 0;min-height:20px"></p>
-    <button class="fechar" id="scan-cancel">Cancelar</button>
+    <div style="display:flex;gap:8px">
+      <button class="fechar" id="scan-alternar" style="flex:1">↺ Alternar câmara</button>
+      <button class="fechar" id="scan-cancel" style="flex:1">Cancelar</button>
+    </div>
   </div>
 </div>
 
@@ -896,6 +899,22 @@
 
   // ── SCANNER QR · CÂMARA ───────────────────────────────────────────────
   let html5QrCode = null;
+  let _camMode = "environment"; // facingMode actual: "environment" | "user" ou deviceId
+  let _camList = null;          // lista de cameras detectadas (Html5Qrcode.getCameras)
+
+  async function startCamera() {
+    if (!html5QrCode) html5QrCode = new Html5Qrcode("qr-reader", { verbose: false });
+    const config = (_camMode === "environment" || _camMode === "user")
+      ? { facingMode: _camMode }
+      : { deviceId: { exact: _camMode } };
+    await html5QrCode.start(
+      config,
+      { fps: 10, qrbox: { width: 240, height: 240 }, aspectRatio: 1.0 },
+      onScanSucesso,
+      () => {} // ignorar falhas frame-a-frame
+    );
+  }
+
   async function abrirScanner() {
     $("scan-msg").textContent = "";
     $("modal-scan").classList.remove("hide");
@@ -903,17 +922,41 @@
       $("scan-msg").textContent = "Biblioteca de leitura não carregada. Recarregue a página.";
       return;
     }
+    // Detectar cameras disponíveis na primeira abertura
+    if (_camList === null) {
+      try { _camList = await Html5Qrcode.getCameras(); }
+      catch (_) { _camList = []; }
+    }
     try {
-      if (!html5QrCode) html5QrCode = new Html5Qrcode("qr-reader", { verbose: false });
-      await html5QrCode.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 240, height: 240 }, aspectRatio: 1.0 },
-        onScanSucesso,
-        () => {} // ignorar falhas frame-a-frame
-      );
+      await startCamera();
     } catch (err) {
+      // Se environment falhar (ex.: tablet sem traseira), tentar user
+      if (_camMode === "environment") {
+        _camMode = "user";
+        try { await startCamera(); return; }
+        catch (e2) { $("scan-msg").textContent = "Falha ao abrir câmara: " + e2.message; return; }
+      }
       $("scan-msg").textContent = "Falha ao abrir câmara: " + err.message;
     }
+  }
+  async function alternarCamera() {
+    $("scan-msg").textContent = "A alternar câmara…";
+    try {
+      if (html5QrCode && html5QrCode.isScanning) await html5QrCode.stop();
+    } catch(_) {}
+    // Estratégia: se tivermos lista de devices com 2+, ciclar entre eles.
+    // Caso contrário, alternar facingMode environment <-> user.
+    if (_camList && _camList.length > 1) {
+      const idx = _camList.findIndex(c => c.id === _camMode);
+      const next = _camList[(idx + 1) % _camList.length];
+      _camMode = next.id;
+      $("scan-msg").textContent = "Câmara: " + (next.label || next.id);
+    } else {
+      _camMode = (_camMode === "environment") ? "user" : "environment";
+      $("scan-msg").textContent = "Câmara: " + (_camMode === "environment" ? "traseira" : "frontal");
+    }
+    try { await startCamera(); }
+    catch (err) { $("scan-msg").textContent = "Falha: " + err.message; }
   }
   async function fecharScanner() {
     try {
@@ -958,6 +1001,7 @@
   }
   $("btn-scan").addEventListener("click", abrirScanner);
   $("scan-cancel").addEventListener("click", fecharScanner);
+  $("scan-alternar").addEventListener("click", alternarCamera);
   $("modal-scan").addEventListener("click", function(e) {
     if (e.target === this) fecharScanner();
   });
