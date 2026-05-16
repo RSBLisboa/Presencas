@@ -1,0 +1,1514 @@
+{
+  "schema": "inscritos@1",
+  "evento": {
+    "id": 1,
+    "titulo": "Sessão Técnica em Substâncias Perigosas",
+    "data": "2026-05-18",
+    "local": "Auditório do Metropolitano de Lisboa",
+    "horaInicio": "09:00",
+    "horaFim": "12:00",
+    "cargaHoraria": "3 horas"
+  },
+  "inscritos": [
+    {
+      "id": 85,
+      "nome": "Albano José Antunes Lucas",
+      "cargo": "2Cmdt",
+      "entidade": "CBV Castelo Branco",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 86,
+      "nome": "Alexandre Fernando Mendes Rodrigues",
+      "cargo": "Comandante",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 49,
+      "nome": "Almerindo Ferreira",
+      "cargo": "Ex Cmdt ERSBL",
+      "entidade": "RSB",
+      "categoria": "Bombeiros Voluntários",
+      "estado": "Pendente",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 87,
+      "nome": "Ana Costa",
+      "cargo": "Técnica Superior",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 88,
+      "nome": "Ana Fernandes",
+      "cargo": "PhD",
+      "entidade": "IST",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 89,
+      "nome": "Ana Maria de Menezes Loureiro",
+      "cargo": "Coordenadora de Formação",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 90,
+      "nome": "Ana Sofia Lopes Valentim",
+      "cargo": "SCh",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 91,
+      "nome": "André Filipe Frade  Mendes",
+      "cargo": "SCh",
+      "entidade": "BV Amadora",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 92,
+      "nome": "António José Gomes da Silva",
+      "cargo": "Consultor/Formador",
+      "entidade": "Individual",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 93,
+      "nome": "António Vinagre",
+      "cargo": "Chefe",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 94,
+      "nome": "Arménio Liceia",
+      "cargo": "Subintendente",
+      "entidade": "PSP",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 95,
+      "nome": "Artur Jorge Veigas Filipe",
+      "cargo": "Subchefe",
+      "entidade": "Bombeiros",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 96,
+      "nome": "Augusto Oliveira",
+      "cargo": "PhD",
+      "entidade": "IST",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 42,
+      "nome": "Bruno Alves",
+      "cargo": "Cmdt",
+      "entidade": "BV Famalicenses",
+      "categoria": "Bombeiros Voluntários",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 97,
+      "nome": "Bruno Gomes",
+      "cargo": "SCh1",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 98,
+      "nome": "Bruno Pereira",
+      "cargo": "Adj Cmd",
+      "entidade": "BV Samora Correia",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 99,
+      "nome": "Carla Boto Pereira",
+      "cargo": "AdjTec do Comandante",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 100,
+      "nome": "Carlos Alberto Mendes Fernandes",
+      "cargo": "SChPrinc",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 101,
+      "nome": "Carlos Alberto Miranda Rocha Pina",
+      "cargo": "2Cmdt",
+      "entidade": "BV Seixal",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 43,
+      "nome": "Carlos Carolina",
+      "cargo": "Cmdt",
+      "entidade": "BV Caneças",
+      "categoria": "Bombeiros Voluntários",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 102,
+      "nome": "César Magueijo",
+      "cargo": "Eng.",
+      "entidade": "Metropolitano de Lx",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 103,
+      "nome": "Cláudio Tomé",
+      "cargo": "Cmdt Bomb Grândola",
+      "entidade": "ANEPC",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 104,
+      "nome": "Cristina Reis",
+      "cargo": "RelP",
+      "entidade": "BV Caneças",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 74,
+      "nome": "Daniel Guimarães da Silva Santos",
+      "cargo": "SCh 1ª",
+      "entidade": "RSB",
+      "categoria": "Bombeiro Sapador",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 105,
+      "nome": "Dinis Reguengo Garcia",
+      "cargo": "Bombeiro Sapador 1014",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 106,
+      "nome": "Diogo Santos",
+      "cargo": "BSap",
+      "entidade": "Académico",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 107,
+      "nome": "Domingos Cruz",
+      "cargo": "Cmdt Comp Ch1",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 69,
+      "nome": "Domingos Manuel Dias Morais",
+      "cargo": "SChPrinc",
+      "entidade": "RSB",
+      "categoria": "Bombeiro Sapador",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 75,
+      "nome": "Emanuel Alfredo Cardoso Lopes Silva",
+      "cargo": "Formador/SCh1",
+      "entidade": "RSB",
+      "categoria": "Bombeiro Sapador",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 108,
+      "nome": "Ernesto Morais",
+      "cargo": "SCh2",
+      "entidade": "Comp Sapadores Viana castelo",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 109,
+      "nome": "Fábio Alexandre Salvador Caria",
+      "cargo": "Sapador Bombeiro",
+      "entidade": "BM Cartaxo",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 110,
+      "nome": "Fábio Marques",
+      "cargo": "2Cmdt",
+      "entidade": "BV Portimão",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 111,
+      "nome": "Fábio Santíssima",
+      "cargo": "Bombeiro de 2ª",
+      "entidade": "Bombeiros de Carcavelos",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 112,
+      "nome": "Fábio SIlva",
+      "cargo": "Bomb",
+      "entidade": "BV Famalicenses",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 113,
+      "nome": "Fausto Simões",
+      "cargo": "",
+      "entidade": "SMPC Lx",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 114,
+      "nome": "Filipe Batalha",
+      "cargo": "Chefe",
+      "entidade": "BV Samora Correia",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 115,
+      "nome": "Filipe Lopes",
+      "cargo": "Vogal Direção APBV",
+      "entidade": "Ass Portugesa dos bombeiros voluntários Rio Maior",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 116,
+      "nome": "Graça Brigida",
+      "cargo": "Diretora de Segurança",
+      "entidade": "Metropolitano de Lx",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 117,
+      "nome": "Hélder João Ferreira Malta",
+      "cargo": "SCh2 Coruche",
+      "entidade": "BS Coruche",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 118,
+      "nome": "Helder Pragosa",
+      "cargo": "SCh1 Adj Comando",
+      "entidade": "Sapadores de Leiria",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 119,
+      "nome": "Hélder Tocha Miranda",
+      "cargo": "Bombeiro",
+      "entidade": "BM Cartaxo",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 120,
+      "nome": "Hélder Varandas",
+      "cargo": "Major (representação CEMFAP)",
+      "entidade": "FAP",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 52,
+      "nome": "Hugo Martins",
+      "cargo": "Diretor Comercial",
+      "entidade": "Extincêndios",
+      "categoria": "Empresa Parceira",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 10,
+      "nome": "Hugo Santos",
+      "cargo": "Oficial Bomb1",
+      "entidade": "BV Praia da Vitória",
+      "categoria": "Entidade Pública",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 121,
+      "nome": "Humberto Morgado",
+      "cargo": "Cmdt",
+      "entidade": "Sapadores de Leiria",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 122,
+      "nome": "Isabel Forte",
+      "cargo": "Comunicação",
+      "entidade": "CML",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 57,
+      "nome": "Isabel Galhardo",
+      "cargo": "Consultora",
+      "entidade": "APSEI",
+      "categoria": "Entidade Externa - Outra",
+      "estado": "Confirmada",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 123,
+      "nome": "Ivo SIlva",
+      "cargo": "TSup",
+      "entidade": "DDF",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 124,
+      "nome": "Joana Filipa de Jesus Marques Pinto Porêlo",
+      "cargo": "Bombeiro 3°",
+      "entidade": "Bombeiros Voluntários Alcochete",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 125,
+      "nome": "Joana Jerónimo",
+      "cargo": "1TEN TSN-AMB",
+      "entidade": "Marinha",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 126,
+      "nome": "Joana Mendonça",
+      "cargo": "EquMultidisSegPrev Riscos",
+      "entidade": "IGAMA",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 127,
+      "nome": "João Cabrita",
+      "cargo": "AdjTec Cmdt",
+      "entidade": "Loulé - Bomb Municipais e Heliporto",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 128,
+      "nome": "João Ferreira",
+      "cargo": "",
+      "entidade": "BS Coimbra",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 129,
+      "nome": "João Filipe Presumido Valhelhas",
+      "cargo": "SChPrinc",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 6,
+      "nome": "Prof. Dr. João Joanaz de Melo",
+      "cargo": "PhD",
+      "entidade": "FCT | NOVA FCT",
+      "categoria": "Académico",
+      "estado": "Pendente",
+      "naoEnviar": true,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 130,
+      "nome": "João Lima",
+      "cargo": "Cmdt Machico",
+      "entidade": "Coordenador da Área Técnica de Formação de Matérias Perigosas",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 131,
+      "nome": "João Luís Pereira",
+      "cargo": "SChPrinc",
+      "entidade": "Comp Sapadores Viana Castelo",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 132,
+      "nome": "João Luís Tavares Carolino",
+      "cargo": "Adjunto Técnico",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 56,
+      "nome": "João Matos",
+      "cargo": "técnico",
+      "entidade": "Imprensa",
+      "categoria": "Empresa Parceira",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 133,
+      "nome": "José Antunes",
+      "cargo": "",
+      "entidade": "BS Coimbra",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 134,
+      "nome": "José Barbosa",
+      "cargo": "Ch2",
+      "entidade": "BS Gaia",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 135,
+      "nome": "José Fernando Martins Faria",
+      "cargo": "Ch1_ Operações",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 136,
+      "nome": "José Jorge",
+      "cargo": "",
+      "entidade": "BS Coimbra",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 137,
+      "nome": "José Manuel Fernandes Francisco",
+      "cargo": "2Cmdt",
+      "entidade": "CBV Proença-a-Nova",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 138,
+      "nome": "José Manuel Ferreira Ventura",
+      "cargo": "Cmdt BV Lisbonenses",
+      "entidade": "BV Lisbonenses",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 41,
+      "nome": "José Armando Correia Mendes",
+      "cargo": "Cmdt",
+      "entidade": "BV Seixal",
+      "categoria": "Bombeiros Voluntários",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 51,
+      "nome": "José Alves",
+      "cargo": "Técnico de Emergência",
+      "entidade": "Cruz Vermelha Portuguesa",
+      "categoria": "Bombeiros Voluntários",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 83,
+      "nome": "José Pacheco Pina",
+      "cargo": "Presidente",
+      "entidade": "CNTMP",
+      "categoria": "Convidado Institucional",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 139,
+      "nome": "José Primo",
+      "cargo": "",
+      "entidade": "BS Coimbra",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 140,
+      "nome": "José Ventura",
+      "cargo": "AdjCmd",
+      "entidade": "CV Lisbonenses",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 141,
+      "nome": "Lara Machado",
+      "cargo": "Gestora de Comunicação",
+      "entidade": "APSEI",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 54,
+      "nome": "Laura Silva",
+      "cargo": "Diretora Geral",
+      "entidade": "APSEI",
+      "categoria": "Empresa Parceira",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 142,
+      "nome": "Leandro Fonseca",
+      "cargo": "Bombeiro 2",
+      "entidade": "BV Portimão",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 143,
+      "nome": "Leandro Portelinha",
+      "cargo": "Coordenador",
+      "entidade": "JF Campolide Proteção Civil",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 144,
+      "nome": "Leonardo André Martins Pereira",
+      "cargo": "Cmdt",
+      "entidade": "Sapadores Sta Cruz",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 70,
+      "nome": "Leopoldo Sousa Gonçalves",
+      "cargo": "SChPrinc",
+      "entidade": "RSB",
+      "categoria": "Bombeiro Sapador",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 26,
+      "nome": "Lídio Manuel Lopes",
+      "cargo": "Presidente",
+      "entidade": "ENB",
+      "categoria": "Entidade Pública",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 145,
+      "nome": "Liliana Rodrigues",
+      "cargo": "Bombeiro de 1ª",
+      "entidade": "Bombeiros de Carcavelos",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 146,
+      "nome": "Lino Carragoso",
+      "cargo": "SCh2",
+      "entidade": "BS  Viseu",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 147,
+      "nome": "Luís Abraúl",
+      "cargo": "Comissário",
+      "entidade": "PSP",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 148,
+      "nome": "Luís Arega Lopes",
+      "cargo": "Eng.",
+      "entidade": "Metropolitano de Lx",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 149,
+      "nome": "Luís Caracol",
+      "cargo": "",
+      "entidade": "",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 150,
+      "nome": "Luis Martins",
+      "cargo": "Ins Coordenador Açores",
+      "entidade": "SRPCB Açores",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 151,
+      "nome": "Luís Santos Reis",
+      "cargo": "Capitão-de-Mar-e-Guerra",
+      "entidade": "Autoridade Marítima Nacional",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 152,
+      "nome": "Luís Silva",
+      "cargo": "SChPrinc",
+      "entidade": "BS Gaia",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 153,
+      "nome": "Luísa Costa",
+      "cargo": "Representante do IMT",
+      "entidade": "CNTMP",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 154,
+      "nome": "Manuel Agostinho",
+      "cargo": "",
+      "entidade": "CLC",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 155,
+      "nome": "Márcio Teixeira",
+      "cargo": "Ch Div Op e apoio às pop",
+      "entidade": "SMPC Lx",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 156,
+      "nome": "Marco António Manuel Grafanhate",
+      "cargo": "BSap Coruche",
+      "entidade": "BS Coruche",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 157,
+      "nome": "Marco Gaspar",
+      "cargo": "SCh 2°Cl.",
+      "entidade": "CBSSC",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 158,
+      "nome": "Marcos Espada",
+      "cargo": "BSap",
+      "entidade": "Sapadores Setúbal",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 159,
+      "nome": "Margarida Eça de Almeida",
+      "cargo": "Técnico Superior",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 160,
+      "nome": "Maria Alexandra Henriques",
+      "cargo": "Tecnico Superior",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 161,
+      "nome": "Maria da Graça Vieira Henriques",
+      "cargo": "Técnica superior",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 162,
+      "nome": "Maria de Fátima Berlinga de Almeida",
+      "cargo": "Assistec Gabinete de Prevenção de Acidentes",
+      "entidade": "Força Aérea Portuguesa",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 71,
+      "nome": "Mário Jorge Figueiredo Ferreira",
+      "cargo": "SChPrinc",
+      "entidade": "RSB",
+      "categoria": "Bombeiro Sapador",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 163,
+      "nome": "Miguel Carrilho",
+      "cargo": "Eng.",
+      "entidade": "Metropolitano de Lx",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 164,
+      "nome": "Miguel Domingues",
+      "cargo": "SCh1 Adj Comando",
+      "entidade": "Sapadores de Leiria",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 55,
+      "nome": "Miguel Moita",
+      "cargo": "Teste",
+      "entidade": "Intervir.pt",
+      "categoria": "Empresa Parceira",
+      "estado": "Confirmada",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 165,
+      "nome": "Miguel Moita",
+      "cargo": "Coautor do Livreto / Orador convidado",
+      "entidade": "",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 166,
+      "nome": "Neuza Graxinha Mendes",
+      "cargo": "Bomb",
+      "entidade": "CB Sul e Sudueste",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 167,
+      "nome": "Nuno Assis",
+      "cargo": "SChPrinc",
+      "entidade": "BS Gaia",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 168,
+      "nome": "Nuno Emanuel Coroado",
+      "cargo": "Cmdt Coruche",
+      "entidade": "BS Coruche",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 169,
+      "nome": "Nuno Miguel Meira Oliveira",
+      "cargo": "Bombeiro 2",
+      "entidade": "Bombeiros",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 170,
+      "nome": "Nuno Miguel Viegas Machado",
+      "cargo": "Chefe",
+      "entidade": "Bombeiros sul e sueste",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 171,
+      "nome": "Nuno Pinto",
+      "cargo": "Adj Cmdt",
+      "entidade": "BV Lisbonenses",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 172,
+      "nome": "Nuno Sousa",
+      "cargo": "SCh",
+      "entidade": "BV Samora Correia",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 64,
+      "nome": "Paulo Roberto Cabaço Cabrito",
+      "cargo": "SCh2",
+      "entidade": "RSB",
+      "categoria": "Bombeiro Sapador",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 173,
+      "nome": "Paulo Jorge de Oliveira Guerreiro",
+      "cargo": "Comandante 3Batalhão/ Chefe 1ª Classe",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 174,
+      "nome": "Paulo Jorge Siborro Nascimento",
+      "cargo": "SChPrinc",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 175,
+      "nome": "Paulo Nunes",
+      "cargo": "TSup",
+      "entidade": "EPRE APA",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 176,
+      "nome": "Paulo Rã",
+      "cargo": "Chefe",
+      "entidade": "BV Amadora",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 177,
+      "nome": "Paulo Rui Almeida Machado",
+      "cargo": "Comandante",
+      "entidade": "Bombeiros Voluntários de Vendas Novas",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 178,
+      "nome": "Pedro Alexandre Patrício Pereira",
+      "cargo": "SUBCHEFE PRINCIPAL",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 179,
+      "nome": "Pedro André Simplício Mendonça Fernandes",
+      "cargo": "Sch1",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 180,
+      "nome": "Pedro Correia",
+      "cargo": "BSap",
+      "entidade": "BS Viseu",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 181,
+      "nome": "Pedro de Viterbo Badoni",
+      "cargo": "CEO",
+      "entidade": "Deathclean",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 182,
+      "nome": "Pedro de Viterbo Badoni (Acompanhante)",
+      "cargo": "CEO",
+      "entidade": "Deathclean",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 183,
+      "nome": "Pedro Dias",
+      "cargo": "Comercial",
+      "entidade": "Tecniquitel",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 184,
+      "nome": "Pedro Fonseca",
+      "cargo": "EquMultidisSegPrev Riscos",
+      "entidade": "IGAMA",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 77,
+      "nome": "Pedro Gonçalo Simões Rodrigues",
+      "cargo": "SCh1",
+      "entidade": "RSB",
+      "categoria": "Bombeiro Sapador",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 185,
+      "nome": "Pedro Henrique Dobrões da Fonseca",
+      "cargo": "Inspetor",
+      "entidade": "IGAMAOT",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 186,
+      "nome": "Pedro Machado",
+      "cargo": "AdjTecCmd",
+      "entidade": "BV Famalicenses",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 187,
+      "nome": "Pedro Miguel Capelo de Sousa",
+      "cargo": "Adjunto Técnico do Comandante do RSB de Lisboa",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 188,
+      "nome": "Pedro Miguel Nunes Farinha",
+      "cargo": "Adjunto de Comando",
+      "entidade": "CBV Sertã",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 189,
+      "nome": "Rafael Leão",
+      "cargo": "",
+      "entidade": "JM",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 190,
+      "nome": "Raquel Maria Sousa Tainha Antunes",
+      "cargo": "Bomb. 3°",
+      "entidade": "B.V.Loures",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 191,
+      "nome": "Raquel Milho",
+      "cargo": "Ch Div Prevenção e Sensibilização",
+      "entidade": "SMPC Lx",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 192,
+      "nome": "Ricardo André da Conceição Matos Correia",
+      "cargo": "Comandante",
+      "entidade": "BV Loures",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 193,
+      "nome": "Ricardo Barreto",
+      "cargo": "SChPrinc",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 194,
+      "nome": "Ricardo Feijoca",
+      "cargo": "SCh",
+      "entidade": "BV Samora Correia",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 33,
+      "nome": "Ricardo Fernandes",
+      "cargo": "Cmdt",
+      "entidade": "Comp Sapadores Viana castelo",
+      "categoria": "Bombeiros Profissionais",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 195,
+      "nome": "Ricardo Rodrigues",
+      "cargo": "BSap",
+      "entidade": "BS Viseu",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 2,
+      "nome": "Richard Marques",
+      "cargo": "Presidente",
+      "entidade": "Serviço Regional de Proteção Civil - IP RAM",
+      "categoria": "Entidade Pública",
+      "estado": "Confirmada",
+      "naoEnviar": true,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 84,
+      "nome": "Roberto Valadares",
+      "cargo": "",
+      "entidade": "APA - Prevenção de Acidentes Graves (SEVESO)",
+      "categoria": "roberto.valadares@apambiente.pt",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 196,
+      "nome": "Rocha Pina",
+      "cargo": "2Cmdt",
+      "entidade": "BV Seixal",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 197,
+      "nome": "Rodrigo Cabaço",
+      "cargo": "BSap",
+      "entidade": "Sapadores Setúbal",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 198,
+      "nome": "Rúben Guerreiro",
+      "cargo": "Académico",
+      "entidade": "CBS Setúbal",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 199,
+      "nome": "Rui Serrano",
+      "cargo": "Académico",
+      "entidade": "Marinha / AMN",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 200,
+      "nome": "Rute Sofia Fonseca Santos Calado",
+      "cargo": "Bomb 1",
+      "entidade": "BV Queluz",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 201,
+      "nome": "Sandra Daniela Martins Ribeiro",
+      "cargo": "Tenente-Coronel",
+      "entidade": "Força aérea",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 202,
+      "nome": "Sara Mendes",
+      "cargo": "TSup",
+      "entidade": "EPRE APA",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 203,
+      "nome": "Sebastião Damásio",
+      "cargo": "Eng.",
+      "entidade": "Metropolitano de Lx",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 204,
+      "nome": "Sérgio Sousa",
+      "cargo": "SChPrinc",
+      "entidade": "RSBL",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 205,
+      "nome": "Tiago Brito",
+      "cargo": "SCh2",
+      "entidade": "Sapadores Setúbal",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 15,
+      "nome": "Tiago Bugio",
+      "cargo": "Cmdt SubReg EPC Alentejo Litoral",
+      "entidade": "ANEPC",
+      "categoria": "Entidade Pública",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    },
+    {
+      "id": 206,
+      "nome": "Tiago Miguel Gomes Vinagre",
+      "cargo": "Subchefe 2ª Classe",
+      "entidade": "CSBS",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 207,
+      "nome": "Victor Manuel Antunes Marques",
+      "cargo": "SCh Princ.",
+      "entidade": "RSB",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 208,
+      "nome": "Vitor Gonçalves",
+      "cargo": "Cmdt Bomb Sines",
+      "entidade": "ANEPC",
+      "categoria": "",
+      "estado": "Confirmado",
+      "eraConvidado": "Sim",
+      "naoEnviar": false
+    },
+    {
+      "id": 59,
+      "nome": "Vitor Jorge Moreira Torcato Constantino Machacaz",
+      "cargo": "Comandante da ERSBL/Chefe Principal",
+      "entidade": "RSB",
+      "categoria": "Bombeiro Sapador",
+      "estado": "Pendente",
+      "naoEnviar": false,
+      "eraConvidado": "Sim"
+    }
+  ]
+}
