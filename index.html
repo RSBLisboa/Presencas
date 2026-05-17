@@ -1174,16 +1174,22 @@
       el.innerHTML = '<p style="color:var(--texto-mute);font-size:13px;padding:14px;text-align:center;border:1px dashed var(--linha);border-radius:6px">Programa não definido. Coordenador pode editar no admin → Setup → Programa do evento.</p>';
       return;
     }
-    const linhas = slots.map(s => `
-      <div style="display:flex;gap:14px;padding:10px 4px;border-top:1px solid var(--linha)">
-        <div style="font-weight:700;color:var(--rsb-vermelho);min-width:60px;font-size:15px">${esc(s.hora || "—")}</div>
-        <div style="flex:1">
-          <div style="font-weight:600;font-size:14px;color:var(--texto)">${esc(s.titulo || "")}</div>
-          ${s.orador ? '<div style="color:var(--texto-mute);font-size:12.5px;margin-top:2px">' + esc(s.orador) + '</div>' : ''}
-          ${s.duracao ? '<div style="color:var(--texto-mute);font-size:11.5px;margin-top:2px">' + esc(s.duracao) + '</div>' : ''}
+    const linhas = slots.map(s => {
+      const oradores = (s.oradores || s.orador || "").split("|").map(x => x.trim()).filter(Boolean);
+      const oradoresHtml = oradores.length === 1
+        ? '<div style="color:var(--texto);font-size:12.5px;margin-top:3px;font-weight:500">' + esc(oradores[0]) + '</div>'
+        : oradores.map(o => '<div style="color:var(--texto);font-size:12.5px;margin-top:2px">• ' + esc(o) + '</div>').join("");
+      return `
+        <div style="display:flex;gap:14px;padding:12px 4px;border-top:1px solid var(--linha)">
+          <div style="font-weight:700;color:var(--rsb-vermelho);min-width:60px;font-size:15px">${esc(s.hora || "—")}</div>
+          <div style="flex:1">
+            <div style="font-weight:600;font-size:14px;color:var(--texto)">${esc(s.titulo || "")}</div>
+            ${oradoresHtml}
+            ${s.descricao ? '<div style="color:var(--texto-mute);font-size:11.5px;margin-top:5px;font-style:italic;line-height:1.4">' + esc(s.descricao) + '</div>' : ''}
+          </div>
         </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
     el.innerHTML = '<div style="border-bottom:1px solid var(--linha)">' + linhas + '</div>' +
       '<p style="margin-top:12px;font-size:11.5px;color:var(--texto-mute);text-align:center">Última actualização: ' + esc(ST.evento.actualizadoEm || "—") + '</p>';
   }
