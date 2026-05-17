@@ -1507,7 +1507,7 @@
       "naoEnviar": false,
       "autorizaContacto": false,
       "categoria": "Orador",
-      "lugar": ""
+      "lugar": "R2"
     },
     {
       "id": 70,
@@ -2619,5 +2619,6 @@
       "categoria": "",
       "lugar": "R8"
     }
-  ]
+  ],
+  "actualizadoEm": "2026-05-17T23:08:05"
 }
