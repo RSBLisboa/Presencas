@@ -175,6 +175,18 @@
   .pill.on-qst { background: var(--azul-claro); color: var(--azul); }
   .pill.on-cert { background: #f3e5f5; color: #6a1b9a; }
 
+  /* Pills categoria + lugar (consistente com p.html / relatorios / mapa-sala) */
+  .pill-cat {
+    display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; padding: 2px 7px; border-radius: 999px; color: #fff;
+  }
+  .pill-lugar {
+    display: inline-block; font-size: 10.5px; font-weight: 700; padding: 2px 7px;
+    border-radius: 6px; border: 1px solid;
+  }
+  .pill-lugar.r { background: #fef9c3; color: #854d0e; border-color: #facc15; }
+  .pill-lugar.num { background: #f1f5f9; color: #1e293b; border-color: #cbd5e1; }
+
   /* Botões de acção em rows (Livreto) */
   .row .acoes { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
   .row .acao {
@@ -445,6 +457,7 @@
     <div class="handle"></div>
     <div class="nome-grande" id="dw-nome">—</div>
     <div class="meta-grande" id="dw-meta">—</div>
+    <div id="dw-pills" style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"></div>
 
     <div class="seccao-estado">
       <div class="estado-linha" id="dw-estado-pres">
@@ -539,6 +552,16 @@
     <input type="text" id="ficha-entidade" autocomplete="off">
     <label>Email</label>
     <input type="email" id="ficha-email" autocomplete="off">
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <div style="flex:1.4">
+        <label>Categoria</label>
+        <select id="ficha-categoria" style="width:100%;padding:9px 10px;border:1px solid var(--linha);border-radius:8px;font-family:inherit;font-size:14px;background:#fff"></select>
+      </div>
+      <div style="flex:1">
+        <label>Lugar reservado</label>
+        <input type="text" id="ficha-lugar" autocomplete="off" placeholder="ex. R3 ou 12" style="text-transform:uppercase">
+      </div>
+    </div>
     <div class="check-row">
       <input type="checkbox" id="ficha-autoriza">
       <label for="ficha-autoriza" style="margin:0;text-transform:none;letter-spacing:0;font-size:13px;font-weight:400;color:var(--texto)">Autoriza contacto para iniciativas RSB</label>
@@ -676,6 +699,28 @@
   }
   function esc(s) {
     return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+  // Cores oficiais por categoria (consistentes com p.html, relatorios.html, mapa-sala.html)
+  const CORES_CAT = {
+    "Organização": "#1a1a1a",
+    "Orador": "#E30613",
+    "Orador Convidado": "#C46C00",
+    "Moderação": "#6b21a8",
+    "Coautor do Livreto": "#0e7490",
+    "VIP": "#a16207",
+    "Imprensa": "#1565c0"
+  };
+  const CATEGORIAS_LISTA = ["", "Organização", "Orador", "Orador Convidado", "Moderação", "Coautor do Livreto", "VIP", "Imprensa"];
+  function pillCategoriaHtml(cat) {
+    if (!cat) return "";
+    const bg = CORES_CAT[cat] || "#5a5a5a";
+    return '<span class="pill-cat" style="background:'+bg+'">'+esc(cat)+'</span>';
+  }
+  function pillLugarHtml(lugar) {
+    if (!lugar) return "";
+    const l = String(lugar);
+    const ehR = l.toUpperCase().startsWith("R");
+    return '<span class="pill-lugar '+(ehR?"r":"num")+'">'+esc(l)+'</span>';
   }
   function toast(msg, kind) {
     const el = $("toast");
@@ -1289,9 +1334,15 @@
       const qst = ST.respondeu.has(i.id);
       const cert = ST.certificadosSet.has(i.id);
       const horaPres = pres ? fmtHora(ST.presencasMap.get(i.id).horaEntrada) : "";
+      const catPill = pillCategoriaHtml(i.categoria);
+      const lugarPill = pillLugarHtml(i.lugar);
+      const topRow = (catPill || lugarPill)
+        ? `<div class="pills" style="margin-top:0;margin-bottom:3px">${catPill}${lugarPill}</div>`
+        : "";
       return `
         <div class="row${pres ? " presente" : ""}" data-id="${i.id}">
           <div class="info">
+            ${topRow}
             <div class="nome">${esc(i.nome)}</div>
             <div class="meta">${esc((i.cargo || "") + (i.entidade ? " · " + i.entidade : ""))}</div>
             <div class="pills">
@@ -1315,10 +1366,16 @@
       const m = ST.presencasMap.get(i.id);
       const pres = m && m.presente;
       const hora = m && m.horaEntrada ? fmtHora(m.horaEntrada) : "";
+      const catPill = pillCategoriaHtml(i.categoria);
+      const lugarPill = pillLugarHtml(i.lugar);
+      const topRow = (catPill || lugarPill)
+        ? `<div class="pills" style="margin-top:0;margin-bottom:3px">${catPill}${lugarPill}</div>`
+        : "";
       return `
         <div class="row${pres ? " presente" : ""}" data-id="${i.id}" data-toggle="presenca">
           <div class="check"><svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"/></svg></div>
           <div class="info">
+            ${topRow}
             <div class="nome">${esc(i.nome)}</div>
             <div class="meta">${esc((i.cargo || "") + (i.entidade ? " · " + i.entidade : ""))}</div>
           </div>
@@ -1416,6 +1473,7 @@
     ST.drawerId = id;
     $("dw-nome").textContent = insc.nome;
     $("dw-meta").textContent = (insc.cargo || "") + (insc.entidade ? " · " + insc.entidade : "");
+    $("dw-pills").innerHTML = pillCategoriaHtml(insc.categoria) + pillLugarHtml(insc.lugar);
     refreshDrawer();
     $("drawer-fundo").classList.remove("hide");
   }
@@ -1513,6 +1571,11 @@
     $("ficha-cargo").value = insc.cargo || "";
     $("ficha-entidade").value = insc.entidade || "";
     $("ficha-email").value = insc.email || "";
+    const selCat = $("ficha-categoria");
+    selCat.innerHTML = CATEGORIAS_LISTA.map(c =>
+      '<option value="'+esc(c)+'"'+(c === (insc.categoria || "") ? " selected" : "")+'>'+(c || "— Sem categoria —")+'</option>'
+    ).join("");
+    $("ficha-lugar").value = insc.lugar || "";
     $("ficha-autoriza").checked = !!insc.autorizaContacto;
     $("ficha-erro").classList.add("hide");
     $("modal-ficha").classList.remove("hide");
@@ -1533,6 +1596,8 @@
       cargo: $("ficha-cargo").value.trim(),
       entidade: $("ficha-entidade").value.trim(),
       email: $("ficha-email").value.trim(),
+      categoria: $("ficha-categoria").value.trim(),
+      lugar: $("ficha-lugar").value.trim().toUpperCase(),
       autorizaContacto: $("ficha-autoriza").checked
     };
     $("ficha-save").disabled = true;
