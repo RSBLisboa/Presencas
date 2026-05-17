@@ -370,13 +370,13 @@
 <div class="modal-fundo hide" id="modal-tablet">
   <div class="modal-card">
     <h2>Configurar tablet</h2>
-    <p class="meta-mod">Cola o Personal Access Token (PAT) do GitHub. Fica gravado neste tablet (localStorage) até ser limpo.</p>
-    <input type="password" id="tablet-token" placeholder="ghp_… ou github_pat_…" style="font-family:'SF Mono',Consolas,monospace">
+    <p class="meta-mod">Introduz a <strong>password admin</strong>. O tablet fica autorizado em segundos — não é necessário colar tokens.</p>
+    <input type="password" id="tablet-token" placeholder="Password admin" autocomplete="current-password">
     <div class="erro-msg hide" id="tablet-erro"></div>
     <div class="actions">
       <button class="secondary" id="tablet-cancel">Fechar</button>
       <button class="secondary" id="tablet-clear">Limpar</button>
-      <button class="primary" id="tablet-save">Validar e gravar</button>
+      <button class="primary" id="tablet-save">Autorizar tablet</button>
     </div>
   </div>
 </div>
@@ -569,9 +569,29 @@
   const ADMIN_PASS_HASH = "ddf8f268f1f55f479bca66b18836d46c2c10f99317ec7814edc58371a93d4536";
   const ADMIN_SESSION_KEY = "rsb_admin_auth";
 
+  // PAT cifrado com a password admin (PBKDF2 150k + AES-GCM, base64 de salt|iv|ct).
+  // Gerar com tools/cifrar-pat.html no repo Eventos.
+  const PAT_CIFRADO = "";
+
   function getPAT() { return localStorage.getItem(CONFIG.LS_PAT_KEY) || ""; }
   function setPAT(t) { if (t) localStorage.setItem(CONFIG.LS_PAT_KEY, t); else localStorage.removeItem(CONFIG.LS_PAT_KEY); }
   let USERS_CACHE = [];
+
+  // Decifra o PAT embutido com a password admin (mesma usada para autorizar acções).
+  async function decifrarPATComPassword(password) {
+    if (!PAT_CIFRADO) throw new Error("PAT cifrado não configurado no código.");
+    const bundle = Uint8Array.from(atob(PAT_CIFRADO), c => c.charCodeAt(0));
+    const salt = bundle.slice(0, 16);
+    const iv = bundle.slice(16, 28);
+    const ct = bundle.slice(28);
+    const baseKey = await crypto.subtle.importKey(
+      "raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt, iterations: 150000, hash: "SHA-256" },
+      baseKey, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, ct);
+    return new TextDecoder().decode(pt);
+  }
 
   // ═════════════════════════════════════════════════════════════════════════
   // ESTADO
@@ -926,6 +946,8 @@
     if (ST.syncStatus === "syncing") return;
     if (!navigator.onLine) return;
     try {
+      // Kill switch: o admin pode desautorizar todos os tablets em massa.
+      if (await authFoiRevogado()) return;
       const { sha, payload: remote } = await ghLer("data/presencas.json");
       let mudou = false;
       if (sha && sha !== ST.presencasSha) {
@@ -939,6 +961,39 @@
       if (ST.respondeu.size !== antesR) mudou = true;
       if (mudou) renderAtivo();
     } catch (_) {}
+  }
+
+  // Kill switch: lê data/auth.json (sem PAT, é público) e compara authVersao com
+  // o último valor conhecido. Se mudou, limpa PAT + sessão e força re-config.
+  // Devolve true se o auth foi revogado (chamador deve interromper).
+  async function authFoiRevogado() {
+    try {
+      const r = await fetch(
+        `https://raw.githubusercontent.com/${CONFIG.githubOwner}/${CONFIG.githubRepo}/${CONFIG.githubBranch}/data/auth.json?t=` + Date.now(),
+        { cache: "no-store" }
+      );
+      if (!r.ok) return false;
+      const a = await r.json();
+      const remota = parseInt(a.authVersao, 10);
+      if (!remota || isNaN(remota)) return false;
+      const guardada = parseInt(localStorage.getItem("rsb_auth_versao") || "0", 10);
+      if (!guardada) {
+        // Primeiro arranque desde a feature: regista versão actual sem revogar.
+        localStorage.setItem("rsb_auth_versao", String(remota));
+        return false;
+      }
+      if (remota > guardada) {
+        // Revogação: limpa tudo e volta ao ecrã de password.
+        setPAT("");
+        sessionStorage.removeItem("rsb_user");
+        try { sessionStorage.removeItem(ADMIN_SESSION_KEY); } catch (_) {}
+        localStorage.setItem("rsb_auth_versao", String(remota));
+        toast("Tablet desautorizado pelo admin — reconfigure", "err");
+        setTimeout(() => location.reload(), 1500);
+        return true;
+      }
+      return false;
+    } catch (_) { return false; }
   }
 
   // ═════════════════════════════════════════════════════════════════════════
@@ -1789,16 +1844,15 @@
     $("modal-ficha").addEventListener("click", e => { if (e.target === e.currentTarget) $("modal-ficha").classList.add("hide"); });
 
     // Configurar tablet
-    $("link-config-tablet").addEventListener("click", async e => {
+    $("link-config-tablet").addEventListener("click", e => {
       e.preventDefault();
-      if (!isAdminAuthed()) {
-        const ok = await pedirAdminAuth();
-        if (!ok) return;
-      }
       $("tablet-token").value = "";
       $("tablet-erro").classList.add("hide");
       $("modal-tablet").classList.remove("hide");
       setTimeout(() => $("tablet-token").focus(), 50);
+    });
+    $("tablet-token").addEventListener("keypress", e => {
+      if (e.key === "Enter") $("tablet-save").click();
     });
     $("tablet-cancel").addEventListener("click", () => $("modal-tablet").classList.add("hide"));
     $("tablet-clear").addEventListener("click", () => {
@@ -1808,22 +1862,28 @@
       toast("Token removido", "ok");
     });
     $("tablet-save").addEventListener("click", async () => {
-      const tok = $("tablet-token").value.trim();
+      const pass = $("tablet-token").value;
       const err = $("tablet-erro");
       err.classList.add("hide");
-      if (!tok) { err.textContent = "Cola o token PAT."; err.classList.remove("hide"); return; }
+      if (!pass) { err.textContent = "Introduz a password admin."; err.classList.remove("hide"); return; }
       try {
+        const h = await sha256Hex(pass);
+        if (h !== ADMIN_PASS_HASH) { err.textContent = "Password incorrecta."; err.classList.remove("hide"); return; }
+        const tok = await decifrarPATComPassword(pass);
         const r = await fetch(`https://api.github.com/repos/${CONFIG.githubOwner}/${CONFIG.githubRepo}`, {
           headers: { "Authorization": "Bearer " + tok, "Accept": "application/vnd.github+json" }
         });
-        if (r.status === 401 || r.status === 403) { err.textContent = "Token sem permissões."; err.classList.remove("hide"); return; }
+        if (r.status === 401 || r.status === 403) { err.textContent = "PAT cifrado inválido ou expirou. Avisa o admin."; err.classList.remove("hide"); return; }
         if (!r.ok) { err.textContent = "GitHub HTTP " + r.status; err.classList.remove("hide"); return; }
         setPAT(tok);
+        setAdminAuthed();
         $("modal-tablet").classList.add("hide");
         actualizarTabletStatus();
         toast("Tablet autorizado", "ok");
       } catch (e) {
-        err.textContent = "Falha: " + e.message;
+        err.textContent = e.message.indexOf("decrypt") >= 0
+          ? "Falha a decifrar — password errada?"
+          : ("Falha: " + e.message);
         err.classList.remove("hide");
       }
     });
@@ -1855,6 +1915,8 @@
   }
   bindEventos();
   (async () => {
+    // Kill switch: verifica logo no boot se o admin revogou os tablets.
+    if (await authFoiRevogado()) return;
     actualizarTabletStatus();
     USERS_CACHE = await carregarUsers();
     popularDropdownUsers(USERS_CACHE);
