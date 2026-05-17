@@ -82,6 +82,7 @@
   .stat.aus .n { color: var(--texto-mute); }
   .stat.entr .n { color: var(--rsb-vermelho); }
   .stat.qst .n { color: var(--azul); }
+  .stat.cert .n { color: #6a1b9a; }
 
   .sync {
     padding: 5px 14px; font-size: 11.5px;
@@ -1042,12 +1043,15 @@
     for (const m of ST.presencasMap.values()) if (m.presente) pres++;
     const entr = ST.entregas.size;
     const qst = ST.respondeu.size;
+    const cert = ST.certificadosSet.size;
     let html = "";
     if (ST.tab === "geral") {
+      // Ordem alinhada com os pills da lista: Presença, Resposta, Livreto, Certificado, Inscritos
       html = `
         <div class="stat pres"><div class="n">${pres}</div><div class="l">Presentes</div></div>
-        <div class="stat entr"><div class="n">${entr}</div><div class="l">Livretos</div></div>
         <div class="stat qst"><div class="n">${qst}</div><div class="l">Resposta</div></div>
+        <div class="stat entr"><div class="n">${entr}</div><div class="l">Livretos</div></div>
+        <div class="stat cert"><div class="n">${cert}</div><div class="l">Cert</div></div>
         <div class="stat"><div class="n">${tot}</div><div class="l">Inscritos</div></div>`;
     } else if (ST.tab === "presenca") {
       html = `
