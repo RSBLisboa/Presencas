@@ -601,7 +601,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 10,
-      "lugar": "9"
+      "lugar": "9",
+      "categoria": "Organização"
     },
     {
       "id": 4,
@@ -1224,7 +1225,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 68,
-      "lugar": "R1"
+      "lugar": "R1",
+      "categoria": "Moderação"
     },
     {
       "id": 50,
@@ -1501,9 +1503,9 @@
       "cargo": "Subchefe de 1.ª Classe",
       "entidade": "RSBL",
       "email": "jose.miguel.ferreira@cm-lisboa.pt",
-      "temMail": false,
-      "estado": "Confirmada",
-      "eraConvidado": "Sim",
+      "temMail": true,
+      "estado": "Confirmado",
+      "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": false,
       "categoria": "Orador",
@@ -1724,7 +1726,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 65,
-      "lugar": "15"
+      "lugar": "15",
+      "categoria": "Orador Convidado"
     },
     {
       "id": 86,
@@ -1931,7 +1934,7 @@
       "id": 101,
       "token": "GSKGF789",
       "nome": "Miguel Duarte Fidalgo Moita",
-      "cargo": "Teste",
+      "cargo": "Coautor do Livreto / Orador convidado",
       "entidade": "Intervir.pt",
       "email": "miguelmoita@gmail.com",
       "temMail": true,
@@ -1939,20 +1942,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 8,
-      "lugar": "R3"
-    },
-    {
-      "id": 102,
-      "token": "CN8KRWP8",
-      "nome": "Miguel Moita",
-      "cargo": "Coautor do Livreto / Orador convidado",
-      "entidade": "",
-      "email": "miguelmoita@gmail.com",
-      "temMail": true,
-      "estado": "Confirmado",
-      "eraConvidado": true,
-      "naoEnviar": false,
-      "idRespostaForms": 56
+      "lugar": "R3",
+      "categoria": "Orador"
     },
     {
       "id": 103,
@@ -2054,11 +2045,11 @@
       "entidade": "RSB",
       "email": "paulo.cabrito@cm-lisboa.pt",
       "temMail": true,
-      "estado": "Confirmada",
-      "eraConvidado": "Sim",
+      "estado": "Confirmado",
+      "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 5,
-      "categoria": "Bombeiros Profissionais",
+      "categoria": "Organização",
       "autorizaContacto": false
     },
     {
@@ -2403,7 +2394,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 60,
-      "lugar": "14"
+      "lugar": "14",
+      "categoria": "Orador Convidado"
     },
     {
       "id": 137,
@@ -2611,12 +2603,12 @@
       "cargo": "Chefe Principal",
       "entidade": "RSBL",
       "email": "vitor.machacaz@cm-lisboa.pt",
-      "temMail": false,
-      "estado": "Confirmada",
-      "eraConvidado": "Sim",
+      "temMail": true,
+      "estado": "Confirmado",
+      "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": true,
-      "categoria": "",
+      "categoria": "Organização",
       "lugar": "R8"
     },
     {
@@ -2634,5 +2626,5 @@
       "categoria": "Orador Convidado"
     }
   ],
-  "actualizadoEm": "2026-05-17T23:17:55"
+  "actualizadoEm": "2026-05-17T23:48:09"
 }
