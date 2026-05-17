@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa da sala · RSB Lisboa</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/rsb-brasao.png">
+<style>
+  :root {
+    --rsb-red: #E30613;
+    --rsb-red-dark: #b00410;
+    --texto: #1a1a1a;
+    --texto-mute: #555;
+    --linha: #c0c0c0;
+    --linha-clara: #e5e5e5;
+    --fundo: #f5f5f7;
+    --lugar-livre: #f1f5f9;
+    --lugar-livre-borda: #cbd5e1;
+    --lugar-livre-texto: #1e293b;
+    --lugar-r: #fef9c3;
+    --lugar-r-borda: #facc15;
+    --lugar-r-texto: #854d0e;
+    --lugar-ocupado: #dbeafe;
+    --lugar-ocupado-borda: #2563eb;
+    --lugar-presente: #dcfce7;
+    --lugar-presente-borda: #16a34a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: "Inter", "Segoe UI", "Calibri", system-ui, sans-serif;
+    line-height: 1.45;
+  }
+  .top {
+    background: #fff;
+    border-bottom: 1px solid var(--linha-clara);
+    padding: 14px 18px;
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+  }
+  .top h1 {
+    margin: 0; font-size: 16px;
+    color: var(--rsb-red); text-transform: uppercase;
+    letter-spacing: 0.06em; font-weight: 800;
+  }
+  .top .meta { font-size: 12.5px; color: var(--texto-mute); }
+  .top .grow { flex: 1; }
+  .top button {
+    padding: 7px 14px; font-size: 13px;
+    border: 1px solid var(--linha); background: #fff;
+    border-radius: 6px; cursor: pointer; font-family: inherit;
+  }
+  .top button.print {
+    background: var(--rsb-red); color: #fff; border-color: var(--rsb-red);
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .top button.print:hover { background: var(--rsb-red-dark); }
+
+  .wrap {
+    max-width: 1200px;
+    margin: 18px auto;
+    padding: 0 16px 60px;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 20px;
+  }
+  @media (max-width: 900px) {
+    .wrap { grid-template-columns: 1fr; }
+  }
+  .mapa-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+  }
+  .mapa-card h2 {
+    margin: 0 0 4px; font-size: 16px;
+    text-align: center; color: var(--texto);
+  }
+  .mapa-card .local {
+    margin: 0 0 14px; font-size: 12.5px;
+    color: var(--texto-mute); text-align: center;
+  }
+  svg.mapa {
+    width: 100%; height: auto; background: #fafafa;
+    border-radius: 8px;
+    border: 1px solid var(--linha-clara);
+  }
+  .palco {
+    fill: var(--rsb-red);
+    opacity: 0.85;
+  }
+  .palco-label {
+    fill: #fff; font-size: 18px; font-weight: 800;
+    text-anchor: middle; text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .lugar {
+    cursor: pointer;
+    transition: transform 0.12s, filter 0.12s;
+  }
+  .lugar:hover { transform: scale(1.08); transform-origin: center; }
+  .lugar.selected rect { stroke-width: 3; filter: drop-shadow(0 0 6px rgba(227,6,19,0.5)); }
+  .lugar rect { transition: stroke-width 0.12s; }
+  .lugar text {
+    font-size: 11px; font-weight: 700; text-anchor: middle;
+    pointer-events: none; dominant-baseline: middle;
+  }
+
+  /* Estado livre */
+  .lugar.livre rect { fill: var(--lugar-livre); stroke: var(--lugar-livre-borda); stroke-width: 1.5; }
+  .lugar.livre text { fill: var(--lugar-livre-texto); }
+
+  /* Estado reservado (R*) */
+  .lugar.reservado rect { fill: var(--lugar-r); stroke: var(--lugar-r-borda); stroke-width: 1.5; }
+  .lugar.reservado text { fill: var(--lugar-r-texto); }
+
+  /* Estado ocupado (atribuído) */
+  .lugar.ocupado rect { fill: var(--lugar-ocupado); stroke: var(--lugar-ocupado-borda); stroke-width: 1.5; }
+  .lugar.ocupado text { fill: var(--lugar-ocupado-borda); }
+
+  /* Estado presente (check-in feito) */
+  .lugar.presente rect { fill: var(--lugar-presente); stroke: var(--lugar-presente-borda); stroke-width: 2; }
+  .lugar.presente text { fill: #15803d; }
+
+  /* Painel lateral de info */
+  .info {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+    height: fit-content;
+    position: sticky; top: 16px;
+  }
+  .info h3 {
+    margin: 0 0 8px; font-size: 13px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--texto-mute); font-weight: 700;
+  }
+  .info .placeholder {
+    padding: 30px 0; text-align: center;
+    color: var(--texto-mute); font-size: 13px;
+  }
+  .info .lugar-tag {
+    display: inline-block; padding: 4px 10px;
+    border-radius: 6px; font-weight: 700;
+    font-size: 13px; margin-bottom: 6px;
+  }
+  .info .lugar-tag.r { background: var(--lugar-r); color: var(--lugar-r-texto); border: 1px solid var(--lugar-r-borda); }
+  .info .lugar-tag.n { background: var(--lugar-livre); color: var(--lugar-livre-texto); border: 1px solid var(--lugar-livre-borda); }
+  .info .nome {
+    font-size: 16px; font-weight: 700; margin: 0 0 4px;
+    line-height: 1.25;
+  }
+  .info .cargo { font-size: 12.5px; color: var(--rsb-red); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+  .info .entidade { font-size: 12.5px; color: var(--texto-mute); }
+  .info .categoria { margin-top: 8px; }
+  .info .pill {
+    display: inline-block; padding: 3px 9px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; color: #fff;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .info .status {
+    margin-top: 12px; padding: 8px 12px; border-radius: 6px;
+    font-size: 12.5px; font-weight: 600;
+  }
+  .info .status.presente { background: var(--lugar-presente); color: #15803d; border: 1px solid var(--lugar-presente-borda); }
+  .info .status.aguarda { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+  .legenda {
+    margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px;
+    font-size: 11.5px;
+  }
+  .legenda .item { display: flex; align-items: center; gap: 5px; }
+  .legenda .sw { width: 18px; height: 18px; border-radius: 3px; border: 1px solid; }
+  .legenda .sw.livre { background: var(--lugar-livre); border-color: var(--lugar-livre-borda); }
+  .legenda .sw.reservado { background: var(--lugar-r); border-color: var(--lugar-r-borda); }
+  .legenda .sw.ocupado { background: var(--lugar-ocupado); border-color: var(--lugar-ocupado-borda); }
+  .legenda .sw.presente { background: var(--lugar-presente); border-color: var(--lugar-presente-borda); }
+
+  .stats {
+    margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    font-size: 12px;
+  }
+  .stats .box {
+    padding: 8px 10px; background: var(--fundo); border-radius: 6px;
+    border-left: 3px solid var(--rsb-red);
+  }
+  .stats strong { display: block; font-size: 16px; color: var(--rsb-red); }
+
+  @media print {
+    @page { size: A3 landscape; margin: 8mm; }
+    body { background: #fff; }
+    .top, .info { display: none; }
+    .wrap { display: block; max-width: none; margin: 0; padding: 0; }
+    .mapa-card { box-shadow: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>Mapa da sala</h1>
+  <span class="meta" id="meta-info">A carregar…</span>
+  <span class="grow"></span>
+  <button onclick="location.reload()">↻ Recarregar</button>
+  <button class="print" onclick="window.print()">🖨️ Imprimir / PDF</button>
+</div>
+
+<div class="wrap">
+  <div class="mapa-card">
+    <h2 id="sala-nome">—</h2>
+    <p class="local" id="sala-evento">—</p>
+    <svg class="mapa" id="svg-mapa" viewBox="0 0 1000 450"></svg>
+    <div class="legenda" id="legenda"></div>
+  </div>
+
+  <aside class="info">
+    <h3>Informação do lugar</h3>
+    <div id="info-conteudo" class="placeholder">
+      Clica num lugar do mapa para ver quem está atribuído.
+    </div>
+    <div class="stats" id="stats"></div>
+  </aside>
+</div>
+
+<script>
+const URL_INSCRITOS = "data/inscritos.json?t=" + Date.now();
+const URL_EVENTO = "data/evento.json?t=" + Date.now();
+const URL_PRESENCAS = "data/presencas.json?t=" + Date.now();
+
+let DADOS = { inscritos: [], evento: null, presencas: [] };
+let LUGAR_SELECIONADO = null;
+
+async function fj(u) {
+  try { const r = await fetch(u, { cache: "no-store" }); if (!r.ok) return null; return await r.json(); }
+  catch (_) { return null; }
+}
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+const CORES_CAT = {
+  "Organização": "#1a1a1a",
+  "Orador": "#E30613",
+  "Orador Convidado": "#C46C00",
+  "Moderação": "#6b21a8",
+  "Coautor do Livreto": "#0e7490",
+  "VIP": "#a16207",
+  "Imprensa": "#1565c0"
+};
+
+function inscritoNoLugar(lugar) {
+  return DADOS.inscritos.find(i => String(i.lugar || "") === String(lugar));
+}
+function temPresenca(idInscricao) {
+  return DADOS.presencas.some(p => Number(p.idInscricao) === Number(idInscricao) && p.presente);
+}
+
+function classeLugar(lugar) {
+  const i = inscritoNoLugar(lugar);
+  if (i && temPresenca(i.id)) return "presente";
+  if (i) return "ocupado";
+  if (String(lugar).toUpperCase().startsWith("R")) return "reservado";
+  return "livre";
+}
+
+function renderMapa() {
+  const evt = DADOS.evento || {};
+  const sala = evt.sala || {};
+  const layout = Array.isArray(sala.layout) ? sala.layout : [];
+  const viewBox = sala.viewBox || "0 0 1000 450";
+  const svg = document.getElementById("svg-mapa");
+  svg.setAttribute("viewBox", viewBox);
+
+  // Palco no topo
+  let html = `
+    <rect class="palco" x="350" y="10" width="300" height="45" rx="6"/>
+    <text class="palco-label" x="500" y="40">Palco · Painel</text>
+  `;
+
+  layout.forEach(slot => {
+    const w = 36, h = 28;
+    const x = slot.x - w/2, y = slot.y - h/2;
+    const cls = classeLugar(slot.lugar);
+    const i = inscritoNoLugar(slot.lugar);
+    const title = i
+      ? slot.lugar + " · " + i.nome + (i.entidade ? " (" + i.entidade + ")" : "")
+      : "Lugar " + slot.lugar + " — vazio";
+    html += `
+      <g class="lugar ${cls}" data-lugar="${esc(slot.lugar)}" tabindex="0">
+        <title>${esc(title)}</title>
+        <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4"/>
+        <text x="${slot.x}" y="${slot.y}">${esc(slot.lugar)}</text>
+      </g>`;
+  });
+
+  svg.innerHTML = html;
+
+  // Click handler (event delegation)
+  svg.querySelectorAll(".lugar").forEach(el => {
+    el.addEventListener("click", () => seleccionarLugar(el.dataset.lugar));
+  });
+
+  // Legenda
+  document.getElementById("legenda").innerHTML = `
+    <div class="item"><div class="sw livre"></div> Livre</div>
+    <div class="item"><div class="sw reservado"></div> Reservado (R*)</div>
+    <div class="item"><div class="sw ocupado"></div> Atribuído</div>
+    <div class="item"><div class="sw presente"></div> Presença marcada</div>
+  `;
+
+  renderStats();
+}
+
+function seleccionarLugar(lugar) {
+  // Estado visual
+  document.querySelectorAll(".lugar").forEach(el => el.classList.remove("selected"));
+  const el = document.querySelector('.lugar[data-lugar="' + CSS.escape(lugar) + '"]');
+  if (el) el.classList.add("selected");
+  LUGAR_SELECIONADO = lugar;
+
+  // Painel lateral
+  const i = inscritoNoLugar(lugar);
+  const ehR = String(lugar).toUpperCase().startsWith("R");
+  const wrap = document.getElementById("info-conteudo");
+  if (!i) {
+    wrap.innerHTML = `
+      <div class="lugar-tag ${ehR ? "r" : "n"}">${ehR ? "⭐ Lugar reservado " : "Lugar "}${esc(lugar)}</div>
+      <p class="placeholder" style="padding:8px 0">Sem inscrito atribuído.</p>
+    `;
+    wrap.classList.remove("placeholder");
+    return;
+  }
+  const presente = temPresenca(i.id);
+  const cat = i.categoria;
+  wrap.innerHTML = `
+    <div class="lugar-tag ${ehR ? "r" : "n"}">${ehR ? "⭐ Lugar reservado " : "Lugar "}${esc(lugar)}</div>
+    <p class="nome">${esc(i.nome)}</p>
+    ${i.cargo ? `<p class="cargo">${esc(i.cargo)}</p>` : ""}
+    ${i.entidade ? `<p class="entidade">${esc(i.entidade)}</p>` : ""}
+    ${cat ? `<div class="categoria"><span class="pill" style="background:${CORES_CAT[cat] || "#5a5a5a"}">${esc(cat)}</span></div>` : ""}
+    <div class="status ${presente ? "presente" : "aguarda"}">
+      ${presente ? "✓ Presença confirmada" : "Aguarda check-in"}
+    </div>
+    ${i.token ? `<p style="margin-top:10px;font-size:11px;color:var(--texto-mute);font-family:monospace">token: ${esc(i.token)}</p>` : ""}
+  `;
+  wrap.classList.remove("placeholder");
+}
+
+function renderStats() {
+  const layout = (DADOS.evento && DADOS.evento.sala && DADOS.evento.sala.layout) || [];
+  const total = layout.length;
+  const ocupados = layout.filter(s => inscritoNoLugar(s.lugar)).length;
+  const presentes = layout.filter(s => {
+    const i = inscritoNoLugar(s.lugar);
+    return i && temPresenca(i.id);
+  }).length;
+  const livres = total - ocupados;
+  document.getElementById("stats").innerHTML = `
+    <div class="box"><strong>${total}</strong>Lugares</div>
+    <div class="box"><strong>${ocupados}</strong>Atribuídos</div>
+    <div class="box"><strong>${presentes}</strong>Presentes</div>
+    <div class="box"><strong>${livres}</strong>Livres</div>
+  `;
+}
+
+(async function init() {
+  const [ins, evt, pres] = await Promise.all([fj(URL_INSCRITOS), fj(URL_EVENTO), fj(URL_PRESENCAS)]);
+  DADOS.inscritos = (ins && ins.inscritos) || [];
+  DADOS.evento = evt || (ins && ins.evento) || {};
+  DADOS.presencas = (pres && pres.marcacoes) || [];
+
+  const evtData = DADOS.evento;
+  document.getElementById("sala-nome").textContent =
+    (evtData.sala && evtData.sala.nome) || "Sala do evento";
+  document.getElementById("sala-evento").textContent =
+    (evtData.titulo || "Evento") + " · " + (evtData.data || "");
+  document.getElementById("meta-info").textContent =
+    DADOS.inscritos.length + " inscritos · " +
+    (evtData.sala && evtData.sala.layout ? evtData.sala.layout.length : 0) + " lugares";
+
+  renderMapa();
+
+  // Auto-refresh a cada 30s para apanhar presenças novas
+  setInterval(async () => {
+    const p2 = await fj(URL_PRESENCAS);
+    DADOS.presencas = (p2 && p2.marcacoes) || [];
+    renderMapa();
+    if (LUGAR_SELECIONADO) seleccionarLugar(LUGAR_SELECIONADO);
+  }, 30000);
+})();
+</script>
+
+</body>
+</html>

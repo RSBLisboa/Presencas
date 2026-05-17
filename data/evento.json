@@ -20,7 +20,7 @@
   "emailBody": "<!DOCTYPE html><html><body style=\"font-family:Segoe UI,Calibri,sans-serif;color:#1a1a1a;line-height:1.6;max-width:600px;margin:auto;padding:24px\">\n<p style=\"background:#E30613;color:#fff;padding:12px 16px;margin:0 0 24px;font-weight:bold;letter-spacing:.04em;text-transform:uppercase\">Regimento de Sapadores Bombeiros de Lisboa</p>\n<p>Exmo./a. Senhor/a <strong>{{Nome}}</strong>,</p>\n<p>Em nome do Regimento de Sapadores Bombeiros de Lisboa, agradecemos a sua presença na <strong>{{Titulo}}</strong>, realizada a <strong>{{DataEvento}}</strong> no <strong>{{Local}}</strong>.</p>\n<p>A sua participação contribuiu para o reforço da articulação e partilha técnica entre as entidades que diariamente respondem a este tipo de incidentes, e foi para nós uma honra acolhê-lo nesta sessão.</p>\n<p>Em baixo encontra o link único para o seu certificado de participação, com o número <strong>{{NumeroCertificado}}</strong>.</p>\n<p style=\"text-align:center;margin:24px 0\"><a href=\"{{Link}}\" style=\"background:#E30613;color:#fff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold\">Abrir o meu certificado</a></p>\n<hr style=\"border:none;border-top:1px solid #ddd;margin:24px 0\">\n<p style=\"margin:0 0 4px\">Com os melhores cumprimentos,</p>\n{{AssinaturaImagem}}\n<p style=\"margin:4px 0 0;font-weight:600;color:#1a1a1a\">{{Signatario}}</p>\n<p style=\"margin:2px 0 0;font-size:12px;color:#666\">{{SignatarioCargo}}</p>\n<p style=\"margin:18px 0 0;font-size:11px;color:#888\">Regimento de Sapadores Bombeiros de Lisboa · Câmara Municipal de Lisboa · rsb.esbl@cm-lisboa.pt</p>\n</body></html>",
   "bridgeUrl": "",
   "bridgeFrom": "",
-  "actualizadoEm": "2026-05-17T22:35:03",
+  "actualizadoEm": "2026-05-17T23:32:36",
   "users": [
     {
       "nome": "paulo.cabrito",
@@ -160,6 +160,279 @@
       "R6",
       "R7",
       "R8"
-    ]
+    ],
+    "layout": [
+      {
+        "lugar": "1",
+        "x": 305,
+        "y": 100
+      },
+      {
+        "lugar": "2",
+        "x": 340,
+        "y": 95
+      },
+      {
+        "lugar": "3",
+        "x": 375,
+        "y": 95
+      },
+      {
+        "lugar": "17",
+        "x": 215,
+        "y": 175
+      },
+      {
+        "lugar": "18",
+        "x": 255,
+        "y": 170
+      },
+      {
+        "lugar": "19",
+        "x": 295,
+        "y": 168
+      },
+      {
+        "lugar": "34",
+        "x": 165,
+        "y": 250
+      },
+      {
+        "lugar": "35",
+        "x": 210,
+        "y": 245
+      },
+      {
+        "lugar": "36",
+        "x": 255,
+        "y": 243
+      },
+      {
+        "lugar": "4",
+        "x": 410,
+        "y": 175
+      },
+      {
+        "lugar": "5",
+        "x": 455,
+        "y": 175
+      },
+      {
+        "lugar": "6",
+        "x": 500,
+        "y": 175
+      },
+      {
+        "lugar": "7",
+        "x": 545,
+        "y": 175
+      },
+      {
+        "lugar": "8",
+        "x": 590,
+        "y": 175
+      },
+      {
+        "lugar": "9",
+        "x": 635,
+        "y": 175
+      },
+      {
+        "lugar": "10",
+        "x": 680,
+        "y": 175
+      },
+      {
+        "lugar": "11",
+        "x": 725,
+        "y": 175
+      },
+      {
+        "lugar": "12",
+        "x": 770,
+        "y": 175
+      },
+      {
+        "lugar": "13",
+        "x": 815,
+        "y": 175
+      },
+      {
+        "lugar": "20",
+        "x": 320,
+        "y": 250
+      },
+      {
+        "lugar": "21",
+        "x": 365,
+        "y": 250
+      },
+      {
+        "lugar": "22",
+        "x": 410,
+        "y": 250
+      },
+      {
+        "lugar": "23",
+        "x": 455,
+        "y": 250
+      },
+      {
+        "lugar": "24",
+        "x": 500,
+        "y": 250
+      },
+      {
+        "lugar": "25",
+        "x": 545,
+        "y": 250
+      },
+      {
+        "lugar": "26",
+        "x": 590,
+        "y": 250
+      },
+      {
+        "lugar": "27",
+        "x": 635,
+        "y": 250
+      },
+      {
+        "lugar": "28",
+        "x": 680,
+        "y": 250
+      },
+      {
+        "lugar": "29",
+        "x": 725,
+        "y": 250
+      },
+      {
+        "lugar": "30",
+        "x": 770,
+        "y": 250
+      },
+      {
+        "lugar": "37",
+        "x": 340,
+        "y": 325
+      },
+      {
+        "lugar": "38",
+        "x": 385,
+        "y": 325
+      },
+      {
+        "lugar": "39",
+        "x": 430,
+        "y": 325
+      },
+      {
+        "lugar": "40",
+        "x": 475,
+        "y": 325
+      },
+      {
+        "lugar": "41",
+        "x": 520,
+        "y": 325
+      },
+      {
+        "lugar": "42",
+        "x": 565,
+        "y": 325
+      },
+      {
+        "lugar": "43",
+        "x": 610,
+        "y": 325
+      },
+      {
+        "lugar": "44",
+        "x": 655,
+        "y": 325
+      },
+      {
+        "lugar": "45",
+        "x": 700,
+        "y": 325
+      },
+      {
+        "lugar": "46",
+        "x": 745,
+        "y": 325
+      },
+      {
+        "lugar": "14",
+        "x": 770,
+        "y": 95
+      },
+      {
+        "lugar": "15",
+        "x": 805,
+        "y": 95
+      },
+      {
+        "lugar": "16",
+        "x": 840,
+        "y": 100
+      },
+      {
+        "lugar": "31",
+        "x": 800,
+        "y": 168
+      },
+      {
+        "lugar": "32",
+        "x": 840,
+        "y": 170
+      },
+      {
+        "lugar": "33",
+        "x": 880,
+        "y": 175
+      },
+      {
+        "lugar": "R1",
+        "x": 875,
+        "y": 95
+      },
+      {
+        "lugar": "R2",
+        "x": 910,
+        "y": 95
+      },
+      {
+        "lugar": "R3",
+        "x": 945,
+        "y": 100
+      },
+      {
+        "lugar": "R4",
+        "x": 790,
+        "y": 325
+      },
+      {
+        "lugar": "R5",
+        "x": 835,
+        "y": 325
+      },
+      {
+        "lugar": "R6",
+        "x": 920,
+        "y": 168
+      },
+      {
+        "lugar": "R7",
+        "x": 870,
+        "y": 250
+      },
+      {
+        "lugar": "R8",
+        "x": 910,
+        "y": 250
+      }
+    ],
+    "viewBox": "0 0 1000 450"
   }
 }
