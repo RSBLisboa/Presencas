@@ -871,13 +871,22 @@
     if (ST.syncStatus === "syncing") return;
     if (!navigator.onLine) { setSync("offline", "Offline — alterações locais"); return; }
     setSync("syncing", "A sincronizar presenças…");
+    // Captura versão actual para detectar se houve mais marcações durante o sync.
+    const versaoNoInicio = ST.presencasVersao;
     try {
       const payload = buildPresencasPayload();
       try {
         const newSha = await ghEscrever("data/presencas.json", payload, ST.presencasSha, "presencas: " + nowIso() + " (" + ST.posto + ")");
         ST.presencasSha = newSha;
-        ST.pendingPres = false;
-        setSync("ok", "Sincronizado · " + new Date().toLocaleTimeString("pt-PT"));
+        // Só limpar pendente se não houve novas marcações entretanto.
+        if (ST.presencasVersao === versaoNoInicio) {
+          ST.pendingPres = false;
+          setSync("ok", "Sincronizado · " + new Date().toLocaleTimeString("pt-PT"));
+        } else {
+          // Houve novas marcações durante este sync; reagendar imediato.
+          setSync("pending", "Mais alterações pendentes…");
+          setTimeout(() => agendarSyncPresencas(0), 100);
+        }
       } catch (e) {
         if (e.code === "CONFLICT") {
           const { sha, payload: remote } = await ghLer("data/presencas.json");
@@ -887,8 +896,13 @@
           const novo = buildPresencasPayload();
           const finalSha = await ghEscrever("data/presencas.json", novo, ST.presencasSha, "presencas: " + nowIso() + " (após merge)");
           ST.presencasSha = finalSha;
-          ST.pendingPres = false;
-          setSync("ok", "Sincronizado (após merge)");
+          if (ST.presencasVersao === versaoNoInicio) {
+            ST.pendingPres = false;
+            setSync("ok", "Sincronizado (após merge)");
+          } else {
+            setSync("pending", "Mais alterações pendentes…");
+            setTimeout(() => agendarSyncPresencas(0), 100);
+          }
         } else { throw e; }
       }
     } catch (e) {
@@ -907,7 +921,9 @@
   }
 
   async function pollServidor() {
-    if (ST.syncStatus === "syncing" || ST.pendingPres) return;
+    // Permite poll mesmo com pendingPres, desde que não esteja a sincronizar (evita
+    // deafening de tablets com falhas de rede que ficam com pendingPres permanente).
+    if (ST.syncStatus === "syncing") return;
     if (!navigator.onLine) return;
     try {
       const { sha, payload: remote } = await ghLer("data/presencas.json");
@@ -978,11 +994,34 @@
         toast("Livreto entregue a " + nome, "ok");
       } catch (e) {
         if (e.code === "CONFLICT") {
-          await carregarEntregas();
-          ST.entregas.set(idInscricao, { entregueEm: ts, entreguePor: "tablet-balcao" });
+          // Merge: ler remoto e adicionar entradas SEM destruir as optimistas locais.
+          // carregarEntregas() substituía a Map inteira — apagava entregas pendentes
+          // de outros ids feitas neste tablet durante o sync.
+          try {
+            const { sha, payload: remote } = await ghLer("data/entregas.json");
+            ST.entregasSha = sha;
+            if (remote && Array.isArray(remote.entregas)) {
+              for (const er of remote.entregas) {
+                if (!ST.entregas.has(er.idInscricao)) {
+                  ST.entregas.set(er.idInscricao, { entregueEm: er.entregueEm, entreguePor: er.entreguePor });
+                } else {
+                  // Conflito no mesmo id: manter o mais antigo (entrega é definitiva).
+                  const local = ST.entregas.get(er.idInscricao);
+                  if (er.entregueEm && (!local.entregueEm || er.entregueEm < local.entregueEm)) {
+                    ST.entregas.set(er.idInscricao, { entregueEm: er.entregueEm, entreguePor: er.entreguePor });
+                  }
+                }
+              }
+            }
+          } catch (_) {}
+          // Garante que a nossa entrega permanece após o merge
+          if (!ST.entregas.has(idInscricao)) {
+            ST.entregas.set(idInscricao, { entregueEm: ts, entreguePor: "tablet-balcao" });
+          }
           const novo = buildEntregasPayload();
           const finalSha = await ghEscrever("data/entregas.json", novo, ST.entregasSha, "entregas: id=" + idInscricao + " (após merge)");
           ST.entregasSha = finalSha;
+          renderAtivo();
           setSync("ok", "Sincronizado (após merge)");
           toast("Livreto entregue a " + nome, "ok");
         } else { throw e; }
@@ -1000,22 +1039,34 @@
   // FICHA · escrever data/inscritos.json (edit single inscrito)
   // ═════════════════════════════════════════════════════════════════════════
   async function gravarFicha(idInscricao, novosCampos) {
-    // Read-modify-write para minimizar conflitos. Refetch sha primeiro.
+    // Read-modify-write com retry em conflict (até 2 tentativas).
     setSync("syncing", "A gravar ficha…");
-    try {
+    const tentar = async () => {
       const { sha, payload } = await ghLer("data/inscritos.json");
       if (!payload || !Array.isArray(payload.inscritos)) throw new Error("inscritos.json corrompido");
       const idx = payload.inscritos.findIndex(i => i.id === idInscricao);
       if (idx < 0) throw new Error("Inscrito id=" + idInscricao + " não encontrado.");
-      // Object.assign preserva campos desconhecidos (token, idRespostaForms, etc.)
       payload.inscritos[idx] = Object.assign({}, payload.inscritos[idx], novosCampos);
       payload.actualizadoEm = new Date().toISOString();
       const novoSha = await ghEscrever("data/inscritos.json", payload, sha, "ficha: id=" + idInscricao + " editada via acolhimento");
       ST.inscritosSha = novoSha;
-      // Refletir localmente
       const localIdx = ST.inscritos.findIndex(i => i.id === idInscricao);
       if (localIdx >= 0) ST.inscritos[localIdx] = Object.assign({}, ST.inscritos[localIdx], novosCampos);
       ST.inscritos.sort((a,b) => normalizar(a.nome).localeCompare(normalizar(b.nome)));
+    };
+    try {
+      try {
+        await tentar();
+      } catch (e) {
+        if (e.code === "CONFLICT") {
+          // Outro tablet editou entretanto. Refazer com sha actual.
+          await tentar();
+          setSync("ok", "Ficha actualizada (após merge) · " + new Date().toLocaleTimeString("pt-PT"));
+          toast("Ficha actualizada (resolvido conflito)", "ok");
+          return true;
+        }
+        throw e;
+      }
       setSync("ok", "Ficha actualizada · " + new Date().toLocaleTimeString("pt-PT"));
       toast("Ficha actualizada", "ok");
       return true;
@@ -1601,7 +1652,15 @@
       switchTab(tabsValidos.includes(tabParam) ? tabParam : "geral");
       $("loading").classList.add("hide");
       setSync("ok", "Pronto · " + new Date().toLocaleTimeString("pt-PT"));
-      ST.pollTimer = setInterval(pollServidor, CONFIG.serverPollMs);
+      // Poll só quando a aba está visível (poupa rede + bateria).
+      clearInterval(ST.pollTimer);
+      ST.pollTimer = setInterval(() => {
+        if (document.visibilityState === "visible") pollServidor();
+      }, CONFIG.serverPollMs);
+      // Poll imediato quando o utilizador volta à aba (após estar escondida).
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") pollServidor();
+      });
     } catch (e) {
       $("loading").classList.add("hide");
       setSync("err", "Falha: " + e.message);
@@ -1781,6 +1840,19 @@
   // ═════════════════════════════════════════════════════════════════════════
   // BOOT
   // ═════════════════════════════════════════════════════════════════════════
+  // Cleanup defensivo: desregistar service workers antigos que possam estar a
+  // servir cache do index.html/balcao.html legacy. Sem isto, tablets que tinham
+  // o app instalado antes do refactor C-Heavy ficam presos na shell antiga.
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations().then(regs => {
+      for (const r of regs) r.unregister().catch(() => {});
+    }).catch(() => {});
+    if (window.caches && caches.keys) {
+      caches.keys().then(keys => {
+        for (const k of keys) caches.delete(k).catch(() => {});
+      }).catch(() => {});
+    }
+  }
   bindEventos();
   (async () => {
     actualizarTabletStatus();
