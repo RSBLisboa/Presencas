@@ -637,7 +637,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 10
+      "idRespostaForms": 10,
+      "lugar": "9"
     },
     {
       "id": 4,
@@ -650,7 +651,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 69
+      "idRespostaForms": 69,
+      "lugar": "R6"
     },
     {
       "id": 5,
@@ -676,7 +678,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 134
+      "idRespostaForms": 134,
+      "lugar": "32"
     },
     {
       "id": 7,
@@ -754,7 +757,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 110
+      "idRespostaForms": 110,
+      "lugar": "12"
     },
     {
       "id": 13,
@@ -780,7 +784,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 135
+      "idRespostaForms": 135,
+      "lugar": "31"
     },
     {
       "id": 15,
@@ -897,7 +902,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 138
+      "idRespostaForms": 138,
+      "lugar": "19"
     },
     {
       "id": 24,
@@ -1079,7 +1085,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 89
+      "idRespostaForms": 89,
+      "lugar": "44"
     },
     {
       "id": 38,
@@ -1118,7 +1125,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 141
+      "idRespostaForms": 141,
+      "lugar": "3"
     },
     {
       "id": 41,
@@ -1170,7 +1178,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 127
+      "idRespostaForms": 127,
+      "lugar": "13"
     },
     {
       "id": 45,
@@ -1183,7 +1192,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 114
+      "idRespostaForms": 114,
+      "lugar": "39"
     },
     {
       "id": 46,
@@ -1196,7 +1206,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 99
+      "idRespostaForms": 99,
+      "lugar": "8"
     },
     {
       "id": 47,
@@ -1222,7 +1233,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 38
+      "idRespostaForms": 38,
+      "lugar": "1"
     },
     {
       "id": 49,
@@ -1235,7 +1247,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 68
+      "idRespostaForms": 68,
+      "lugar": "R1"
     },
     {
       "id": 50,
@@ -1248,7 +1261,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 93
+      "idRespostaForms": 93,
+      "lugar": "R7"
     },
     {
       "id": 51,
@@ -1274,7 +1288,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 129
+      "idRespostaForms": 129,
+      "lugar": "6"
     },
     {
       "id": 53,
@@ -1287,7 +1302,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 67
+      "idRespostaForms": 67,
+      "lugar": "20"
     },
     {
       "id": 54,
@@ -1339,7 +1355,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 98
+      "idRespostaForms": 98,
+      "lugar": "33"
     },
     {
       "id": 58,
@@ -1352,7 +1369,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 61
+      "idRespostaForms": 61,
+      "lugar": "27"
     },
     {
       "id": 59,
@@ -1378,7 +1396,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 3
+      "idRespostaForms": 3,
+      "lugar": "37"
     },
     {
       "id": 61,
@@ -1391,7 +1410,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 7
+      "idRespostaForms": 7,
+      "lugar": "16"
     },
     {
       "id": 62,
@@ -1495,7 +1515,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 46
+      "idRespostaForms": 46,
+      "lugar": "38"
     },
     {
       "id": 70,
@@ -1508,7 +1529,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 58
+      "idRespostaForms": 58,
+      "lugar": "30"
     },
     {
       "id": 71,
@@ -1547,7 +1569,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 26
+      "idRespostaForms": 26,
+      "lugar": "2"
     },
     {
       "id": 74,
@@ -1560,7 +1583,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 27
+      "idRespostaForms": 27,
+      "lugar": "4"
     },
     {
       "id": 75,
@@ -1586,7 +1610,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 92
+      "idRespostaForms": 92,
+      "lugar": "35"
     },
     {
       "id": 77,
@@ -1599,7 +1624,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 148
+      "idRespostaForms": 148,
+      "lugar": "28"
     },
     {
       "id": 78,
@@ -1625,7 +1651,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 71
+      "idRespostaForms": 71,
+      "lugar": "24"
     },
     {
       "id": 80,
@@ -1664,7 +1691,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 111
+      "idRespostaForms": 111,
+      "lugar": "5"
     },
     {
       "id": 83,
@@ -1677,7 +1705,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 149
+      "idRespostaForms": 149,
+      "lugar": "18"
     },
     {
       "id": 84,
@@ -1703,7 +1732,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 65
+      "idRespostaForms": 65,
+      "lugar": "15"
     },
     {
       "id": 86,
@@ -1716,7 +1746,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 96
+      "idRespostaForms": 96,
+      "lugar": "10"
     },
     {
       "id": 87,
@@ -1742,7 +1773,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 119
+      "idRespostaForms": 119,
+      "lugar": "25"
     },
     {
       "id": 89,
@@ -1755,7 +1787,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 151
+      "idRespostaForms": 151,
+      "lugar": "43"
     },
     {
       "id": 90,
@@ -1768,7 +1801,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 88
+      "idRespostaForms": 88,
+      "lugar": "45"
     },
     {
       "id": 91,
@@ -1859,7 +1893,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 40
+      "idRespostaForms": 40,
+      "lugar": "26"
     },
     {
       "id": 98,
@@ -1885,7 +1920,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 152
+      "idRespostaForms": 152,
+      "lugar": "17"
     },
     {
       "id": 100,
@@ -1911,7 +1947,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 8
+      "idRespostaForms": 8,
+      "lugar": "R3"
     },
     {
       "id": 102,
@@ -1963,7 +2000,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 62
+      "idRespostaForms": 62,
+      "lugar": "29"
     },
     {
       "id": 106,
@@ -2069,7 +2107,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 72
+      "idRespostaForms": 72,
+      "lugar": "22"
     },
     {
       "id": 114,
@@ -2147,7 +2186,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 74
+      "idRespostaForms": 74,
+      "lugar": "40+41"
     },
     {
       "id": 120,
@@ -2173,7 +2213,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 115
+      "idRespostaForms": 115,
+      "lugar": "42"
     },
     {
       "id": 122,
@@ -2212,7 +2253,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 11
+      "idRespostaForms": 11,
+      "lugar": "21"
     },
     {
       "id": 125,
@@ -2290,7 +2332,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 87
+      "idRespostaForms": 87,
+      "lugar": "46"
     },
     {
       "id": 131,
@@ -2368,7 +2411,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 60
+      "idRespostaForms": 60,
+      "lugar": "14"
     },
     {
       "id": 137,
@@ -2381,7 +2425,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 59
+      "idRespostaForms": 59,
+      "lugar": "23"
     },
     {
       "id": 138,
@@ -2459,7 +2504,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 39
+      "idRespostaForms": 39,
+      "lugar": "11"
     },
     {
       "id": 144,
@@ -2485,7 +2531,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 158
+      "idRespostaForms": 158,
+      "lugar": "36"
     },
     {
       "id": 146,
@@ -2524,7 +2571,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 97
+      "idRespostaForms": 97,
+      "lugar": "7"
     },
     {
       "id": 149,
@@ -2566,5 +2614,5 @@
       "idRespostaForms": 159
     }
   ],
-  "actualizadoEm": "2026-05-17T17:38:55"
+  "actualizadoEm": "2026-05-17T21:53:44"
 }
