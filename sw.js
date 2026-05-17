@@ -7,7 +7,7 @@
 //
 // Bump da versão sempre que houver alterações ao app shell.
 
-const CACHE_VERSION = 'rsb-presencas-v7-password-only-pat';
+const CACHE_VERSION = 'rsb-presencas-v8-pat-aplicado';
 const SHELL = [
   './',
   './index.html',
