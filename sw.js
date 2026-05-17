@@ -7,7 +7,7 @@
 //
 // Bump da versão sempre que houver alterações ao app shell.
 
-const CACHE_VERSION = 'rsb-presencas-v9-config-tablet-defensive';
+const CACHE_VERSION = 'rsb-presencas-v10-botao-recriado-programa';
 const SHELL = [
   './',
   './index.html',

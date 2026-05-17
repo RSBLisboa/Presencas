@@ -346,8 +346,10 @@
     <div class="erro" id="login-erro"></div>
 
     <div id="tablet-status" style="margin-top:16px;padding:9px 12px;border-radius:6px;font-size:11.5px;text-align:center;background:#f5f5f5;color:var(--texto-mute)">A verificar tablet…</div>
-    <div style="text-align:center;margin-top:12px">
-      <button type="button" id="link-config-tablet" style="background:transparent;border:0;cursor:pointer;font-size:11px;color:var(--texto-mute);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;padding:4px 8px">Configurar tablet</button>
+    <div style="text-align:center;margin-top:14px">
+      <button type="button" id="link-config-tablet"
+        onclick="(function(){var m=document.getElementById('modal-tablet');var i=document.getElementById('tablet-token');var e=document.getElementById('tablet-erro');if(i)i.value='';if(e)e.classList.add('hide');if(m){m.classList.remove('hide');setTimeout(function(){if(i)i.focus();},50);}})();return false;"
+        style="background:#fff;border:1.5px solid var(--rsb-vermelho);color:var(--rsb-vermelho);cursor:pointer;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:9px 18px;border-radius:6px;min-height:44px;min-width:180px">Configurar tablet</button>
     </div>
   </div>
 </div>
@@ -418,9 +420,21 @@
 <div class="lista" id="lista"></div>
 
 <!-- ═══════════════ MENU DROPDOWN ═══════════════ -->
+<!-- ═══════════════ MODAL PROGRAMA ═══════════════ -->
+<div class="modal-fundo hide" id="modal-programa">
+  <div class="modal-card" style="max-width:520px">
+    <h2>Programa do evento</h2>
+    <div id="programa-conteudo" style="margin-top:12px"></div>
+    <div class="actions" style="margin-top:14px">
+      <button class="primary" id="programa-fechar" style="width:100%">Fechar</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-fundo hide" id="modal-menu">
   <div class="modal-card">
     <h2>Menu</h2>
+    <button class="secondary" id="m-programa" style="margin-top:8px;width:100%;padding:12px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;border:none;border-radius:8px;cursor:pointer;font-family:inherit;background:#f0f0f0;color:var(--texto)">Ver programa</button>
     <button class="secondary" id="m-recarregar" style="margin-top:8px;width:100%;padding:12px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;border:none;border-radius:8px;cursor:pointer;font-family:inherit;background:#f0f0f0;color:var(--texto)">Recarregar dados</button>
     <button class="secondary" id="m-forcar-sync" style="margin-top:8px;width:100%;padding:12px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;border:none;border-radius:8px;cursor:pointer;font-family:inherit;background:#f0f0f0;color:var(--texto)">Forçar sincronização</button>
     <button class="danger" id="m-logout" style="margin-top:8px;width:100%;padding:12px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;border:none;border-radius:8px;cursor:pointer;font-family:inherit;background:var(--erro);color:#fff">Terminar sessão</button>
@@ -743,6 +757,20 @@
   // ═════════════════════════════════════════════════════════════════════════
   // CARREGAMENTO
   // ═════════════════════════════════════════════════════════════════════════
+  // Lê o evento.json directamente para obter o programa actualizado.
+  // (O evento dentro de inscritos.json não tem programa[].)
+  async function carregarPrograma() {
+    try {
+      const r = await fetch("data/evento.json?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) return;
+      const e = await r.json();
+      if (ST.evento && Array.isArray(e.programa)) {
+        ST.evento.programa = e.programa;
+        if (e.actualizadoEm) ST.evento.actualizadoEm = e.actualizadoEm;
+      }
+    } catch (_) { /* silencioso — modal mostrará vazio */ }
+  }
+
   async function carregarInscritos() {
     // Lê via GitHub API para obter sha (precisamos para o edit da ficha).
     try {
@@ -1130,6 +1158,31 @@
       toast("Erro: " + e.message, "err");
       return false;
     }
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // RENDER · programa do evento (modal acessível pelo menu)
+  // ═════════════════════════════════════════════════════════════════════════
+  function renderProgramaModal() {
+    const el = $("programa-conteudo");
+    if (!el) return;
+    const slots = (ST.evento && Array.isArray(ST.evento.programa)) ? ST.evento.programa : [];
+    if (!slots.length) {
+      el.innerHTML = '<p style="color:var(--texto-mute);font-size:13px;padding:14px;text-align:center;border:1px dashed var(--linha);border-radius:6px">Programa não definido. Coordenador pode editar no admin → Setup → Programa do evento.</p>';
+      return;
+    }
+    const linhas = slots.map(s => `
+      <div style="display:flex;gap:14px;padding:10px 4px;border-top:1px solid var(--linha)">
+        <div style="font-weight:700;color:var(--rsb-vermelho);min-width:60px;font-size:15px">${esc(s.hora || "—")}</div>
+        <div style="flex:1">
+          <div style="font-weight:600;font-size:14px;color:var(--texto)">${esc(s.titulo || "")}</div>
+          ${s.orador ? '<div style="color:var(--texto-mute);font-size:12.5px;margin-top:2px">' + esc(s.orador) + '</div>' : ''}
+          ${s.duracao ? '<div style="color:var(--texto-mute);font-size:11.5px;margin-top:2px">' + esc(s.duracao) + '</div>' : ''}
+        </div>
+      </div>
+    `).join("");
+    el.innerHTML = '<div style="border-bottom:1px solid var(--linha)">' + linhas + '</div>' +
+      '<p style="margin-top:12px;font-size:11.5px;color:var(--texto-mute);text-align:center">Última actualização: ' + esc(ST.evento.actualizadoEm || "—") + '</p>';
   }
 
   // ═════════════════════════════════════════════════════════════════════════
@@ -1610,7 +1663,7 @@
       el.style.color = "var(--verde)";
       el.style.fontWeight = "600";
     } else {
-      el.textContent = "⚠ Tablet por configurar — admin tem de definir o PAT";
+      el.textContent = "⚠ Tablet por configurar — clica em \"Configurar tablet\" abaixo";
       el.style.background = "var(--aviso-claro)";
       el.style.color = "var(--aviso)";
       el.style.fontWeight = "600";
@@ -1700,7 +1753,7 @@
     try {
       await carregarInscritos();
       $("evt-titulo").textContent = (ST.evento && ST.evento.titulo) || "Acolhimento";
-      await Promise.all([carregarPresencas(), carregarEntregas(), carregarApreciacao(), carregarCertificados()]);
+      await Promise.all([carregarPresencas(), carregarEntregas(), carregarApreciacao(), carregarCertificados(), carregarPrograma()]);
       // Tab inicial via ?tab= na URL (ex: ?tab=livreto). Default = geral.
       const tabParam = new URLSearchParams(location.search).get("tab");
       const tabsValidos = ["geral", "presenca", "livreto", "ficha"];
@@ -1786,6 +1839,15 @@
     $("btn-menu").addEventListener("click", () => $("modal-menu").classList.remove("hide"));
     $("m-fechar").addEventListener("click", () => $("modal-menu").classList.add("hide"));
     $("modal-menu").addEventListener("click", e => { if (e.target === e.currentTarget) $("modal-menu").classList.add("hide"); });
+    $("m-programa").addEventListener("click", async () => {
+      $("modal-menu").classList.add("hide");
+      $("modal-programa").classList.remove("hide");
+      renderProgramaModal();
+      await carregarPrograma();
+      renderProgramaModal();
+    });
+    $("programa-fechar").addEventListener("click", () => $("modal-programa").classList.add("hide"));
+    $("modal-programa").addEventListener("click", e => { if (e.target === e.currentTarget) $("modal-programa").classList.add("hide"); });
     $("m-recarregar").addEventListener("click", async () => {
       $("modal-menu").classList.add("hide");
       setSync("pending", "A recarregar…");
