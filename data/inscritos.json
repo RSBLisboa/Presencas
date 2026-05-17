@@ -9,21 +9,9 @@
     "horaFim": "12:00",
     "cargaHoraria": "3 horas"
   },
-  "exportadoEm": "2026-05-17T23:17:55",
+  "exportadoEm": "2026-05-17T23:22:27",
   "total": 200,
   "inscritos": [
-    {
-      "id": 153,
-      "token": "GWKBUXKS",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
-      "email": "",
-      "temMail": false,
-      "estado": "Confirmado",
-      "eraConvidado": true,
-      "naoEnviar": false
-    },
     {
       "id": 154,
       "token": "U2GVKEPZ",
@@ -1517,8 +1505,9 @@
       "estado": "Confirmada",
       "eraConvidado": "Sim",
       "naoEnviar": false,
-      "autorizaContacto": true,
-      "categoria": "Orador"
+      "autorizaContacto": false,
+      "categoria": "Orador",
+      "lugar": ""
     },
     {
       "id": 70,
@@ -2614,6 +2603,21 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 159
+    },
+    {
+      "id": 153,
+      "token": "GWKBUXKS",
+      "nome": "Vitor Machacaz",
+      "cargo": "Chefe Principal",
+      "entidade": "RSBL",
+      "email": "vitor.machacaz@cm-lisboa.pt",
+      "temMail": false,
+      "estado": "Confirmada",
+      "eraConvidado": "Sim",
+      "naoEnviar": false,
+      "autorizaContacto": true,
+      "categoria": "",
+      "lugar": "R8"
     }
   ]
 }
