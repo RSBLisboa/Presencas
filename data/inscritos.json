@@ -1093,7 +1093,7 @@
     {
       "id": 40,
       "token": "H2TUUPE7",
-      "nome": "Graça Brigida",
+      "nome": "Graça Brígida",
       "cargo": "Diretora de Segurança",
       "entidade": "Metropolitano de Lx",
       "email": "",
@@ -1229,7 +1229,7 @@
     {
       "id": 50,
       "token": "HZKR44SW",
-      "nome": "Ivo SIlva",
+      "nome": "Ivo Silva",
       "cargo": "TSup",
       "entidade": "DDF",
       "email": "",
@@ -1674,7 +1674,7 @@
     {
       "id": 82,
       "token": "7YUFCVW9",
-      "nome": "Luís Abraúl",
+      "nome": "Luís Abraul",
       "cargo": "Comissário",
       "entidade": "PSP",
       "email": "",
@@ -2178,7 +2178,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 74,
-      "lugar": "40+41"
+      "lugar": "40"
     },
     {
       "id": 120,
@@ -2618,7 +2618,21 @@
       "autorizaContacto": true,
       "categoria": "",
       "lugar": "R8"
+    },
+    {
+      "id": 201,
+      "token": "7NPWVUJD",
+      "nome": "Convidado Deathclean (registar no local)",
+      "cargo": "",
+      "entidade": "Deathclean",
+      "email": "",
+      "temMail": false,
+      "estado": "Confirmado",
+      "eraConvidado": true,
+      "naoEnviar": false,
+      "lugar": "41",
+      "categoria": "Orador Convidado"
     }
   ],
-  "actualizadoEm": "2026-05-17T23:08:05"
+  "actualizadoEm": "2026-05-17T23:17:55"
 }

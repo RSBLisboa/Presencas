@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relatórios · RSB Lisboa</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/rsb-brasao.png">
+<style>
+  :root {
+    --rsb-red: #E30613;
+    --rsb-red-dark: #b00410;
+    --texto: #1a1a1a;
+    --texto-mute: #555;
+    --linha: #c0c0c0;
+    --linha-clara: #e5e5e5;
+    --fundo: #f5f5f7;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: "Inter", "Segoe UI", "Calibri", system-ui, sans-serif;
+    line-height: 1.45;
+  }
+  .toolbar {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; border-bottom: 1px solid var(--linha-clara);
+    padding: 12px 16px;
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .toolbar h1 {
+    font-size: 14px; margin: 0; color: var(--rsb-red);
+    text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800;
+    margin-right: 12px;
+  }
+  .toolbar select, .toolbar button {
+    padding: 7px 12px; font-size: 13px; border: 1px solid var(--linha);
+    border-radius: 6px; background: #fff; cursor: pointer; font-family: inherit;
+  }
+  .toolbar button.print {
+    background: var(--rsb-red); color: #fff; border-color: var(--rsb-red);
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .toolbar button.print:hover { background: var(--rsb-red-dark); }
+  .toolbar .grow { flex: 1; }
+  .toolbar .meta { font-size: 11.5px; color: var(--texto-mute); }
+
+  .pagina {
+    max-width: 210mm;
+    margin: 16px auto;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 18mm 16mm;
+    min-height: 297mm;
+  }
+  .cabec {
+    border-bottom: 2px solid var(--rsb-red);
+    padding-bottom: 10mm;
+    margin-bottom: 8mm;
+    display: flex; align-items: center; gap: 14mm;
+  }
+  .cabec img { height: 26mm; width: auto; }
+  .cabec .info { flex: 1; }
+  .cabec h2 {
+    margin: 0 0 2mm; font-size: 17pt; color: var(--rsb-red);
+    text-transform: uppercase; letter-spacing: 0.02em; font-weight: 800;
+  }
+  .cabec .sub { font-size: 11pt; color: var(--texto-mute); margin: 0; }
+  .cabec .data-evento { font-size: 10pt; color: var(--texto-mute); margin-top: 2mm; }
+  .cabec .titulo-relatorio {
+    margin-top: 4mm; padding-top: 3mm; border-top: 1px solid var(--linha-clara);
+    font-size: 14pt; font-weight: 700; color: var(--texto);
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 10pt; }
+  thead th {
+    background: #f0f0f0; border-bottom: 1.5px solid var(--rsb-red);
+    text-align: left; padding: 6px 8px; font-size: 9.5pt;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--texto-mute); font-weight: 700;
+  }
+  tbody td {
+    border-bottom: 1px solid var(--linha-clara);
+    padding: 7px 8px; vertical-align: middle;
+  }
+  tbody tr:nth-child(even) td { background: #fafafa; }
+  .lugar-cell {
+    font-weight: 700; font-family: 'SF Mono', Consolas, monospace;
+    text-align: center; width: 18mm;
+  }
+  .lugar-r {
+    background: #fef9c3; color: #854d0e;
+    border: 1px solid #facc15;
+    border-radius: 3px; padding: 2px 6px; display: inline-block;
+  }
+  .lugar-num {
+    background: #f1f5f9; color: #1e293b;
+    border: 1px solid #cbd5e1;
+    border-radius: 3px; padding: 2px 6px; display: inline-block;
+  }
+  .cat-pill {
+    font-size: 9pt; font-weight: 700; color: #fff;
+    padding: 2px 7px; border-radius: 999px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    display: inline-block;
+  }
+  .rodape {
+    margin-top: 10mm; padding-top: 4mm;
+    border-top: 1px solid var(--linha-clara);
+    font-size: 9pt; color: var(--texto-mute);
+    display: flex; justify-content: space-between;
+  }
+  .stat-row {
+    display: flex; gap: 16px; margin: 6mm 0 8mm;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: #f5f5f7; padding: 8px 14px; border-radius: 6px;
+    border-left: 3px solid var(--rsb-red);
+    font-size: 10pt;
+  }
+  .stat strong { font-size: 14pt; display: block; color: var(--rsb-red); }
+
+  .assinatura-bloco { width: 100%; }
+  .assinatura-bloco td { height: 12mm; }
+  .col-assina { width: 60mm; }
+
+  @media print {
+    @page { size: A4; margin: 0; }
+    body { background: #fff; }
+    .toolbar { display: none; }
+    .pagina {
+      box-shadow: none; margin: 0; max-width: none;
+      padding: 12mm 14mm; min-height: 0; page-break-after: always;
+    }
+    .pagina:last-child { page-break-after: auto; }
+    tbody tr { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h1>Relatórios</h1>
+  <select id="sel-relatorio">
+    <option value="lugares">Mapa de lugares</option>
+    <option value="inscritos">Lista de inscritos (completa)</option>
+    <option value="oradores">Oradores · Moderação · Organização</option>
+    <option value="presencas-folha">Folha de presenças (papel)</option>
+    <option value="entidades">Inscritos por entidade</option>
+  </select>
+  <button class="print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+  <span class="grow"></span>
+  <span class="meta" id="meta-info">A carregar…</span>
+</div>
+
+<div id="conteudo">
+  <div class="pagina"><p style="text-align:center;padding:40mm 0;color:#888">A carregar dados…</p></div>
+</div>
+
+<script>
+const URL_INSCRITOS = "data/inscritos.json?t=" + Date.now();
+const URL_EVENTO = "data/evento.json?t=" + Date.now();
+const URL_PRESENCAS = "data/presencas.json?t=" + Date.now();
+
+let DADOS = { inscritos: [], evento: null, presencas: [] };
+
+async function fj(u) {
+  try { const r = await fetch(u, { cache: "no-store" }); if (!r.ok) return null; return await r.json(); }
+  catch (_) { return null; }
+}
+
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function cabecHtml(titulo) {
+  const e = DADOS.evento || {};
+  return `
+    <div class="cabec">
+      <img src="assets/rsb-brasao.png" alt="RSB">
+      <div class="info">
+        <p class="sub">Regimento de Sapadores Bombeiros de Lisboa</p>
+        <h2>${esc(e.titulo || "Sessão Técnica")}</h2>
+        <p class="data-evento">${esc(e.data || "")} · ${esc(e.local || "")}</p>
+        <p class="titulo-relatorio">${esc(titulo)}</p>
+      </div>
+    </div>`;
+}
+
+function rodapeHtml(extra) {
+  const agora = new Date();
+  const dt = agora.toLocaleString("pt-PT");
+  return `
+    <div class="rodape">
+      <span>Gerado em ${esc(dt)}</span>
+      <span>${esc(extra || "")}</span>
+    </div>`;
+}
+
+const CORES_CAT = {
+  "Organização": "#1a1a1a",
+  "Orador": "#E30613",
+  "Orador Convidado": "#C46C00",
+  "Moderação": "#6b21a8",
+  "Coautor do Livreto": "#0e7490",
+  "VIP": "#a16207",
+  "Imprensa": "#1565c0"
+};
+function pillCat(cat) {
+  if (!cat) return "";
+  return `<span class="cat-pill" style="background:${CORES_CAT[cat] || "#5a5a5a"}">${esc(cat)}</span>`;
+}
+function pillLugar(l) {
+  if (!l) return "";
+  const r = String(l).toUpperCase().startsWith("R");
+  return `<span class="${r ? "lugar-r" : "lugar-num"}">${esc(l)}</span>`;
+}
+
+function sortByLugar(a, b) {
+  const la = String(a.lugar || ""), lb = String(b.lugar || "");
+  const ra = la.startsWith("R"), rb = lb.startsWith("R");
+  if (ra && !rb) return 1;
+  if (!ra && rb) return -1;
+  const na = parseInt(la.replace(/[^0-9]/g, ""), 10) || 0;
+  const nb = parseInt(lb.replace(/[^0-9]/g, ""), 10) || 0;
+  if (na !== nb) return na - nb;
+  return la.localeCompare(lb);
+}
+function sortByNome(a, b) {
+  return (a.nome || "").localeCompare(b.nome || "", "pt-PT");
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// RELATÓRIOS
+// ──────────────────────────────────────────────────────────────────────
+function renderLugares() {
+  const comLugar = DADOS.inscritos.filter(i => i.lugar).slice().sort(sortByLugar);
+  const linhas = comLugar.map(i => `
+    <tr>
+      <td class="lugar-cell">${pillLugar(i.lugar)}</td>
+      <td>${esc(i.nome)}</td>
+      <td>${esc(i.cargo || "—")}</td>
+      <td>${esc(i.entidade || "—")}</td>
+      <td>${pillCat(i.categoria)}</td>
+    </tr>`).join("");
+  const stats = `
+    <div class="stat-row">
+      <div class="stat"><strong>${comLugar.length}</strong>Lugares atribuídos</div>
+      <div class="stat"><strong>${comLugar.filter(i => String(i.lugar).startsWith("R")).length}</strong>Reservados (R)</div>
+      <div class="stat"><strong>${DADOS.inscritos.length}</strong>Total inscritos</div>
+    </div>`;
+  return `
+    <div class="pagina">
+      ${cabecHtml("Mapa de lugares · ordenado por lugar")}
+      ${stats}
+      <table>
+        <thead><tr>
+          <th>Lugar</th><th>Nome</th><th>Cargo</th><th>Entidade</th><th>Categoria</th>
+        </tr></thead>
+        <tbody>${linhas}</tbody>
+      </table>
+      ${rodapeHtml(comLugar.length + " entradas")}
+    </div>`;
+}
+
+function renderInscritos() {
+  const lista = DADOS.inscritos.slice().sort(sortByNome);
+  const linhas = lista.map((i, idx) => `
+    <tr>
+      <td>${idx + 1}</td>
+      <td>${esc(i.nome)}</td>
+      <td>${esc(i.cargo || "—")}</td>
+      <td>${esc(i.entidade || "—")}</td>
+      <td>${pillCat(i.categoria)}</td>
+      <td>${pillLugar(i.lugar)}</td>
+      <td>${esc(i.estado || "—")}</td>
+    </tr>`).join("");
+  const stats = `
+    <div class="stat-row">
+      <div class="stat"><strong>${lista.length}</strong>Total inscritos</div>
+      <div class="stat"><strong>${lista.filter(i => /confirm/i.test(i.estado)).length}</strong>Confirmados</div>
+      <div class="stat"><strong>${lista.filter(i => i.lugar).length}</strong>Com lugar reservado</div>
+      <div class="stat"><strong>${lista.filter(i => i.categoria).length}</strong>Com categoria especial</div>
+    </div>`;
+  return `
+    <div class="pagina">
+      ${cabecHtml("Lista de inscritos · ordenada por nome")}
+      ${stats}
+      <table>
+        <thead><tr>
+          <th style="width:8mm">#</th>
+          <th>Nome</th><th>Cargo</th><th>Entidade</th><th>Categoria</th><th>Lugar</th><th>Estado</th>
+        </tr></thead>
+        <tbody>${linhas}</tbody>
+      </table>
+      ${rodapeHtml(lista.length + " inscritos")}
+    </div>`;
+}
+
+function renderOradores() {
+  const oradores = DADOS.inscritos.filter(i => i.categoria).slice()
+    .sort((a, b) => (a.categoria || "").localeCompare(b.categoria || "") || sortByNome(a, b));
+  const linhas = oradores.map(i => `
+    <tr>
+      <td>${pillCat(i.categoria)}</td>
+      <td>${esc(i.nome)}</td>
+      <td>${esc(i.cargo || "—")}</td>
+      <td>${esc(i.entidade || "—")}</td>
+      <td>${pillLugar(i.lugar)}</td>
+    </tr>`).join("");
+  return `
+    <div class="pagina">
+      ${cabecHtml("Oradores · Moderação · Organização")}
+      <p style="font-size:10pt;color:#555;margin:0 0 6mm">Lista filtrada apenas para inscritos com categoria especial atribuída no admin.</p>
+      <table>
+        <thead><tr>
+          <th style="width:42mm">Categoria</th>
+          <th>Nome</th><th>Cargo</th><th>Entidade</th><th>Lugar</th>
+        </tr></thead>
+        <tbody>${linhas}</tbody>
+      </table>
+      ${rodapeHtml(oradores.length + " entradas")}
+    </div>`;
+}
+
+function renderFolhaPresencas() {
+  const confirmados = DADOS.inscritos.filter(i => /confirm/i.test(i.estado || "")).slice().sort(sortByNome);
+  // 30 por página
+  const POR_PAGINA = 30;
+  const paginas = [];
+  for (let i = 0; i < confirmados.length; i += POR_PAGINA) {
+    paginas.push(confirmados.slice(i, i + POR_PAGINA));
+  }
+  return paginas.map((grupo, p) => {
+    const linhas = grupo.map((i, idx) => `
+      <tr>
+        <td style="width:8mm;text-align:center">${p * POR_PAGINA + idx + 1}</td>
+        <td>${esc(i.nome)}</td>
+        <td>${esc(i.entidade || "—")}</td>
+        <td class="col-assina"></td>
+      </tr>`).join("");
+    return `
+      <div class="pagina">
+        ${cabecHtml("Folha de presenças · página " + (p + 1) + " de " + paginas.length)}
+        <p style="font-size:10pt;color:#555;margin:0 0 6mm">Fallback em papel se o sistema digital falhar. Assinatura à entrada da sala.</p>
+        <table class="assinatura-bloco">
+          <thead><tr>
+            <th>#</th><th>Nome</th><th>Entidade</th><th class="col-assina">Assinatura</th>
+          </tr></thead>
+          <tbody>${linhas}</tbody>
+        </table>
+        ${rodapeHtml("Pág. " + (p + 1) + "/" + paginas.length)}
+      </div>`;
+  }).join("");
+}
+
+function renderEntidades() {
+  const porEnt = new Map();
+  DADOS.inscritos.forEach(i => {
+    const k = (i.entidade || "—").trim() || "—";
+    if (!porEnt.has(k)) porEnt.set(k, []);
+    porEnt.get(k).push(i);
+  });
+  const entKeys = Array.from(porEnt.keys()).sort((a, b) =>
+    porEnt.get(b).length - porEnt.get(a).length || a.localeCompare(b, "pt-PT")
+  );
+  const linhas = entKeys.map(ent => {
+    const grupo = porEnt.get(ent).slice().sort(sortByNome);
+    const nomes = grupo.map(i => esc(i.nome) + (i.lugar ? ' <span style="color:#854d0e;font-weight:700">[' + esc(i.lugar) + ']</span>' : "")).join("<br>");
+    return `
+      <tr>
+        <td style="font-weight:700">${esc(ent)}</td>
+        <td style="text-align:center;font-weight:700;color:var(--rsb-red)">${grupo.length}</td>
+        <td>${nomes}</td>
+      </tr>`;
+  }).join("");
+  return `
+    <div class="pagina">
+      ${cabecHtml("Inscritos por entidade")}
+      <div class="stat-row">
+        <div class="stat"><strong>${entKeys.length}</strong>Entidades</div>
+        <div class="stat"><strong>${DADOS.inscritos.length}</strong>Inscritos</div>
+      </div>
+      <table>
+        <thead><tr>
+          <th>Entidade</th><th style="width:18mm;text-align:center">N.º</th><th>Inscritos</th>
+        </tr></thead>
+        <tbody>${linhas}</tbody>
+      </table>
+      ${rodapeHtml(entKeys.length + " entidades · " + DADOS.inscritos.length + " inscritos")}
+    </div>`;
+}
+
+const RELATORIOS = {
+  "lugares": renderLugares,
+  "inscritos": renderInscritos,
+  "oradores": renderOradores,
+  "presencas-folha": renderFolhaPresencas,
+  "entidades": renderEntidades
+};
+
+function actualizar() {
+  const sel = document.getElementById("sel-relatorio").value;
+  const fn = RELATORIOS[sel] || RELATORIOS.lugares;
+  document.getElementById("conteudo").innerHTML = fn();
+}
+
+(async function init() {
+  const [ins, evt, pres] = await Promise.all([fj(URL_INSCRITOS), fj(URL_EVENTO), fj(URL_PRESENCAS)]);
+  DADOS.inscritos = (ins && ins.inscritos) || [];
+  DADOS.evento = evt || (ins && ins.evento) || {};
+  DADOS.presencas = (pres && pres.marcacoes) || [];
+
+  document.getElementById("meta-info").textContent =
+    DADOS.inscritos.length + " inscritos · " + (DADOS.evento.titulo || "evento");
+
+  // Permitir escolher relatório via URL ?r=lugares|inscritos|oradores|presencas-folha|entidades
+  const param = new URLSearchParams(location.search).get("r");
+  if (param && RELATORIOS[param]) {
+    document.getElementById("sel-relatorio").value = param;
+  }
+
+  document.getElementById("sel-relatorio").addEventListener("change", actualizar);
+  actualizar();
+})();
+</script>
+
+</body>
+</html>
