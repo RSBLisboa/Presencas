@@ -7,7 +7,7 @@
 //
 // Bump da versão sempre que houver alterações ao app shell.
 
-const CACHE_VERSION = 'rsb-presencas-v11-brasao-rsb';
+const CACHE_VERSION = 'rsb-presencas-v12-auto-config-tablet';
 const SHELL = [
   './',
   './index.html',

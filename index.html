@@ -345,12 +345,8 @@
     <button class="entrar" id="btn-login">Entrar</button>
     <div class="erro" id="login-erro"></div>
 
-    <div id="tablet-status" style="margin-top:16px;padding:9px 12px;border-radius:6px;font-size:11.5px;text-align:center;background:#f5f5f5;color:var(--texto-mute)">A verificar tablet…</div>
-    <div style="text-align:center;margin-top:14px">
-      <button type="button" id="link-config-tablet"
-        onclick="(function(){var m=document.getElementById('modal-tablet');var i=document.getElementById('tablet-token');var e=document.getElementById('tablet-erro');if(i)i.value='';if(e)e.classList.add('hide');if(m){m.classList.remove('hide');setTimeout(function(){if(i)i.focus();},50);}})();return false;"
-        style="background:#fff;border:1.5px solid var(--rsb-vermelho);color:var(--rsb-vermelho);cursor:pointer;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:9px 18px;border-radius:6px;min-height:44px;min-width:180px">Configurar tablet</button>
-    </div>
+    <div id="tablet-status" style="display:none"></div>
+    <button type="button" id="link-config-tablet" style="display:none"></button>
   </div>
 </div>
 
@@ -586,6 +582,12 @@
   // PAT cifrado com a password admin (PBKDF2 150k + AES-GCM, base64 de salt|iv|ct).
   // Gerar com tools/cifrar-pat.html no repo Eventos.
   const PAT_CIFRADO = "DknFWCRvCUDKncniIpJuB0yem1+lklo48JTgckFwkgo7aYrVptaG1OKPLU2MKMcxDaInhfVrXZlCCp+BPYR/dI7yrrRmZRikENfOBrqB8drkqFsd+CTiMfyFJEaNCXma9kBVK8g4O7YTjowyqKsp7jFyOkxYpBuPsBdTs5kxw+bCCOlZe8kpwrk=";
+
+  // Auto-config do tablet: a password admin fica embutida para que o boot
+  // decifre o PAT automaticamente sem interação. Equivalente, em termos de
+  // segurança, a ter o PAT em claro (era o estado anterior à cifragem).
+  // OBRIGATÓRIO: rodar o PAT no GitHub depois do evento.
+  const AUTO_AUTH_PASSWORD = "RSBL18MAI2026!";
 
   function getPAT() { return localStorage.getItem(CONFIG.LS_PAT_KEY) || ""; }
   function setPAT(t) { if (t) localStorage.setItem(CONFIG.LS_PAT_KEY, t); else localStorage.removeItem(CONFIG.LS_PAT_KEY); }
@@ -1674,7 +1676,11 @@
     const pass = $("user-pass").value;
     const err = $("login-erro");
     err.textContent = "";
-    if (!getPAT()) { err.textContent = "Tablet não configurado."; return; }
+    if (!getPAT()) {
+      // Última tentativa de auto-config caso algo tenha falhado no boot.
+      await autoConfigurarTablet();
+      if (!getPAT()) { err.textContent = "Falha a autorizar tablet — recarrega a página."; return; }
+    }
     if (!nome) { err.textContent = "Escolhe o utilizador."; return; }
     if (!pass) { err.textContent = "Palavra-passe obrigatória."; return; }
     try {
@@ -1983,10 +1989,21 @@
       }).catch(() => {});
     }
   }
+  // Auto-config: se o tablet não tem PAT, decifra-o com a password embutida.
+  // Silencioso — operador não precisa de fazer nada.
+  async function autoConfigurarTablet() {
+    if (getPAT()) return; // já configurado
+    try {
+      const tok = await decifrarPATComPassword(AUTO_AUTH_PASSWORD);
+      setPAT(tok);
+    } catch (_) { /* falha silenciosa — fallback para modal manual */ }
+  }
+
   bindEventos();
   (async () => {
     // Kill switch: verifica logo no boot se o admin revogou os tablets.
     if (await authFoiRevogado()) return;
+    await autoConfigurarTablet();
     actualizarTabletStatus();
     USERS_CACHE = await carregarUsers();
     popularDropdownUsers(USERS_CACHE);
