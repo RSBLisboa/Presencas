@@ -9,21 +9,9 @@
     "horaFim": "12:00",
     "cargaHoraria": "3 horas"
   },
-  "exportadoEm": "2026-05-16T22:39:03",
+  "exportadoEm": "2026-05-17T23:17:55",
   "total": 200,
   "inscritos": [
-    {
-      "id": 152,
-      "token": "ANW6GPD2",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
-      "email": "",
-      "temMail": false,
-      "estado": "Confirmado",
-      "eraConvidado": true,
-      "naoEnviar": false
-    },
     {
       "id": 153,
       "token": "GWKBUXKS",
@@ -601,19 +589,6 @@
       "naoEnviar": false
     },
     {
-      "id": 1,
-      "token": "ZWFMZ7Q5",
-      "nome": "Bombeiro BV Feira #1",
-      "cargo": "",
-      "entidade": "BV Feira",
-      "email": "",
-      "temMail": false,
-      "estado": "Confirmado",
-      "eraConvidado": true,
-      "naoEnviar": false,
-      "idRespostaForms": 81
-    },
-    {
       "id": 2,
       "token": "EKKNDGW3",
       "nome": "Albano José Antunes Lucas",
@@ -786,6 +761,19 @@
       "naoEnviar": false,
       "idRespostaForms": 135,
       "lugar": "31"
+    },
+    {
+      "id": 1,
+      "token": "ZWFMZ7Q5",
+      "nome": "Bombeiro BV Feira #1",
+      "cargo": "",
+      "entidade": "BV Feira",
+      "email": "",
+      "temMail": false,
+      "estado": "Confirmado",
+      "eraConvidado": true,
+      "naoEnviar": false,
+      "idRespostaForms": 81
     },
     {
       "id": 15,
@@ -1517,6 +1505,20 @@
       "naoEnviar": false,
       "idRespostaForms": 46,
       "lugar": "38"
+    },
+    {
+      "id": 152,
+      "token": "ANW6GPD2",
+      "nome": "José Miguel Maximiano Gonçalves Ferreira",
+      "cargo": "Subchefe de 1.ª Classe",
+      "entidade": "RSBL",
+      "email": "jose.miguel.ferreira@cm-lisboa.pt",
+      "temMail": false,
+      "estado": "Confirmada",
+      "eraConvidado": "Sim",
+      "naoEnviar": false,
+      "autorizaContacto": true,
+      "categoria": "Orador"
     },
     {
       "id": 70,
@@ -2613,6 +2615,5 @@
       "naoEnviar": false,
       "idRespostaForms": 159
     }
-  ],
-  "actualizadoEm": "2026-05-17T21:53:44"
+  ]
 }
