@@ -1754,12 +1754,13 @@
       "nome": "Luís Silva",
       "cargo": "SChPrinc",
       "entidade": "BS Gaia",
-      "email": "",
+      "email": "luismsilva@cm-gaia.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 150
+      "idRespostaForms": 150,
+      "autorizaContacto": false
     },
     {
       "id": 88,
@@ -2616,5 +2617,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:13:09"
+  "actualizadoEm": "2026-05-18T12:13:51"
 }

@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:13:09",
-  "total": 13,
+  "actualizadoEm": "2026-05-18T12:13:51",
+  "total": 14,
   "respostas": [
     {
       "idInscricao": 23,
@@ -197,6 +197,21 @@
         "q4": "4",
         "q5": "3",
         "q6": "3"
+      }
+    },
+    {
+      "idInscricao": 87,
+      "token": "5PG7XQ9K",
+      "submetidoEm": "5/18/2026 12:13:40 PM",
+      "email": "luismsilva@cm-gaia.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "3",
+        "q5": "4",
+        "q6": "4"
       }
     }
   ]
