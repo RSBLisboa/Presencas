@@ -1195,12 +1195,13 @@
       "nome": "Hugo Santos",
       "cargo": "Oficial Bomb1",
       "entidade": "BV Praia da Vitória",
-      "email": "hugo.santos@prociv.pt",
+      "email": "yurikos187@gmail.com",
       "temMail": true,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 99
+      "idRespostaForms": 99,
+      "autorizaContacto": false
     },
     {
       "id": 47,
@@ -2603,5 +2604,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T11:58:07.294Z"
+  "actualizadoEm": "2026-05-18T11:58:23"
 }

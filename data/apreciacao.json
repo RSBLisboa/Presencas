@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T11:55:44",
-  "total": 3,
+  "actualizadoEm": "2026-05-18T11:58:23",
+  "total": 4,
   "respostas": [
     {
       "idInscricao": 23,
@@ -47,6 +47,21 @@
         "q4": "3",
         "q5": "3",
         "q6": "3"
+      }
+    },
+    {
+      "idInscricao": 46,
+      "token": "CUEY27V9",
+      "submetidoEm": "5/18/2026 11:58:15 AM",
+      "email": "yurikos187@gmail.com",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
       }
     }
   ]
