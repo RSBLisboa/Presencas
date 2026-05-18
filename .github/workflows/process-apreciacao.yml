@@ -2,7 +2,7 @@ name: Process Apreciacao Issues
 
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
 permissions:
   contents: write
@@ -49,9 +49,15 @@ jobs:
               return;
             }
 
-            // Aceita token (canonico) ou idInscricao (legado). Token tem prioridade.
-            const tokenRaw = String(payload.token ?? '').trim().toUpperCase();
-            const idStr = String(payload.idInscricao ?? '').trim();
+            // Aceita token (canonico) ou idInscricao (legado/numerico).
+            // Se idInscricao parecer um token (8 chars alfanum), trata-o como token.
+            let tokenRaw = String(payload.token ?? '').trim().toUpperCase();
+            const idRaw = String(payload.idInscricao ?? '').trim();
+            const idUpper = idRaw.toUpperCase();
+            // Fallback: MS Forms / Power Automate por vezes envia o token no campo idInscricao.
+            if (!tokenRaw && /^[A-Z0-9]{8}$/.test(idUpper) && !/^\d+$/.test(idRaw)) {
+              tokenRaw = idUpper;
+            }
 
             // 2a. Carregar inscritos.json para resolver token -> id (se necessario).
             let inscritosJson;
@@ -73,11 +79,11 @@ jobs:
                 return;
               }
               idInscricao = Number(insc.id);
-            } else if (idStr) {
-              idInscricao = parseInt(idStr, 10);
+            } else if (/^\d+$/.test(idRaw)) {
+              idInscricao = parseInt(idRaw, 10);
             }
             if (isNaN(idInscricao)) {
-              await comment(`Payload sem token valido nem idInscricao. Recebido token='${tokenRaw}' idStr='${idStr}'.`);
+              await comment(`Payload sem token valido nem idInscricao numerico. Recebido token='${tokenRaw}' idRaw='${idRaw}'.`);
               await closeWith('not_planned');
               return;
             }
