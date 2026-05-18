@@ -7,7 +7,7 @@
 //
 // Bump da versão sempre que houver alterações ao app shell.
 
-const CACHE_VERSION = 'rsb-presencas-v27-print-a4';
+const CACHE_VERSION = 'rsb-presencas-v28-lugar-no-verso';
 const SHELL = [
   './',
   './index.html',

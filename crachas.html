@@ -311,7 +311,7 @@
     line-height: 1.25;
   }
   .verso .rodape {
-    height: 16mm;
+    height: 22mm;
     background: #fafafa;
     border-top: 0.2mm solid #ddd;
     padding: 3mm 5mm;
@@ -328,9 +328,23 @@
   .verso .rodape .id {
     font-size: 7pt;
     color: var(--texto-mute);
-    margin: 0;
+    margin: 0 0 1.5mm;
     font-family: "Consolas", "Menlo", monospace;
   }
+  .verso .rodape .lugar {
+    font-size: 9pt;
+    color: var(--texto);
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+  .verso .rodape .lugar strong {
+    font-weight: 800;
+    font-size: 11pt;
+    color: var(--rsb-red, #b00410);
+    margin-left: 2mm;
+    font-family: "Consolas", "Menlo", monospace;
+  }
+  .verso .rodape .lugar.reservado strong { color: #854d0e; }
 
   /* Etiqueta de cabeçalho de página (não imprime) */
   .page-label {
@@ -444,15 +458,6 @@ function renderFrente(inscrito, titulo, dataEvento, local) {
         <p class="nome ${classeNome(inscrito.nome)}">${esc(inscrito.nome)}</p>
         ${inscrito.cargo ? `<p class="cargo">${esc(inscrito.cargo)}</p>` : ""}
         ${inscrito.entidade ? `<p class="entidade">${esc(inscrito.entidade)}</p>` : ""}
-        ${(function(){
-          const lugar = inscrito.lugar ? String(inscrito.lugar).trim() : "";
-          if (!lugar) return "";
-          const ehR = lugar.toUpperCase().startsWith("R");
-          return `<div class="lugar-bloco${ehR ? ' reservado' : ''}">
-            <span class="lugar-label">${ehR ? '⭐ Lugar reservado' : 'Lugar'}</span>
-            <span class="lugar-num">${esc(lugar)}</span>
-          </div>`;
-        })()}
       </div>
       <div class="rodape">Regimento de Sapadores Bombeiros de Lisboa</div>
     </div>`;
@@ -506,6 +511,12 @@ function renderVerso(inscrito) {
       <div class="rodape">
         <p class="nome">${esc(inscrito.nome)}</p>
         <p class="id">Inscrição n.º ${esc(String(inscrito.id).padStart(3,"0"))}</p>
+        ${(function(){
+          const lugar = inscrito.lugar ? String(inscrito.lugar).trim() : "";
+          if (!lugar) return "";
+          const ehR = lugar.toUpperCase().startsWith("R");
+          return `<p class="lugar${ehR ? ' reservado' : ''}">${ehR ? '⭐ Lugar reservado' : 'Lugar'} <strong>${esc(lugar)}</strong></p>`;
+        })()}
       </div>
     </div>`;
 }
