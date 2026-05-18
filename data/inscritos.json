@@ -2106,12 +2106,13 @@
       "nome": "Paulo Nunes",
       "cargo": "TSup",
       "entidade": "EPRE APA",
-      "email": "",
+      "email": "paulo.nunes@apambiente.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 72
+      "idRespostaForms": 72,
+      "autorizaContacto": false
     },
     {
       "id": 114,
@@ -2627,5 +2628,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:19:23"
+  "actualizadoEm": "2026-05-18T12:19:54"
 }
