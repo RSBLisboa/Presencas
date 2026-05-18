@@ -120,14 +120,17 @@
     {
       "id": 162,
       "token": "AXFUW2ER",
-      "nome": "",
+      "nome": "Filipe Cravo",
       "cargo": "",
-      "entidade": "",
+      "entidade": "BaGlasse",
       "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 163,
@@ -2607,5 +2610,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:00:29"
+  "actualizadoEm": "2026-05-18T12:00:42.512Z"
 }
