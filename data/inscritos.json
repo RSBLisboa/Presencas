@@ -1203,7 +1203,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 38
+      "idRespostaForms": 38,
+      "lugar": "A21"
     },
     {
       "id": 49,
@@ -1258,8 +1259,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 129,
-      "lugar": "A21"
+      "idRespostaForms": 129
     },
     {
       "id": 53,
@@ -2586,5 +2586,5 @@
       "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:13:45.675Z"
+  "actualizadoEm": "2026-05-18T08:14:51.894Z"
 }
