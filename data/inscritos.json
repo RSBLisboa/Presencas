@@ -1299,12 +1299,13 @@
       "nome": "Joana Jerónimo",
       "cargo": "1TEN TSN-AMB",
       "entidade": "Marinha",
-      "email": "",
+      "email": "JoanaSCHJeronimo@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 129
+      "idRespostaForms": 129,
+      "autorizaContacto": false
     },
     {
       "id": 53,
@@ -2658,5 +2659,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T13:39:02"
+  "actualizadoEm": "2026-05-18T13:40:36"
 }
