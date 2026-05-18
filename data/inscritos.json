@@ -1701,12 +1701,13 @@
       "nome": "Lino Carragoso",
       "cargo": "SCh2",
       "entidade": "BS  Viseu",
-      "email": "",
+      "email": "linocarragoso1978@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 130
+      "idRespostaForms": 130,
+      "autorizaContacto": false
     },
     {
       "id": 82,
@@ -2656,5 +2657,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T13:25:33"
+  "actualizadoEm": "2026-05-18T13:31:19"
 }

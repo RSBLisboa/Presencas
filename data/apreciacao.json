@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T13:25:33",
-  "total": 43,
+  "actualizadoEm": "2026-05-18T13:31:19",
+  "total": 44,
   "respostas": [
     {
       "idInscricao": 23,
@@ -645,6 +645,21 @@
         "q2": "4",
         "q3": "4",
         "q4": "3",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 81,
+      "token": "EKBJJUXD",
+      "submetidoEm": "5/18/2026 12:31:05 PM",
+      "email": "linocarragoso1978@gmail.com",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
         "q5": "4",
         "q6": "4"
       }
