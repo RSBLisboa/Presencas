@@ -2001,12 +2001,13 @@
       "nome": "Nuno Emanuel Coroado",
       "cargo": "Cmdt Coruche",
       "entidade": "BS Coruche",
-      "email": "",
+      "email": "nuno.coroado@cm-coruche.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 62
+      "idRespostaForms": 62,
+      "autorizaContacto": false
     },
     {
       "id": 106,
@@ -2630,5 +2631,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:20:35"
+  "actualizadoEm": "2026-05-18T12:21:03"
 }
