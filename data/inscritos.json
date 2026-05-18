@@ -2600,12 +2600,13 @@
       "nome": "Vitor Gonçalves",
       "cargo": "Cmdt Bomb Sines",
       "entidade": "ANEPC",
-      "email": "",
+      "email": "victorgoncalvesmail@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 159
+      "idRespostaForms": 159,
+      "autorizaContacto": false
     },
     {
       "id": 153,
@@ -2622,5 +2623,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:16:59"
+  "actualizadoEm": "2026-05-18T12:17:16"
 }
