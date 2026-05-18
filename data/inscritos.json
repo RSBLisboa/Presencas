@@ -811,12 +811,13 @@
       "nome": "Bruno Pereira",
       "cargo": "Adj Cmd",
       "entidade": "BV Samora Correia",
-      "email": "",
+      "email": "Comando3@bvsamoracorreia.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 120
+      "idRespostaForms": 120,
+      "autorizaContacto": false
     },
     {
       "id": 19,
@@ -2599,5 +2600,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T11:54:12.321Z"
+  "actualizadoEm": "2026-05-18T11:55:45"
 }

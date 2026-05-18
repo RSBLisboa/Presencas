@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T11:40:43",
-  "total": 2,
+  "actualizadoEm": "2026-05-18T11:55:44",
+  "total": 3,
   "respostas": [
     {
       "idInscricao": 23,
@@ -32,6 +32,21 @@
         "q4": "4",
         "q5": "4",
         "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 18,
+      "token": "45ULQHGF",
+      "submetidoEm": "5/18/2026 11:55:33 AM",
+      "email": "Comando3@bvsamoracorreia.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "3",
+        "q2": "3",
+        "q3": "3",
+        "q4": "3",
+        "q5": "3",
+        "q6": "3"
       }
     }
   ]
