@@ -90,14 +90,17 @@
     {
       "id": 160,
       "token": "D6LUAZ7J",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
-      "email": "",
+      "nome": "Carlos Tomé",
+      "cargo": "Sargento Ajudante",
+      "entidade": "GNR",
+      "email": "rego.lmhf@gnr.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 161,
@@ -2603,5 +2606,5 @@
       "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:53:27.605Z"
+  "actualizadoEm": "2026-05-18T08:58:30.017Z"
 }
