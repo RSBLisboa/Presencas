@@ -1,8 +1,8 @@
 {
   "schema": "entregas@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T13:01:36",
-  "versao": 696468,
+  "actualizadoEm": "2026-05-18T13:02:49",
+  "versao": 769217,
   "entregas": [
     {
       "idInscricao": 17,
@@ -60,6 +60,11 @@
       "entreguePor": "tablet-balcao"
     },
     {
+      "idInscricao": 161,
+      "entregueEm": "2026-05-18T13:00:49",
+      "entreguePor": "tablet-balcao"
+    },
+    {
       "idInscricao": 140,
       "entregueEm": "2026-05-18T12:55:30",
       "entreguePor": "tablet-balcao"
@@ -80,6 +85,11 @@
       "entreguePor": "tablet-balcao"
     },
     {
+      "idInscricao": 114,
+      "entregueEm": "2026-05-18T13:02:48",
+      "entreguePor": "tablet-balcao"
+    },
+    {
       "idInscricao": 162,
       "entregueEm": "2026-05-18T13:01:34",
       "entreguePor": "tablet-balcao"
@@ -87,11 +97,6 @@
     {
       "idInscricao": 80,
       "entregueEm": "2026-05-18T13:00:35",
-      "entreguePor": "tablet-balcao"
-    },
-    {
-      "idInscricao": 161,
-      "entregueEm": "2026-05-18T13:00:49",
       "entreguePor": "tablet-balcao"
     }
   ]
