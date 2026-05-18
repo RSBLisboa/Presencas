@@ -1422,12 +1422,13 @@
       "nome": "José Antunes",
       "cargo": "",
       "entidade": "BS Coimbra",
-      "email": "",
+      "email": "jmiguelcapo@hotmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 143
+      "idRespostaForms": 143,
+      "autorizaContacto": false
     },
     {
       "id": 63,
@@ -2636,5 +2637,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:23:50.240Z"
+  "actualizadoEm": "2026-05-18T12:24:15"
 }
