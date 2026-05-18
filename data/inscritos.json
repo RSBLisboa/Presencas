@@ -2323,12 +2323,13 @@
       "nome": "Raquel Milho",
       "cargo": "Ch Div Prevenção e Sensibilização",
       "entidade": "SMPC Lx",
-      "email": "",
+      "email": "raquel.milho@cm-lisboa.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 87
+      "idRespostaForms": 87,
+      "autorizaContacto": false
     },
     {
       "id": 131,
@@ -2621,5 +2622,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:14:45.501Z"
+  "actualizadoEm": "2026-05-18T12:15:21"
 }

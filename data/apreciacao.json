@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:14:41",
-  "total": 15,
+  "actualizadoEm": "2026-05-18T12:15:21",
+  "total": 16,
   "respostas": [
     {
       "idInscricao": 23,
@@ -225,6 +225,21 @@
         "q2": "4",
         "q3": "4",
         "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 130,
+      "token": "FCZS6DC5",
+      "submetidoEm": "5/18/2026 12:15:07 PM",
+      "email": "raquel.milho@cm-lisboa.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "3",
         "q5": "4",
         "q6": "4"
       }
