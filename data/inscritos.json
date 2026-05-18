@@ -30,14 +30,17 @@
     {
       "id": 156,
       "token": "RHMTS7P2",
-      "nome": "",
+      "nome": "Jorge Coelho",
       "cargo": "",
-      "entidade": "",
-      "email": "",
+      "entidade": "BV Feira",
+      "email": "comandante@bombeirosfeira.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": true
     },
     {
       "id": 157,
@@ -2591,5 +2594,5 @@
       "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:48:04.481Z"
+  "actualizadoEm": "2026-05-18T08:49:33.663Z"
 }
