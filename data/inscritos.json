@@ -2045,7 +2045,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 42
+      "idRespostaForms": 42,
+      "autorizaContacto": false
     },
     {
       "id": 108,
@@ -2644,5 +2645,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:28:59"
+  "actualizadoEm": "2026-05-18T12:33:29"
 }

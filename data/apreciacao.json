@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:28:59",
-  "total": 31,
+  "actualizadoEm": "2026-05-18T12:33:29",
+  "total": 32,
   "respostas": [
     {
       "idInscricao": 23,
@@ -462,6 +462,21 @@
       "autorizaContacto": false,
       "respostas": {
         "q1": "3",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 107,
+      "token": "6K7F7TB2",
+      "submetidoEm": "5/18/2026 12:33:12 PM",
+      "email": "nuno.machado@cbss.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
         "q2": "4",
         "q3": "4",
         "q4": "4",
