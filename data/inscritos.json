@@ -15,14 +15,17 @@
     {
       "id": 155,
       "token": "WAP7PAZ3",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
-      "email": "",
+      "nome": "Gracinda Terras",
+      "cargo": "SCh1",
+      "entidade": "RSBL",
+      "email": "Gracinda.terras@cm-lisboa.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 156,
@@ -2578,5 +2581,6 @@
       "autorizaContacto": true,
       "categoria": "Organização"
     }
-  ]
+  ],
+  "actualizadoEm": "2026-05-18T10:44:35.674Z"
 }
