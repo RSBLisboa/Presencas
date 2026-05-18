@@ -222,14 +222,17 @@
     {
       "id": 170,
       "token": "X9XKTPAF",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
+      "nome": "Paulo Ferriera",
+      "cargo": "Cabo da Ponte",
+      "entidade": "Marinha",
       "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 171,
@@ -2623,5 +2626,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:17:16"
+  "actualizadoEm": "2026-05-18T12:17:37.922Z"
 }
