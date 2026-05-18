@@ -7,7 +7,7 @@
 //
 // Bump da versão sempre que houver alterações ao app shell.
 
-const CACHE_VERSION = 'rsb-presencas-v21-mapa-oval-sentar';
+const CACHE_VERSION = 'rsb-presencas-v22-oval-corredores';
 const SHELL = [
   './',
   './index.html',

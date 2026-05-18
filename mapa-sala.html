@@ -104,10 +104,10 @@
   .lugar.selected rect { stroke-width: 3; filter: drop-shadow(0 0 6px rgba(227,6,19,0.5)); }
   .lugar rect { transition: stroke-width 0.12s; }
   .lugar text {
-    font-size: 9px; font-weight: 700; text-anchor: middle;
+    font-size: 10.5px; font-weight: 700; text-anchor: middle;
     pointer-events: none; dominant-baseline: middle;
   }
-  .lugar.reservado text { font-size: 11px; }
+  .lugar.reservado text { font-size: 12px; }
 
   /* Estado livre */
   .lugar.livre rect { fill: var(--lugar-livre); stroke: var(--lugar-livre-borda); stroke-width: 1; }
@@ -423,19 +423,19 @@ function renderMapa() {
   const sala = evt.sala || {};
   const layout = Array.isArray(sala.layout) ? sala.layout : [];
   const tipo = sala.tipo === 'oval' ? 'oval' : 'reto';
-  const viewBox = sala.viewBox || (tipo === 'oval' ? "0 0 1300 700" : "0 0 1000 480");
+  const viewBox = sala.viewBox || (tipo === 'oval' ? "0 0 1400 900" : "0 0 1000 480");
   const svg = document.getElementById("svg-mapa");
   svg.setAttribute("viewBox", viewBox);
 
   // Palco — circular para oval, rectangular para recto
   let html = '';
+  const ovalCx = 700, ovalCy = 130;
   if (tipo === 'oval') {
-    const cx = 650, cy = 90;
     html += `
-      <circle cx="${cx}" cy="${cy}" r="70" fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
-      <circle cx="${cx}" cy="${cy}" r="40" fill="#be185d"/>
-      <text x="${cx}" y="${cy + 6}" style="fill:#fff;font-size:22px;font-weight:800;text-anchor:middle">1</text>
-      <text x="${cx}" y="${cy + 95}" style="fill:#999;font-size:11px;font-weight:600;text-anchor:middle;letter-spacing:0.06em;text-transform:uppercase">Palco · Painel central</text>
+      <circle cx="${ovalCx}" cy="${ovalCy}" r="78" fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
+      <circle cx="${ovalCx}" cy="${ovalCy}" r="44" fill="#be185d"/>
+      <text x="${ovalCx}" y="${ovalCy + 7}" style="fill:#fff;font-size:24px;font-weight:800;text-anchor:middle">1</text>
+      <text x="${ovalCx}" y="${ovalCy + 105}" style="fill:#999;font-size:12px;font-weight:600;text-anchor:middle;letter-spacing:0.06em;text-transform:uppercase">Palco · Painel central</text>
     `;
   } else {
     html += `
@@ -444,41 +444,88 @@ function renderMapa() {
     `;
   }
 
-  // Rótulos de fila à esquerda — agrupar lugares por Y com tolerância (para arcos).
-  function clusterFilas(slots) {
-    const ordenados = slots.slice().sort((a,b) => a.y - b.y);
-    const filas = [];
+  // Agrupar por propriedade `fila` (preferida) ou por cluster Y (fallback).
+  function agruparFilas(slots) {
+    if (slots.some(s => s.fila)) {
+      const map = new Map();
+      for (const s of slots) {
+        const k = s.fila || '?';
+        if (!map.has(k)) map.set(k, []);
+        map.get(k).push(s);
+      }
+      // Ordena pelas distâncias ao palco para tipo oval, por Y para outros.
+      const ordem = Array.from(map.entries());
+      ordem.sort((a, b) => {
+        const yA = a[1].reduce((s, x) => s + x.y, 0) / a[1].length;
+        const yB = b[1].reduce((s, x) => s + x.y, 0) / b[1].length;
+        return yA - yB;
+      });
+      return ordem.map(([letra, slots]) => ({ letra, slots }));
+    }
+    // Fallback: clustering por Y
     const tol = 18;
+    const ordenados = slots.slice().sort((a, b) => a.y - b.y);
+    const filas = [];
     for (const s of ordenados) {
       const fila = filas.find(f => Math.abs(f.y - s.y) < tol);
       if (fila) fila.slots.push(s);
       else filas.push({ y: s.y, slots: [s] });
     }
-    return filas;
+    let letraIdx = 0;
+    return filas.map(f => {
+      const todosR = f.slots.every(s => String(s.lugar).toUpperCase().startsWith('R'));
+      return { letra: todosR ? 'R' : String.fromCharCode(65 + letraIdx++), slots: f.slots };
+    });
   }
-  const filas = clusterFilas(layout);
-  let letraIdx = 0;
-  filas.forEach(f => {
-    const todosR = f.slots.every(s => String(s.lugar).toUpperCase().startsWith('R'));
-    const label = todosR ? 'R' : String.fromCharCode(65 + letraIdx++);
-    const ys = f.slots.map(s => s.y);
-    const yMed = ys.reduce((a,b) => a+b, 0) / ys.length;
-    const xs = f.slots.map(s => s.x);
-    const xMin = Math.min(...xs);
-    const xLabel = Math.max(15, xMin - 30);
-    html += `<text x="${xLabel}" y="${yMed + 4}" style="font-size:12px;font-weight:700;fill:#888;text-anchor:middle">${label}</text>`;
+  const grupos = agruparFilas(layout);
+
+  // Desenhar arco curvo de fundo para cada fila (apenas modo oval).
+  if (tipo === 'oval') {
+    grupos.forEach(g => {
+      if (g.slots.length < 2) return;
+      // Calcula o raio médio relativamente ao centro do palco.
+      const raios = g.slots.map(s => Math.hypot(s.x - ovalCx, s.y - ovalCy));
+      const r = raios.reduce((a,b) => a+b, 0) / raios.length;
+      // Ângulos (radianos) do primeiro e último lugar.
+      const ang = s => Math.atan2(s.y - ovalCy, s.x - ovalCx);
+      const angulos = g.slots.map(ang).sort((a,b) => a-b);
+      const a0 = angulos[0], a1 = angulos[angulos.length - 1];
+      // Pontos no arco com pequena margem extra de cada lado.
+      const margem = 0.04; // radianos
+      const aStart = a0 - margem, aEnd = a1 + margem;
+      const x1 = ovalCx + r * Math.cos(aStart);
+      const y1 = ovalCy + r * Math.sin(aStart);
+      const x2 = ovalCx + r * Math.cos(aEnd);
+      const y2 = ovalCy + r * Math.sin(aEnd);
+      const largeArc = (aEnd - aStart) > Math.PI ? 1 : 0;
+      const cor = g.letra === 'R' ? '#facc15' : '#cbd5e1';
+      html += `<path d="M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${r.toFixed(1)} ${r.toFixed(1)} 0 ${largeArc} 1 ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${cor}" stroke-width="1" stroke-dasharray="2,4" opacity="0.6"/>`;
+    });
+  }
+
+  // Letras de fila nas duas pontas.
+  grupos.forEach(g => {
+    if (!g.slots.length) return;
+    const sorted = g.slots.slice().sort((a, b) => a.x - b.x);
+    const sEsq = sorted[0];
+    const sDir = sorted[sorted.length - 1];
+    const offsetX = 30;
+    const cor = g.letra === 'R' ? '#b45309' : '#666';
+    html += `<text x="${sEsq.x - offsetX}" y="${sEsq.y + 4}" style="font-size:13px;font-weight:800;fill:${cor};text-anchor:middle">${g.letra}</text>`;
+    html += `<text x="${sDir.x + offsetX}" y="${sDir.y + 4}" style="font-size:13px;font-weight:800;fill:${cor};text-anchor:middle">${g.letra}</text>`;
   });
 
   layout.forEach(slot => {
     const ehR = String(slot.lugar).toUpperCase().startsWith("R");
-    const w = ehR ? 38 : 30;
-    const h = ehR ? 28 : 22;
+    const w = ehR ? 40 : 32;
+    const h = ehR ? 30 : 24;
     const x = slot.x - w/2, y = slot.y - h/2;
     const cls = classeLugar(slot.lugar);
     const i = inscritoNoLugar(slot.lugar);
+    const filaTxt = slot.fila ? slot.fila + ' · ' : '';
     const title = i
-      ? slot.lugar + " · " + i.nome + (i.entidade ? " (" + i.entidade + ")" : "")
-      : (ehR ? "Reservado " + slot.lugar + " — por atribuir" : "Lugar " + slot.lugar + " — vazio");
+      ? filaTxt + slot.lugar + " · " + i.nome + (i.entidade ? " (" + i.entidade + ")" : "")
+      : (ehR ? "Reservado " + slot.lugar + " — por atribuir" : "Lugar " + filaTxt + slot.lugar + " — vazio");
     const txt = ehR ? "★" + slot.lugar.substring(1) : slot.lugar;
     html += `
       <g class="lugar ${cls}" data-lugar="${esc(slot.lugar)}" tabindex="0">
