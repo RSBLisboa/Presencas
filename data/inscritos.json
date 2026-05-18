@@ -45,14 +45,17 @@
     {
       "id": 157,
       "token": "23L8VM6M",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
-      "email": "",
+      "nome": "Abel Valente",
+      "cargo": "2º Comandate",
+      "entidade": "BV Feira",
+      "email": "Comando4dafeira@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 158,
@@ -2594,5 +2597,5 @@
       "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:49:33.663Z"
+  "actualizadoEm": "2026-05-18T08:50:24.437Z"
 }
