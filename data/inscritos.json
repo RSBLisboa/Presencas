@@ -30,14 +30,17 @@
     {
       "id": 156,
       "token": "RHMTS7P2",
-      "nome": "",
+      "nome": "Sergio Carvalho",
       "cargo": "",
       "entidade": "",
-      "email": "",
+      "email": "Sergio.Carvalho@cm-lisboa.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 157,
@@ -2582,5 +2585,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T10:44:35.674Z"
+  "actualizadoEm": "2026-05-18T10:56:26.594Z"
 }
