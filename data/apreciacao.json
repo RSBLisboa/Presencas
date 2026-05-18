@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:13:51",
-  "total": 14,
+  "actualizadoEm": "2026-05-18T12:14:41",
+  "total": 15,
   "respostas": [
     {
       "idInscricao": 23,
@@ -210,6 +210,21 @@
         "q2": "4",
         "q3": "4",
         "q4": "3",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 24,
+      "token": "M9WWK2VY",
+      "submetidoEm": "5/18/2026 12:14:29 PM",
+      "email": "Comandante@bmgrandola.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
         "q5": "4",
         "q6": "4"
       }

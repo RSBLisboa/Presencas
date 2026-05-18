@@ -901,12 +901,13 @@
       "nome": "Cláudio Tomé",
       "cargo": "Cmdt Bomb Grândola",
       "entidade": "ANEPC",
-      "email": "",
+      "email": "Comandante@bmgrandola.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 139
+      "idRespostaForms": 139,
+      "autorizaContacto": false
     },
     {
       "id": 201,
@@ -2617,5 +2618,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:13:51"
+  "actualizadoEm": "2026-05-18T12:14:41"
 }
