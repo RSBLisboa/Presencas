@@ -491,10 +491,10 @@
     border-color: rgba(255,255,255,0.10);
   }
 
-  /* --- Print: limpo para A3 landscape --- */
+  /* --- Print: cabe numa A4 landscape (uma folha) --- */
   @media print {
-    @page { size: A3 landscape; margin: 8mm; }
-    body { background: #fff; }
+    @page { size: A4 landscape; margin: 6mm; }
+    html, body { background: #fff; height: auto; }
     .top, .info, .toast, .modal-bg { display: none !important; }
     .wrap {
       display: block; max-width: none;
@@ -503,20 +503,42 @@
     .mapa-card {
       box-shadow: none; padding: 0;
       border: none; border-radius: 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
-    .mapa-card h2 { font-size: 20px; margin-bottom: 4px; }
-    .mapa-card .local { margin-bottom: 12px; }
+    .mapa-card h2 {
+      font-size: 13pt; margin: 0 0 1mm 0;
+      text-align: center;
+    }
+    .mapa-card .local {
+      font-size: 9pt; margin: 0 0 2mm 0;
+      text-align: center;
+    }
+    /* A4 landscape util ~ 285 × 198mm. Cabeçalho ~12mm + legenda ~22mm + gaps ~4mm
+       → SVG max-height ~160mm para sobrar margem segura. */
     svg.mapa {
       background: #fff; border: none;
+      width: 100%; height: auto;
+      max-height: 158mm;
+      display: block;
+      margin: 0 auto;
       page-break-inside: avoid;
+      break-inside: avoid;
     }
     .legenda {
-      margin-top: 14px; padding-top: 10px;
+      margin-top: 3mm; padding-top: 2mm;
       border-top: 1px solid #cbd5e1;
       page-break-inside: avoid;
+      break-inside: avoid;
+      font-size: 7.5pt;
+      gap: 6px 12px;
     }
+    .legenda .item { gap: 4px; }
+    .legenda .sw { width: 11px; height: 11px; border-radius: 3px; }
     .lugar { transition: none !important; }
     .lugar:hover { transform: none !important; }
+    /* impedir página 2 */
+    html, body, .wrap, .mapa-card { overflow: hidden; }
   }
 </style>
 </head>
