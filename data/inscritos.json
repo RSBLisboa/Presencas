@@ -944,7 +944,10 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 49
+      "idRespostaForms": 49,
+      "categoria": "Organização",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 27,
@@ -2615,5 +2618,5 @@
       "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T09:14:41.958Z"
+  "actualizadoEm": "2026-05-18T09:17:56.513Z"
 }
