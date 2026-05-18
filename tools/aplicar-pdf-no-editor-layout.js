@@ -85,8 +85,18 @@ const PDF_LUGARES = {
 //     PDF 17 → B1 (1o lugar da fila B, porque B começa em 17 no PDF)
 //     PDF 34 → C1 (1o lugar da fila C)
 // ════════════════════════════════════════════════════════════════════════════
+// Mapeamento dos lugares "Rn" do PDF para lugares físicos do auditório.
+// Os R do PDF NÃO são uma fila própria — são lugares específicos dentro
+// das filas A e C, conforme indicado pelo coordenador do evento:
+//   R1=A5, R2=A4, R3=A3, R4=C14, R5=C13, R6=C12, R7=C11, R8=C10
+const R_MAP = {
+  'R1': 'A5', 'R2': 'A4', 'R3': 'A3',
+  'R4': 'C14', 'R5': 'C13',
+  'R6': 'C12', 'R7': 'C11', 'R8': 'C10'
+};
+
 function mapearPdfParaEditor(codigoPdf) {
-  if (codigoPdf.startsWith('R')) return codigoPdf; // R1..R8 → R1..R8
+  if (codigoPdf.startsWith('R')) return R_MAP[codigoPdf] || null;
 
   const n = parseInt(codigoPdf, 10);
   if (n >= 1 && n <= 16)  return 'A' + n;                  // fila A: 1-16

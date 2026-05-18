@@ -596,7 +596,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 69,
-      "lugar": "R6"
+      "lugar": "C12",
+      "lugarAuto": false
     },
     {
       "id": 5,
@@ -1056,8 +1057,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 89,
-      "lugar": "C11"
+      "idRespostaForms": 89
     },
     {
       "id": 38,
@@ -1096,8 +1096,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 141,
-      "lugar": "A3"
+      "idRespostaForms": 141
     },
     {
       "id": 41,
@@ -1220,7 +1219,8 @@
       "naoEnviar": false,
       "idRespostaForms": 68,
       "categoria": "Moderação",
-      "lugar": "R1"
+      "lugar": "A5",
+      "lugarAuto": false
     },
     {
       "id": 50,
@@ -1234,7 +1234,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 93,
-      "lugar": "R7"
+      "lugar": "C11",
+      "lugarAuto": false
     },
     {
       "id": 51,
@@ -1569,8 +1570,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 27,
-      "lugar": "A4"
+      "idRespostaForms": 27
     },
     {
       "id": 75,
@@ -1676,8 +1676,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 111,
-      "lugar": "A5"
+      "idRespostaForms": 111
     },
     {
       "id": 83,
@@ -1773,8 +1772,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 151,
-      "lugar": "C10"
+      "idRespostaForms": 151
     },
     {
       "id": 90,
@@ -1787,8 +1785,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 88,
-      "lugar": "C12"
+      "idRespostaForms": 88
     },
     {
       "id": 91,
@@ -1949,7 +1946,8 @@
       "naoEnviar": false,
       "idRespostaForms": 8,
       "categoria": "Orador",
-      "lugar": "R3"
+      "lugar": "A3",
+      "lugarAuto": false
     },
     {
       "id": 103,
@@ -2321,8 +2319,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 87,
-      "lugar": "C13"
+      "idRespostaForms": 87
     },
     {
       "id": 131,
