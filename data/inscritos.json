@@ -1,7 +1,15 @@
 {
   "schema": "inscritos@2",
-  "eventoId": 1,
-  "actualizadoEm": "2026-05-18T03:57:23",
+  "evento": {
+    "id": 1,
+    "titulo": "Sessão Técnica em Substâncias Perigosas",
+    "data": "2026-05-18",
+    "local": "Auditório do Metropolitano de Lisboa",
+    "horaInicio": "09:00",
+    "horaFim": "12:00",
+    "cargaHoraria": "3 horas"
+  },
+  "exportadoEm": "2026-05-17T23:27:57",
   "total": 200,
   "inscritos": [
     {
@@ -14,7 +22,8 @@
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "lugar": "R8"
     },
     {
       "id": 155,
@@ -593,8 +602,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 10,
-      "lugar": "9",
-      "categoria": "Organização"
+      "categoria": "Organização",
+      "lugar": "A9"
     },
     {
       "id": 4,
@@ -635,7 +644,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 134,
-      "lugar": "32"
+      "lugar": "B16"
     },
     {
       "id": 7,
@@ -713,8 +722,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 110,
-      "lugar": "12"
+      "idRespostaForms": 110
     },
     {
       "id": 13,
@@ -741,7 +749,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 135,
-      "lugar": "31"
+      "lugar": "B15"
     },
     {
       "id": 1,
@@ -872,7 +880,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 138,
-      "lugar": "19"
+      "lugar": "B3"
     },
     {
       "id": 24,
@@ -1055,7 +1063,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 89,
-      "lugar": "44"
+      "lugar": "C11"
     },
     {
       "id": 38,
@@ -1095,7 +1103,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 141,
-      "lugar": "3"
+      "lugar": "A3"
     },
     {
       "id": 41,
@@ -1148,7 +1156,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 127,
-      "lugar": "13"
+      "lugar": "A13"
     },
     {
       "id": 45,
@@ -1162,7 +1170,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 114,
-      "lugar": "39"
+      "lugar": "C6"
     },
     {
       "id": 46,
@@ -1176,7 +1184,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 99,
-      "lugar": "8"
+      "lugar": "A8"
     },
     {
       "id": 47,
@@ -1203,7 +1211,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 38,
-      "lugar": "1"
+      "lugar": "A1"
     },
     {
       "id": 49,
@@ -1217,8 +1225,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 68,
-      "lugar": "R1",
-      "categoria": "Moderação"
+      "categoria": "Moderação",
+      "lugar": "R1"
     },
     {
       "id": 50,
@@ -1259,7 +1267,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 129,
-      "lugar": "6"
+      "lugar": "A6"
     },
     {
       "id": 53,
@@ -1273,7 +1281,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 67,
-      "lugar": "20"
+      "lugar": "B4"
     },
     {
       "id": 54,
@@ -1326,7 +1334,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 98,
-      "lugar": "33"
+      "lugar": "B17"
     },
     {
       "id": 58,
@@ -1340,7 +1348,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 61,
-      "lugar": "27"
+      "lugar": "B11"
     },
     {
       "id": 59,
@@ -1367,7 +1375,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 3,
-      "lugar": "37"
+      "lugar": "C4"
     },
     {
       "id": 61,
@@ -1381,7 +1389,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 7,
-      "lugar": "16"
+      "lugar": "A16"
     },
     {
       "id": 62,
@@ -1486,7 +1494,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 46,
-      "lugar": "38"
+      "lugar": "C5"
     },
     {
       "id": 152,
@@ -1500,8 +1508,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": false,
-      "categoria": "Orador",
-      "lugar": "R2"
+      "categoria": "Orador"
     },
     {
       "id": 70,
@@ -1515,7 +1522,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 58,
-      "lugar": "30"
+      "lugar": "B14"
     },
     {
       "id": 71,
@@ -1555,7 +1562,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 26,
-      "lugar": "2"
+      "lugar": "A2"
     },
     {
       "id": 74,
@@ -1569,7 +1576,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 27,
-      "lugar": "4"
+      "lugar": "A4"
     },
     {
       "id": 75,
@@ -1596,7 +1603,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 92,
-      "lugar": "35"
+      "lugar": "C2"
     },
     {
       "id": 77,
@@ -1609,8 +1616,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 148,
-      "lugar": "28"
+      "idRespostaForms": 148
     },
     {
       "id": 78,
@@ -1637,7 +1643,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 71,
-      "lugar": "24"
+      "lugar": "B8"
     },
     {
       "id": 80,
@@ -1677,7 +1683,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 111,
-      "lugar": "5"
+      "lugar": "A5"
     },
     {
       "id": 83,
@@ -1691,7 +1697,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 149,
-      "lugar": "18"
+      "lugar": "B2"
     },
     {
       "id": 84,
@@ -1718,8 +1724,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 65,
-      "lugar": "15",
-      "categoria": "Orador Convidado"
+      "categoria": "Orador Convidado",
+      "lugar": "A15"
     },
     {
       "id": 86,
@@ -1733,7 +1739,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 96,
-      "lugar": "10"
+      "lugar": "A10"
     },
     {
       "id": 87,
@@ -1760,7 +1766,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 119,
-      "lugar": "25"
+      "lugar": "B9"
     },
     {
       "id": 89,
@@ -1774,7 +1780,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 151,
-      "lugar": "43"
+      "lugar": "C10"
     },
     {
       "id": 90,
@@ -1788,7 +1794,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 88,
-      "lugar": "45"
+      "lugar": "C12"
     },
     {
       "id": 91,
@@ -1880,7 +1886,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 40,
-      "lugar": "26"
+      "lugar": "B10"
     },
     {
       "id": 98,
@@ -1907,7 +1913,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 152,
-      "lugar": "17"
+      "lugar": "B1"
     },
     {
       "id": 100,
@@ -1934,8 +1940,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 8,
-      "lugar": "R3",
-      "categoria": "Orador"
+      "categoria": "Orador",
+      "lugar": "R3"
     },
     {
       "id": 103,
@@ -1975,7 +1981,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 62,
-      "lugar": "29"
+      "lugar": "B13"
     },
     {
       "id": 106,
@@ -2082,7 +2088,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 72,
-      "lugar": "22"
+      "lugar": "B6"
     },
     {
       "id": 114,
@@ -2161,7 +2167,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 74,
-      "lugar": "40"
+      "lugar": "C7"
     },
     {
       "id": 120,
@@ -2174,7 +2180,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 156
+      "idRespostaForms": 156,
+      "lugar": "C8"
     },
     {
       "id": 121,
@@ -2188,7 +2195,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 115,
-      "lugar": "42"
+      "lugar": "C9"
     },
     {
       "id": 122,
@@ -2228,7 +2235,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 11,
-      "lugar": "21"
+      "lugar": "B5"
     },
     {
       "id": 125,
@@ -2307,7 +2314,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 87,
-      "lugar": "46"
+      "lugar": "C13"
     },
     {
       "id": 131,
@@ -2386,8 +2393,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 60,
-      "lugar": "14",
-      "categoria": "Orador Convidado"
+      "categoria": "Orador Convidado",
+      "lugar": "A14"
     },
     {
       "id": 137,
@@ -2401,7 +2408,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 59,
-      "lugar": "23"
+      "lugar": "B7"
     },
     {
       "id": 138,
@@ -2480,7 +2487,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 39,
-      "lugar": "11"
+      "lugar": "A11"
     },
     {
       "id": 144,
@@ -2507,7 +2514,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 158,
-      "lugar": "36"
+      "lugar": "C3"
     },
     {
       "id": 146,
@@ -2547,7 +2554,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 97,
-      "lugar": "7"
+      "lugar": "A7"
     },
     {
       "id": 149,
@@ -2600,8 +2607,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": true,
-      "categoria": "Organização",
-      "lugar": "R8"
+      "categoria": "Organização"
     },
     {
       "id": 201,
@@ -2614,8 +2620,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "lugar": "41",
       "categoria": "Orador Convidado"
     }
-  ]
+  ],
+  "actualizadoEm": "2026-05-18T03:08:38.804Z"
 }
