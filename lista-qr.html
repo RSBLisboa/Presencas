@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lista QR · Acolhimento · RSB Lisboa</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root {
+    --rsb-red: #E30613;
+    --rsb-red-dark: #B0040F;
+    --texto: #1a1a1a;
+    --texto-mute: #6b6b6b;
+    --linha: #d0d0d0;
+    --linha-forte: #888;
+    --fundo: #ECECEC;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, "Segoe UI", "Inter", "Calibri", sans-serif;
+    color: var(--texto);
+    background: var(--fundo);
+  }
+
+  /* ===== Barra superior (não imprime) ===== */
+  .toolbar {
+    background: #fff;
+    border-bottom: 1px solid var(--linha);
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 14px;
+    position: sticky; top: 0; z-index: 50;
+  }
+  .toolbar h1 {
+    font-size: 16px; margin: 0; font-weight: 700;
+    flex: 1; letter-spacing: 0.02em; text-transform: uppercase;
+  }
+  .toolbar button, .toolbar a.btn {
+    padding: 10px 18px;
+    background: var(--rsb-red);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .toolbar a.sec {
+    background: #fff;
+    color: var(--texto);
+    border: 1px solid var(--linha);
+  }
+  .toolbar label.opt {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--texto-mute);
+  }
+  .toolbar select {
+    padding: 8px 10px;
+    border: 1px solid var(--linha);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    background: #fff;
+  }
+
+  .estado {
+    max-width: 640px; margin: 40px auto; padding: 24px;
+    background: #fff; border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+  .estado.err { color: var(--rsb-red); }
+
+  /* ===== Página A4 ===== */
+  .pagina {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    margin: 16px auto;
+    padding: 12mm 12mm 10mm;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    position: relative;
+    page-break-after: always;
+  }
+  .pagina:last-child { page-break-after: auto; }
+
+  /* Cabeçalho de página */
+  .pagina-cab {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 0.8mm solid var(--rsb-red);
+    padding-bottom: 3mm;
+    margin-bottom: 4mm;
+  }
+  .pagina-cab .esq h2 {
+    margin: 0; font-size: 13pt; font-weight: 800;
+    color: var(--rsb-red);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .pagina-cab .esq p {
+    margin: 1mm 0 0; font-size: 9pt; color: var(--texto-mute);
+  }
+  .pagina-cab .dir {
+    text-align: right; font-size: 9pt; color: var(--texto-mute);
+  }
+  .pagina-cab .dir strong {
+    color: var(--texto); font-size: 10pt;
+  }
+
+  /* Linhas */
+  .linha {
+    display: grid;
+    grid-template-columns: 14mm 1fr 28mm 28mm;
+    gap: 4mm;
+    align-items: center;
+    padding: 3mm 2mm;
+    border-bottom: 0.2mm solid var(--linha);
+    page-break-inside: avoid;
+    min-height: 26mm;
+  }
+  .linha:last-child { border-bottom: 0; }
+  .linha.zebra { background: #fafafa; }
+
+  .col-id {
+    font-family: "Consolas", "Menlo", monospace;
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--rsb-red);
+    text-align: center;
+  }
+  .col-id .ord {
+    display: block;
+    font-size: 7pt;
+    color: var(--texto-mute);
+    font-family: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5mm;
+  }
+
+  .col-pessoa .nome {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: var(--texto);
+    line-height: 1.2;
+    margin: 0 0 1mm;
+  }
+  .col-pessoa .cargo {
+    font-size: 8.5pt;
+    color: var(--texto);
+    margin: 0 0 0.5mm;
+    line-height: 1.2;
+  }
+  .col-pessoa .entidade {
+    font-size: 8.5pt;
+    color: var(--texto-mute);
+    margin: 0;
+    line-height: 1.2;
+    font-style: italic;
+  }
+  .col-pessoa .check {
+    display: inline-block;
+    width: 4mm; height: 4mm;
+    border: 0.3mm solid var(--linha-forte);
+    border-radius: 0.8mm;
+    vertical-align: middle;
+    margin-right: 2mm;
+  }
+
+  .col-lugar {
+    text-align: center;
+    font-size: 9pt;
+    color: var(--texto);
+  }
+  .col-lugar .label {
+    display: block;
+    font-size: 6.5pt;
+    color: var(--texto-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-bottom: 0.5mm;
+  }
+  .col-lugar .valor {
+    font-family: "Consolas", "Menlo", monospace;
+    font-size: 13pt;
+    font-weight: 800;
+    color: var(--rsb-red);
+    line-height: 1;
+  }
+  .col-lugar .valor.livre {
+    color: var(--texto-mute);
+    font-weight: 600;
+  }
+  .col-lugar .reservado-mark {
+    font-size: 6pt;
+    color: #854d0e;
+    background: #fef9c3;
+    padding: 0.5mm 1.5mm;
+    border-radius: 1mm;
+    display: inline-block;
+    margin-top: 1mm;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+  }
+
+  .col-qr {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .col-qr .qr {
+    width: 24mm; height: 24mm;
+    padding: 0.6mm;
+    background: #fff;
+    border: 0.2mm solid #ddd;
+  }
+  .col-qr .qr img, .col-qr .qr canvas {
+    width: 100%; height: 100%; display: block;
+  }
+  .col-qr .legenda {
+    margin: 0.8mm 0 0;
+    font-size: 5.5pt;
+    color: var(--texto-mute);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  /* Rodapé página */
+  .pagina-rodape {
+    position: absolute;
+    bottom: 4mm;
+    left: 12mm;
+    right: 12mm;
+    border-top: 0.2mm solid var(--linha);
+    padding-top: 1.5mm;
+    font-size: 7pt;
+    color: var(--texto-mute);
+    display: flex; justify-content: space-between;
+  }
+
+  /* ===== Print ===== */
+  @page { size: A4 portrait; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none !important; }
+    .estado { display: none !important; }
+    .pagina {
+      margin: 0;
+      box-shadow: none;
+    }
+    .pagina-cab .esq h2 {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .col-id, .col-lugar .valor {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .col-lugar .reservado-mark {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h1>Lista QR · Acolhimento</h1>
+  <span id="info" style="color:var(--texto-mute);font-size:13px"></span>
+  <label class="opt">
+    Por página
+    <select id="por-pagina">
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12" selected>12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+    </select>
+  </label>
+  <a href="https://rsblisboa.github.io/Eventos/" class="sec btn">↩ Voltar à SPA</a>
+  <button onclick="window.print()">Imprimir</button>
+</div>
+
+<div id="conteudo"></div>
+
+<!-- QR library -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
+<script>
+"use strict";
+
+const BASE_URL_APRECIACAO = "https://rsblisboa.github.io/Certificados/p.html";
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g,
+    c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function chunk(arr, n) {
+  const out = [];
+  for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n));
+  return out;
+}
+
+function fmtDataPt(s) {
+  if (!s) return "";
+  const m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return s;
+  const meses = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+  return parseInt(m[3]) + " de " + meses[parseInt(m[2])-1] + " de " + m[1];
+}
+
+function gerarQrImgTag(url) {
+  try {
+    const qr = qrcode(0, "M");
+    qr.addData(url);
+    qr.make();
+    return qr.createImgTag(3, 0);
+  } catch (e) {
+    return `<div style="color:red;padding:1mm;font-size:6pt">Erro QR</div>`;
+  }
+}
+
+function urlParticipante(inscrito) {
+  const tokenOrId = inscrito.token || inscrito.id;
+  const param = inscrito.token ? "t" : "id";
+  return BASE_URL_APRECIACAO + "?" + param + "=" + encodeURIComponent(tokenOrId);
+}
+
+function renderLinha(inscrito, ord, zebra) {
+  const url = urlParticipante(inscrito);
+  const lugar = inscrito.lugar ? String(inscrito.lugar).trim() : "";
+  const ehReservado = lugar && lugar.toUpperCase().startsWith("R");
+  const lugarHtml = lugar
+    ? `<span class="valor${ehReservado ? '' : ''}">${esc(lugar)}</span>${ehReservado ? '<span class="reservado-mark">⭐ Reservado</span>' : ''}`
+    : `<span class="valor livre">—</span>`;
+
+  return `
+    <div class="linha${zebra ? ' zebra' : ''}">
+      <div class="col-id">
+        <span class="ord">N.º</span>
+        ${String(inscrito.id).padStart(3, "0")}
+      </div>
+      <div class="col-pessoa">
+        <p class="nome"><span class="check"></span>${esc(inscrito.nome)}</p>
+        ${inscrito.cargo ? `<p class="cargo">${esc(inscrito.cargo)}</p>` : ""}
+        ${inscrito.entidade ? `<p class="entidade">${esc(inscrito.entidade)}</p>` : ""}
+      </div>
+      <div class="col-lugar">
+        <span class="label">Lugar</span>
+        ${lugarHtml}
+      </div>
+      <div class="col-qr">
+        <div class="qr">${gerarQrImgTag(url)}</div>
+        <p class="legenda">Aponte a câmara<br>para abrir no telemóvel</p>
+      </div>
+    </div>`;
+}
+
+function renderPagina(grupo, idxPagina, totalPaginas, ordInicial, titulo, dataEvento, local) {
+  const linhas = grupo.map((i, k) => renderLinha(i, ordInicial + k, k % 2 === 1)).join("");
+  return `
+    <div class="pagina">
+      <div class="pagina-cab">
+        <div class="esq">
+          <h2>${esc(titulo)}</h2>
+          <p>${esc(dataEvento)} · ${esc(local)}</p>
+        </div>
+        <div class="dir">
+          <strong>Lista QR de acolhimento</strong><br>
+          Página ${idxPagina} de ${totalPaginas}
+        </div>
+      </div>
+      ${linhas}
+      <div class="pagina-rodape">
+        <span>RSB Lisboa · Use o QR para check-in, livreto e certificado</span>
+        <span>Listagem ordenada por nome</span>
+      </div>
+    </div>`;
+}
+
+let DATA_CACHE = null;
+
+function renderTudo(porPagina) {
+  const $cont = document.getElementById("conteudo");
+  const $info = document.getElementById("info");
+  if (!DATA_CACHE) return;
+
+  const { inscritos, titulo, dataEvento, local } = DATA_CACHE;
+  const grupos = chunk(inscritos, porPagina);
+  const total = grupos.length;
+
+  let ord = 1;
+  const html = grupos.map((g, idx) => {
+    const out = renderPagina(g, idx + 1, total, ord, titulo, dataEvento, local);
+    ord += g.length;
+    return out;
+  }).join("");
+
+  $cont.innerHTML = html;
+  $info.textContent = `${inscritos.length} inscritos · ${total} ${total === 1 ? "folha" : "folhas"} A4`;
+}
+
+(async function() {
+  const $cont = document.getElementById("conteudo");
+  const $info = document.getElementById("info");
+
+  try {
+    const r = await fetch("data/inscritos.json?t=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) throw new Error("inscritos.json HTTP " + r.status);
+    const data = await r.json();
+
+    if (!data.evento || !Array.isArray(data.inscritos)) {
+      throw new Error("Formato inválido (sem evento ou inscritos).");
+    }
+
+    const titulo = data.evento.titulo || "Sessão Técnica";
+    const dataEvento = fmtDataPt(data.evento.data) || "";
+    const local = data.evento.local || "";
+
+    let inscritos = data.inscritos.slice().sort((a, b) =>
+      (a.nome || "").localeCompare(b.nome || "", "pt"));
+
+    const params = new URLSearchParams(location.search);
+    const limit = parseInt(params.get("limit"), 10);
+    if (Number.isFinite(limit) && limit > 0) {
+      inscritos = inscritos.slice(0, limit);
+    }
+
+    DATA_CACHE = { inscritos, titulo, dataEvento, local };
+
+    const select = document.getElementById("por-pagina");
+    select.addEventListener("change", () => {
+      renderTudo(parseInt(select.value, 10));
+    });
+
+    renderTudo(parseInt(select.value, 10));
+  } catch (e) {
+    console.error(e);
+    $cont.innerHTML = `<div class="estado err"><strong>Erro a carregar inscritos</strong><br>${esc(e.message)}<br><br>Confirma que <code>data/inscritos.json</code> foi publicado pela SPA Eventos.</div>`;
+    $info.textContent = "";
+  }
+})();
+</script>
+
+</body>
+</html>
