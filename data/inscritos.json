@@ -1144,12 +1144,13 @@
       "nome": "Hélder João Ferreira Malta",
       "cargo": "SCh2 Coruche",
       "entidade": "BS Coruche",
-      "email": "",
+      "email": "helder.malta@cm-coruche.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 63
+      "idRespostaForms": 63,
+      "autorizaContacto": false
     },
     {
       "id": 42,
@@ -2628,5 +2629,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:19:54"
+  "actualizadoEm": "2026-05-18T12:20:09"
 }
