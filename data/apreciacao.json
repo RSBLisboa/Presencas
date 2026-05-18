@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T13:22:27",
-  "total": 42,
+  "actualizadoEm": "2026-05-18T13:25:33",
+  "total": 43,
   "respostas": [
     {
       "idInscricao": 23,
@@ -630,6 +630,21 @@
         "q2": "4",
         "q3": "4",
         "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 82,
+      "token": "7YUFCVW9",
+      "submetidoEm": "5/18/2026 1:25:22 PM",
+      "email": "Lfabraul@psp.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "3",
         "q5": "4",
         "q6": "4"
       }

@@ -1714,12 +1714,13 @@
       "nome": "Luís Abraul",
       "cargo": "Comissário",
       "entidade": "PSP",
-      "email": "",
+      "email": "Lfabraul@psp.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 111
+      "idRespostaForms": 111,
+      "autorizaContacto": false
     },
     {
       "id": 83,
@@ -2655,5 +2656,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T13:22:27"
+  "actualizadoEm": "2026-05-18T13:25:33"
 }
