@@ -429,13 +429,30 @@ function renderMapa() {
 
   // Palco — circular para oval, rectangular para recto
   let html = '';
-  const ovalCx = 700, ovalCy = 130;
+  const ovalCx = 700, ovalCy = 145;
   if (tipo === 'oval') {
+    // Gradient + sombra subtil para o palco circular (estilo premium)
     html += `
-      <circle cx="${ovalCx}" cy="${ovalCy}" r="78" fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
-      <circle cx="${ovalCx}" cy="${ovalCy}" r="44" fill="#be185d"/>
-      <text x="${ovalCx}" y="${ovalCy + 7}" style="fill:#fff;font-size:24px;font-weight:800;text-anchor:middle">1</text>
-      <text x="${ovalCx}" y="${ovalCy + 105}" style="fill:#999;font-size:12px;font-weight:600;text-anchor:middle;letter-spacing:0.06em;text-transform:uppercase">Palco · Painel central</text>
+      <defs>
+        <radialGradient id="palco-grad" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#fbcfe8"/>
+          <stop offset="100%" stop-color="#f9a8d4"/>
+        </radialGradient>
+        <radialGradient id="palco-inner" cx="50%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#db2777"/>
+          <stop offset="100%" stop-color="#9d174d"/>
+        </radialGradient>
+        <filter id="palco-shadow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+          <feOffset dy="2"/>
+          <feComponentTransfer><feFuncA type="linear" slope="0.25"/></feComponentTransfer>
+          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <circle cx="${ovalCx}" cy="${ovalCy}" r="82" fill="url(#palco-grad)" stroke="#be185d" stroke-width="1.5" opacity="0.92" filter="url(#palco-shadow)"/>
+      <circle cx="${ovalCx}" cy="${ovalCy}" r="46" fill="url(#palco-inner)"/>
+      <text x="${ovalCx}" y="${ovalCy + 8}" style="fill:#fff;font-size:26px;font-weight:800;text-anchor:middle;font-family:'Inter','Segoe UI',sans-serif">1</text>
+      <text x="${ovalCx}" y="${ovalCy + 110}" style="fill:#94a3b8;font-size:11.5px;font-weight:700;text-anchor:middle;letter-spacing:0.18em;text-transform:uppercase">Palco · Painel central</text>
     `;
   } else {
     html += `
@@ -480,39 +497,46 @@ function renderMapa() {
   const grupos = agruparFilas(layout);
 
   // Desenhar arco curvo de fundo para cada fila (apenas modo oval).
+  // Em design top-tier: linha contínua subtil debaixo dos lugares, ligeiramente abaixo
+  // do centro do lugar para sugerir "chão" da fila.
   if (tipo === 'oval') {
     grupos.forEach(g => {
       if (g.slots.length < 2) return;
-      // Calcula o raio médio relativamente ao centro do palco.
       const raios = g.slots.map(s => Math.hypot(s.x - ovalCx, s.y - ovalCy));
-      const r = raios.reduce((a,b) => a+b, 0) / raios.length;
-      // Ângulos (radianos) do primeiro e último lugar.
+      const r = raios.reduce((a,b) => a+b, 0) / raios.length + 14; // ligeiramente abaixo
       const ang = s => Math.atan2(s.y - ovalCy, s.x - ovalCx);
       const angulos = g.slots.map(ang).sort((a,b) => a-b);
       const a0 = angulos[0], a1 = angulos[angulos.length - 1];
-      // Pontos no arco com pequena margem extra de cada lado.
-      const margem = 0.04; // radianos
+      const margem = 0.06;
       const aStart = a0 - margem, aEnd = a1 + margem;
       const x1 = ovalCx + r * Math.cos(aStart);
       const y1 = ovalCy + r * Math.sin(aStart);
       const x2 = ovalCx + r * Math.cos(aEnd);
       const y2 = ovalCy + r * Math.sin(aEnd);
       const largeArc = (aEnd - aStart) > Math.PI ? 1 : 0;
-      const cor = g.letra === 'R' ? '#facc15' : '#cbd5e1';
-      html += `<path d="M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${r.toFixed(1)} ${r.toFixed(1)} 0 ${largeArc} 1 ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${cor}" stroke-width="1" stroke-dasharray="2,4" opacity="0.6"/>`;
+      const ehR = g.letra === 'R';
+      const cor = ehR ? '#fbbf24' : '#e2e8f0';
+      const sw = ehR ? 1.5 : 1;
+      html += `<path d="M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${r.toFixed(1)} ${r.toFixed(1)} 0 ${largeArc} 1 ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${cor}" stroke-width="${sw}" opacity="${ehR ? 0.55 : 0.7}"/>`;
     });
   }
 
-  // Letras de fila nas duas pontas.
+  // Letras de fila nas duas pontas (com fundo branco discreto para legibilidade).
   grupos.forEach(g => {
     if (!g.slots.length) return;
     const sorted = g.slots.slice().sort((a, b) => a.x - b.x);
     const sEsq = sorted[0];
     const sDir = sorted[sorted.length - 1];
-    const offsetX = 30;
-    const cor = g.letra === 'R' ? '#b45309' : '#666';
-    html += `<text x="${sEsq.x - offsetX}" y="${sEsq.y + 4}" style="font-size:13px;font-weight:800;fill:${cor};text-anchor:middle">${g.letra}</text>`;
-    html += `<text x="${sDir.x + offsetX}" y="${sDir.y + 4}" style="font-size:13px;font-weight:800;fill:${cor};text-anchor:middle">${g.letra}</text>`;
+    const offsetX = 32;
+    const ehR = g.letra === 'R';
+    const cor = ehR ? '#b45309' : '#475569';
+    const bgCor = ehR ? '#fef3c7' : '#f8fafc';
+    [{ x: sEsq.x - offsetX, y: sEsq.y }, { x: sDir.x + offsetX, y: sDir.y }].forEach(p => {
+      html += `
+        <circle cx="${p.x}" cy="${p.y}" r="11" fill="${bgCor}" stroke="${cor}" stroke-width="0.8" opacity="0.95"/>
+        <text x="${p.x}" y="${p.y + 4}" style="font-size:12.5px;font-weight:800;fill:${cor};text-anchor:middle;font-family:'Inter','Segoe UI',sans-serif">${g.letra}</text>
+      `;
+    });
   });
 
   layout.forEach(slot => {
