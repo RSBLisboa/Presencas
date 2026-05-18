@@ -1,7 +1,7 @@
 {
   "schema": "inscritos@2",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T10:20:53",
+  "actualizadoEm": "2026-05-18T09:25:21.068Z",
   "total": 200,
   "inscritos": [
     {
@@ -1549,7 +1549,7 @@
     {
       "id": 72,
       "token": "A6UYQ5CQ",
-      "nome": "José Ventura",
+      "nome": "Nuno Pinto",
       "cargo": "AdjCmd",
       "entidade": "CV Lisbonenses",
       "email": "",
@@ -1557,7 +1557,10 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 147
+      "idRespostaForms": 147,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 73,
