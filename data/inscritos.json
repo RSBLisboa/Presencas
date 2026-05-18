@@ -1229,12 +1229,13 @@
       "nome": "Humberto Morgado",
       "cargo": "Cmdt",
       "entidade": "Sapadores de Leiria",
-      "email": "",
+      "email": "hmorgado@cm-leiria.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 78
+      "idRespostaForms": 78,
+      "autorizaContacto": false
     },
     {
       "id": 48,
@@ -2651,5 +2652,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:39:54"
+  "actualizadoEm": "2026-05-18T12:44:18"
 }
