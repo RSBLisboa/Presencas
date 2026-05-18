@@ -1976,13 +1976,14 @@
       "nome": "Miguel Duarte Fidalgo Moita",
       "cargo": "Coautor do Livreto / Orador convidado",
       "entidade": "Intervir.pt",
-      "email": "miguelmoita@gmail.com",
+      "email": "intervir.pt@gmail.com",
       "temMail": true,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 8,
-      "categoria": "Orador"
+      "categoria": "Orador",
+      "autorizaContacto": false
     },
     {
       "id": 103,
@@ -2649,5 +2650,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:36:21"
+  "actualizadoEm": "2026-05-18T12:39:34"
 }
