@@ -13,21 +13,41 @@ const path = require('path');
 // ════════════════════════════════════════════════════════════════════════════
 // Configuração — corresponde ao que o utilizador tem visível no editor
 // ════════════════════════════════════════════════════════════════════════════
+// Configuração conforme tabela do utilizador:
+//   Fila | Esq | Centro | Dir
+//     A  |  8  |   10   |  8   = 26
+//     B  |  8  |   10   |  8   = 26
+//     C  |  7  |   11   |  7   = 25
+//     D  |  7  |   12   |  7   = 26
+//     E  |  7  |   13   |  7   = 27
+//     F  |  7  |   14   |  7   = 28
+//     G  |  7  |   15   |  7   = 29
+//     R  |  -  |    8   |  -          (contígua, sem corredores na frente)
+// Total numéricos: 26+26+25+26+27+28+29 = 187
+// + 8 R = 195
 const CFG = {
   tipo: 'auditorio',
   filas: 7,
-  lugaresPorFila: 25,    // 25 alvo: cresce até ~29 nas filas mais distantes → ~196 total + 8R = 204
+  lugaresPorFila: 26,    // fallback (override por setoresPorFila)
   corredores: 2,
   corredorLarg: 50,
   seat: 22,
   gapH: 4,
   gapV: 18,
   raio: 220,
-  abertura: 170,
+  abertura: 175,
   margem: 60,
   palco: true,
   reservados: 8,
-  setoresPorFila: null
+  setoresPorFila: {
+    'A': [8, 10, 8],
+    'B': [8, 10, 8],
+    'C': [7, 11, 7],
+    'D': [7, 12, 7],
+    'E': [7, 13, 7],
+    'F': [7, 14, 7],
+    'G': [7, 15, 7]
+  }
 };
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -37,7 +57,7 @@ const PDF_LUGARES = {
   '1':  'Isabel Forte', '2':  'Lara Machado', '3':  'Graça Brígida',
   '4':  'Laura Silva', '5':  'Luís Abraul', '6':  'Joana Jerónimo',
   '7':  'Tiago Bugio', '8':  'Hugo Santos', '9':  'Alexandre Fernando Mendes Rodrigues',
-  '10': 'Luís Santos Reis', '11': 'Sandra Daniela Martins Ribeiro', '12': 'Armínio Liceia',
+  '10': 'Luís Santos Reis', '11': 'Sandra Daniela Martins Ribeiro', '12': 'Arménio Liceia',
   '13': 'Hélder Varandas', '14': 'Richard Marques', '15': 'Luis Martins',
   '16': 'João Matos', '17': 'Miguel Carrilho', '18': 'Luís Arega Lopes',
   '19': 'César Magueijo', '20': 'Joana Mendonça', '21': 'Pedro Henrique Dobrões da Fonseca',
@@ -99,6 +119,18 @@ function distribuirBlocos(n, nBlocos) {
   return blocos.filter(b => b > 0);
 }
 
+// Devolve a configuração de sectores para uma fila (override manual ou auto).
+function getSetoresFila(cfg, label, nDesejado) {
+  const nBlocos = cfg.corredores + 1;
+  const manual = cfg.setoresPorFila && cfg.setoresPorFila[label];
+  if (Array.isArray(manual) && manual.length > 0) {
+    const arr = manual.slice(0, nBlocos);
+    while (arr.length < nBlocos) arr.push(0);
+    return arr.map(n => Math.max(0, parseInt(n, 10) || 0));
+  }
+  return distribuirBlocos(nDesejado, nBlocos);
+}
+
 function gerarAud(cfg) {
   const rows = [];
   const palcoR = 70;
@@ -109,22 +141,35 @@ function gerarAud(cfg) {
   const filas = [];
   if (cfg.reservados > 0) {
     const raioR = Math.max(palcoR + 50, cfg.raio - 60);
-    filas.push({ label: 'R', raio: raioR, n: cfg.reservados, ehR: true });
+    const manualR = cfg.setoresPorFila && cfg.setoresPorFila['R'];
+    const nR = Array.isArray(manualR) ? manualR.reduce((a,b) => a + (parseInt(b,10) || 0), 0) : cfg.reservados;
+    filas.push({ label: 'R', raio: raioR, n: nR, ehR: true });
   }
   let raioAtual = cfg.raio;
   for (let fi = 0; fi < cfg.filas; fi++) {
-    const nAlvo = cfg.lugaresPorFila + Math.round(fi * 0.6);
-    const arcoMax = raioAtual * aberturaMaxRad;
-    const nMaxArco = Math.max(2, Math.floor(arcoMax / stepArco) + 1);
-    filas.push({ label: rowLab(fi), raio: raioAtual, n: Math.min(nAlvo, nMaxArco), ehR: false });
+    const label = rowLab(fi);
+    const manualF = cfg.setoresPorFila && cfg.setoresPorFila[label];
+    let nFila;
+    if (Array.isArray(manualF) && manualF.length > 0) {
+      nFila = manualF.reduce((a, b) => a + (parseInt(b,10) || 0), 0);
+    } else {
+      const nAlvo = cfg.lugaresPorFila + Math.round(fi * 0.6);
+      const arcoMax = raioAtual * aberturaMaxRad;
+      const nMaxArco = Math.max(2, Math.floor(arcoMax / stepArco) + 1);
+      nFila = Math.min(nAlvo, nMaxArco);
+    }
+    filas.push({ label, raio: raioAtual, n: nFila, ehR: false });
     raioAtual += stepV;
   }
-  const nBlocos = cfg.corredores + 1;
   let minX = 0, maxX = 0, maxY = 0;
   filas.forEach(f => {
     const slots = [];
     const Krad = stepArco / f.raio;
-    const blocos = f.ehR ? [f.n] : distribuirBlocos(f.n, nBlocos);
+    const blocos = f.ehR
+      ? (cfg.setoresPorFila && Array.isArray(cfg.setoresPorFila['R'])
+          ? cfg.setoresPorFila['R'].map(n => parseInt(n,10) || 0).filter(n => n > 0)
+          : [f.n])
+      : getSetoresFila(cfg, f.label, f.n);
     const blocosUsar = blocos.length ? blocos : [f.n];
     const spanLug = blocosUsar.reduce((a,b) => a + Math.max(0, (b-1)) * Krad, 0);
     const spanCorr = Math.max(0, blocosUsar.length - 1) * corredorRad;
@@ -238,15 +283,29 @@ function aplicar() {
       naoMapeados.push(pdfCod + '→' + editorCod + ' (' + nome + ') · lugar não existe no layout');
       continue;
     }
-    // Procurar inscrito por nome
+    // Procurar inscrito por nome — várias estratégias:
+    //   1) match exacto normalizado
+    //   2) includes (PDF está contido no nome inscrito ou vice-versa)
+    //   3) all-tokens (todos os tokens >2chars do PDF estão no nome inscrito)
     const nq = normalizar(nome);
-    let match = inscritos.find(i => normalizar(i.nome) === nq);
+    const validos = inscritos.filter(i => i.nome && i.nome.trim());
+    let match = validos.find(i => normalizar(i.nome) === nq);
     if (!match) {
-      const matches = inscritos.filter(i => normalizar(i.nome).includes(nq) || nq.includes(normalizar(i.nome)));
+      let matches = validos.filter(i => normalizar(i.nome).includes(nq) || nq.includes(normalizar(i.nome)));
+      if (matches.length === 0) {
+        // All-tokens (cada palavra >2 chars do PDF está no nome do inscrito)
+        const tokens = nq.split(/\s+/).filter(t => t.length > 2 && t !== '(acompanhante)' && t !== 'acompanhante');
+        if (tokens.length > 0) {
+          matches = validos.filter(i => {
+            const inN = normalizar(i.nome);
+            return tokens.every(t => inN.includes(t));
+          });
+        }
+      }
       if (matches.length === 1) match = matches[0];
       else if (matches.length > 1) {
         if (nome.toLowerCase().includes('acompanhante')) {
-          match = matches.find(i => normalizar(i.nome).includes('acompanhante'));
+          match = matches.find(i => normalizar(i.nome).includes('acompanhante')) || matches[0];
         } else {
           match = matches.find(i => !normalizar(i.nome).includes('acompanhante')) || matches[0];
         }

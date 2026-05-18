@@ -20,7 +20,7 @@
   "emailBody": "<!DOCTYPE html><html><body style=\"font-family:Segoe UI,Calibri,sans-serif;color:#1a1a1a;line-height:1.6;max-width:600px;margin:auto;padding:24px\">\n<p style=\"background:#E30613;color:#fff;padding:12px 16px;margin:0 0 24px;font-weight:bold;letter-spacing:.04em;text-transform:uppercase\">Regimento de Sapadores Bombeiros de Lisboa</p>\n<p>Exmo./a. Senhor/a <strong>{{Nome}}</strong>,</p>\n<p>Em nome do Regimento de Sapadores Bombeiros de Lisboa, agradecemos a sua presença na <strong>{{Titulo}}</strong>, realizada a <strong>{{DataEvento}}</strong> no <strong>{{Local}}</strong>.</p>\n<p>A sua participação contribuiu para o reforço da articulação e partilha técnica entre as entidades que diariamente respondem a este tipo de incidentes, e foi para nós uma honra acolhê-lo nesta sessão.</p>\n<p>Em baixo encontra o link único para o seu certificado de participação, com o número <strong>{{NumeroCertificado}}</strong>.</p>\n<p style=\"text-align:center;margin:24px 0\"><a href=\"{{Link}}\" style=\"background:#E30613;color:#fff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold\">Abrir o meu certificado</a></p>\n<hr style=\"border:none;border-top:1px solid #ddd;margin:24px 0\">\n<p style=\"margin:0 0 4px\">Com os melhores cumprimentos,</p>\n{{AssinaturaImagem}}\n<p style=\"margin:4px 0 0;font-weight:600;color:#1a1a1a\">{{Signatario}}</p>\n<p style=\"margin:2px 0 0;font-size:12px;color:#666\">{{SignatarioCargo}}</p>\n<p style=\"margin:18px 0 0;font-size:11px;color:#888\">Regimento de Sapadores Bombeiros de Lisboa · Câmara Municipal de Lisboa · rsb.esbl@cm-lisboa.pt</p>\n</body></html>",
   "bridgeUrl": "",
   "bridgeFrom": "",
-  "actualizadoEm": "2026-05-18T03:08:38.777Z",
+  "actualizadoEm": "2026-05-18T03:37:24.672Z",
   "users": [
     {
       "nome": "paulo.cabrito",
@@ -104,7 +104,7 @@
   ],
   "sala": {
     "nome": "Auditório do Metropolitano de Lisboa",
-    "totalLugares": 196,
+    "totalLugares": 195,
     "lugares": [
       "R1",
       "R2",
@@ -139,6 +139,7 @@
       "A23",
       "A24",
       "A25",
+      "A26",
       "B1",
       "B2",
       "B3",
@@ -190,7 +191,6 @@
       "C23",
       "C24",
       "C25",
-      "C26",
       "D1",
       "D2",
       "D3",
@@ -217,7 +217,6 @@
       "D24",
       "D25",
       "D26",
-      "D27",
       "E1",
       "E2",
       "E3",
@@ -364,176 +363,183 @@
         "lugar": "A1",
         "fila": "A",
         "sector": 0,
-        "x": 684.4,
-        "y": 169.6
+        "x": 684.6,
+        "y": 156.6
       },
       {
         "lugar": "A2",
         "fila": "A",
         "sector": 0,
-        "x": 681.8,
-        "y": 195.4
+        "x": 683.5,
+        "y": 182.5
       },
       {
         "lugar": "A3",
         "fila": "A",
         "sector": 0,
-        "x": 676.1,
-        "y": 220.8
+        "x": 679.3,
+        "y": 208.2
       },
       {
         "lugar": "A4",
         "fila": "A",
         "sector": 0,
-        "x": 667.4,
-        "y": 245.3
+        "x": 672.1,
+        "y": 233.2
       },
       {
         "lugar": "A5",
         "fila": "A",
         "sector": 0,
-        "x": 656,
-        "y": 268.6
+        "x": 662,
+        "y": 257.1
       },
       {
         "lugar": "A6",
         "fila": "A",
         "sector": 0,
-        "x": 641.8,
-        "y": 290.4
+        "x": 649.2,
+        "y": 279.7
       },
       {
         "lugar": "A7",
         "fila": "A",
         "sector": 0,
-        "x": 625.2,
-        "y": 310.4
+        "x": 633.8,
+        "y": 300.6
       },
       {
         "lugar": "A8",
         "fila": "A",
         "sector": 0,
-        "x": 606.4,
-        "y": 328.3
+        "x": 616.1,
+        "y": 319.6
       },
       {
         "lugar": "A9",
         "fila": "A",
         "sector": 1,
-        "x": 541,
-        "y": 366.3
+        "x": 553.1,
+        "y": 361.4
       },
       {
         "lugar": "A10",
         "fila": "A",
         "sector": 1,
-        "x": 516.2,
-        "y": 373.9
+        "x": 528.7,
+        "y": 370.5
       },
       {
         "lugar": "A11",
         "fila": "A",
         "sector": 1,
-        "x": 490.6,
-        "y": 378.5
+        "x": 503.4,
+        "y": 376.6
       },
       {
         "lugar": "A12",
         "fila": "A",
         "sector": 1,
-        "x": 464.6,
-        "y": 380
+        "x": 477.6,
+        "y": 379.6
       },
       {
         "lugar": "A13",
         "fila": "A",
         "sector": 1,
-        "x": 438.7,
-        "y": 378.5
+        "x": 451.6,
+        "y": 379.6
       },
       {
         "lugar": "A14",
         "fila": "A",
         "sector": 1,
-        "x": 413.1,
-        "y": 373.9
+        "x": 425.8,
+        "y": 376.6
       },
       {
         "lugar": "A15",
         "fila": "A",
         "sector": 1,
-        "x": 388.3,
-        "y": 366.3
+        "x": 400.6,
+        "y": 370.5
       },
       {
         "lugar": "A16",
         "fila": "A",
         "sector": 1,
-        "x": 364.5,
-        "y": 355.9
+        "x": 376.2,
+        "y": 361.4
       },
       {
         "lugar": "A17",
         "fila": "A",
         "sector": 1,
-        "x": 342.1,
-        "y": 342.7
+        "x": 353.1,
+        "y": 349.6
       },
       {
         "lugar": "A18",
         "fila": "A",
-        "sector": 2,
-        "x": 287.4,
-        "y": 290.4
+        "sector": 1,
+        "x": 331.5,
+        "y": 335.1
       },
       {
         "lugar": "A19",
         "fila": "A",
         "sector": 2,
-        "x": 273.3,
-        "y": 268.6
+        "x": 280.1,
+        "y": 279.7
       },
       {
         "lugar": "A20",
         "fila": "A",
         "sector": 2,
-        "x": 261.8,
-        "y": 245.3
+        "x": 267.2,
+        "y": 257.1
       },
       {
         "lugar": "A21",
         "fila": "A",
         "sector": 2,
-        "x": 253.2,
-        "y": 220.8
+        "x": 257.2,
+        "y": 233.2
       },
       {
         "lugar": "A22",
         "fila": "A",
         "sector": 2,
-        "x": 247.5,
-        "y": 195.4
+        "x": 250,
+        "y": 208.2
       },
       {
         "lugar": "A23",
         "fila": "A",
         "sector": 2,
-        "x": 244.8,
-        "y": 169.6
+        "x": 245.8,
+        "y": 182.5
       },
       {
         "lugar": "A24",
         "fila": "A",
         "sector": 2,
-        "x": 245.2,
-        "y": 143.6
+        "x": 244.7,
+        "y": 156.6
       },
       {
         "lugar": "A25",
         "fila": "A",
         "sector": 2,
-        "x": 248.7,
-        "y": 117.8
+        "x": 246.6,
+        "y": 130.7
+      },
+      {
+        "lugar": "A26",
+        "fila": "A",
+        "sector": 2,
+        "x": 251.6,
+        "y": 105.2
       },
       {
         "lugar": "B1",
@@ -657,9 +663,9 @@
       {
         "lugar": "B18",
         "fila": "B",
-        "sector": 2,
-        "x": 282.3,
-        "y": 345.3
+        "sector": 1,
+        "x": 328.7,
+        "y": 381.7
       },
       {
         "lugar": "B19",
@@ -721,372 +727,358 @@
         "lugar": "C1",
         "fila": "C",
         "sector": 0,
-        "x": 746.8,
-        "y": 262
+        "x": 742.1,
+        "y": 274.1
       },
       {
         "lugar": "C2",
         "fila": "C",
         "sector": 0,
-        "x": 736.9,
-        "y": 286
+        "x": 731.2,
+        "y": 297.7
       },
       {
         "lugar": "C3",
         "fila": "C",
         "sector": 0,
-        "x": 725,
-        "y": 309.1
+        "x": 718.2,
+        "y": 320.3
       },
       {
         "lugar": "C4",
         "fila": "C",
         "sector": 0,
-        "x": 711.1,
-        "y": 331.1
+        "x": 703.4,
+        "y": 341.6
       },
       {
         "lugar": "C5",
         "fila": "C",
         "sector": 0,
-        "x": 695.3,
-        "y": 351.8
+        "x": 686.8,
+        "y": 361.6
       },
       {
         "lugar": "C6",
         "fila": "C",
         "sector": 0,
-        "x": 677.9,
-        "y": 371
+        "x": 668.5,
+        "y": 380.1
       },
       {
         "lugar": "C7",
         "fila": "C",
         "sector": 0,
-        "x": 658.8,
-        "y": 388.7
+        "x": 648.7,
+        "y": 396.9
       },
       {
         "lugar": "C8",
         "fila": "C",
-        "sector": 0,
-        "x": 638.3,
-        "y": 404.6
+        "sector": 1,
+        "x": 566.6,
+        "y": 442.2
       },
       {
         "lugar": "C9",
         "fila": "C",
         "sector": 1,
-        "x": 554.2,
-        "y": 446.3
+        "x": 541.8,
+        "y": 449.9
       },
       {
         "lugar": "C10",
         "fila": "C",
         "sector": 1,
-        "x": 529.1,
-        "y": 453
+        "x": 516.4,
+        "y": 455.5
       },
       {
         "lugar": "C11",
         "fila": "C",
         "sector": 1,
-        "x": 503.5,
-        "y": 457.5
+        "x": 490.6,
+        "y": 458.9
       },
       {
         "lugar": "C12",
         "fila": "C",
         "sector": 1,
-        "x": 477.6,
-        "y": 459.7
+        "x": 464.6,
+        "y": 460
       },
       {
         "lugar": "C13",
         "fila": "C",
         "sector": 1,
-        "x": 451.6,
-        "y": 459.7
+        "x": 438.7,
+        "y": 458.9
       },
       {
         "lugar": "C14",
         "fila": "C",
         "sector": 1,
-        "x": 425.7,
-        "y": 457.5
+        "x": 412.9,
+        "y": 455.5
       },
       {
         "lugar": "C15",
         "fila": "C",
         "sector": 1,
-        "x": 400.1,
-        "y": 453
+        "x": 387.5,
+        "y": 449.9
       },
       {
         "lugar": "C16",
         "fila": "C",
         "sector": 1,
-        "x": 375,
-        "y": 446.3
+        "x": 362.7,
+        "y": 442.2
       },
       {
         "lugar": "C17",
         "fila": "C",
         "sector": 1,
-        "x": 350.6,
-        "y": 437.5
+        "x": 338.7,
+        "y": 432.3
       },
       {
         "lugar": "C18",
         "fila": "C",
-        "sector": 2,
-        "x": 270.5,
-        "y": 388.7
+        "sector": 1,
+        "x": 315.6,
+        "y": 420.3
       },
       {
         "lugar": "C19",
         "fila": "C",
         "sector": 2,
-        "x": 251.4,
-        "y": 371
+        "x": 242.5,
+        "y": 361.6
       },
       {
         "lugar": "C20",
         "fila": "C",
         "sector": 2,
-        "x": 233.9,
-        "y": 351.8
+        "x": 225.8,
+        "y": 341.6
       },
       {
         "lugar": "C21",
         "fila": "C",
         "sector": 2,
-        "x": 218.2,
-        "y": 331.1
+        "x": 211,
+        "y": 320.3
       },
       {
         "lugar": "C22",
         "fila": "C",
         "sector": 2,
-        "x": 204.3,
-        "y": 309.1
+        "x": 198.1,
+        "y": 297.7
       },
       {
         "lugar": "C23",
         "fila": "C",
         "sector": 2,
-        "x": 192.4,
-        "y": 286
+        "x": 187.2,
+        "y": 274.1
       },
       {
         "lugar": "C24",
         "fila": "C",
         "sector": 2,
-        "x": 182.5,
-        "y": 262
+        "x": 178.3,
+        "y": 249.7
       },
       {
         "lugar": "C25",
         "fila": "C",
         "sector": 2,
-        "x": 174.7,
-        "y": 237.2
-      },
-      {
-        "lugar": "C26",
-        "fila": "C",
-        "sector": 2,
-        "x": 169.1,
-        "y": 211.8
+        "x": 171.7,
+        "y": 224.5
       },
       {
         "lugar": "D1",
         "fila": "D",
         "sector": 0,
-        "x": 774.3,
-        "y": 300.5
+        "x": 768.7,
+        "y": 312.2
       },
       {
         "lugar": "D2",
         "fila": "D",
         "sector": 0,
-        "x": 762.6,
-        "y": 323.7
+        "x": 756.2,
+        "y": 335
       },
       {
         "lugar": "D3",
         "fila": "D",
         "sector": 0,
-        "x": 749.3,
-        "y": 346
+        "x": 741.9,
+        "y": 356.7
       },
       {
         "lugar": "D4",
         "fila": "D",
         "sector": 0,
-        "x": 734.2,
-        "y": 367.2
+        "x": 726.1,
+        "y": 377.3
       },
       {
         "lugar": "D5",
         "fila": "D",
         "sector": 0,
-        "x": 717.6,
-        "y": 387.2
+        "x": 708.7,
+        "y": 396.7
       },
       {
         "lugar": "D6",
         "fila": "D",
         "sector": 0,
-        "x": 699.5,
-        "y": 405.8
+        "x": 689.9,
+        "y": 414.6
       },
       {
         "lugar": "D7",
         "fila": "D",
         "sector": 0,
-        "x": 680,
-        "y": 423.1
+        "x": 669.8,
+        "y": 431.1
       },
       {
         "lugar": "D8",
         "fila": "D",
-        "sector": 0,
-        "x": 659.3,
-        "y": 438.8
+        "sector": 1,
+        "x": 579.3,
+        "y": 480.1
       },
       {
         "lugar": "D9",
         "fila": "D",
-        "sector": 0,
-        "x": 637.4,
-        "y": 452.8
+        "sector": 1,
+        "x": 554.6,
+        "y": 487.9
       },
       {
         "lugar": "D10",
         "fila": "D",
         "sector": 1,
-        "x": 542,
-        "y": 491.1
+        "x": 529.2,
+        "y": 493.8
       },
       {
         "lugar": "D11",
         "fila": "D",
         "sector": 1,
-        "x": 516.4,
-        "y": 496
+        "x": 503.5,
+        "y": 497.8
       },
       {
         "lugar": "D12",
         "fila": "D",
         "sector": 1,
-        "x": 490.6,
-        "y": 499
+        "x": 477.6,
+        "y": 499.8
       },
       {
         "lugar": "D13",
         "fila": "D",
         "sector": 1,
-        "x": 464.6,
-        "y": 500
+        "x": 451.6,
+        "y": 499.8
       },
       {
         "lugar": "D14",
         "fila": "D",
         "sector": 1,
-        "x": 438.7,
-        "y": 499
+        "x": 425.7,
+        "y": 497.8
       },
       {
         "lugar": "D15",
         "fila": "D",
         "sector": 1,
-        "x": 412.8,
-        "y": 496
+        "x": 400,
+        "y": 493.8
       },
       {
         "lugar": "D16",
         "fila": "D",
         "sector": 1,
-        "x": 387.3,
-        "y": 491.1
+        "x": 374.7,
+        "y": 487.9
       },
       {
         "lugar": "D17",
         "fila": "D",
         "sector": 1,
-        "x": 362.2,
-        "y": 484.2
+        "x": 349.9,
+        "y": 480.1
       },
       {
         "lugar": "D18",
         "fila": "D",
         "sector": 1,
-        "x": 337.8,
-        "y": 475.4
+        "x": 325.8,
+        "y": 470.4
       },
       {
         "lugar": "D19",
         "fila": "D",
-        "sector": 2,
-        "x": 249.2,
-        "y": 423.1
+        "sector": 1,
+        "x": 302.5,
+        "y": 458.9
       },
       {
         "lugar": "D20",
         "fila": "D",
         "sector": 2,
-        "x": 229.8,
-        "y": 405.8
+        "x": 220.5,
+        "y": 396.7
       },
       {
         "lugar": "D21",
         "fila": "D",
         "sector": 2,
-        "x": 211.7,
-        "y": 387.2
+        "x": 203.2,
+        "y": 377.3
       },
       {
         "lugar": "D22",
         "fila": "D",
         "sector": 2,
-        "x": 195.1,
-        "y": 367.2
+        "x": 187.3,
+        "y": 356.7
       },
       {
         "lugar": "D23",
         "fila": "D",
         "sector": 2,
-        "x": 180,
-        "y": 346
+        "x": 173.1,
+        "y": 335
       },
       {
         "lugar": "D24",
         "fila": "D",
         "sector": 2,
-        "x": 166.6,
-        "y": 323.7
+        "x": 160.6,
+        "y": 312.2
       },
       {
         "lugar": "D25",
         "fila": "D",
         "sector": 2,
-        "x": 155,
-        "y": 300.5
+        "x": 149.9,
+        "y": 288.5
       },
       {
         "lugar": "D26",
         "fila": "D",
         "sector": 2,
-        "x": 145.2,
-        "y": 276.4
-      },
-      {
-        "lugar": "D27",
-        "fila": "D",
-        "sector": 2,
-        "x": 137.2,
-        "y": 251.7
+        "x": 141,
+        "y": 264.1
       },
       {
         "lugar": "E1",
@@ -1140,16 +1132,16 @@
       {
         "lugar": "E8",
         "fila": "E",
-        "sector": 0,
-        "x": 669.5,
-        "y": 480
+        "sector": 1,
+        "x": 592.1,
+        "y": 518
       },
       {
         "lugar": "E9",
         "fila": "E",
-        "sector": 0,
-        "x": 647.1,
-        "y": 493.3
+        "sector": 1,
+        "x": 567.3,
+        "y": 525.9
       },
       {
         "lugar": "E10",
@@ -1217,16 +1209,16 @@
       {
         "lugar": "E19",
         "fila": "E",
-        "sector": 2,
-        "x": 238.4,
-        "y": 465.3
+        "sector": 1,
+        "x": 313,
+        "y": 508.4
       },
       {
         "lugar": "E20",
         "fila": "E",
-        "sector": 2,
-        "x": 218,
-        "y": 449.1
+        "sector": 1,
+        "x": 289.5,
+        "y": 497.2
       },
       {
         "lugar": "E21",
@@ -1329,16 +1321,16 @@
       {
         "lugar": "F8",
         "fila": "F",
-        "sector": 0,
-        "x": 690.5,
-        "y": 514.1
+        "sector": 1,
+        "x": 604.9,
+        "y": 555.9
       },
       {
         "lugar": "F9",
         "fila": "F",
-        "sector": 0,
-        "x": 668.1,
-        "y": 527.4
+        "sector": 1,
+        "x": 580.1,
+        "y": 563.8
       },
       {
         "lugar": "F10",
@@ -1413,16 +1405,16 @@
       {
         "lugar": "F20",
         "fila": "F",
-        "sector": 2,
-        "x": 217.3,
-        "y": 499.5
+        "sector": 1,
+        "x": 300.2,
+        "y": 546.5
       },
       {
         "lugar": "F21",
         "fila": "F",
-        "sector": 2,
-        "x": 196.8,
-        "y": 483.5
+        "sector": 1,
+        "x": 276.6,
+        "y": 535.5
       },
       {
         "lugar": "F22",
@@ -1525,16 +1517,16 @@
       {
         "lugar": "G8",
         "fila": "G",
-        "sector": 0,
-        "x": 711.5,
-        "y": 548.2
+        "sector": 1,
+        "x": 617.7,
+        "y": 593.8
       },
       {
         "lugar": "G9",
         "fila": "G",
-        "sector": 0,
-        "x": 689.1,
-        "y": 561.5
+        "sector": 1,
+        "x": 592.9,
+        "y": 601.8
       },
       {
         "lugar": "G10",
@@ -1609,23 +1601,23 @@
       {
         "lugar": "G20",
         "fila": "G",
-        "sector": 2,
-        "x": 217.8,
-        "y": 548.2
+        "sector": 1,
+        "x": 311.6,
+        "y": 593.8
       },
       {
         "lugar": "G21",
         "fila": "G",
-        "sector": 2,
-        "x": 196.3,
-        "y": 533.6
+        "sector": 1,
+        "x": 287.3,
+        "y": 584.5
       },
       {
         "lugar": "G22",
         "fila": "G",
-        "sector": 2,
-        "x": 175.6,
-        "y": 517.8
+        "sector": 1,
+        "x": 263.6,
+        "y": 573.8
       },
       {
         "lugar": "G23",
@@ -1682,18 +1674,54 @@
     "editorCfg": {
       "tipo": "auditorio",
       "filas": 7,
-      "lugaresPorFila": 25,
+      "lugaresPorFila": 26,
       "corredores": 2,
       "corredorLarg": 50,
       "seat": 22,
       "gapH": 4,
       "gapV": 18,
       "raio": 220,
-      "abertura": 170,
+      "abertura": 175,
       "margem": 60,
       "palco": true,
       "reservados": 8,
-      "setoresPorFila": null
+      "setoresPorFila": {
+        "A": [
+          8,
+          10,
+          8
+        ],
+        "B": [
+          8,
+          10,
+          8
+        ],
+        "C": [
+          7,
+          11,
+          7
+        ],
+        "D": [
+          7,
+          12,
+          7
+        ],
+        "E": [
+          7,
+          13,
+          7
+        ],
+        "F": [
+          7,
+          14,
+          7
+        ],
+        "G": [
+          7,
+          15,
+          7
+        ]
+      }
     }
   }
 }

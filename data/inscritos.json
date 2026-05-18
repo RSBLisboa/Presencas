@@ -22,8 +22,7 @@
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "lugar": "R8"
+      "naoEnviar": false
     },
     {
       "id": 155,
@@ -722,7 +721,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 110
+      "idRespostaForms": 110,
+      "lugar": "A12"
     },
     {
       "id": 13,
@@ -1508,7 +1508,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": false,
-      "categoria": "Orador"
+      "categoria": "Orador",
+      "lugar": "R2"
     },
     {
       "id": 70,
@@ -1616,7 +1617,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 148
+      "idRespostaForms": 148,
+      "lugar": "B12"
     },
     {
       "id": 78,
@@ -2607,7 +2609,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": true,
-      "categoria": "Organização"
+      "categoria": "Organização",
+      "lugar": "R8"
     },
     {
       "id": 201,
@@ -2623,5 +2626,5 @@
       "categoria": "Orador Convidado"
     }
   ],
-  "actualizadoEm": "2026-05-18T03:08:38.804Z"
+  "actualizadoEm": "2026-05-18T03:37:24.704Z"
 }
