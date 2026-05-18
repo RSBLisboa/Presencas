@@ -90,14 +90,17 @@
     {
       "id": 160,
       "token": "D6LUAZ7J",
-      "nome": "",
+      "nome": "Paulo Rã",
       "cargo": "",
       "entidade": "",
       "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 161,
@@ -2596,5 +2599,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T11:53:40.367Z"
+  "actualizadoEm": "2026-05-18T11:54:12.321Z"
 }
