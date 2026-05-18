@@ -594,12 +594,13 @@
       "nome": "Albano José Antunes Lucas",
       "cargo": "2Cmdt",
       "entidade": "CBV Castelo Branco",
-      "email": "",
+      "email": "albano.lucas@bvcastelobranco.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 76
+      "idRespostaForms": 76,
+      "autorizaContacto": false
     },
     {
       "id": 3,
@@ -2611,5 +2612,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:06:17"
+  "actualizadoEm": "2026-05-18T12:06:47"
 }

@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:06:17",
-  "total": 8,
+  "actualizadoEm": "2026-05-18T12:06:47",
+  "total": 9,
   "respostas": [
     {
       "idInscricao": 23,
@@ -122,6 +122,21 @@
         "q4": "4",
         "q5": "4",
         "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 2,
+      "token": "EKKNDGW3",
+      "submetidoEm": "5/18/2026 12:06:28 PM",
+      "email": "albano.lucas@bvcastelobranco.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "3",
+        "q2": "3",
+        "q3": "3",
+        "q4": "3",
+        "q5": "3",
+        "q6": "3"
       }
     }
   ]
