@@ -1815,12 +1815,13 @@
       "nome": "Marco António Manuel Grafanhate",
       "cargo": "BSap Coruche",
       "entidade": "BS Coruche",
-      "email": "",
+      "email": "marcgrafanhate@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 64
+      "idRespostaForms": 64,
+      "autorizaContacto": false
     },
     {
       "id": 92,
@@ -2626,5 +2627,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:17:37.922Z"
+  "actualizadoEm": "2026-05-18T12:19:23"
 }
