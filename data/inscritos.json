@@ -9,7 +9,7 @@
     "horaFim": "12:00",
     "cargaHoraria": "3 horas"
   },
-  "exportadoEm": "2026-05-18T05:29:56.543Z",
+  "exportadoEm": "2026-05-18T06:36:55.971Z",
   "total": 200,
   "inscritos": [
     {
@@ -590,7 +590,7 @@
       "naoEnviar": false,
       "idRespostaForms": 10,
       "categoria": "Organização",
-      "lugar": "A9"
+      "lugarAuto": false
     },
     {
       "id": 4,
@@ -604,7 +604,6 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 69,
-      "lugar": "C12",
       "lugarAuto": false
     },
     {
@@ -632,7 +631,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 134,
-      "lugar": "B16"
+      "lugarAuto": false
     },
     {
       "id": 7,
@@ -710,7 +709,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 110
+      "idRespostaForms": 110,
+      "lugarAuto": false
     },
     {
       "id": 13,
@@ -737,7 +737,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 135,
-      "lugar": "B15"
+      "lugarAuto": false
     },
     {
       "id": 1,
@@ -870,7 +870,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 138,
-      "lugar": "B3"
+      "lugarAuto": false
     },
     {
       "id": 24,
@@ -1065,7 +1065,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 89
+      "idRespostaForms": 89,
+      "lugarAuto": false
     },
     {
       "id": 38,
@@ -1104,7 +1105,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 141
+      "idRespostaForms": 141,
+      "lugarAuto": false
     },
     {
       "id": 41,
@@ -1157,7 +1159,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 127,
-      "lugar": "A13"
+      "lugarAuto": false
     },
     {
       "id": 45,
@@ -1171,7 +1173,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 114,
-      "lugar": "C6"
+      "lugarAuto": false
     },
     {
       "id": 46,
@@ -1185,7 +1187,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 99,
-      "lugar": "A8"
+      "lugarAuto": false
     },
     {
       "id": 47,
@@ -1212,7 +1214,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 38,
-      "lugar": "A1"
+      "lugarAuto": false
     },
     {
       "id": 49,
@@ -1227,7 +1229,6 @@
       "naoEnviar": false,
       "idRespostaForms": 68,
       "categoria": "Moderação",
-      "lugar": "A5",
       "lugarAuto": false
     },
     {
@@ -1242,7 +1243,6 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 93,
-      "lugar": "C11",
       "lugarAuto": false
     },
     {
@@ -1270,7 +1270,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 129,
-      "lugar": "A6"
+      "lugarAuto": false
     },
     {
       "id": 53,
@@ -1284,7 +1284,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 67,
-      "lugar": "B4"
+      "lugarAuto": false
     },
     {
       "id": 54,
@@ -1337,7 +1337,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 98,
-      "lugar": "B17"
+      "lugarAuto": false
     },
     {
       "id": 58,
@@ -1351,7 +1351,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 61,
-      "lugar": "B11"
+      "lugarAuto": false
     },
     {
       "id": 59,
@@ -1378,7 +1378,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 3,
-      "lugar": "C4"
+      "lugarAuto": false
     },
     {
       "id": 61,
@@ -1392,7 +1392,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 7,
-      "lugar": "A16"
+      "lugarAuto": false
     },
     {
       "id": 62,
@@ -1497,7 +1497,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 46,
-      "lugar": "C5"
+      "lugarAuto": false
     },
     {
       "id": 152,
@@ -1512,7 +1512,6 @@
       "naoEnviar": false,
       "autorizaContacto": false,
       "categoria": "Orador",
-      "lugar": "A4",
       "lugarAuto": false
     },
     {
@@ -1527,7 +1526,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 58,
-      "lugar": "B14"
+      "lugarAuto": false
     },
     {
       "id": 71,
@@ -1567,7 +1566,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 26,
-      "lugar": "A2"
+      "lugarAuto": false
     },
     {
       "id": 74,
@@ -1580,7 +1579,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 27
+      "idRespostaForms": 27,
+      "lugarAuto": false
     },
     {
       "id": 75,
@@ -1607,7 +1607,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 92,
-      "lugar": "C2"
+      "lugarAuto": false
     },
     {
       "id": 77,
@@ -1620,7 +1620,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 148
+      "idRespostaForms": 148,
+      "lugarAuto": false
     },
     {
       "id": 78,
@@ -1647,7 +1648,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 71,
-      "lugar": "B8"
+      "lugarAuto": false
     },
     {
       "id": 80,
@@ -1686,7 +1687,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 111
+      "idRespostaForms": 111,
+      "lugarAuto": false
     },
     {
       "id": 83,
@@ -1700,7 +1702,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 149,
-      "lugar": "B2"
+      "lugarAuto": false
     },
     {
       "id": 84,
@@ -1728,7 +1730,7 @@
       "naoEnviar": false,
       "idRespostaForms": 65,
       "categoria": "Orador Convidado",
-      "lugar": "A15"
+      "lugarAuto": false
     },
     {
       "id": 86,
@@ -1742,7 +1744,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 96,
-      "lugar": "A10"
+      "lugarAuto": false
     },
     {
       "id": 87,
@@ -1769,7 +1771,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 119,
-      "lugar": "B9"
+      "lugarAuto": false
     },
     {
       "id": 89,
@@ -1782,7 +1784,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 151
+      "idRespostaForms": 151,
+      "lugarAuto": false
     },
     {
       "id": 90,
@@ -1795,7 +1798,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 88
+      "idRespostaForms": 88,
+      "lugarAuto": false
     },
     {
       "id": 91,
@@ -1887,7 +1891,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 40,
-      "lugar": "B10"
+      "lugarAuto": false
     },
     {
       "id": 154,
@@ -1928,7 +1932,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 152,
-      "lugar": "B1"
+      "lugarAuto": false
     },
     {
       "id": 100,
@@ -1956,7 +1960,6 @@
       "naoEnviar": false,
       "idRespostaForms": 8,
       "categoria": "Orador",
-      "lugar": "A3",
       "lugarAuto": false
     },
     {
@@ -1997,7 +2000,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 62,
-      "lugar": "B13"
+      "lugarAuto": false
     },
     {
       "id": 106,
@@ -2104,7 +2107,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 72,
-      "lugar": "B6"
+      "lugarAuto": false
     },
     {
       "id": 114,
@@ -2183,7 +2186,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 74,
-      "lugar": "C7"
+      "lugarAuto": false
     },
     {
       "id": 120,
@@ -2196,8 +2199,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 156,
-      "lugar": "C8"
+      "idRespostaForms": 156
     },
     {
       "id": 121,
@@ -2211,7 +2213,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 115,
-      "lugar": "C9"
+      "lugarAuto": false
     },
     {
       "id": 122,
@@ -2251,7 +2253,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 11,
-      "lugar": "B5"
+      "lugarAuto": false
     },
     {
       "id": 125,
@@ -2329,7 +2331,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 87
+      "idRespostaForms": 87,
+      "lugarAuto": false
     },
     {
       "id": 131,
@@ -2409,7 +2412,7 @@
       "naoEnviar": false,
       "idRespostaForms": 60,
       "categoria": "Orador Convidado",
-      "lugar": "A14"
+      "lugarAuto": false
     },
     {
       "id": 137,
@@ -2423,7 +2426,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 59,
-      "lugar": "B7"
+      "lugarAuto": false
     },
     {
       "id": 138,
@@ -2502,7 +2505,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 39,
-      "lugar": "A11"
+      "lugarAuto": false
     },
     {
       "id": 144,
@@ -2529,7 +2532,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 158,
-      "lugar": "C3"
+      "lugarAuto": false
     },
     {
       "id": 146,
@@ -2569,7 +2572,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 97,
-      "lugar": "A7"
+      "lugarAuto": false
     },
     {
       "id": 149,
@@ -2623,7 +2626,6 @@
       "naoEnviar": false,
       "autorizaContacto": true,
       "categoria": "Organização",
-      "lugar": "C10",
       "lugarAuto": false
     }
   ]
