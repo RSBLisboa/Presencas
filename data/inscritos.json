@@ -1,7 +1,15 @@
 {
   "schema": "inscritos@2",
-  "eventoId": 1,
-  "actualizadoEm": "2026-05-18T04:42:42",
+  "evento": {
+    "id": 1,
+    "titulo": "Sessão Técnica em Substâncias Perigosas",
+    "data": "2026-05-18",
+    "local": "Auditório do Metropolitano de Lisboa",
+    "horaInicio": "09:00",
+    "horaFim": "12:00",
+    "cargaHoraria": "3 horas"
+  },
+  "exportadoEm": "2026-05-18T06:27:27",
   "total": 200,
   "inscritos": [
     {
@@ -596,8 +604,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 69,
-      "lugar": "C12",
-      "lugarAuto": false
+      "lugar": "R6"
     },
     {
       "id": 5,
@@ -1057,7 +1064,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 89
+      "idRespostaForms": 89,
+      "lugar": "C11"
     },
     {
       "id": 38,
@@ -1096,7 +1104,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 141
+      "idRespostaForms": 141,
+      "lugar": "A3"
     },
     {
       "id": 41,
@@ -1219,8 +1228,7 @@
       "naoEnviar": false,
       "idRespostaForms": 68,
       "categoria": "Moderação",
-      "lugar": "A5",
-      "lugarAuto": false
+      "lugar": "R1"
     },
     {
       "id": 50,
@@ -1234,8 +1242,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 93,
-      "lugar": "C11",
-      "lugarAuto": false
+      "lugar": "R7"
     },
     {
       "id": 51,
@@ -1503,9 +1510,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": false,
-      "categoria": "Orador",
-      "lugar": "A4",
-      "lugarAuto": false
+      "categoria": "Orador"
     },
     {
       "id": 70,
@@ -1572,7 +1577,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 27
+      "idRespostaForms": 27,
+      "lugar": "A4"
     },
     {
       "id": 75,
@@ -1678,7 +1684,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 111
+      "idRespostaForms": 111,
+      "lugar": "A5"
     },
     {
       "id": 83,
@@ -1774,7 +1781,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 151
+      "idRespostaForms": 151,
+      "lugar": "C10"
     },
     {
       "id": 90,
@@ -1787,7 +1795,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 88
+      "idRespostaForms": 88,
+      "lugar": "C12"
     },
     {
       "id": 91,
@@ -1948,8 +1957,7 @@
       "naoEnviar": false,
       "idRespostaForms": 8,
       "categoria": "Orador",
-      "lugar": "A3",
-      "lugarAuto": false
+      "lugar": "R3"
     },
     {
       "id": 103,
@@ -2321,7 +2329,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 87
+      "idRespostaForms": 87,
+      "lugar": "C13"
     },
     {
       "id": 131,
@@ -2614,9 +2623,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": true,
-      "categoria": "Organização",
-      "lugar": "C10",
-      "lugarAuto": false
+      "categoria": "Organização"
     }
   ]
 }
