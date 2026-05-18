@@ -1439,12 +1439,13 @@
       "nome": "José Barbosa",
       "cargo": "Ch2",
       "entidade": "BS Gaia",
-      "email": "",
+      "email": "jaires.barbosa@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 144
+      "idRespostaForms": 144,
+      "autorizaContacto": false
     },
     {
       "id": 64,
@@ -2647,5 +2648,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:35:04"
+  "actualizadoEm": "2026-05-18T12:35:35"
 }
