@@ -1922,7 +1922,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 8,
-      "categoria": "Orador"
+      "categoria": "Orador",
+      "lugar": "A3"
     },
     {
       "id": 103,
@@ -2578,5 +2579,6 @@
       "autorizaContacto": true,
       "categoria": "Organização"
     }
-  ]
+  ],
+  "actualizadoEm": "2026-05-18T08:06:29.845Z"
 }
