@@ -143,18 +143,25 @@
     margin-bottom: 0.5mm;
   }
 
+  .col-pessoa { min-width: 0; }
   .col-pessoa .nome {
     font-size: 11.5pt;
     font-weight: 700;
     color: var(--texto);
     line-height: 1.2;
     margin: 0 0 1mm;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .col-pessoa .cargo {
     font-size: 8.5pt;
     color: var(--texto);
     margin: 0 0 0.5mm;
     line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .col-pessoa .entidade {
     font-size: 8.5pt;
@@ -162,6 +169,9 @@
     margin: 0;
     line-height: 1.2;
     font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .col-pessoa .check {
     display: inline-block;
@@ -362,7 +372,7 @@ function renderLinha(inscrito, ord, zebra) {
       </div>
       <div class="col-qr">
         <div class="qr">${gerarQrImgTag(url)}</div>
-        <p class="legenda">Aponte a câmara<br>para abrir no telemóvel</p>
+        <p class="legenda">Apresentar ao staff<br>no check-in</p>
       </div>
     </div>`;
 }
