@@ -871,12 +871,13 @@
       "nome": "César Magueijo",
       "cargo": "Eng.",
       "entidade": "Metropolitano de Lx",
-      "email": "",
+      "email": "joao.runa@cm-lisboa.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 138
+      "idRespostaForms": 138,
+      "autorizaContacto": false
     },
     {
       "id": 24,
@@ -2591,5 +2592,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T11:31:31.541Z"
+  "actualizadoEm": "2026-05-18T11:36:48"
 }
