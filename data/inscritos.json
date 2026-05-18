@@ -120,14 +120,17 @@
     {
       "id": 162,
       "token": "AXFUW2ER",
-      "nome": "",
+      "nome": "Tiago Neves",
       "cargo": "",
-      "entidade": "",
-      "email": "",
+      "entidade": "Deathclean",
+      "email": "Nevestiago@live.com.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 163,
@@ -2609,5 +2612,5 @@
       "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:59:38.182Z"
+  "actualizadoEm": "2026-05-18T09:01:03.045Z"
 }
