@@ -60,14 +60,17 @@
     {
       "id": 158,
       "token": "FFPEE98X",
-      "nome": "",
+      "nome": "Gonçalo Barros",
       "cargo": "",
-      "entidade": "",
-      "email": "",
+      "entidade": "Atlatica",
+      "email": "ns1barros@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": true
     },
     {
       "id": 159,
@@ -2597,5 +2600,5 @@
       "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:50:24.437Z"
+  "actualizadoEm": "2026-05-18T08:51:35.710Z"
 }
