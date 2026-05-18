@@ -147,14 +147,17 @@
     {
       "id": 164,
       "token": "WSMLYWXA",
-      "nome": "",
+      "nome": "Rita Batista",
       "cargo": "",
-      "entidade": "",
-      "email": "",
+      "entidade": "Fa",
+      "email": "MRbatista@hotmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 165,
@@ -2618,5 +2621,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:14:41"
+  "actualizadoEm": "2026-05-18T12:14:45.501Z"
 }
