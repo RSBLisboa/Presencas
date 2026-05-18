@@ -1564,7 +1564,7 @@
     {
       "id": 72,
       "token": "A6UYQ5CQ",
-      "nome": "José Ventura",
+      "nome": "Nuno Silva",
       "cargo": "AdjCmd",
       "entidade": "CV Lisbonenses",
       "email": "",
@@ -1572,7 +1572,10 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 147
+      "idRespostaForms": 147,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 73,
@@ -2633,5 +2636,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:23:41"
+  "actualizadoEm": "2026-05-18T12:23:50.240Z"
 }
