@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T13:31:19",
-  "total": 44,
+  "actualizadoEm": "2026-05-18T13:39:02",
+  "total": 45,
   "respostas": [
     {
       "idInscricao": 23,
@@ -662,6 +662,21 @@
         "q4": "4",
         "q5": "4",
         "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 7,
+      "token": "LXURYUEK",
+      "submetidoEm": "5/18/2026 1:38:47 PM",
+      "email": "ana.menezes.loureiro@cm-lisboa.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "3",
+        "q2": "4",
+        "q3": "4",
+        "q4": "2",
+        "q5": "4",
+        "q6": "3"
       }
     }
   ]
