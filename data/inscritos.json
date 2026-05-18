@@ -1,143 +1,124 @@
 {
   "schema": "inscritos@2",
-  "eventoId": 1,
-  "actualizadoEm": "2026-05-18T09:45:06.457Z",
+  "evento": {
+    "id": 1,
+    "titulo": "Sessão Técnica em Substâncias Perigosas",
+    "data": "2026-05-18",
+    "local": "Auditório do Metropolitano de Lisboa",
+    "horaInicio": "09:00",
+    "horaFim": "12:00",
+    "cargaHoraria": "3 horas"
+  },
+  "exportadoEm": "2026-05-18T11:34:21",
   "total": 200,
   "inscritos": [
     {
       "id": 155,
       "token": "WAP7PAZ3",
-      "nome": "Vitor Ramos",
-      "cargo": "SCh Princ",
-      "entidade": "RSBL",
-      "email": "vitor.manuel.ramos@cm-lisvoa.pt",
+      "nome": "",
+      "cargo": "",
+      "entidade": "",
+      "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "",
-      "lugar": "",
-      "autorizaContacto": true
+      "naoEnviar": false
     },
     {
       "id": 156,
       "token": "RHMTS7P2",
-      "nome": "Jorge Coelho",
+      "nome": "",
       "cargo": "",
-      "entidade": "BV Feira",
-      "email": "comandante@bombeirosfeira.pt",
+      "entidade": "",
+      "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "",
-      "lugar": "",
-      "autorizaContacto": true
+      "naoEnviar": false
     },
     {
       "id": 157,
       "token": "23L8VM6M",
-      "nome": "Abel Valente",
-      "cargo": "2º Comandate",
-      "entidade": "BV Feira",
-      "email": "Comando4dafeira@gmail.com",
+      "nome": "",
+      "cargo": "",
+      "entidade": "",
+      "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "",
-      "lugar": "",
-      "autorizaContacto": false
+      "naoEnviar": false
     },
     {
       "id": 158,
       "token": "FFPEE98X",
-      "nome": "Gonçalo Barros",
+      "nome": "",
       "cargo": "",
-      "entidade": "Atlatica",
-      "email": "ns1barros@gmail.com",
+      "entidade": "",
+      "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "",
-      "lugar": "",
-      "autorizaContacto": true
+      "naoEnviar": false
     },
     {
       "id": 159,
       "token": "CQH684EP",
-      "nome": "Sérgio Gonçalves",
-      "cargo": "SCh Princ",
-      "entidade": "RSBL",
-      "email": "sergio.carvalho@cm-lisboa.pt",
+      "nome": "",
+      "cargo": "",
+      "entidade": "",
+      "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "",
-      "lugar": "",
-      "autorizaContacto": true
+      "naoEnviar": false
     },
     {
       "id": 160,
       "token": "D6LUAZ7J",
-      "nome": "Carlos Tomé",
-      "cargo": "Sargento Ajudante",
-      "entidade": "GNR",
-      "email": "rego.lmhf@gnr.pt",
+      "nome": "",
+      "cargo": "",
+      "entidade": "",
+      "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "",
-      "lugar": "",
-      "autorizaContacto": false
+      "naoEnviar": false
     },
     {
       "id": 161,
       "token": "P6E9SXMH",
-      "nome": "Carlos Tomé",
-      "cargo": "Cabo Chefe",
-      "entidade": "GNR",
-      "email": "tome.cfmop@gmail.pt",
+      "nome": "",
+      "cargo": "",
+      "entidade": "",
+      "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "",
-      "lugar": "",
-      "autorizaContacto": false
+      "naoEnviar": false
     },
     {
       "id": 162,
       "token": "AXFUW2ER",
-      "nome": "Tiago Neves",
+      "nome": "",
       "cargo": "",
-      "entidade": "Deathclean",
-      "email": "Nevestiago@live.com.pt",
+      "entidade": "",
+      "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "",
-      "lugar": "",
-      "autorizaContacto": false
+      "naoEnviar": false
     },
     {
       "id": 163,
       "token": "UGHQ5VAM",
-      "nome": "Pedro Domingos",
-      "cargo": "BSap",
-      "entidade": "RSBL",
-      "email": "pedro.domingos@cm-lisboa.pt",
+      "nome": "",
+      "cargo": "",
+      "entidade": "",
+      "email": "",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "",
-      "lugar": "",
-      "autorizaContacto": true
+      "naoEnviar": false
     },
     {
       "id": 164,
@@ -621,8 +602,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 69,
-      "lugar": "C12"
+      "idRespostaForms": 69
     },
     {
       "id": 5,
@@ -726,8 +706,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 110,
-      "lugar": "A10"
+      "idRespostaForms": 110
     },
     {
       "id": 13,
@@ -937,10 +916,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 49,
-      "categoria": "Organização",
-      "lugar": "",
-      "autorizaContacto": false
+      "idRespostaForms": 49
     },
     {
       "id": 27,
@@ -1122,8 +1098,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 141,
-      "lugar": "A19"
+      "idRespostaForms": 141
     },
     {
       "id": 41,
@@ -1175,8 +1150,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 127,
-      "lugar": "A9"
+      "idRespostaForms": 127
     },
     {
       "id": 45,
@@ -1228,8 +1202,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 38,
-      "lugar": "A21"
+      "idRespostaForms": 38
     },
     {
       "id": 49,
@@ -1243,8 +1216,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 68,
-      "categoria": "Moderação",
-      "lugar": "A5"
+      "categoria": "Moderação"
     },
     {
       "id": 50,
@@ -1257,8 +1229,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 93,
-      "lugar": "C11"
+      "idRespostaForms": 93
     },
     {
       "id": 51,
@@ -1401,8 +1372,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 7,
-      "lugar": "A6"
+      "idRespostaForms": 7
     },
     {
       "id": 62,
@@ -1520,8 +1490,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": false,
-      "categoria": "Orador",
-      "lugar": "A4"
+      "categoria": "Orador"
     },
     {
       "id": 70,
@@ -1573,8 +1542,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 26,
-      "lugar": "A20"
+      "idRespostaForms": 26
     },
     {
       "id": 74,
@@ -1731,8 +1699,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 65,
-      "categoria": "Orador Convidado",
-      "lugar": "A7"
+      "categoria": "Orador Convidado"
     },
     {
       "id": 86,
@@ -1955,8 +1922,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 8,
-      "categoria": "Orador",
-      "lugar": "A3"
+      "categoria": "Orador"
     },
     {
       "id": 103,
@@ -2401,8 +2367,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 60,
-      "categoria": "Orador Convidado",
-      "lugar": "A8"
+      "categoria": "Orador Convidado"
     },
     {
       "id": 137,
@@ -2493,8 +2458,7 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 39,
-      "lugar": "A11"
+      "idRespostaForms": 39
     },
     {
       "id": 144,
@@ -2612,8 +2576,7 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": true,
-      "categoria": "Organização",
-      "lugar": "C10"
+      "categoria": "Organização"
     }
   ]
 }
