@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:35:35",
-  "total": 35,
+  "actualizadoEm": "2026-05-18T12:36:21",
+  "total": 36,
   "respostas": [
     {
       "idInscricao": 23,
@@ -519,6 +519,21 @@
       "token": "P9AJNMFR",
       "submetidoEm": "5/18/2026 12:35:22 PM",
       "email": "jaires.barbosa@gmail.com",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 31,
+      "token": "HBRS3KAF",
+      "submetidoEm": "5/18/2026 12:36:11 PM",
+      "email": "emanuel.silva@cm-lisboa.pt",
       "autorizaContacto": false,
       "respostas": {
         "q1": "4",
