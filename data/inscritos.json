@@ -2196,12 +2196,13 @@
       "nome": "Pedro Correia",
       "cargo": "BSap",
       "entidade": "BS Viseu",
-      "email": "",
+      "email": "pedrocorreia94@hotmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 131
+      "idRespostaForms": 131,
+      "autorizaContacto": false
     },
     {
       "id": 119,
@@ -2654,5 +2655,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T13:15:42"
+  "actualizadoEm": "2026-05-18T13:22:27"
 }
