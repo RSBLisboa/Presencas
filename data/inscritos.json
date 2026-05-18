@@ -1,7 +1,7 @@
 {
   "schema": "inscritos@2",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T09:41:45.767Z",
+  "actualizadoEm": "2026-05-18T09:42:33.280Z",
   "total": 200,
   "inscritos": [
     {
@@ -1729,7 +1729,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 65,
-      "categoria": "Orador Convidado"
+      "categoria": "Orador Convidado",
+      "lugar": "A7"
     },
     {
       "id": 86,
