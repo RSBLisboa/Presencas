@@ -1091,12 +1091,13 @@
       "nome": "Filipe Batalha",
       "cargo": "Chefe",
       "entidade": "BV Samora Correia",
-      "email": "",
+      "email": "batalhafilipe73@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 121
+      "idRespostaForms": 121,
+      "autorizaContacto": false
     },
     {
       "id": 39,
@@ -2604,5 +2605,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T11:58:23"
+  "actualizadoEm": "2026-05-18T11:59:14"
 }
