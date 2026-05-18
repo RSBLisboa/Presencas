@@ -1988,12 +1988,13 @@
       "nome": "Neuza Graxinha Mendes",
       "cargo": "Bomb",
       "entidade": "CB Sul e Sudueste",
-      "email": "",
+      "email": "neuza.mendes13@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 104
+      "idRespostaForms": 104,
+      "autorizaContacto": false
     },
     {
       "id": 104,
@@ -2646,5 +2647,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:34:16"
+  "actualizadoEm": "2026-05-18T12:35:04"
 }
