@@ -1,9 +1,29 @@
 {
   "schema": "inscritos@2",
-  "eventoId": 1,
-  "actualizadoEm": "2026-05-18T04:54:58",
+  "evento": {
+    "id": 1,
+    "titulo": "Sessão Técnica em Substâncias Perigosas",
+    "data": "2026-05-18",
+    "local": "Auditório do Metropolitano de Lisboa",
+    "horaInicio": "09:00",
+    "horaFim": "12:00",
+    "cargaHoraria": "3 horas"
+  },
+  "exportadoEm": "2026-05-17T23:27:57",
   "total": 200,
   "inscritos": [
+    {
+      "id": 154,
+      "token": "U2GVKEPZ",
+      "nome": "",
+      "cargo": "",
+      "entidade": "",
+      "email": "",
+      "temMail": false,
+      "estado": "Confirmado",
+      "eraConvidado": true,
+      "naoEnviar": false
+    },
     {
       "id": 155,
       "token": "WAP7PAZ3",
@@ -701,7 +721,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 110
+      "idRespostaForms": 110,
+      "lugar": "A12"
     },
     {
       "id": 13,
@@ -800,15 +821,13 @@
       "token": "79DVGMQD",
       "nome": "Carla Boto Pereira",
       "cargo": "AdjTec do Comandante",
-      "entidade": "RSBL",
+      "entidade": "RSB",
       "email": "carla.a.pereira@cm-lisboa.pt",
       "temMail": true,
-      "estado": "Confirmada",
-      "eraConvidado": "Sim",
+      "estado": "Confirmado",
+      "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 1,
-      "autorizaContacto": true,
-      "categoria": "Organização"
+      "idRespostaForms": 1
     },
     {
       "id": 20,
@@ -875,19 +894,6 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 139
-    },
-    {
-      "id": 201,
-      "token": "7NPWVUJD",
-      "nome": "Convidado Deathclean (registar no local)",
-      "cargo": "",
-      "entidade": "Deathclean",
-      "email": "",
-      "temMail": false,
-      "estado": "Confirmado",
-      "eraConvidado": true,
-      "naoEnviar": false,
-      "categoria": "Orador Convidado"
     },
     {
       "id": 25,
@@ -1502,7 +1508,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": false,
-      "categoria": "Orador"
+      "categoria": "Orador",
+      "lugar": "R2"
     },
     {
       "id": 70,
@@ -1610,7 +1617,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 148
+      "idRespostaForms": 148,
+      "lugar": "B12"
     },
     {
       "id": 78,
@@ -1881,20 +1889,6 @@
       "naoEnviar": false,
       "idRespostaForms": 40,
       "lugar": "B10"
-    },
-    {
-      "id": 154,
-      "token": "U2GVKEPZ",
-      "nome": "Maria de Lurdes Lima",
-      "cargo": "Assistente Técnica",
-      "entidade": "RSBL",
-      "email": "lurdes.lima@cm-lisboa.pt",
-      "temMail": false,
-      "estado": "Confirmada",
-      "eraConvidado": "Sim",
-      "naoEnviar": false,
-      "autorizaContacto": true,
-      "categoria": "Organização"
     },
     {
       "id": 98,
@@ -2615,7 +2609,22 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": true,
-      "categoria": "Organização"
+      "categoria": "Organização",
+      "lugar": "R8"
+    },
+    {
+      "id": 201,
+      "token": "7NPWVUJD",
+      "nome": "Convidado Deathclean (registar no local)",
+      "cargo": "",
+      "entidade": "Deathclean",
+      "email": "",
+      "temMail": false,
+      "estado": "Confirmado",
+      "eraConvidado": true,
+      "naoEnviar": false,
+      "categoria": "Orador Convidado"
     }
-  ]
+  ],
+  "actualizadoEm": "2026-05-18T04:02:20.904Z"
 }

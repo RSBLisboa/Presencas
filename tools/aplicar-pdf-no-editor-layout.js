@@ -174,7 +174,9 @@ function gerarAud(cfg) {
       : getSetoresFila(cfg, f.label, f.n);
     const blocosUsar = blocos.length ? blocos : [f.n];
     const spanLug = blocosUsar.reduce((a,b) => a + Math.max(0, (b-1)) * Krad, 0);
-    const spanCorr = Math.max(0, blocosUsar.length - 1) * corredorRad;
+    // Entre blocos o passo é (corredorRad + Krad) — gap visual do corredor MAIS o passo
+    // angular normal. Tem que entrar no spanTotal para a fila ficar SIMÉTRICA em torno de PI/2.
+    const spanCorr = Math.max(0, blocosUsar.length - 1) * (corredorRad + Krad);
     const spanTotal = spanLug + spanCorr;
     const ini = Math.PI/2 - spanTotal/2;
     let nr = 1, ang = ini;
@@ -237,14 +239,26 @@ function aplicar() {
     });
   }));
 
-  // 2. Calcular viewBox
+  // 2. Calcular viewBox — palco SEMPRE centrado horizontalmente.
+  // vbW = 2 × max(distancia ao lado esquerdo, distancia ao lado direito) + 2*pad
   const xs = layout.map(s => s.x), ys = layout.map(s => s.y);
   const minX = Math.min(...xs), maxX = Math.max(...xs);
   const maxY = Math.max(...ys);
+  const cxPalco = res.centro.cx;
   const pad = 30;
-  const vbW = Math.ceil(maxX + pad);
+  const distEsq = cxPalco - minX;
+  const distDir = maxX - cxPalco;
+  const halfW = Math.max(distEsq, distDir) + pad;
+  const vbW = Math.ceil(halfW * 2);
   const vbH = Math.ceil(maxY + pad);
   const viewBox = '0 0 ' + vbW + ' ' + vbH;
+  // Re-trasladar lugares e palco para que cxPalco fique exactamente em vbW/2
+  const novoOffX = vbW / 2 - cxPalco;
+  if (Math.abs(novoOffX) > 0.1) {
+    layout.forEach(s => { s.x += novoOffX; });
+    res.centro.cx += novoOffX;
+    res.palcoConfig.cx += novoOffX;
+  }
 
   // 3. Actualizar evento.sala
   evento.sala = evento.sala || {};
