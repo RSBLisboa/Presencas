@@ -1,8 +1,8 @@
 {
   "schema": "presencas@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T09:39:14",
-  "versao": 23,
+  "actualizadoEm": "2026-05-18T09:40:11",
+  "versao": 24,
   "marcacoes": [
     {
       "idInscricao": 110,
@@ -68,6 +68,12 @@
       "idInscricao": 13,
       "presente": true,
       "horaEntrada": "2026-05-18T09:39:13",
+      "marcadoPor": "tablet-paulocabrito"
+    },
+    {
+      "idInscricao": 95,
+      "presente": true,
+      "horaEntrada": "2026-05-18T09:40:10",
       "marcadoPor": "tablet-paulocabrito"
     }
   ]
