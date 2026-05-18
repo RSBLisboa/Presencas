@@ -135,14 +135,17 @@
     {
       "id": 163,
       "token": "UGHQ5VAM",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
-      "email": "",
+      "nome": "Pedro Domingos",
+      "cargo": "BSap",
+      "entidade": "RSBL",
+      "email": "pedro.domingos@cm-lisboa.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": true
     },
     {
       "id": 164,
@@ -2612,5 +2615,5 @@
       "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T09:01:03.045Z"
+  "actualizadoEm": "2026-05-18T09:14:41.958Z"
 }
