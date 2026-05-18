@@ -1083,12 +1083,13 @@
       "nome": "Fausto Simões",
       "cargo": "",
       "entidade": "SMPC Lx",
-      "email": "",
+      "email": "fmouraosimoes@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 89
+      "idRespostaForms": 89,
+      "autorizaContacto": false
     },
     {
       "id": 38,
@@ -2615,5 +2616,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:08:40"
+  "actualizadoEm": "2026-05-18T12:13:09"
 }
