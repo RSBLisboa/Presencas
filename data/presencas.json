@@ -1,8 +1,8 @@
 {
   "schema": "presencas@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T10:25:36",
-  "versao": 44,
+  "actualizadoEm": "2026-05-18T10:29:58",
+  "versao": 58,
   "marcacoes": [
     {
       "idInscricao": 110,
@@ -209,6 +209,12 @@
       "marcadoPor": "tablet-paulocabrito"
     },
     {
+      "idInscricao": 166,
+      "presente": true,
+      "horaEntrada": "2026-05-18T09:58:38",
+      "marcadoPor": "tablet-paulocabrito"
+    },
+    {
       "idInscricao": 64,
       "presente": true,
       "horaEntrada": "2026-05-18T09:58:03",
@@ -308,6 +314,12 @@
       "idInscricao": 96,
       "presente": true,
       "horaEntrada": "2026-05-18T10:11:00",
+      "marcadoPor": "tablet-paulocabrito"
+    },
+    {
+      "idInscricao": 163,
+      "presente": true,
+      "horaEntrada": "2026-05-18T10:15:05",
       "marcadoPor": "tablet-paulocabrito"
     },
     {
@@ -435,6 +447,12 @@
       "presente": true,
       "horaEntrada": "2026-05-18T10:25:34",
       "marcadoPor": "tablet-lurdeslima"
+    },
+    {
+      "idInscricao": 45,
+      "presente": true,
+      "horaEntrada": "2026-05-18T10:29:56",
+      "marcadoPor": "tablet-paulocabrito"
     }
   ]
 }
