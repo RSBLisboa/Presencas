@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:22:00",
-  "total": 24,
+  "actualizadoEm": "2026-05-18T12:23:41",
+  "total": 25,
   "respostas": [
     {
       "idInscricao": 23,
@@ -362,6 +362,21 @@
         "q4": "3",
         "q5": "3",
         "q6": "3"
+      }
+    },
+    {
+      "idInscricao": 65,
+      "token": "RT5JUV88",
+      "submetidoEm": "5/18/2026 12:23:28 PM",
+      "email": "joselvjorge@gmail.com",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
       }
     }
   ]

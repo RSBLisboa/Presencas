@@ -1461,12 +1461,13 @@
       "nome": "José Jorge",
       "cargo": "",
       "entidade": "BS Coimbra",
-      "email": "",
+      "email": "joselvjorge@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 145
+      "idRespostaForms": 145,
+      "autorizaContacto": false
     },
     {
       "id": 66,
@@ -2632,5 +2633,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:22:00"
+  "actualizadoEm": "2026-05-18T12:23:41"
 }
