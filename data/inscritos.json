@@ -1,7 +1,7 @@
 {
   "schema": "inscritos@2",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T09:43:27.903Z",
+  "actualizadoEm": "2026-05-18T09:44:05.783Z",
   "total": 200,
   "inscritos": [
     {
@@ -1174,7 +1174,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 127
+      "idRespostaForms": 127,
+      "lugar": "A9"
     },
     {
       "id": 45,
