@@ -2568,12 +2568,13 @@
       "nome": "Tiago Brito",
       "cargo": "SCh2",
       "entidade": "Sapadores Setúbal",
-      "email": "",
+      "email": "britosapador437@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 83
+      "idRespostaForms": 83,
+      "autorizaContacto": false
     },
     {
       "id": 148,
@@ -2643,5 +2644,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:28:20"
+  "actualizadoEm": "2026-05-18T12:28:59"
 }
