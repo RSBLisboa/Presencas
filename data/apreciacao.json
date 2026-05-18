@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T15:23:32",
-  "total": 47,
+  "actualizadoEm": "2026-05-18T17:54:34",
+  "total": 48,
   "respostas": [
     {
       "idInscricao": 23,
@@ -707,6 +707,21 @@
         "q4": "4",
         "q5": "4",
         "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 100,
+      "token": "AGEJ7QSK",
+      "submetidoEm": "5/18/2026 5:54:12 PM",
+      "email": "mdomingues@cm-leiria.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "3"
       }
     }
   ]

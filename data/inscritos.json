@@ -1971,12 +1971,13 @@
       "nome": "Miguel Domingues",
       "cargo": "SCh1 Adj Comando",
       "entidade": "Sapadores de Leiria",
-      "email": "",
+      "email": "mdomingues@cm-leiria.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 153
+      "idRespostaForms": 153,
+      "autorizaContacto": false
     },
     {
       "id": 101,
@@ -2660,5 +2661,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T15:23:32"
+  "actualizadoEm": "2026-05-18T17:54:34"
 }
