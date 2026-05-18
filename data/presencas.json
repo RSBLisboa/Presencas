@@ -1,7 +1,7 @@
 {
   "schema": "presencas@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T13:03:42",
+  "actualizadoEm": "2026-05-18T13:03:16",
   "versao": 70,
   "marcacoes": [
     {
@@ -569,6 +569,12 @@
       "marcadoPor": "tablet-lurdeslima"
     },
     {
+      "idInscricao": 109,
+      "presente": true,
+      "horaEntrada": "2026-05-18T13:01:49",
+      "marcadoPor": "tablet-paulocabrito"
+    },
+    {
       "idInscricao": 127,
       "presente": true,
       "horaEntrada": "2026-05-18T13:02:59",
@@ -578,12 +584,6 @@
       "idInscricao": 162,
       "presente": true,
       "horaEntrada": "2026-05-18T13:01:08",
-      "marcadoPor": "tablet-paulocabrito"
-    },
-    {
-      "idInscricao": 109,
-      "presente": true,
-      "horaEntrada": "2026-05-18T13:01:49",
       "marcadoPor": "tablet-paulocabrito"
     }
   ]
