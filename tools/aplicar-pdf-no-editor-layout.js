@@ -131,9 +131,11 @@ function getSetoresFila(cfg, label, nDesejado) {
   return distribuirBlocos(nDesejado, nBlocos);
 }
 
+const PALCO_R = 70;
+
 function gerarAud(cfg) {
   const rows = [];
-  const palcoR = 70;
+  const palcoR = PALCO_R;
   const stepV = cfg.seat + cfg.gapV;
   const stepArco = cfg.seat + cfg.gapH;
   const corredorRad = cfg.corredorLarg / Math.max(cfg.raio, 80);
@@ -198,7 +200,9 @@ function gerarAud(cfg) {
   rows.forEach(r => r.slots.forEach(s => { s.x += offX; s.y += offY; }));
   return {
     rows,
-    bounds: { w: offX + maxX + pad, h: offY + maxY + pad }
+    bounds: { w: offX + maxX + pad, h: offY + maxY + pad },
+    centro: { cx: offX, cy: offY },
+    palcoConfig: cfg.palco ? { tipo: 'circular', cx: offX, cy: offY, r: PALCO_R } : null
   };
 }
 
@@ -250,6 +254,8 @@ function aplicar() {
   evento.sala.lugares = layout.map(s => s.lugar);
   evento.sala.layout = layout;
   evento.sala.viewBox = viewBox;
+  evento.sala.centro = res.centro;
+  evento.sala.palcoConfig = res.palcoConfig;
   evento.sala.editorCfg = { ...CFG };
   evento.actualizadoEm = new Date().toISOString();
 

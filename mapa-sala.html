@@ -171,11 +171,10 @@
     transition: stroke-width 0.16s var(--ease), fill 0.16s var(--ease), stroke 0.16s var(--ease);
   }
   .lugar text {
-    font-size: 10.5px; font-weight: 700; text-anchor: middle;
+    font-weight: 700; text-anchor: middle;
     pointer-events: none; dominant-baseline: middle;
     letter-spacing: 0.01em;
   }
-  .lugar.reservado text { font-size: 12px; }
 
   /* Estado livre */
   .lugar.livre rect {
@@ -682,15 +681,26 @@ function renderMapa() {
   const evt = DADOS.evento || {};
   const sala = evt.sala || {};
   const layout = Array.isArray(sala.layout) ? sala.layout : [];
-  const tipo = sala.tipo === 'oval' ? 'oval' : 'reto';
-  const viewBox = sala.viewBox || (tipo === 'oval' ? "0 0 1400 900" : "0 0 1000 480");
+  // Tipo unificado: editor usa 'auditorio'/'retangular'; mapa traduz para 'oval'/'reto'
+  const tipoSrc = sala.tipo;
+  const ehAuditorio = tipoSrc === 'oval' || tipoSrc === 'auditorio';
+  const tipo = ehAuditorio ? 'oval' : 'reto';
+  const editorCfg = sala.editorCfg || {};
+  // Dimensões da cadeira herdadas do editor (mesma proporção)
+  const seatW = editorCfg.seat || 32;
+  const seatH = Math.round(seatW * 0.78);
+  const viewBox = sala.viewBox || (ehAuditorio ? "0 0 1400 900" : "0 0 1000 480");
   const svg = document.getElementById("svg-mapa");
   svg.setAttribute("viewBox", viewBox);
 
-  // Palco — circular para oval, rectangular para recto
+  // Palco — coordenadas vêm do editor se publicadas, senão fallback
   let html = '';
-  const ovalCx = 700, ovalCy = 145;
-  if (tipo === 'oval') {
+  const palcoFromEd = sala.palcoConfig || null;
+  const centroFromEd = sala.centro || null;
+  const ovalCx = (centroFromEd && centroFromEd.cx) || (palcoFromEd && palcoFromEd.cx) || 700;
+  const ovalCy = (centroFromEd && centroFromEd.cy) || (palcoFromEd && palcoFromEd.cy) || 145;
+  const palcoR = (palcoFromEd && palcoFromEd.r) || 70;
+  if (ehAuditorio) {
     // Gradient + sombra subtil para o palco circular (estilo premium)
     html += `
       <defs>
@@ -709,10 +719,10 @@ function renderMapa() {
           <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
       </defs>
-      <circle cx="${ovalCx}" cy="${ovalCy}" r="82" fill="url(#palco-grad)" stroke="#be185d" stroke-width="1.5" opacity="0.92" filter="url(#palco-shadow)"/>
-      <circle cx="${ovalCx}" cy="${ovalCy}" r="46" fill="url(#palco-inner)"/>
-      <text x="${ovalCx}" y="${ovalCy + 8}" style="fill:#fff;font-size:26px;font-weight:800;text-anchor:middle;font-family:'Inter','Segoe UI',sans-serif">1</text>
-      <text x="${ovalCx}" y="${ovalCy + 110}" style="fill:#94a3b8;font-size:11.5px;font-weight:700;text-anchor:middle;letter-spacing:0.18em;text-transform:uppercase">Palco · Painel central</text>
+      <circle cx="${ovalCx}" cy="${ovalCy}" r="${palcoR}" fill="url(#palco-grad)" stroke="#be185d" stroke-width="1.5" opacity="0.92" filter="url(#palco-shadow)"/>
+      <circle cx="${ovalCx}" cy="${ovalCy}" r="${Math.round(palcoR * 0.56)}" fill="url(#palco-inner)"/>
+      <text x="${ovalCx}" y="${ovalCy + 8}" style="fill:#fff;font-size:${Math.round(palcoR * 0.32)}px;font-weight:800;text-anchor:middle;font-family:'Inter','Segoe UI',sans-serif">1</text>
+      <text x="${ovalCx}" y="${ovalCy + palcoR + 28}" style="fill:#94a3b8;font-size:11.5px;font-weight:700;text-anchor:middle;letter-spacing:0.18em;text-transform:uppercase">Palco · Painel central</text>
     `;
   } else {
     html += `
@@ -801,8 +811,9 @@ function renderMapa() {
 
   layout.forEach(slot => {
     const ehR = String(slot.lugar).toUpperCase().startsWith("R");
-    const w = ehR ? 40 : 32;
-    const h = ehR ? 30 : 24;
+    // Tamanhos derivados do editor (mesma proporção visual)
+    const w = ehR ? Math.round(seatW * 1.25) : seatW;
+    const h = ehR ? Math.round(seatH * 1.25) : seatH;
     const x = slot.x - w/2, y = slot.y - h/2;
     const cls = classeLugar(slot.lugar);
     const i = inscritoNoLugar(slot.lugar);
@@ -811,11 +822,13 @@ function renderMapa() {
       ? filaTxt + slot.lugar + " · " + i.nome + (i.entidade ? " (" + i.entidade + ")" : "")
       : (ehR ? "Reservado " + slot.lugar + " — por atribuir" : "Lugar " + filaTxt + slot.lugar + " — vazio");
     const txt = ehR ? "★" + slot.lugar.substring(1) : slot.lugar;
+    // Tamanho de fonte ajustado pelo tamanho do lugar (mesma regra do editor)
+    const fontSize = ehR ? Math.max(11, seatW * 0.40) : Math.max(9, seatW * 0.32);
     html += `
       <g class="lugar ${cls}" data-lugar="${esc(slot.lugar)}" tabindex="0">
         <title>${esc(title)}</title>
         <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4"/>
-        <text x="${slot.x}" y="${slot.y}">${esc(txt)}</text>
+        <text x="${slot.x}" y="${slot.y + fontSize * 0.36}" font-size="${fontSize.toFixed(1)}">${esc(txt)}</text>
       </g>`;
   });
 
