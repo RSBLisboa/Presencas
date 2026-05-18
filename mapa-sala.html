@@ -193,6 +193,65 @@
   }
   .stats strong { display: block; font-size: 16px; color: var(--rsb-red); }
 
+  .btn-sentar {
+    margin-top: 12px; padding: 9px 14px; font-size: 13px;
+    background: var(--rsb-red); color: #fff; border: none; border-radius: 6px;
+    cursor: pointer; font-family: inherit; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em; width: 100%;
+  }
+  .btn-sentar:hover { background: var(--rsb-red-dark); }
+  .btn-sentar.danger { background: #b45309; }
+  .btn-sentar.danger:hover { background: #92400e; }
+
+  .modal-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    display: none; align-items: center; justify-content: center;
+    z-index: 100;
+  }
+  .modal-bg.show { display: flex; }
+  .modal-card {
+    background: #fff; border-radius: 12px; padding: 22px;
+    max-width: 480px; width: 92%; max-height: 80vh; overflow-y: auto;
+  }
+  .modal-card h3 { margin: 0 0 8px; font-size: 16px; }
+  .modal-card .lead { font-size: 13px; color: var(--texto-mute); margin: 0 0 14px; }
+  .modal-card input[type=search] {
+    width: 100%; padding: 9px 12px; font-size: 14px; font-family: inherit;
+    border: 1px solid var(--linha); border-radius: 6px;
+    background: var(--fundo); margin-bottom: 10px; box-sizing: border-box;
+  }
+  .modal-lista {
+    max-height: 320px; overflow-y: auto; border: 1px solid var(--linha);
+    border-radius: 6px; margin-bottom: 14px;
+  }
+  .modal-lista .item {
+    padding: 9px 12px; border-bottom: 1px solid var(--linha-clara);
+    cursor: pointer; font-size: 13px;
+  }
+  .modal-lista .item:last-child { border-bottom: none; }
+  .modal-lista .item:hover { background: var(--fundo); }
+  .modal-lista .item.selected { background: #fef3c7; }
+  .modal-lista .item .nome { font-weight: 600; }
+  .modal-lista .item .meta { font-size: 11.5px; color: var(--texto-mute); margin-top: 2px; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+  .modal-actions button {
+    padding: 8px 16px; font-size: 13px; font-family: inherit;
+    border-radius: 6px; cursor: pointer; font-weight: 600;
+  }
+  .modal-actions .primary { background: var(--rsb-red); color: #fff; border: 1px solid var(--rsb-red); }
+  .modal-actions .secondary { background: #fff; color: var(--texto); border: 1px solid var(--linha); }
+  .modal-actions .primary:disabled { background: #ccc; border-color: #ccc; cursor: not-allowed; }
+
+  .toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #1a1a1a; color: #fff; padding: 10px 18px;
+    border-radius: 6px; font-size: 13px; z-index: 200;
+    opacity: 0; transition: opacity 0.2s; pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+  .toast.err { background: #b00410; }
+  .toast.ok { background: #15803d; }
+
   @media print {
     @page { size: A3 landscape; margin: 8mm; }
     body { background: #fff; }
@@ -229,19 +288,110 @@
   </aside>
 </div>
 
+<!-- Modal: Sentar inscrito num lugar livre -->
+<div class="modal-bg" id="modal-sentar">
+  <div class="modal-card">
+    <h3>Sentar inscrito · Lugar <span id="modal-lugar">—</span></h3>
+    <p class="lead" id="modal-lead">Escolhe um inscrito sem lugar atribuído.</p>
+    <input type="search" id="modal-busca" placeholder="Pesquisar nome, cargo, entidade…">
+    <div class="modal-lista" id="modal-lista"></div>
+    <div class="modal-actions">
+      <button class="secondary" id="modal-cancelar">Cancelar</button>
+      <button class="primary" id="modal-confirmar" disabled>Sentar</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
 <script>
 const URL_INSCRITOS = "data/inscritos.json?t=" + Date.now();
 const URL_EVENTO = "data/evento.json?t=" + Date.now();
 const URL_PRESENCAS = "data/presencas.json?t=" + Date.now();
 
-let DADOS = { inscritos: [], evento: null, presencas: [] };
+const GH_OWNER = "RSBLisboa";
+const GH_REPO = "Presencas";
+const GH_BRANCH = "main";
+const LS_PAT_KEY = "rsb_pat_tablet"; // partilhado com a app de presenças
+const PAT_CIFRADO = "DknFWCRvCUDKncniIpJuB0yem1+lklo48JTgckFwkgo7aYrVptaG1OKPLU2MKMcxDaInhfVrXZlCCp+BPYR/dI7yrrRmZRikENfOBrqB8drkqFsd+CTiMfyFJEaNCXma9kBVK8g4O7YTjowyqKsp7jFyOkxYpBuPsBdTs5kxw+bCCOlZe8kpwrk=";
+const AUTO_AUTH_PASSWORD = "RSBL18MAI2026!";
+
+let DADOS = { inscritos: [], evento: null, presencas: [], inscritosSha: null };
 let LUGAR_SELECIONADO = null;
+let MODAL_INSCRITO_ID = null;
 
 async function fj(u) {
   try { const r = await fetch(u, { cache: "no-store" }); if (!r.ok) return null; return await r.json(); }
   catch (_) { return null; }
 }
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const normalizar = s => (s||"").toString().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+const utf8ToBase64 = s => btoa(unescape(encodeURIComponent(s)));
+const base64ToUtf8 = b => decodeURIComponent(escape(atob(b)));
+
+function getPAT() { return localStorage.getItem(LS_PAT_KEY) || ""; }
+function setPAT(t) { if (t) localStorage.setItem(LS_PAT_KEY, t); }
+
+async function decifrarPAT(password) {
+  const bundle = Uint8Array.from(atob(PAT_CIFRADO), c => c.charCodeAt(0));
+  const salt = bundle.slice(0, 16);
+  const iv = bundle.slice(16, 28);
+  const ct = bundle.slice(28);
+  const baseKey = await crypto.subtle.importKey(
+    "raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey(
+    { name: "PBKDF2", salt, iterations: 150000, hash: "SHA-256" },
+    baseKey, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+  const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, ct);
+  return new TextDecoder().decode(pt);
+}
+
+async function garantirPAT() {
+  if (getPAT()) return getPAT();
+  try {
+    const tok = await decifrarPAT(AUTO_AUTH_PASSWORD);
+    setPAT(tok);
+    return tok;
+  } catch (e) {
+    throw new Error("Sem PAT — abre a app de presenças no tablet primeiro para autoconfigurar.");
+  }
+}
+
+function ghHeaders() {
+  return { "Accept": "application/vnd.github.v3+json", "Authorization": "token " + getPAT() };
+}
+function ghContentsUrl(path) {
+  return "https://api.github.com/repos/" + GH_OWNER + "/" + GH_REPO + "/contents/" + encodeURI(path) + "?ref=" + GH_BRANCH;
+}
+async function ghLer(path) {
+  const r = await fetch(ghContentsUrl(path), { headers: ghHeaders() });
+  if (!r.ok) throw new Error("GET " + path + ": " + r.status);
+  const j = await r.json();
+  return { sha: j.sha, payload: JSON.parse(base64ToUtf8(j.content.replace(/\n/g,""))) };
+}
+async function ghEscrever(path, payload, sha, msg) {
+  const body = {
+    message: msg || ("update " + path),
+    content: utf8ToBase64(JSON.stringify(payload, null, 2)),
+    branch: GH_BRANCH,
+    sha: sha
+  };
+  const r = await fetch(
+    "https://api.github.com/repos/" + GH_OWNER + "/" + GH_REPO + "/contents/" + encodeURI(path),
+    { method: "PUT", headers: { ...ghHeaders(), "Content-Type": "application/json" }, body: JSON.stringify(body) }
+  );
+  if (r.status === 409 || r.status === 422) { const e = new Error("CONFLICT"); e.code = "CONFLICT"; throw e; }
+  if (!r.ok) throw new Error("PUT " + path + ": " + r.status);
+  const j = await r.json();
+  return j.content.sha;
+}
+
+function toast(msg, kind) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast show" + (kind ? " " + kind : "");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove("show"), 2800);
+}
 
 const CORES_CAT = {
   "Organização": "#1a1a1a",
@@ -272,23 +422,51 @@ function renderMapa() {
   const evt = DADOS.evento || {};
   const sala = evt.sala || {};
   const layout = Array.isArray(sala.layout) ? sala.layout : [];
-  const viewBox = sala.viewBox || "0 0 1000 480";
+  const tipo = sala.tipo === 'oval' ? 'oval' : 'reto';
+  const viewBox = sala.viewBox || (tipo === 'oval' ? "0 0 1300 700" : "0 0 1000 480");
   const svg = document.getElementById("svg-mapa");
   svg.setAttribute("viewBox", viewBox);
 
-  // Palco no topo (mais largo, ocupando quase toda a sala)
-  let html = `
-    <rect class="palco" x="180" y="10" width="640" height="42" rx="6"/>
-    <text class="palco-label" x="500" y="37">Palco · Painel</text>
-  `;
+  // Palco — circular para oval, rectangular para recto
+  let html = '';
+  if (tipo === 'oval') {
+    const cx = 650, cy = 90;
+    html += `
+      <circle cx="${cx}" cy="${cy}" r="70" fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
+      <circle cx="${cx}" cy="${cy}" r="40" fill="#be185d"/>
+      <text x="${cx}" y="${cy + 6}" style="fill:#fff;font-size:22px;font-weight:800;text-anchor:middle">1</text>
+      <text x="${cx}" y="${cy + 95}" style="fill:#999;font-size:11px;font-weight:600;text-anchor:middle;letter-spacing:0.06em;text-transform:uppercase">Palco · Painel central</text>
+    `;
+  } else {
+    html += `
+      <rect class="palco" x="180" y="10" width="640" height="42" rx="6"/>
+      <text class="palco-label" x="500" y="37">Palco · Painel</text>
+    `;
+  }
 
-  // Rótulos de fila à esquerda (auto-detectados via agrupamento por Y).
-  const ysOrdenados = Array.from(new Set(layout.map(s => s.y))).sort((a,b) => a-b);
-  ysOrdenados.forEach((y, idx) => {
-    const todosR = layout.filter(s => s.y === y).every(s => String(s.lugar).toUpperCase().startsWith('R'));
-    const label = todosR ? 'R' : String.fromCharCode(65 + (idx - (ysOrdenados[0] === y && todosR ? 0 : 1)));
-    const xRot = 30;
-    html += `<text x="${xRot}" y="${y + 4}" style="font-size:12px;font-weight:700;fill:#888;text-anchor:middle">${label}</text>`;
+  // Rótulos de fila à esquerda — agrupar lugares por Y com tolerância (para arcos).
+  function clusterFilas(slots) {
+    const ordenados = slots.slice().sort((a,b) => a.y - b.y);
+    const filas = [];
+    const tol = 18;
+    for (const s of ordenados) {
+      const fila = filas.find(f => Math.abs(f.y - s.y) < tol);
+      if (fila) fila.slots.push(s);
+      else filas.push({ y: s.y, slots: [s] });
+    }
+    return filas;
+  }
+  const filas = clusterFilas(layout);
+  let letraIdx = 0;
+  filas.forEach(f => {
+    const todosR = f.slots.every(s => String(s.lugar).toUpperCase().startsWith('R'));
+    const label = todosR ? 'R' : String.fromCharCode(65 + letraIdx++);
+    const ys = f.slots.map(s => s.y);
+    const yMed = ys.reduce((a,b) => a+b, 0) / ys.length;
+    const xs = f.slots.map(s => s.x);
+    const xMin = Math.min(...xs);
+    const xLabel = Math.max(15, xMin - 30);
+    html += `<text x="${xLabel}" y="${yMed + 4}" style="font-size:12px;font-weight:700;fill:#888;text-anchor:middle">${label}</text>`;
   });
 
   layout.forEach(slot => {
@@ -343,8 +521,11 @@ function seleccionarLugar(lugar) {
     wrap.innerHTML = `
       <div class="lugar-tag ${ehR ? "r" : "n"}">${ehR ? "⭐ Lugar reservado " : "Lugar "}${esc(lugar)}</div>
       <p class="placeholder" style="padding:8px 0">Sem inscrito atribuído.</p>
+      <button class="btn-sentar" id="btn-sentar">+ Sentar inscrito aqui</button>
     `;
     wrap.classList.remove("placeholder");
+    const btn = document.getElementById("btn-sentar");
+    if (btn) btn.addEventListener("click", () => abrirModalSentar(lugar));
     return;
   }
   const presente = temPresenca(i.id);
@@ -359,8 +540,100 @@ function seleccionarLugar(lugar) {
       ${presente ? "✓ Presença confirmada" : "Aguarda check-in"}
     </div>
     ${i.token ? `<p style="margin-top:10px;font-size:11px;color:var(--texto-mute);font-family:monospace">token: ${esc(i.token)}</p>` : ""}
+    <button class="btn-sentar danger" id="btn-desentar">Remover deste lugar</button>
   `;
   wrap.classList.remove("placeholder");
+  const btn = document.getElementById("btn-desentar");
+  if (btn) btn.addEventListener("click", () => sentarInscrito(null, lugar, i.id));
+}
+
+function abrirModalSentar(lugar) {
+  document.getElementById("modal-lugar").textContent = lugar;
+  document.getElementById("modal-busca").value = "";
+  MODAL_INSCRITO_ID = null;
+  document.getElementById("modal-confirmar").disabled = true;
+  renderModalLista("");
+  document.getElementById("modal-sentar").classList.add("show");
+  setTimeout(() => document.getElementById("modal-busca").focus(), 50);
+}
+function fecharModalSentar() {
+  document.getElementById("modal-sentar").classList.remove("show");
+  MODAL_INSCRITO_ID = null;
+}
+function renderModalLista(busca) {
+  const semLugar = DADOS.inscritos
+    .filter(i => !i.lugar)
+    .sort((a,b) => (a.nome || "").localeCompare(b.nome || "", "pt-PT"));
+  const q = normalizar(busca);
+  const filtrados = q
+    ? semLugar.filter(i =>
+        normalizar(i.nome).includes(q) ||
+        normalizar(i.cargo || "").includes(q) ||
+        normalizar(i.entidade || "").includes(q))
+    : semLugar;
+  const wrap = document.getElementById("modal-lista");
+  if (!filtrados.length) {
+    wrap.innerHTML = '<div class="item" style="cursor:default;color:#888;text-align:center">Sem resultados.</div>';
+    return;
+  }
+  wrap.innerHTML = filtrados.map(i => `
+    <div class="item${MODAL_INSCRITO_ID === i.id ? " selected" : ""}" data-id="${i.id}">
+      <div class="nome">${esc(i.nome)}</div>
+      <div class="meta">${esc((i.cargo || "") + (i.entidade ? " · " + i.entidade : ""))}</div>
+    </div>`).join("");
+  wrap.querySelectorAll(".item[data-id]").forEach(el => {
+    el.addEventListener("click", () => {
+      MODAL_INSCRITO_ID = parseInt(el.dataset.id, 10);
+      wrap.querySelectorAll(".item").forEach(x => x.classList.remove("selected"));
+      el.classList.add("selected");
+      document.getElementById("modal-confirmar").disabled = false;
+    });
+  });
+}
+
+async function sentarInscrito(idInscrito, lugar, removerId) {
+  try {
+    await garantirPAT();
+  } catch (e) {
+    toast(e.message, "err");
+    return;
+  }
+  const verbo = idInscrito ? "A sentar" : "A remover do lugar";
+  toast(verbo + "…");
+  try {
+    // Read-modify-write a inscritos.json com retry em conflito
+    const tentar = async () => {
+      const { sha, payload } = await ghLer("data/inscritos.json");
+      const arr = payload.inscritos || [];
+      // Limpa quem tem este lugar
+      arr.forEach(i => { if (String(i.lugar || "") === String(lugar)) delete i.lugar; });
+      // Atribui ao novo
+      if (idInscrito) {
+        const novo = arr.find(i => i.id === idInscrito);
+        if (!novo) throw new Error("Inscrito id=" + idInscrito + " não encontrado.");
+        novo.lugar = lugar;
+      }
+      payload.actualizadoEm = new Date().toISOString();
+      const msg = idInscrito
+        ? "sentar id=" + idInscrito + " no lugar " + lugar
+        : "remover lugar " + lugar + " (id=" + removerId + ")";
+      await ghEscrever("data/inscritos.json", payload, sha, msg);
+      // Actualiza estado local
+      DADOS.inscritos = arr;
+      DADOS.inscritosSha = sha;
+    };
+    try { await tentar(); }
+    catch (e) {
+      if (e.code === "CONFLICT") { await tentar(); }
+      else throw e;
+    }
+    fecharModalSentar();
+    renderMapa();
+    seleccionarLugar(lugar);
+    toast(idInscrito ? "Inscrito sentado em " + lugar : "Lugar " + lugar + " libertado", "ok");
+  } catch (e) {
+    toast("Erro: " + e.message, "err");
+  }
 }
 
 function renderStats() {
@@ -385,6 +658,18 @@ function renderStats() {
     </div>
   `;
 }
+
+// Listeners do modal sentar
+document.getElementById("modal-cancelar").addEventListener("click", fecharModalSentar);
+document.getElementById("modal-sentar").addEventListener("click", e => {
+  if (e.target === e.currentTarget) fecharModalSentar();
+});
+document.getElementById("modal-busca").addEventListener("input", e => renderModalLista(e.target.value));
+document.getElementById("modal-confirmar").addEventListener("click", () => {
+  if (MODAL_INSCRITO_ID != null && LUGAR_SELECIONADO) {
+    sentarInscrito(MODAL_INSCRITO_ID, LUGAR_SELECIONADO);
+  }
+});
 
 (async function init() {
   const [ins, evt, pres] = await Promise.all([fj(URL_INSCRITOS), fj(URL_EVENTO), fj(URL_PRESENCAS)]);
