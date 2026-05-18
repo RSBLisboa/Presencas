@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T13:40:36",
-  "total": 46,
+  "actualizadoEm": "2026-05-18T15:23:32",
+  "total": 47,
   "respostas": [
     {
       "idInscricao": 23,
@@ -692,6 +692,21 @@
         "q4": "2",
         "q5": "3",
         "q6": "3"
+      }
+    },
+    {
+      "idInscricao": 140,
+      "token": "GYRS8K8Y",
+      "submetidoEm": "5/18/2026 3:23:16 PM",
+      "email": "miguelseomara@gmail.com",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
       }
     }
   ]

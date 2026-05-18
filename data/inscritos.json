@@ -2490,12 +2490,13 @@
       "nome": "Rúben Guerreiro",
       "cargo": "Académico",
       "entidade": "CBS Setúbal",
-      "email": "",
+      "email": "miguelseomara@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 124
+      "idRespostaForms": 124,
+      "autorizaContacto": false
     },
     {
       "id": 141,
@@ -2659,5 +2660,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T13:40:36"
+  "actualizadoEm": "2026-05-18T15:23:32"
 }
