@@ -1618,12 +1618,13 @@
       "nome": "Leandro Fonseca",
       "cargo": "Bombeiro 2",
       "entidade": "BV Portimão",
-      "email": "",
+      "email": "leandro.fonseca@ahbvp.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 103
+      "idRespostaForms": 103,
+      "autorizaContacto": false
     },
     {
       "id": 76,
@@ -2650,5 +2651,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:39:34"
+  "actualizadoEm": "2026-05-18T12:39:54"
 }

@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:39:34",
-  "total": 37,
+  "actualizadoEm": "2026-05-18T12:39:54",
+  "total": 38,
   "respostas": [
     {
       "idInscricao": 23,
@@ -549,6 +549,21 @@
       "token": "GSKGF789",
       "submetidoEm": "5/18/2026 12:39:22 PM",
       "email": "intervir.pt@gmail.com",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 75,
+      "token": "MJM6KXQS",
+      "submetidoEm": "5/18/2026 12:39:43 PM",
+      "email": "leandro.fonseca@ahbvp.pt",
       "autorizaContacto": false,
       "respostas": {
         "q1": "4",
