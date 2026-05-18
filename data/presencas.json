@@ -1,8 +1,8 @@
 {
   "schema": "presencas@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T13:38:32",
-  "versao": 75,
+  "actualizadoEm": "2026-05-18T13:38:52",
+  "versao": 84,
   "marcacoes": [
     {
       "idInscricao": 110,
@@ -14,7 +14,7 @@
       "idInscricao": 154,
       "presente": true,
       "horaEntrada": "2026-05-18T09:25:58",
-      "marcadoPor": "tablet-lurdeslima"
+      "marcadoPor": "tablet-anamenezeslo"
     },
     {
       "idInscricao": 5,
@@ -515,15 +515,15 @@
       "marcadoPor": "tablet-anapcosta"
     },
     {
-      "idInscricao": 140,
-      "presente": true,
-      "horaEntrada": "2026-05-18T12:54:35",
-      "marcadoPor": "tablet-lurdeslima"
-    },
-    {
       "idInscricao": 114,
       "presente": true,
       "horaEntrada": "2026-05-18T12:54:26",
+      "marcadoPor": "tablet-anapcosta"
+    },
+    {
+      "idInscricao": 38,
+      "presente": true,
+      "horaEntrada": "2026-05-18T12:57:00",
       "marcadoPor": "tablet-anapcosta"
     },
     {
@@ -533,9 +533,9 @@
       "marcadoPor": "tablet-paulocabrito"
     },
     {
-      "idInscricao": 38,
+      "idInscricao": 133,
       "presente": true,
-      "horaEntrada": "2026-05-18T12:57:00",
+      "horaEntrada": "2026-05-18T12:58:01",
       "marcadoPor": "tablet-anapcosta"
     },
     {
@@ -543,12 +543,6 @@
       "presente": true,
       "horaEntrada": "2026-05-18T12:57:03",
       "marcadoPor": "tablet-paulocabrito"
-    },
-    {
-      "idInscricao": 133,
-      "presente": true,
-      "horaEntrada": "2026-05-18T12:58:01",
-      "marcadoPor": "tablet-anapcosta"
     },
     {
       "idInscricao": 9,
@@ -569,6 +563,18 @@
       "marcadoPor": "tablet-anapcosta"
     },
     {
+      "idInscricao": 140,
+      "presente": true,
+      "horaEntrada": "2026-05-18T12:54:35",
+      "marcadoPor": "tablet-lurdeslima"
+    },
+    {
+      "idInscricao": 127,
+      "presente": true,
+      "horaEntrada": "2026-05-18T13:02:59",
+      "marcadoPor": "tablet-anapcosta"
+    },
+    {
       "idInscricao": 162,
       "presente": true,
       "horaEntrada": "2026-05-18T13:01:08",
@@ -579,12 +585,6 @@
       "presente": true,
       "horaEntrada": "2026-05-18T13:01:49",
       "marcadoPor": "tablet-paulocabrito"
-    },
-    {
-      "idInscricao": 127,
-      "presente": true,
-      "horaEntrada": "2026-05-18T13:02:59",
-      "marcadoPor": "tablet-anapcosta"
     },
     {
       "idInscricao": 93,
@@ -617,40 +617,10 @@
       "marcadoPor": "tablet-paulocabrito"
     },
     {
-      "idInscricao": 129,
-      "presente": true,
-      "horaEntrada": "2026-05-18T13:08:29",
-      "marcadoPor": "tablet-lurdeslima"
-    },
-    {
-      "idInscricao": 130,
-      "presente": true,
-      "horaEntrada": "2026-05-18T13:08:07",
-      "marcadoPor": "tablet-paulocabrito"
-    },
-    {
-      "idInscricao": 42,
-      "presente": true,
-      "horaEntrada": "2026-05-18T13:11:02",
-      "marcadoPor": "tablet-lurdeslima"
-    },
-    {
       "idInscricao": 37,
       "presente": true,
       "horaEntrada": "2026-05-18T13:08:04",
-      "marcadoPor": "tablet-paulocabrito"
-    },
-    {
-      "idInscricao": 143,
-      "presente": true,
-      "horaEntrada": "2026-05-18T13:10:58",
-      "marcadoPor": "tablet-paulocabrito"
-    },
-    {
-      "idInscricao": 97,
-      "presente": true,
-      "horaEntrada": "2026-05-18T13:11:29",
-      "marcadoPor": "tablet-paulocabrito"
+      "marcadoPor": "tablet-anapcosta"
     },
     {
       "idInscricao": 100,
@@ -665,6 +635,18 @@
       "marcadoPor": "tablet-anapcosta"
     },
     {
+      "idInscricao": 129,
+      "presente": true,
+      "horaEntrada": "2026-05-18T13:08:29",
+      "marcadoPor": "tablet-lurdeslima"
+    },
+    {
+      "idInscricao": 130,
+      "presente": true,
+      "horaEntrada": "2026-05-18T13:08:07",
+      "marcadoPor": "tablet-paulocabrito"
+    },
+    {
       "idInscricao": 77,
       "presente": true,
       "horaEntrada": "2026-05-18T13:11:14",
@@ -677,15 +659,15 @@
       "marcadoPor": "tablet-anapcosta"
     },
     {
-      "idInscricao": 147,
+      "idInscricao": 42,
       "presente": true,
-      "horaEntrada": "2026-05-18T13:09:44",
-      "marcadoPor": "tablet-anapcosta"
+      "horaEntrada": "2026-05-18T13:11:02",
+      "marcadoPor": "tablet-lurdeslima"
     },
     {
-      "idInscricao": 164,
+      "idInscricao": 143,
       "presente": true,
-      "horaEntrada": "2026-05-18T13:14:55",
+      "horaEntrada": "2026-05-18T13:10:58",
       "marcadoPor": "tablet-paulocabrito"
     },
     {
@@ -701,10 +683,22 @@
       "marcadoPor": "tablet-anapcosta"
     },
     {
-      "idInscricao": 52,
+      "idInscricao": 97,
       "presente": true,
-      "horaEntrada": "2026-05-18T13:17:41",
-      "marcadoPor": "tablet-lurdeslima"
+      "horaEntrada": "2026-05-18T13:11:29",
+      "marcadoPor": "tablet-paulocabrito"
+    },
+    {
+      "idInscricao": 147,
+      "presente": true,
+      "horaEntrada": "2026-05-18T13:09:44",
+      "marcadoPor": "tablet-anapcosta"
+    },
+    {
+      "idInscricao": 164,
+      "presente": true,
+      "horaEntrada": "2026-05-18T13:14:55",
+      "marcadoPor": "tablet-paulocabrito"
     },
     {
       "idInscricao": 86,
@@ -717,6 +711,12 @@
       "presente": true,
       "horaEntrada": "2026-05-18T13:17:45",
       "marcadoPor": "tablet-paulocabrito"
+    },
+    {
+      "idInscricao": 52,
+      "presente": true,
+      "horaEntrada": "2026-05-18T13:17:41",
+      "marcadoPor": "tablet-lurdeslima"
     },
     {
       "idInscricao": 63,
@@ -737,18 +737,6 @@
       "marcadoPor": "tablet-paulocabrito"
     },
     {
-      "idInscricao": 134,
-      "presente": true,
-      "horaEntrada": "2026-05-18T13:24:30",
-      "marcadoPor": "tablet-lurdeslima"
-    },
-    {
-      "idInscricao": 75,
-      "presente": true,
-      "horaEntrada": "2026-05-18T13:24:59",
-      "marcadoPor": "tablet-lurdeslima"
-    },
-    {
       "idInscricao": 108,
       "presente": true,
       "horaEntrada": "2026-05-18T13:24:36",
@@ -759,6 +747,18 @@
       "presente": true,
       "horaEntrada": "2026-05-18T13:26:04",
       "marcadoPor": "tablet-anapcosta"
+    },
+    {
+      "idInscricao": 134,
+      "presente": true,
+      "horaEntrada": "2026-05-18T13:24:30",
+      "marcadoPor": "tablet-lurdeslima"
+    },
+    {
+      "idInscricao": 75,
+      "presente": true,
+      "horaEntrada": "2026-05-18T13:24:59",
+      "marcadoPor": "tablet-lurdeslima"
     },
     {
       "idInscricao": 12,
