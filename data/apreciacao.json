@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:33:29",
-  "total": 32,
+  "actualizadoEm": "2026-05-18T12:34:16",
+  "total": 33,
   "respostas": [
     {
       "idInscricao": 23,
@@ -474,6 +474,21 @@
       "token": "6K7F7TB2",
       "submetidoEm": "5/18/2026 12:33:12 PM",
       "email": "nuno.machado@cbss.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 26,
+      "token": "788AV62A",
+      "submetidoEm": "5/18/2026 12:34:05 PM",
+      "email": "daniel.santos@cm-lisboa.pt",
       "autorizaContacto": false,
       "respostas": {
         "q1": "4",
