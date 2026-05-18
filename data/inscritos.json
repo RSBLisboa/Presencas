@@ -2471,12 +2471,13 @@
       "nome": "Rute Sofia Fonseca Santos Calado",
       "cargo": "Bomb 1",
       "entidade": "BV Queluz",
-      "email": "",
+      "email": "formacao.ruth@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 105
+      "idRespostaForms": 105,
+      "autorizaContacto": false
     },
     {
       "id": 143,
@@ -2610,5 +2611,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:00:42.512Z"
+  "actualizadoEm": "2026-05-18T12:06:17"
 }
