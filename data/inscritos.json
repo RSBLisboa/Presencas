@@ -1231,7 +1231,8 @@
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 93
+      "idRespostaForms": 93,
+      "lugar": "C11"
     },
     {
       "id": 51,
@@ -2583,5 +2584,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:09:47.531Z"
+  "actualizadoEm": "2026-05-18T08:10:47.865Z"
 }
