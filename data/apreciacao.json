@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:15:21",
-  "total": 16,
+  "actualizadoEm": "2026-05-18T12:16:59",
+  "total": 17,
   "respostas": [
     {
       "idInscricao": 23,
@@ -240,6 +240,21 @@
         "q2": "4",
         "q3": "4",
         "q4": "3",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 164,
+      "token": "WSMLYWXA",
+      "submetidoEm": "5/18/2026 12:16:49 PM",
+      "email": "mrbatista@hotmail.com",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
         "q5": "4",
         "q6": "4"
       }

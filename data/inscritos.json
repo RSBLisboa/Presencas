@@ -150,7 +150,7 @@
       "nome": "Rita Batista",
       "cargo": "",
       "entidade": "Fa",
-      "email": "MRbatista@hotmail.com",
+      "email": "mrbatista@hotmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
@@ -2622,5 +2622,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:15:21"
+  "actualizadoEm": "2026-05-18T12:16:59"
 }
