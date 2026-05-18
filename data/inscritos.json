@@ -1,7 +1,7 @@
 {
   "schema": "inscritos@2",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T05:22:19",
+  "actualizadoEm": "2026-05-18T04:26:57",
   "total": 200,
   "inscritos": [
     {
@@ -1502,7 +1502,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": false,
-      "categoria": "Orador"
+      "categoria": "Orador",
+      "lugar": "R2"
     },
     {
       "id": 70,
@@ -2615,7 +2616,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": true,
-      "categoria": "Organização"
+      "categoria": "Organização",
+      "lugar": "R8"
     }
   ]
 }
