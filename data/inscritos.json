@@ -1792,12 +1792,13 @@
       "nome": "Márcio Teixeira",
       "cargo": "Ch Div Op e apoio às pop",
       "entidade": "SMPC Lx",
-      "email": "",
+      "email": "marcio.teixeira@cm-lisboa.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 88
+      "idRespostaForms": 88,
+      "autorizaContacto": false
     },
     {
       "id": 91,
@@ -2614,5 +2615,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:08:16"
+  "actualizadoEm": "2026-05-18T12:08:40"
 }

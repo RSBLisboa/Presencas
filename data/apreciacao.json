@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:08:16",
-  "total": 11,
+  "actualizadoEm": "2026-05-18T12:08:40",
+  "total": 12,
   "respostas": [
     {
       "idInscricao": 23,
@@ -159,6 +159,21 @@
       "token": "JUZZCE3L",
       "submetidoEm": "5/18/2026 12:08:04 PM",
       "email": "rodrigo.cabaco@outlook.com",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 90,
+      "token": "8F64BCQ4",
+      "submetidoEm": "5/18/2026 12:08:27 PM",
+      "email": "marcio.teixeira@cm-lisboa.pt",
       "autorizaContacto": false,
       "respostas": {
         "q1": "4",
