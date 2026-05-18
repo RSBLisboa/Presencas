@@ -7,7 +7,7 @@
 //
 // Bump da versão sempre que houver alterações ao app shell.
 
-const CACHE_VERSION = 'rsb-presencas-v23-mapa-harmonioso';
+const CACHE_VERSION = 'rsb-presencas-v24-design-refinado';
 const SHELL = [
   './',
   './index.html',
