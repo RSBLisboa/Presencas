@@ -2581,8 +2581,9 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "autorizaContacto": true,
-      "categoria": "Organização"
+      "categoria": "Organização",
+      "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:10:47.865Z"
+  "actualizadoEm": "2026-05-18T08:11:49.649Z"
 }
