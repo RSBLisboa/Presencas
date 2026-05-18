@@ -45,14 +45,17 @@
     {
       "id": 157,
       "token": "23L8VM6M",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
-      "email": "",
+      "nome": "João Figueiredo",
+      "cargo": "SCh2",
+      "entidade": "RSBL",
+      "email": "joao.figueiredo@cm-lisboa.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": true
     },
     {
       "id": 158,
@@ -2588,5 +2591,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T10:58:50.784Z"
+  "actualizadoEm": "2026-05-18T11:31:31.541Z"
 }
