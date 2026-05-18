@@ -1,14 +1,29 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T11:36:48",
-  "total": 1,
+  "actualizadoEm": "2026-05-18T11:40:43",
+  "total": 2,
   "respostas": [
     {
       "idInscricao": 23,
       "token": null,
       "submetidoEm": "5/18/2026 11:36:38 AM",
       "email": "joao.runa@cm-lisboa.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 3,
+      "token": null,
+      "submetidoEm": "5/18/2026 11:40:33 AM",
+      "email": "Leandro.portelinha@jf-campolide.com",
       "autorizaContacto": false,
       "respostas": {
         "q1": "4",

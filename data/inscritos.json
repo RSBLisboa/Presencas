@@ -595,13 +595,14 @@
       "nome": "Alexandre Fernando Mendes Rodrigues",
       "cargo": "Comandante",
       "entidade": "RSB",
-      "email": "rsb.comandante@cm-lisboa.pt",
+      "email": "Leandro.portelinha@jf-campolide.com",
       "temMail": true,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 10,
-      "categoria": "Organização"
+      "categoria": "Organização",
+      "autorizaContacto": false
     },
     {
       "id": 4,
@@ -2592,5 +2593,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T11:36:48"
+  "actualizadoEm": "2026-05-18T11:40:43"
 }
