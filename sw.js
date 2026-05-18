@@ -7,7 +7,7 @@
 //
 // Bump da versão sempre que houver alterações ao app shell.
 
-const CACHE_VERSION = 'rsb-presencas-v19-categoria-lugar';
+const CACHE_VERSION = 'rsb-presencas-v20-mapa-200lugares';
 const SHELL = [
   './',
   './index.html',

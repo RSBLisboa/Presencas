@@ -18,9 +18,9 @@
     --lugar-livre: #f1f5f9;
     --lugar-livre-borda: #cbd5e1;
     --lugar-livre-texto: #1e293b;
-    --lugar-r: #fef9c3;
-    --lugar-r-borda: #facc15;
-    --lugar-r-texto: #854d0e;
+    --lugar-r: #fde047;
+    --lugar-r-borda: #b45309;
+    --lugar-r-texto: #78350f;
     --lugar-ocupado: #dbeafe;
     --lugar-ocupado-borda: #2563eb;
     --lugar-presente: #dcfce7;
@@ -104,16 +104,20 @@
   .lugar.selected rect { stroke-width: 3; filter: drop-shadow(0 0 6px rgba(227,6,19,0.5)); }
   .lugar rect { transition: stroke-width 0.12s; }
   .lugar text {
-    font-size: 11px; font-weight: 700; text-anchor: middle;
+    font-size: 9px; font-weight: 700; text-anchor: middle;
     pointer-events: none; dominant-baseline: middle;
   }
+  .lugar.reservado text { font-size: 11px; }
 
   /* Estado livre */
-  .lugar.livre rect { fill: var(--lugar-livre); stroke: var(--lugar-livre-borda); stroke-width: 1.5; }
+  .lugar.livre rect { fill: var(--lugar-livre); stroke: var(--lugar-livre-borda); stroke-width: 1; }
   .lugar.livre text { fill: var(--lugar-livre-texto); }
 
-  /* Estado reservado (R*) */
-  .lugar.reservado rect { fill: var(--lugar-r); stroke: var(--lugar-r-borda); stroke-width: 1.5; }
+  /* Estado reservado (R*) — destaque maior, borda dupla e sombra subtil */
+  .lugar.reservado rect {
+    fill: var(--lugar-r); stroke: var(--lugar-r-borda); stroke-width: 2;
+    filter: drop-shadow(0 1.5px 2px rgba(180,83,9,0.35));
+  }
   .lugar.reservado text { fill: var(--lugar-r-texto); }
 
   /* Estado ocupado (atribuído) */
@@ -268,29 +272,41 @@ function renderMapa() {
   const evt = DADOS.evento || {};
   const sala = evt.sala || {};
   const layout = Array.isArray(sala.layout) ? sala.layout : [];
-  const viewBox = sala.viewBox || "0 0 1000 450";
+  const viewBox = sala.viewBox || "0 0 1000 480";
   const svg = document.getElementById("svg-mapa");
   svg.setAttribute("viewBox", viewBox);
 
-  // Palco no topo
+  // Palco no topo (mais largo, ocupando quase toda a sala)
   let html = `
-    <rect class="palco" x="350" y="10" width="300" height="45" rx="6"/>
-    <text class="palco-label" x="500" y="40">Palco · Painel</text>
+    <rect class="palco" x="180" y="10" width="640" height="42" rx="6"/>
+    <text class="palco-label" x="500" y="37">Palco · Painel</text>
   `;
 
+  // Rótulos de fila à esquerda (auto-detectados via agrupamento por Y).
+  const ysOrdenados = Array.from(new Set(layout.map(s => s.y))).sort((a,b) => a-b);
+  ysOrdenados.forEach((y, idx) => {
+    const todosR = layout.filter(s => s.y === y).every(s => String(s.lugar).toUpperCase().startsWith('R'));
+    const label = todosR ? 'R' : String.fromCharCode(65 + (idx - (ysOrdenados[0] === y && todosR ? 0 : 1)));
+    const xRot = 30;
+    html += `<text x="${xRot}" y="${y + 4}" style="font-size:12px;font-weight:700;fill:#888;text-anchor:middle">${label}</text>`;
+  });
+
   layout.forEach(slot => {
-    const w = 36, h = 28;
+    const ehR = String(slot.lugar).toUpperCase().startsWith("R");
+    const w = ehR ? 38 : 30;
+    const h = ehR ? 28 : 22;
     const x = slot.x - w/2, y = slot.y - h/2;
     const cls = classeLugar(slot.lugar);
     const i = inscritoNoLugar(slot.lugar);
     const title = i
       ? slot.lugar + " · " + i.nome + (i.entidade ? " (" + i.entidade + ")" : "")
-      : "Lugar " + slot.lugar + " — vazio";
+      : (ehR ? "Reservado " + slot.lugar + " — por atribuir" : "Lugar " + slot.lugar + " — vazio");
+    const txt = ehR ? "★" + slot.lugar.substring(1) : slot.lugar;
     html += `
       <g class="lugar ${cls}" data-lugar="${esc(slot.lugar)}" tabindex="0">
         <title>${esc(title)}</title>
         <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4"/>
-        <text x="${slot.x}" y="${slot.y}">${esc(slot.lugar)}</text>
+        <text x="${slot.x}" y="${slot.y}">${esc(txt)}</text>
       </g>`;
   });
 
@@ -304,7 +320,7 @@ function renderMapa() {
   // Legenda
   document.getElementById("legenda").innerHTML = `
     <div class="item"><div class="sw livre"></div> Livre</div>
-    <div class="item"><div class="sw reservado"></div> Reservado (R*)</div>
+    <div class="item"><div class="sw reservado"></div> ★ Reservado (R*) — VIP / orador</div>
     <div class="item"><div class="sw ocupado"></div> Atribuído</div>
     <div class="item"><div class="sw presente"></div> Presença marcada</div>
   `;
@@ -356,11 +372,17 @@ function renderStats() {
     return i && temPresenca(i.id);
   }).length;
   const livres = total - ocupados;
+  const reservadosLayout = layout.filter(s => String(s.lugar).toUpperCase().startsWith('R'));
+  const rTotal = reservadosLayout.length;
+  const rAtribuidos = reservadosLayout.filter(s => inscritoNoLugar(s.lugar)).length;
   document.getElementById("stats").innerHTML = `
     <div class="box"><strong>${total}</strong>Lugares</div>
     <div class="box"><strong>${ocupados}</strong>Atribuídos</div>
     <div class="box"><strong>${presentes}</strong>Presentes</div>
     <div class="box"><strong>${livres}</strong>Livres</div>
+    <div class="box" style="grid-column:1 / span 2;border-left-color:#b45309;background:#fef9c3">
+      <strong style="color:#78350f">★ ${rAtribuidos}/${rTotal}</strong>Reservados (R*)
+    </div>
   `;
 }
 
