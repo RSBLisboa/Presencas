@@ -1759,12 +1759,13 @@
       "nome": "Luís Santos Reis",
       "cargo": "Capitão-de-Mar-e-Guerra",
       "entidade": "Autoridade Marítima Nacional",
-      "email": "",
+      "email": "dgam.dcpm.dir@marinha.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 96
+      "idRespostaForms": 96,
+      "autorizaContacto": false
     },
     {
       "id": 87,
@@ -2641,5 +2642,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:26:00.556Z"
+  "actualizadoEm": "2026-05-18T12:27:04"
 }
