@@ -1216,7 +1216,8 @@
       "eraConvidado": true,
       "naoEnviar": false,
       "idRespostaForms": 68,
-      "categoria": "Moderação"
+      "categoria": "Moderação",
+      "lugar": "A5"
     },
     {
       "id": 50,
@@ -2581,5 +2582,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:07:33.196Z"
+  "actualizadoEm": "2026-05-18T08:08:35.717Z"
 }
