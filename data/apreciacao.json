@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:07:01",
-  "total": 10,
+  "actualizadoEm": "2026-05-18T12:08:16",
+  "total": 11,
   "respostas": [
     {
       "idInscricao": 23,
@@ -144,6 +144,21 @@
       "token": "RHQHLWX9",
       "submetidoEm": "5/18/2026 12:06:50 PM",
       "email": "alberto.mendes@cm-lisboa.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 139,
+      "token": "JUZZCE3L",
+      "submetidoEm": "5/18/2026 12:08:04 PM",
+      "email": "rodrigo.cabaco@outlook.com",
       "autorizaContacto": false,
       "respostas": {
         "q1": "4",

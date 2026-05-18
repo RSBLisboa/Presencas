@@ -2434,12 +2434,13 @@
       "nome": "Rodrigo Cabaço",
       "cargo": "BSap",
       "entidade": "Sapadores Setúbal",
-      "email": "",
+      "email": "rodrigo.cabaco@outlook.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 84
+      "idRespostaForms": 84,
+      "autorizaContacto": false
     },
     {
       "id": 140,
@@ -2613,5 +2614,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:07:01"
+  "actualizadoEm": "2026-05-18T12:08:16"
 }
