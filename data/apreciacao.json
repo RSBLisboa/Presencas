@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:20:09",
-  "total": 21,
+  "actualizadoEm": "2026-05-18T12:20:35",
+  "total": 22,
   "respostas": [
     {
       "idInscricao": 23,
@@ -317,6 +317,21 @@
         "q4": "3",
         "q5": "3",
         "q6": "3"
+      }
+    },
+    {
+      "idInscricao": 144,
+      "token": "MJJBQ46L",
+      "submetidoEm": "5/18/2026 12:20:19 PM",
+      "email": "Sara.sousa.mendes@apambiente.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "3",
+        "q5": "4",
+        "q6": "4"
       }
     }
   ]

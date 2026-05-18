@@ -2515,12 +2515,13 @@
       "nome": "Sara Mendes",
       "cargo": "TSup",
       "entidade": "EPRE APA",
-      "email": "",
+      "email": "Sara.sousa.mendes@apambiente.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 73
+      "idRespostaForms": 73,
+      "autorizaContacto": false
     },
     {
       "id": 145,
@@ -2629,5 +2630,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:20:09"
+  "actualizadoEm": "2026-05-18T12:20:35"
 }
