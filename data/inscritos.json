@@ -105,14 +105,17 @@
     {
       "id": 161,
       "token": "P6E9SXMH",
-      "nome": "",
+      "nome": "João Calvinho",
       "cargo": "",
-      "entidade": "",
-      "email": "",
+      "entidade": "BV Amadora",
+      "email": "calvas@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": false
     },
     {
       "id": 162,
@@ -2600,5 +2603,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T11:55:45"
+  "actualizadoEm": "2026-05-18T11:58:07.294Z"
 }
