@@ -75,14 +75,17 @@
     {
       "id": 159,
       "token": "CQH684EP",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
-      "email": "",
+      "nome": "Sérgio Gonçalves",
+      "cargo": "SCh Princ",
+      "entidade": "RSBL",
+      "email": "sergio.carvalho@cm-lisboa.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": true
     },
     {
       "id": 160,
@@ -2600,5 +2603,5 @@
       "lugar": "C10"
     }
   ],
-  "actualizadoEm": "2026-05-18T08:51:35.710Z"
+  "actualizadoEm": "2026-05-18T08:53:27.605Z"
 }
