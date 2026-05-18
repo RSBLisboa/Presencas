@@ -20,7 +20,7 @@
   "emailBody": "<!DOCTYPE html><html><body style=\"font-family:Segoe UI,Calibri,sans-serif;color:#1a1a1a;line-height:1.6;max-width:600px;margin:auto;padding:24px\">\n<p style=\"background:#E30613;color:#fff;padding:12px 16px;margin:0 0 24px;font-weight:bold;letter-spacing:.04em;text-transform:uppercase\">Regimento de Sapadores Bombeiros de Lisboa</p>\n<p>Exmo./a. Senhor/a <strong>{{Nome}}</strong>,</p>\n<p>Em nome do Regimento de Sapadores Bombeiros de Lisboa, agradecemos a sua presença na <strong>{{Titulo}}</strong>, realizada a <strong>{{DataEvento}}</strong> no <strong>{{Local}}</strong>.</p>\n<p>A sua participação contribuiu para o reforço da articulação e partilha técnica entre as entidades que diariamente respondem a este tipo de incidentes, e foi para nós uma honra acolhê-lo nesta sessão.</p>\n<p>Em baixo encontra o link único para o seu certificado de participação, com o número <strong>{{NumeroCertificado}}</strong>.</p>\n<p style=\"text-align:center;margin:24px 0\"><a href=\"{{Link}}\" style=\"background:#E30613;color:#fff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold\">Abrir o meu certificado</a></p>\n<hr style=\"border:none;border-top:1px solid #ddd;margin:24px 0\">\n<p style=\"margin:0 0 4px\">Com os melhores cumprimentos,</p>\n{{AssinaturaImagem}}\n<p style=\"margin:4px 0 0;font-weight:600;color:#1a1a1a\">{{Signatario}}</p>\n<p style=\"margin:2px 0 0;font-size:12px;color:#666\">{{SignatarioCargo}}</p>\n<p style=\"margin:18px 0 0;font-size:11px;color:#888\">Regimento de Sapadores Bombeiros de Lisboa · Câmara Municipal de Lisboa · rsb.esbl@cm-lisboa.pt</p>\n</body></html>",
   "bridgeUrl": "",
   "bridgeFrom": "",
-  "actualizadoEm": "2026-05-18T02:51:23.300Z",
+  "actualizadoEm": "2026-05-18T03:57:20",
   "users": [
     {
       "nome": "paulo.cabrito",
@@ -104,1481 +104,1376 @@
   ],
   "sala": {
     "nome": "Auditório do Metropolitano de Lisboa",
-    "totalLugares": 183,
+    "totalLugares": 187,
     "lugares": [
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "11",
-      "12",
-      "13",
-      "20",
-      "21",
-      "22",
-      "23",
-      "24",
-      "25",
-      "26",
-      "27",
-      "28",
-      "29",
-      "30",
-      "37",
-      "38",
-      "39",
-      "40",
-      "41",
-      "42",
-      "43",
-      "44",
-      "45",
-      "46",
-      "R4",
-      "R5",
-      "47",
-      "48",
-      "49",
-      "50",
-      "51",
-      "52",
-      "53",
-      "54",
-      "55",
-      "56",
-      "57",
-      "58",
-      "59",
-      "60",
-      "61",
-      "62",
-      "63",
-      "64",
-      "65",
-      "66",
-      "67",
-      "68",
-      "69",
-      "70",
-      "71",
-      "72",
-      "73",
-      "74",
-      "75",
-      "76",
-      "77",
-      "78",
-      "79",
-      "80",
-      "81",
-      "82",
-      "83",
-      "84",
-      "85",
-      "86",
-      "87",
-      "88",
-      "89",
-      "90",
-      "91",
-      "92",
-      "93",
-      "94",
-      "95",
-      "96",
-      "97",
-      "98",
-      "99",
-      "100",
-      "101",
-      "102",
-      "103",
-      "104",
-      "105",
-      "106",
-      "107",
-      "108",
-      "109",
-      "110",
-      "111",
-      "112",
-      "113",
-      "114",
-      "115",
-      "116",
-      "117",
-      "118",
-      "119",
-      "120",
-      "121",
-      "122",
-      "123",
-      "124",
-      "125",
-      "126",
-      "1",
-      "2",
-      "3",
-      "127",
-      "128",
-      "129",
-      "17",
-      "18",
-      "19",
-      "130",
-      "131",
-      "132",
-      "34",
-      "35",
-      "36",
-      "133",
-      "134",
-      "135",
-      "136",
-      "137",
-      "138",
-      "139",
-      "140",
-      "141",
-      "142",
-      "143",
-      "144",
-      "145",
-      "146",
-      "147",
-      "148",
-      "149",
-      "150",
-      "151",
-      "152",
-      "14",
-      "15",
-      "16",
-      "R1",
-      "R2",
-      "R3",
-      "31",
-      "32",
-      "33",
-      "153",
-      "154",
-      "155",
-      "R6",
-      "R7",
-      "R8",
-      "156",
-      "157",
-      "158",
-      "159",
-      "160",
-      "161",
-      "162",
-      "163",
-      "164",
-      "165",
-      "166",
-      "167",
-      "168",
-      "169",
-      "170",
-      "171",
-      "172",
-      "173",
-      "174",
-      "175"
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5",
+      "A6",
+      "A7",
+      "A8",
+      "A9",
+      "A10",
+      "A11",
+      "A12",
+      "A13",
+      "A14",
+      "A15",
+      "A16",
+      "A17",
+      "A18",
+      "A19",
+      "A20",
+      "A21",
+      "A22",
+      "A23",
+      "A24",
+      "A25",
+      "A26",
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "B7",
+      "B8",
+      "B9",
+      "B10",
+      "B11",
+      "B12",
+      "B13",
+      "B14",
+      "B15",
+      "B16",
+      "B17",
+      "B18",
+      "B19",
+      "B20",
+      "B21",
+      "B22",
+      "B23",
+      "B24",
+      "B25",
+      "B26",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "C15",
+      "C16",
+      "C17",
+      "C18",
+      "C19",
+      "C20",
+      "C21",
+      "C22",
+      "C23",
+      "C24",
+      "C25",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6",
+      "D7",
+      "D8",
+      "D9",
+      "D10",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15",
+      "D16",
+      "D17",
+      "D18",
+      "D19",
+      "D20",
+      "D21",
+      "D22",
+      "D23",
+      "D24",
+      "D25",
+      "D26",
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "E6",
+      "E7",
+      "E8",
+      "E9",
+      "E10",
+      "E11",
+      "E12",
+      "E13",
+      "E14",
+      "E15",
+      "E16",
+      "E17",
+      "E18",
+      "E19",
+      "E20",
+      "E21",
+      "E22",
+      "E23",
+      "E24",
+      "E25",
+      "E26",
+      "E27",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "F9",
+      "F10",
+      "F11",
+      "F12",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17",
+      "F18",
+      "F19",
+      "F20",
+      "F21",
+      "F22",
+      "F23",
+      "F24",
+      "F25",
+      "F26",
+      "F27",
+      "F28",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6",
+      "G7",
+      "G8",
+      "G9",
+      "G10",
+      "G11",
+      "G12",
+      "G13",
+      "G14",
+      "G15",
+      "G16",
+      "G17",
+      "G18",
+      "G19",
+      "G20",
+      "G21",
+      "G22",
+      "G23",
+      "G24",
+      "G25",
+      "G26",
+      "G27",
+      "G28",
+      "G29"
     ],
     "layout": [
       {
-        "lugar": "4",
-        "fila": "CA",
-        "sector": "central",
-        "x": 422.4,
-        "y": 335.1
+        "lugar": "A1",
+        "fila": "A",
+        "x": 595.4,
+        "y": 194
       },
       {
-        "lugar": "5",
-        "fila": "CA",
-        "sector": "central",
-        "x": 443.79999999999995,
-        "y": 344.8
+        "lugar": "A2",
+        "fila": "A",
+        "x": 591,
+        "y": 213.5
       },
       {
-        "lugar": "6",
-        "fila": "CA",
-        "sector": "central",
-        "x": 466,
-        "y": 352.2
-      },
-      {
-        "lugar": "7",
-        "fila": "CA",
-        "sector": "central",
-        "x": 489,
-        "y": 357.2
-      },
-      {
-        "lugar": "8",
-        "fila": "CA",
-        "sector": "central",
-        "x": 512.3,
-        "y": 359.7
-      },
-      {
-        "lugar": "9",
-        "fila": "CA",
-        "sector": "central",
-        "x": 535.7,
-        "y": 359.7
-      },
-      {
-        "lugar": "10",
-        "fila": "CA",
-        "sector": "central",
-        "x": 559,
-        "y": 357.2
-      },
-      {
-        "lugar": "11",
-        "fila": "CA",
-        "sector": "central",
-        "x": 582,
-        "y": 352.2
-      },
-      {
-        "lugar": "12",
-        "fila": "CA",
-        "sector": "central",
-        "x": 604.2,
-        "y": 344.8
-      },
-      {
-        "lugar": "13",
-        "fila": "CA",
-        "sector": "central",
-        "x": 625.6,
-        "y": 335.1
-      },
-      {
-        "lugar": "20",
-        "fila": "CB",
-        "sector": "central",
-        "x": 378.9,
-        "y": 367.7
-      },
-      {
-        "lugar": "21",
-        "fila": "CB",
-        "sector": "central",
-        "x": 405.6,
-        "y": 382.7
-      },
-      {
-        "lugar": "22",
-        "fila": "CB",
-        "sector": "central",
-        "x": 433.9,
-        "y": 394.5
-      },
-      {
-        "lugar": "23",
-        "fila": "CB",
-        "sector": "central",
-        "x": 463.29999999999995,
-        "y": 403.1
-      },
-      {
-        "lugar": "24",
-        "fila": "CB",
-        "sector": "central",
-        "x": 493.4,
-        "y": 408.3
-      },
-      {
-        "lugar": "25",
-        "fila": "CB",
-        "sector": "central",
-        "x": 524,
-        "y": 410
-      },
-      {
-        "lugar": "26",
-        "fila": "CB",
-        "sector": "central",
-        "x": 554.6,
-        "y": 408.3
-      },
-      {
-        "lugar": "27",
-        "fila": "CB",
-        "sector": "central",
+        "lugar": "A3",
+        "fila": "A",
         "x": 584.7,
-        "y": 403.1
+        "y": 232.5
       },
       {
-        "lugar": "28",
-        "fila": "CB",
-        "sector": "central",
-        "x": 614.1,
-        "y": 394.5
+        "lugar": "A4",
+        "fila": "A",
+        "x": 576.6,
+        "y": 250.7
       },
       {
-        "lugar": "29",
-        "fila": "CB",
-        "sector": "central",
-        "x": 642.4,
-        "y": 382.7
+        "lugar": "A5",
+        "fila": "A",
+        "x": 566.6,
+        "y": 268.1
       },
       {
-        "lugar": "30",
-        "fila": "CB",
-        "sector": "central",
-        "x": 669.1,
-        "y": 367.7
+        "lugar": "A6",
+        "fila": "A",
+        "x": 555,
+        "y": 284.3
       },
       {
-        "lugar": "37",
-        "fila": "CC",
-        "sector": "central",
-        "x": 329.2,
-        "y": 393.9
+        "lugar": "A7",
+        "fila": "A",
+        "x": 541.8,
+        "y": 299.3
       },
       {
-        "lugar": "38",
-        "fila": "CC",
-        "sector": "central",
-        "x": 360.70000000000005,
-        "y": 415.2
+        "lugar": "A8",
+        "fila": "A",
+        "x": 527.2,
+        "y": 313
       },
       {
-        "lugar": "39",
-        "fila": "CC",
-        "sector": "central",
-        "x": 394.5,
-        "y": 432.6
+        "lugar": "A9",
+        "fila": "A",
+        "x": 466.9,
+        "y": 347.9
       },
       {
-        "lugar": "40",
-        "fila": "CC",
-        "sector": "central",
-        "x": 430.20000000000005,
-        "y": 445.9
+        "lugar": "A10",
+        "fila": "A",
+        "x": 447.8,
+        "y": 353.8
       },
       {
-        "lugar": "41",
-        "fila": "CC",
-        "sector": "central",
-        "x": 467.20000000000005,
-        "y": 454.9
+        "lugar": "A11",
+        "fila": "A",
+        "x": 428.2,
+        "y": 357.8
       },
       {
-        "lugar": "42",
-        "fila": "CC",
-        "sector": "central",
-        "x": 505,
-        "y": 459.4
+        "lugar": "A12",
+        "fila": "A",
+        "x": 408.3,
+        "y": 359.8
       },
       {
-        "lugar": "43",
-        "fila": "CC",
-        "sector": "central",
-        "x": 543,
-        "y": 459.4
+        "lugar": "A13",
+        "fila": "A",
+        "x": 388.3,
+        "y": 359.8
       },
       {
-        "lugar": "44",
-        "fila": "CC",
-        "sector": "central",
-        "x": 580.8,
-        "y": 454.9
+        "lugar": "A14",
+        "fila": "A",
+        "x": 368.4,
+        "y": 357.8
       },
       {
-        "lugar": "45",
-        "fila": "CC",
-        "sector": "central",
-        "x": 617.8,
-        "y": 445.9
+        "lugar": "A15",
+        "fila": "A",
+        "x": 348.8,
+        "y": 353.8
       },
       {
-        "lugar": "46",
-        "fila": "CC",
-        "sector": "central",
-        "x": 653.5,
-        "y": 432.6
+        "lugar": "A16",
+        "fila": "A",
+        "x": 329.7,
+        "y": 347.9
       },
       {
-        "lugar": "R4",
-        "fila": "CC",
-        "sector": "central",
-        "x": 687.3,
-        "y": 415.2
+        "lugar": "A17",
+        "fila": "A",
+        "x": 311.3,
+        "y": 340.1
       },
       {
-        "lugar": "R5",
-        "fila": "CC",
-        "sector": "central",
-        "x": 718.8,
-        "y": 393.9
+        "lugar": "A18",
+        "fila": "A",
+        "x": 293.8,
+        "y": 330.5
       },
       {
-        "lugar": "47",
-        "fila": "CD",
-        "sector": "central",
-        "x": 274,
-        "y": 412.8
+        "lugar": "A19",
+        "fila": "A",
+        "x": 241.7,
+        "y": 284.3
       },
       {
-        "lugar": "48",
-        "fila": "CD",
-        "sector": "central",
-        "x": 306.7,
-        "y": 439.5
+        "lugar": "A20",
+        "fila": "A",
+        "x": 230,
+        "y": 268.1
       },
       {
-        "lugar": "49",
-        "fila": "CD",
-        "sector": "central",
-        "x": 342.20000000000005,
-        "y": 462.3
+        "lugar": "A21",
+        "fila": "A",
+        "x": 220.1,
+        "y": 250.7
       },
       {
-        "lugar": "50",
-        "fila": "CD",
-        "sector": "central",
-        "x": 380.1,
-        "y": 480.9
+        "lugar": "A22",
+        "fila": "A",
+        "x": 211.9,
+        "y": 232.5
       },
       {
-        "lugar": "51",
-        "fila": "CD",
-        "sector": "central",
-        "x": 419.9,
-        "y": 495
+        "lugar": "A23",
+        "fila": "A",
+        "x": 205.6,
+        "y": 213.5
       },
       {
-        "lugar": "52",
-        "fila": "CD",
-        "sector": "central",
-        "x": 461,
-        "y": 504.6
+        "lugar": "A24",
+        "fila": "A",
+        "x": 201.2,
+        "y": 194
       },
       {
-        "lugar": "53",
-        "fila": "CD",
-        "sector": "central",
-        "x": 502.9,
-        "y": 509.4
+        "lugar": "A25",
+        "fila": "A",
+        "x": 198.8,
+        "y": 174.1
       },
       {
-        "lugar": "54",
-        "fila": "CD",
-        "sector": "central",
-        "x": 545.1,
-        "y": 509.4
+        "lugar": "A26",
+        "fila": "A",
+        "x": 198.4,
+        "y": 154.2
       },
       {
-        "lugar": "55",
-        "fila": "CD",
-        "sector": "central",
-        "x": 587,
-        "y": 504.6
+        "lugar": "B1",
+        "fila": "B",
+        "x": 619.1,
+        "y": 237.6
       },
       {
-        "lugar": "56",
-        "fila": "CD",
-        "sector": "central",
-        "x": 628.1,
-        "y": 495
+        "lugar": "B2",
+        "fila": "B",
+        "x": 611.7,
+        "y": 256.1
       },
       {
-        "lugar": "57",
-        "fila": "CD",
-        "sector": "central",
-        "x": 667.9,
-        "y": 480.9
+        "lugar": "B3",
+        "fila": "B",
+        "x": 602.7,
+        "y": 274
       },
       {
-        "lugar": "58",
-        "fila": "CD",
-        "sector": "central",
-        "x": 705.8,
-        "y": 462.3
+        "lugar": "B4",
+        "fila": "B",
+        "x": 592.2,
+        "y": 291
       },
       {
-        "lugar": "59",
-        "fila": "CD",
-        "sector": "central",
-        "x": 741.3,
-        "y": 439.5
+        "lugar": "B5",
+        "fila": "B",
+        "x": 580.3,
+        "y": 307.1
       },
       {
-        "lugar": "60",
-        "fila": "CD",
-        "sector": "central",
-        "x": 774,
-        "y": 412.8
+        "lugar": "B6",
+        "fila": "B",
+        "x": 567.1,
+        "y": 322.1
       },
       {
-        "lugar": "61",
-        "fila": "CE",
-        "sector": "central",
-        "x": 221.89999999999998,
-        "y": 431.8
+        "lugar": "B7",
+        "fila": "B",
+        "x": 552.6,
+        "y": 335.9
       },
       {
-        "lugar": "62",
-        "fila": "CE",
-        "sector": "central",
-        "x": 257.3,
-        "y": 464.4
+        "lugar": "B8",
+        "fila": "B",
+        "x": 537.1,
+        "y": 348.4
       },
       {
-        "lugar": "63",
-        "fila": "CE",
-        "sector": "central",
-        "x": 296.1,
-        "y": 492.8
+        "lugar": "B9",
+        "fila": "B",
+        "x": 467.3,
+        "y": 383.6
       },
       {
-        "lugar": "64",
-        "fila": "CE",
-        "sector": "central",
-        "x": 338,
-        "y": 516.6
+        "lugar": "B10",
+        "fila": "B",
+        "x": 447.9,
+        "y": 388.7
       },
       {
-        "lugar": "65",
-        "fila": "CE",
-        "sector": "central",
-        "x": 382.29999999999995,
-        "y": 535.4
+        "lugar": "B11",
+        "fila": "B",
+        "x": 428.2,
+        "y": 392.1
       },
       {
-        "lugar": "66",
-        "fila": "CE",
-        "sector": "central",
-        "x": 428.5,
-        "y": 549
+        "lugar": "B12",
+        "fila": "B",
+        "x": 408.3,
+        "y": 393.8
       },
       {
-        "lugar": "67",
-        "fila": "CE",
-        "sector": "central",
-        "x": 475.9,
-        "y": 557.2
+        "lugar": "B13",
+        "fila": "B",
+        "x": 388.3,
+        "y": 393.8
       },
       {
-        "lugar": "68",
-        "fila": "CE",
-        "sector": "central",
-        "x": 524,
-        "y": 560
+        "lugar": "B14",
+        "fila": "B",
+        "x": 368.4,
+        "y": 392.1
       },
       {
-        "lugar": "69",
-        "fila": "CE",
-        "sector": "central",
-        "x": 572.1,
-        "y": 557.2
+        "lugar": "B15",
+        "fila": "B",
+        "x": 348.7,
+        "y": 388.7
       },
       {
-        "lugar": "70",
-        "fila": "CE",
-        "sector": "central",
-        "x": 619.5,
-        "y": 549
+        "lugar": "B16",
+        "fila": "B",
+        "x": 329.4,
+        "y": 383.6
       },
       {
-        "lugar": "71",
-        "fila": "CE",
-        "sector": "central",
-        "x": 665.7,
-        "y": 535.4
+        "lugar": "B17",
+        "fila": "B",
+        "x": 310.5,
+        "y": 376.9
       },
       {
-        "lugar": "72",
-        "fila": "CE",
-        "sector": "central",
-        "x": 710,
-        "y": 516.6
+        "lugar": "B18",
+        "fila": "B",
+        "x": 292.3,
+        "y": 368.6
       },
       {
-        "lugar": "73",
-        "fila": "CE",
-        "sector": "central",
-        "x": 751.9,
-        "y": 492.8
+        "lugar": "B19",
+        "fila": "B",
+        "x": 229.6,
+        "y": 322.1
       },
       {
-        "lugar": "74",
-        "fila": "CE",
-        "sector": "central",
-        "x": 790.7,
-        "y": 464.4
+        "lugar": "B20",
+        "fila": "B",
+        "x": 216.3,
+        "y": 307.1
       },
       {
-        "lugar": "75",
-        "fila": "CE",
-        "sector": "central",
-        "x": 826.1,
-        "y": 431.8
+        "lugar": "B21",
+        "fila": "B",
+        "x": 204.4,
+        "y": 291
       },
       {
-        "lugar": "76",
-        "fila": "CF",
-        "sector": "central",
-        "x": 164,
-        "y": 442.1
+        "lugar": "B22",
+        "fila": "B",
+        "x": 194,
+        "y": 274
       },
       {
-        "lugar": "77",
-        "fila": "CF",
-        "sector": "central",
-        "x": 201.5,
-        "y": 481.9
+        "lugar": "B23",
+        "fila": "B",
+        "x": 185,
+        "y": 256.1
       },
       {
-        "lugar": "78",
-        "fila": "CF",
-        "sector": "central",
-        "x": 243.3,
-        "y": 517
+        "lugar": "B24",
+        "fila": "B",
+        "x": 177.6,
+        "y": 237.6
       },
       {
-        "lugar": "79",
-        "fila": "CF",
-        "sector": "central",
-        "x": 289,
-        "y": 547
+        "lugar": "B25",
+        "fila": "B",
+        "x": 171.7,
+        "y": 218.4
       },
       {
-        "lugar": "80",
-        "fila": "CF",
-        "sector": "central",
-        "x": 337.79999999999995,
-        "y": 571.6
+        "lugar": "B26",
+        "fila": "B",
+        "x": 167.6,
+        "y": 198.9
       },
       {
-        "lugar": "81",
-        "fila": "CF",
-        "sector": "central",
-        "x": 389.20000000000005,
-        "y": 590.3
+        "lugar": "C1",
+        "fila": "C",
+        "x": 633.5,
+        "y": 288.5
       },
       {
-        "lugar": "82",
-        "fila": "CF",
-        "sector": "central",
-        "x": 442.4,
-        "y": 602.9
+        "lugar": "C2",
+        "fila": "C",
+        "x": 623.3,
+        "y": 305.6
       },
       {
-        "lugar": "83",
-        "fila": "CF",
-        "sector": "central",
-        "x": 496.70000000000005,
-        "y": 609.2
+        "lugar": "C3",
+        "fila": "C",
+        "x": 611.8,
+        "y": 322
       },
       {
-        "lugar": "84",
-        "fila": "CF",
-        "sector": "central",
-        "x": 551.3,
-        "y": 609.2
+        "lugar": "C4",
+        "fila": "C",
+        "x": 599.1,
+        "y": 337.5
       },
       {
-        "lugar": "85",
-        "fila": "CF",
-        "sector": "central",
-        "x": 605.6,
-        "y": 602.9
+        "lugar": "C5",
+        "fila": "C",
+        "x": 585.3,
+        "y": 352
       },
       {
-        "lugar": "86",
-        "fila": "CF",
-        "sector": "central",
-        "x": 658.8,
-        "y": 590.3
+        "lugar": "C6",
+        "fila": "C",
+        "x": 570.5,
+        "y": 365.4
       },
       {
-        "lugar": "87",
-        "fila": "CF",
-        "sector": "central",
-        "x": 710.2,
-        "y": 571.6
+        "lugar": "C7",
+        "fila": "C",
+        "x": 554.7,
+        "y": 377.6
       },
       {
-        "lugar": "88",
-        "fila": "CF",
-        "sector": "central",
-        "x": 759,
-        "y": 547
+        "lugar": "C8",
+        "fila": "C",
+        "x": 477.1,
+        "y": 416.1
       },
       {
-        "lugar": "89",
-        "fila": "CF",
-        "sector": "central",
-        "x": 804.7,
-        "y": 517
+        "lugar": "C9",
+        "fila": "C",
+        "x": 457.8,
+        "y": 421.3
       },
       {
-        "lugar": "90",
-        "fila": "CF",
-        "sector": "central",
-        "x": 846.5,
-        "y": 481.9
+        "lugar": "C10",
+        "fila": "C",
+        "x": 438.2,
+        "y": 425
       },
       {
-        "lugar": "91",
-        "fila": "CF",
-        "sector": "central",
-        "x": 884,
-        "y": 442.1
+        "lugar": "C11",
+        "fila": "C",
+        "x": 418.3,
+        "y": 427.3
       },
       {
-        "lugar": "92",
-        "fila": "CG",
-        "sector": "central",
-        "x": 103.30000000000001,
-        "y": 445.6
+        "lugar": "C12",
+        "fila": "C",
+        "x": 398.3,
+        "y": 428
       },
       {
-        "lugar": "93",
-        "fila": "CG",
-        "sector": "central",
-        "x": 142.2,
-        "y": 493
+        "lugar": "C13",
+        "fila": "C",
+        "x": 378.3,
+        "y": 427.3
       },
       {
-        "lugar": "94",
-        "fila": "CG",
-        "sector": "central",
-        "x": 186.3,
-        "y": 535.4
+        "lugar": "C14",
+        "fila": "C",
+        "x": 358.5,
+        "y": 425
       },
       {
-        "lugar": "95",
-        "fila": "CG",
-        "sector": "central",
-        "x": 235.10000000000002,
-        "y": 572.4
+        "lugar": "C15",
+        "fila": "C",
+        "x": 338.8,
+        "y": 421.3
       },
       {
-        "lugar": "96",
-        "fila": "CG",
-        "sector": "central",
-        "x": 287.9,
-        "y": 603.3
+        "lugar": "C16",
+        "fila": "C",
+        "x": 319.5,
+        "y": 416.1
       },
       {
-        "lugar": "97",
-        "fila": "CG",
-        "sector": "central",
-        "x": 344,
-        "y": 627.9
+        "lugar": "C17",
+        "fila": "C",
+        "x": 300.6,
+        "y": 409.6
       },
       {
-        "lugar": "98",
-        "fila": "CG",
-        "sector": "central",
-        "x": 402.6,
-        "y": 645.6
+        "lugar": "C18",
+        "fila": "C",
+        "x": 282.3,
+        "y": 401.6
       },
       {
-        "lugar": "99",
-        "fila": "CG",
-        "sector": "central",
-        "x": 462.9,
-        "y": 656.4
+        "lugar": "C19",
+        "fila": "C",
+        "x": 211.3,
+        "y": 352
       },
       {
-        "lugar": "100",
-        "fila": "CG",
-        "sector": "central",
-        "x": 524,
-        "y": 660
+        "lugar": "C20",
+        "fila": "C",
+        "x": 197.5,
+        "y": 337.5
       },
       {
-        "lugar": "101",
-        "fila": "CG",
-        "sector": "central",
-        "x": 585.1,
-        "y": 656.4
+        "lugar": "C21",
+        "fila": "C",
+        "x": 184.8,
+        "y": 322
       },
       {
-        "lugar": "102",
-        "fila": "CG",
-        "sector": "central",
-        "x": 645.4,
-        "y": 645.6
+        "lugar": "C22",
+        "fila": "C",
+        "x": 173.4,
+        "y": 305.6
       },
       {
-        "lugar": "103",
-        "fila": "CG",
-        "sector": "central",
-        "x": 704,
-        "y": 627.9
+        "lugar": "C23",
+        "fila": "C",
+        "x": 163.1,
+        "y": 288.5
       },
       {
-        "lugar": "104",
-        "fila": "CG",
-        "sector": "central",
-        "x": 760.1,
-        "y": 603.3
+        "lugar": "C24",
+        "fila": "C",
+        "x": 154.2,
+        "y": 270.6
       },
       {
-        "lugar": "105",
-        "fila": "CG",
-        "sector": "central",
-        "x": 812.9,
-        "y": 572.4
+        "lugar": "C25",
+        "fila": "C",
+        "x": 146.6,
+        "y": 252.1
       },
       {
-        "lugar": "106",
-        "fila": "CG",
-        "sector": "central",
-        "x": 861.7,
-        "y": 535.4
+        "lugar": "D1",
+        "fila": "D",
+        "x": 654.3,
+        "y": 320.2
       },
       {
-        "lugar": "107",
-        "fila": "CG",
-        "sector": "central",
-        "x": 905.8,
-        "y": 493
+        "lugar": "D2",
+        "fila": "D",
+        "x": 643.2,
+        "y": 336.8
       },
       {
-        "lugar": "108",
-        "fila": "CG",
-        "sector": "central",
-        "x": 944.7,
-        "y": 445.6
+        "lugar": "D3",
+        "fila": "D",
+        "x": 630.9,
+        "y": 352.6
       },
       {
-        "lugar": "109",
-        "fila": "CH",
-        "sector": "central",
-        "x": 40.599999999999994,
-        "y": 442.1
+        "lugar": "D4",
+        "fila": "D",
+        "x": 617.7,
+        "y": 367.6
       },
       {
-        "lugar": "110",
-        "fila": "CH",
-        "sector": "central",
-        "x": 79.9,
-        "y": 497.3
+        "lugar": "D5",
+        "fila": "D",
+        "x": 603.4,
+        "y": 381.7
       },
       {
-        "lugar": "111",
-        "fila": "CH",
-        "sector": "central",
-        "x": 125.5,
-        "y": 547.6
+        "lugar": "D6",
+        "fila": "D",
+        "x": 588.3,
+        "y": 394.7
       },
       {
-        "lugar": "112",
-        "fila": "CH",
-        "sector": "central",
-        "x": 176.8,
-        "y": 592
+        "lugar": "D7",
+        "fila": "D",
+        "x": 572.4,
+        "y": 406.8
       },
       {
-        "lugar": "113",
-        "fila": "CH",
-        "sector": "central",
-        "x": 232.89999999999998,
-        "y": 630.1
+        "lugar": "D8",
+        "fila": "D",
+        "x": 487,
+        "y": 448.7
       },
       {
-        "lugar": "114",
-        "fila": "CH",
-        "sector": "central",
-        "x": 293.2,
-        "y": 661.2
+        "lugar": "D9",
+        "fila": "D",
+        "x": 467.7,
+        "y": 453.9
       },
       {
-        "lugar": "115",
-        "fila": "CH",
-        "sector": "central",
-        "x": 356.79999999999995,
-        "y": 684.9
+        "lugar": "D10",
+        "fila": "D",
+        "x": 448.1,
+        "y": 457.9
       },
       {
-        "lugar": "116",
-        "fila": "CH",
-        "sector": "central",
-        "x": 422.70000000000005,
-        "y": 700.9
+        "lugar": "D11",
+        "fila": "D",
+        "x": 428.3,
+        "y": 460.5
       },
       {
-        "lugar": "117",
-        "fila": "CH",
-        "sector": "central",
-        "x": 490.1,
-        "y": 709
+        "lugar": "D12",
+        "fila": "D",
+        "x": 408.3,
+        "y": 461.8
       },
       {
-        "lugar": "118",
-        "fila": "CH",
-        "sector": "central",
-        "x": 557.9,
-        "y": 709
+        "lugar": "D13",
+        "fila": "D",
+        "x": 388.3,
+        "y": 461.8
       },
       {
-        "lugar": "119",
-        "fila": "CH",
-        "sector": "central",
+        "lugar": "D14",
+        "fila": "D",
+        "x": 368.4,
+        "y": 460.5
+      },
+      {
+        "lugar": "D15",
+        "fila": "D",
+        "x": 348.6,
+        "y": 457.9
+      },
+      {
+        "lugar": "D16",
+        "fila": "D",
+        "x": 328.9,
+        "y": 453.9
+      },
+      {
+        "lugar": "D17",
+        "fila": "D",
+        "x": 309.7,
+        "y": 448.7
+      },
+      {
+        "lugar": "D18",
+        "fila": "D",
+        "x": 290.7,
+        "y": 442.2
+      },
+      {
+        "lugar": "D19",
+        "fila": "D",
+        "x": 272.3,
+        "y": 434.4
+      },
+      {
+        "lugar": "D20",
+        "fila": "D",
+        "x": 193.2,
+        "y": 381.7
+      },
+      {
+        "lugar": "D21",
+        "fila": "D",
+        "x": 179,
+        "y": 367.6
+      },
+      {
+        "lugar": "D22",
+        "fila": "D",
+        "x": 165.7,
+        "y": 352.6
+      },
+      {
+        "lugar": "D23",
+        "fila": "D",
+        "x": 153.5,
+        "y": 336.8
+      },
+      {
+        "lugar": "D24",
+        "fila": "D",
+        "x": 142.3,
+        "y": 320.2
+      },
+      {
+        "lugar": "D25",
+        "fila": "D",
+        "x": 132.3,
+        "y": 302.9
+      },
+      {
+        "lugar": "D26",
+        "fila": "D",
+        "x": 123.4,
+        "y": 285
+      },
+      {
+        "lugar": "E1",
+        "fila": "E",
+        "x": 674.4,
+        "y": 351.5
+      },
+      {
+        "lugar": "E2",
+        "fila": "E",
+        "x": 662.5,
+        "y": 367.6
+      },
+      {
+        "lugar": "E3",
+        "fila": "E",
+        "x": 649.7,
+        "y": 383
+      },
+      {
+        "lugar": "E4",
+        "fila": "E",
+        "x": 636,
+        "y": 397.5
+      },
+      {
+        "lugar": "E5",
+        "fila": "E",
+        "x": 621.4,
+        "y": 411.2
+      },
+      {
+        "lugar": "E6",
+        "fila": "E",
+        "x": 606.1,
+        "y": 424.1
+      },
+      {
+        "lugar": "E7",
+        "fila": "E",
+        "x": 590,
+        "y": 436
+      },
+      {
+        "lugar": "E8",
+        "fila": "E",
+        "x": 496.9,
+        "y": 481.2
+      },
+      {
+        "lugar": "E9",
+        "fila": "E",
+        "x": 477.6,
+        "y": 486.5
+      },
+      {
+        "lugar": "E10",
+        "fila": "E",
+        "x": 458,
+        "y": 490.7
+      },
+      {
+        "lugar": "E11",
+        "fila": "E",
+        "x": 438.2,
+        "y": 493.6
+      },
+      {
+        "lugar": "E12",
+        "fila": "E",
+        "x": 418.3,
+        "y": 495.4
+      },
+      {
+        "lugar": "E13",
+        "fila": "E",
+        "x": 398.3,
+        "y": 496
+      },
+      {
+        "lugar": "E14",
+        "fila": "E",
+        "x": 378.3,
+        "y": 495.4
+      },
+      {
+        "lugar": "E15",
+        "fila": "E",
+        "x": 358.4,
+        "y": 493.6
+      },
+      {
+        "lugar": "E16",
+        "fila": "E",
+        "x": 338.6,
+        "y": 490.7
+      },
+      {
+        "lugar": "E17",
+        "fila": "E",
+        "x": 319.1,
+        "y": 486.5
+      },
+      {
+        "lugar": "E18",
+        "fila": "E",
+        "x": 299.8,
+        "y": 481.2
+      },
+      {
+        "lugar": "E19",
+        "fila": "E",
+        "x": 280.9,
+        "y": 474.8
+      },
+      {
+        "lugar": "E20",
+        "fila": "E",
+        "x": 262.3,
+        "y": 467.3
+      },
+      {
+        "lugar": "E21",
+        "fila": "E",
+        "x": 175.2,
+        "y": 411.2
+      },
+      {
+        "lugar": "E22",
+        "fila": "E",
+        "x": 160.7,
+        "y": 397.5
+      },
+      {
+        "lugar": "E23",
+        "fila": "E",
+        "x": 147,
+        "y": 383
+      },
+      {
+        "lugar": "E24",
+        "fila": "E",
+        "x": 134.1,
+        "y": 367.6
+      },
+      {
+        "lugar": "E25",
+        "fila": "E",
+        "x": 122.3,
+        "y": 351.5
+      },
+      {
+        "lugar": "E26",
+        "fila": "E",
+        "x": 111.3,
+        "y": 334.8
+      },
+      {
+        "lugar": "E27",
+        "fila": "E",
+        "x": 101.5,
+        "y": 317.4
+      },
+      {
+        "lugar": "F1",
+        "fila": "F",
+        "x": 694,
+        "y": 382.5
+      },
+      {
+        "lugar": "F2",
+        "fila": "F",
+        "x": 681.5,
+        "y": 398.1
+      },
+      {
+        "lugar": "F3",
+        "fila": "F",
+        "x": 668.2,
+        "y": 413.1
+      },
+      {
+        "lugar": "F4",
+        "fila": "F",
+        "x": 654.2,
+        "y": 427.3
+      },
+      {
+        "lugar": "F5",
+        "fila": "F",
+        "x": 639.4,
+        "y": 440.7
+      },
+      {
+        "lugar": "F6",
+        "fila": "F",
+        "x": 623.8,
+        "y": 453.3
+      },
+      {
+        "lugar": "F7",
+        "fila": "F",
+        "x": 607.7,
+        "y": 465.1
+      },
+      {
+        "lugar": "F8",
+        "fila": "F",
+        "x": 506.7,
+        "y": 513.8
+      },
+      {
+        "lugar": "F9",
+        "fila": "F",
+        "x": 487.4,
+        "y": 519.1
+      },
+      {
+        "lugar": "F10",
+        "fila": "F",
+        "x": 467.9,
+        "y": 523.4
+      },
+      {
+        "lugar": "F11",
+        "fila": "F",
+        "x": 448.2,
+        "y": 526.6
+      },
+      {
+        "lugar": "F12",
+        "fila": "F",
+        "x": 428.3,
+        "y": 528.8
+      },
+      {
+        "lugar": "F13",
+        "fila": "F",
+        "x": 408.3,
+        "y": 529.9
+      },
+      {
+        "lugar": "F14",
+        "fila": "F",
+        "x": 388.3,
+        "y": 529.9
+      },
+      {
+        "lugar": "F15",
+        "fila": "F",
+        "x": 368.4,
+        "y": 528.8
+      },
+      {
+        "lugar": "F16",
+        "fila": "F",
+        "x": 348.5,
+        "y": 526.6
+      },
+      {
+        "lugar": "F17",
+        "fila": "F",
+        "x": 328.7,
+        "y": 523.4
+      },
+      {
+        "lugar": "F18",
+        "fila": "F",
+        "x": 309.2,
+        "y": 519.1
+      },
+      {
+        "lugar": "F19",
+        "fila": "F",
+        "x": 289.9,
+        "y": 513.8
+      },
+      {
+        "lugar": "F20",
+        "fila": "F",
+        "x": 271,
+        "y": 507.4
+      },
+      {
+        "lugar": "F21",
+        "fila": "F",
+        "x": 252.4,
+        "y": 500
+      },
+      {
+        "lugar": "F22",
+        "fila": "F",
+        "x": 157.3,
+        "y": 440.7
+      },
+      {
+        "lugar": "F23",
+        "fila": "F",
+        "x": 142.5,
+        "y": 427.3
+      },
+      {
+        "lugar": "F24",
+        "fila": "F",
+        "x": 128.4,
+        "y": 413.1
+      },
+      {
+        "lugar": "F25",
+        "fila": "F",
+        "x": 115.1,
+        "y": 398.1
+      },
+      {
+        "lugar": "F26",
+        "fila": "F",
+        "x": 102.7,
+        "y": 382.5
+      },
+      {
+        "lugar": "F27",
+        "fila": "F",
+        "x": 91.1,
+        "y": 366.2
+      },
+      {
+        "lugar": "F28",
+        "fila": "F",
+        "x": 80.4,
+        "y": 349.3
+      },
+      {
+        "lugar": "G1",
+        "fila": "G",
+        "x": 713.2,
+        "y": 413.2
+      },
+      {
+        "lugar": "G2",
+        "fila": "G",
+        "x": 700.3,
+        "y": 428.4
+      },
+      {
+        "lugar": "G3",
+        "fila": "G",
+        "x": 686.6,
+        "y": 443
+      },
+      {
+        "lugar": "G4",
+        "fila": "G",
+        "x": 672.2,
+        "y": 457
+      },
+      {
+        "lugar": "G5",
+        "fila": "G",
+        "x": 657.2,
+        "y": 470.2
+      },
+      {
+        "lugar": "G6",
+        "fila": "G",
+        "x": 641.5,
+        "y": 482.6
+      },
+      {
+        "lugar": "G7",
+        "fila": "G",
         "x": 625.3,
-        "y": 700.9
+        "y": 494.2
       },
       {
-        "lugar": "120",
-        "fila": "CH",
-        "sector": "central",
-        "x": 691.2,
-        "y": 684.9
+        "lugar": "G8",
+        "fila": "G",
+        "x": 516.6,
+        "y": 546.3
       },
       {
-        "lugar": "121",
-        "fila": "CH",
-        "sector": "central",
-        "x": 754.8,
-        "y": 661.2
+        "lugar": "G9",
+        "fila": "G",
+        "x": 497.3,
+        "y": 551.7
       },
       {
-        "lugar": "122",
-        "fila": "CH",
-        "sector": "central",
-        "x": 815.1,
-        "y": 630.1
+        "lugar": "G10",
+        "fila": "G",
+        "x": 477.8,
+        "y": 556.1
       },
       {
-        "lugar": "123",
-        "fila": "CH",
-        "sector": "central",
-        "x": 871.2,
-        "y": 592
+        "lugar": "G11",
+        "fila": "G",
+        "x": 458.1,
+        "y": 559.6
       },
       {
-        "lugar": "124",
-        "fila": "CH",
-        "sector": "central",
-        "x": 922.5,
-        "y": 547.6
+        "lugar": "G12",
+        "fila": "G",
+        "x": 438.3,
+        "y": 562
       },
       {
-        "lugar": "125",
-        "fila": "CH",
-        "sector": "central",
-        "x": 968.0999999999999,
-        "y": 497.3
+        "lugar": "G13",
+        "fila": "G",
+        "x": 418.3,
+        "y": 563.5
       },
       {
-        "lugar": "126",
-        "fila": "CH",
-        "sector": "central",
-        "x": 1007.4000000000001,
-        "y": 442.1
+        "lugar": "G14",
+        "fila": "G",
+        "x": 398.3,
+        "y": 564
       },
       {
-        "lugar": "1",
-        "fila": "EA",
-        "sector": "esquerdo",
-        "x": 267.9,
-        "y": 276.1
+        "lugar": "G15",
+        "fila": "G",
+        "x": 378.3,
+        "y": 563.5
       },
       {
-        "lugar": "2",
-        "fila": "EA",
-        "sector": "esquerdo",
-        "x": 274.9,
-        "y": 288.5
+        "lugar": "G16",
+        "fila": "G",
+        "x": 358.4,
+        "y": 562
       },
       {
-        "lugar": "3",
-        "fila": "EA",
-        "sector": "esquerdo",
-        "x": 282.5,
-        "y": 300.5
+        "lugar": "G17",
+        "fila": "G",
+        "x": 338.5,
+        "y": 559.6
       },
       {
-        "lugar": "127",
-        "fila": "EA",
-        "sector": "esquerdo",
-        "x": 290.6,
-        "y": 312.1
+        "lugar": "G18",
+        "fila": "G",
+        "x": 318.8,
+        "y": 556.1
       },
       {
-        "lugar": "128",
-        "fila": "EA",
-        "sector": "esquerdo",
+        "lugar": "G19",
+        "fila": "G",
         "x": 299.3,
-        "y": 323.3
+        "y": 551.7
       },
       {
-        "lugar": "129",
-        "fila": "EA",
-        "sector": "esquerdo",
-        "x": 308.5,
-        "y": 334
+        "lugar": "G20",
+        "fila": "G",
+        "x": 280.1,
+        "y": 546.3
       },
       {
-        "lugar": "17",
-        "fila": "EB",
-        "sector": "esquerdo",
-        "x": 228.2,
-        "y": 297.3
+        "lugar": "G21",
+        "fila": "G",
+        "x": 261.1,
+        "y": 540
       },
       {
-        "lugar": "18",
-        "fila": "EB",
-        "sector": "esquerdo",
-        "x": 237.5,
-        "y": 313.5
+        "lugar": "G22",
+        "fila": "G",
+        "x": 242.5,
+        "y": 532.7
       },
       {
-        "lugar": "19",
-        "fila": "EB",
-        "sector": "esquerdo",
-        "x": 247.60000000000002,
-        "y": 329.3
+        "lugar": "G23",
+        "fila": "G",
+        "x": 139.4,
+        "y": 470.2
       },
       {
-        "lugar": "130",
-        "fila": "EB",
-        "sector": "esquerdo",
-        "x": 258.6,
-        "y": 344.4
+        "lugar": "G24",
+        "fila": "G",
+        "x": 124.4,
+        "y": 457
       },
       {
-        "lugar": "131",
-        "fila": "EB",
-        "sector": "esquerdo",
-        "x": 270.4,
-        "y": 358.9
+        "lugar": "G25",
+        "fila": "G",
+        "x": 110,
+        "y": 443
       },
       {
-        "lugar": "132",
-        "fila": "EB",
-        "sector": "esquerdo",
-        "x": 283,
-        "y": 372.7
+        "lugar": "G26",
+        "fila": "G",
+        "x": 96.4,
+        "y": 428.4
       },
       {
-        "lugar": "34",
-        "fila": "EC",
-        "sector": "esquerdo",
-        "x": 188.5,
-        "y": 318.4
+        "lugar": "G27",
+        "fila": "G",
+        "x": 83.5,
+        "y": 413.2
       },
       {
-        "lugar": "35",
-        "fila": "EC",
-        "sector": "esquerdo",
-        "x": 200.3,
-        "y": 339.1
+        "lugar": "G28",
+        "fila": "G",
+        "x": 71.3,
+        "y": 397.3
       },
       {
-        "lugar": "36",
-        "fila": "EC",
-        "sector": "esquerdo",
-        "x": 213.5,
-        "y": 359
-      },
-      {
-        "lugar": "133",
-        "fila": "EC",
-        "sector": "esquerdo",
-        "x": 227.89999999999998,
-        "y": 378.1
-      },
-      {
-        "lugar": "134",
-        "fila": "EC",
-        "sector": "esquerdo",
-        "x": 243.39999999999998,
-        "y": 396.2
-      },
-      {
-        "lugar": "135",
-        "fila": "EC",
-        "sector": "esquerdo",
-        "x": 260,
-        "y": 413.3
-      },
-      {
-        "lugar": "136",
-        "fila": "ED",
-        "sector": "esquerdo",
-        "x": 145.3,
-        "y": 332.9
-      },
-      {
-        "lugar": "137",
-        "fila": "ED",
-        "sector": "esquerdo",
-        "x": 165.60000000000002,
-        "y": 368.4
-      },
-      {
-        "lugar": "138",
-        "fila": "ED",
-        "sector": "esquerdo",
-        "x": 189.10000000000002,
-        "y": 401.7
-      },
-      {
-        "lugar": "139",
-        "fila": "ED",
-        "sector": "esquerdo",
-        "x": 215.7,
-        "y": 432.6
-      },
-      {
-        "lugar": "140",
-        "fila": "ED",
-        "sector": "esquerdo",
-        "x": 245.2,
-        "y": 460.8
-      },
-      {
-        "lugar": "141",
-        "fila": "EE",
-        "sector": "esquerdo",
-        "x": 101.60000000000002,
-        "y": 346
-      },
-      {
-        "lugar": "142",
-        "fila": "EE",
-        "sector": "esquerdo",
-        "x": 122,
-        "y": 383.5
-      },
-      {
-        "lugar": "143",
-        "fila": "EE",
-        "sector": "esquerdo",
-        "x": 145.7,
-        "y": 418.9
-      },
-      {
-        "lugar": "144",
-        "fila": "EE",
-        "sector": "esquerdo",
-        "x": 172.5,
-        "y": 452
-      },
-      {
-        "lugar": "145",
-        "fila": "EE",
-        "sector": "esquerdo",
-        "x": 202.3,
-        "y": 482.6
-      },
-      {
-        "lugar": "146",
-        "fila": "EE",
-        "sector": "esquerdo",
-        "x": 234.60000000000002,
-        "y": 510.4
-      },
-      {
-        "lugar": "147",
-        "fila": "EF",
-        "sector": "esquerdo",
-        "x": 57.30000000000001,
-        "y": 357.6
-      },
-      {
-        "lugar": "148",
-        "fila": "EF",
-        "sector": "esquerdo",
-        "x": 82.60000000000002,
-        "y": 405.2
-      },
-      {
-        "lugar": "149",
-        "fila": "EF",
-        "sector": "esquerdo",
-        "x": 112.69999999999999,
-        "y": 449.9
-      },
-      {
-        "lugar": "150",
-        "fila": "EF",
-        "sector": "esquerdo",
-        "x": 147.39999999999998,
-        "y": 491.2
-      },
-      {
-        "lugar": "151",
-        "fila": "EF",
-        "sector": "esquerdo",
-        "x": 186.10000000000002,
-        "y": 528.7
-      },
-      {
-        "lugar": "152",
-        "fila": "EF",
-        "sector": "esquerdo",
-        "x": 228.60000000000002,
-        "y": 561.9
-      },
-      {
-        "lugar": "14",
-        "fila": "DA",
-        "sector": "direito",
-        "x": 739.5,
-        "y": 334
-      },
-      {
-        "lugar": "15",
-        "fila": "DA",
-        "sector": "direito",
-        "x": 748.7,
-        "y": 323.3
-      },
-      {
-        "lugar": "16",
-        "fila": "DA",
-        "sector": "direito",
-        "x": 757.4,
-        "y": 312.1
-      },
-      {
-        "lugar": "R1",
-        "fila": "DA",
-        "sector": "direito",
-        "x": 765.5,
-        "y": 300.5
-      },
-      {
-        "lugar": "R2",
-        "fila": "DA",
-        "sector": "direito",
-        "x": 773.1,
-        "y": 288.5
-      },
-      {
-        "lugar": "R3",
-        "fila": "DA",
-        "sector": "direito",
-        "x": 780.1,
-        "y": 276.1
-      },
-      {
-        "lugar": "31",
-        "fila": "DB",
-        "sector": "direito",
-        "x": 765,
-        "y": 372.7
-      },
-      {
-        "lugar": "32",
-        "fila": "DB",
-        "sector": "direito",
-        "x": 777.6,
-        "y": 358.9
-      },
-      {
-        "lugar": "33",
-        "fila": "DB",
-        "sector": "direito",
-        "x": 789.4,
-        "y": 344.4
-      },
-      {
-        "lugar": "153",
-        "fila": "DB",
-        "sector": "direito",
-        "x": 800.4,
-        "y": 329.3
-      },
-      {
-        "lugar": "154",
-        "fila": "DB",
-        "sector": "direito",
-        "x": 810.5,
-        "y": 313.5
-      },
-      {
-        "lugar": "155",
-        "fila": "DB",
-        "sector": "direito",
-        "x": 819.8,
-        "y": 297.3
-      },
-      {
-        "lugar": "R6",
-        "fila": "DC",
-        "sector": "direito",
-        "x": 788,
-        "y": 413.3
-      },
-      {
-        "lugar": "R7",
-        "fila": "DC",
-        "sector": "direito",
-        "x": 804.6,
-        "y": 396.2
-      },
-      {
-        "lugar": "R8",
-        "fila": "DC",
-        "sector": "direito",
-        "x": 820.1,
-        "y": 378.1
-      },
-      {
-        "lugar": "156",
-        "fila": "DC",
-        "sector": "direito",
-        "x": 834.5,
-        "y": 359
-      },
-      {
-        "lugar": "157",
-        "fila": "DC",
-        "sector": "direito",
-        "x": 847.7,
-        "y": 339.1
-      },
-      {
-        "lugar": "158",
-        "fila": "DC",
-        "sector": "direito",
-        "x": 859.5,
-        "y": 318.4
-      },
-      {
-        "lugar": "159",
-        "fila": "DD",
-        "sector": "direito",
-        "x": 802.8,
-        "y": 460.8
-      },
-      {
-        "lugar": "160",
-        "fila": "DD",
-        "sector": "direito",
-        "x": 832.3,
-        "y": 432.6
-      },
-      {
-        "lugar": "161",
-        "fila": "DD",
-        "sector": "direito",
-        "x": 858.9000000000001,
-        "y": 401.7
-      },
-      {
-        "lugar": "162",
-        "fila": "DD",
-        "sector": "direito",
-        "x": 882.4000000000001,
-        "y": 368.4
-      },
-      {
-        "lugar": "163",
-        "fila": "DD",
-        "sector": "direito",
-        "x": 902.7,
-        "y": 332.9
-      },
-      {
-        "lugar": "164",
-        "fila": "DE",
-        "sector": "direito",
-        "x": 813.4,
-        "y": 510.4
-      },
-      {
-        "lugar": "165",
-        "fila": "DE",
-        "sector": "direito",
-        "x": 845.7,
-        "y": 482.6
-      },
-      {
-        "lugar": "166",
-        "fila": "DE",
-        "sector": "direito",
-        "x": 875.5,
-        "y": 452
-      },
-      {
-        "lugar": "167",
-        "fila": "DE",
-        "sector": "direito",
-        "x": 902.3,
-        "y": 418.9
-      },
-      {
-        "lugar": "168",
-        "fila": "DE",
-        "sector": "direito",
-        "x": 926,
-        "y": 383.5
-      },
-      {
-        "lugar": "169",
-        "fila": "DE",
-        "sector": "direito",
-        "x": 946.4000000000001,
-        "y": 346
-      },
-      {
-        "lugar": "170",
-        "fila": "DF",
-        "sector": "direito",
-        "x": 819.4,
-        "y": 561.9
-      },
-      {
-        "lugar": "171",
-        "fila": "DF",
-        "sector": "direito",
-        "x": 861.9000000000001,
-        "y": 528.7
-      },
-      {
-        "lugar": "172",
-        "fila": "DF",
-        "sector": "direito",
-        "x": 900.5999999999999,
-        "y": 491.2
-      },
-      {
-        "lugar": "173",
-        "fila": "DF",
-        "sector": "direito",
-        "x": 935.3,
-        "y": 449.9
-      },
-      {
-        "lugar": "174",
-        "fila": "DF",
-        "sector": "direito",
-        "x": 965.4000000000001,
-        "y": 405.2
-      },
-      {
-        "lugar": "175",
-        "fila": "DF",
-        "sector": "direito",
-        "x": 990.7,
-        "y": 357.6
+        "lugar": "G29",
+        "fila": "G",
+        "x": 60,
+        "y": 380.8
       }
     ],
-    "viewBox": "0 0 1047 749",
+    "viewBox": "0 0 774 624",
     "tipo": "auditorio",
     "editorCfg": {
-      "tipo": "rsb-auditorio-metro",
-      "versao": 1,
-      "descricao": "Layout exacto do auditório do Metropolitano de Lisboa (PDF Lista_Setaing_SP_VF)."
+      "tipo": "auditorio",
+      "filas": 7,
+      "lugaresPorFila": 19,
+      "corredores": 2,
+      "corredorLarg": 50,
+      "seat": 18,
+      "gapH": 2,
+      "gapV": 16,
+      "raio": 200,
+      "abertura": 165,
+      "margem": 60,
+      "palco": true,
+      "reservados": 8,
+      "setoresPorFila": {
+        "R": [
+          0
+        ],
+        "A": [
+          8,
+          10,
+          8
+        ],
+        "B": [
+          8,
+          10,
+          8
+        ],
+        "C": [
+          7,
+          11,
+          7
+        ],
+        "D": [
+          7,
+          12,
+          7
+        ],
+        "E": [
+          7,
+          13,
+          7
+        ],
+        "F": [
+          7,
+          14,
+          7
+        ],
+        "G": [
+          7,
+          15,
+          7
+        ]
+      }
     }
   }
 }
