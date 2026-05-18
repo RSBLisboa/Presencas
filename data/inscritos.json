@@ -1,15 +1,7 @@
 {
   "schema": "inscritos@2",
-  "evento": {
-    "id": 1,
-    "titulo": "Sessão Técnica em Substâncias Perigosas",
-    "data": "2026-05-18",
-    "local": "Auditório do Metropolitano de Lisboa",
-    "horaInicio": "09:00",
-    "horaFim": "12:00",
-    "cargaHoraria": "3 horas"
-  },
-  "exportadoEm": "2026-05-17T23:27:57",
+  "eventoId": 1,
+  "actualizadoEm": "2026-05-18T03:27:42",
   "total": 200,
   "inscritos": [
     {
@@ -2625,6 +2617,5 @@
       "lugar": "41",
       "categoria": "Orador Convidado"
     }
-  ],
-  "actualizadoEm": "2026-05-17T23:48:09"
+  ]
 }
