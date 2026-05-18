@@ -60,14 +60,17 @@
     {
       "id": 158,
       "token": "FFPEE98X",
-      "nome": "",
-      "cargo": "",
-      "entidade": "",
-      "email": "",
+      "nome": "Vitor Ramos",
+      "cargo": "SCh Princ",
+      "entidade": "RSBL",
+      "email": "vitor.ramos@cm-lisboa.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
-      "naoEnviar": false
+      "naoEnviar": false,
+      "categoria": "",
+      "lugar": "",
+      "autorizaContacto": true
     },
     {
       "id": 159,
@@ -2593,5 +2596,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T11:40:43"
+  "actualizadoEm": "2026-05-18T11:53:40.367Z"
 }
