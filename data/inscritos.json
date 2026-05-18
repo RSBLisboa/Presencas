@@ -734,12 +734,13 @@
       "nome": "Arménio Liceia",
       "cargo": "Subintendente",
       "entidade": "PSP",
-      "email": "",
+      "email": "ajliceia@psp.pt",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 110
+      "idRespostaForms": 110,
+      "autorizaContacto": false
     },
     {
       "id": 13,
@@ -2653,5 +2654,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:44:48"
+  "actualizadoEm": "2026-05-18T13:15:42"
 }

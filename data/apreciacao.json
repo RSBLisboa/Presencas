@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T12:44:48",
-  "total": 40,
+  "actualizadoEm": "2026-05-18T13:15:42",
+  "total": 41,
   "respostas": [
     {
       "idInscricao": 23,
@@ -601,6 +601,21 @@
         "q3": "4",
         "q4": "4",
         "q5": "3",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 12,
+      "token": "764YU49B",
+      "submetidoEm": "5/18/2026 1:15:30 PM",
+      "email": "ajliceia@psp.pt",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
         "q6": "4"
       }
     }
