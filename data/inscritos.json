@@ -1304,12 +1304,13 @@
       "nome": "Joana Mendonça",
       "cargo": "EquMultidisSegPrev Riscos",
       "entidade": "IGAMA",
-      "email": "",
+      "email": "Jumatsm@hotmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 67
+      "idRespostaForms": 67,
+      "autorizaContacto": false
     },
     {
       "id": 54,
@@ -2631,5 +2632,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:21:03"
+  "actualizadoEm": "2026-05-18T12:22:00"
 }
