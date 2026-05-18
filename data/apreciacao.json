@@ -1,8 +1,8 @@
 {
   "schema": "apreciacao@1",
   "eventoId": 1,
-  "actualizadoEm": "2026-05-18T11:59:14",
-  "total": 5,
+  "actualizadoEm": "2026-05-18T11:59:40",
+  "total": 6,
   "respostas": [
     {
       "idInscricao": 23,
@@ -69,6 +69,21 @@
       "token": "WSZYYUJX",
       "submetidoEm": "5/18/2026 11:59:03 AM",
       "email": "batalhafilipe73@gmail.com",
+      "autorizaContacto": false,
+      "respostas": {
+        "q1": "4",
+        "q2": "4",
+        "q3": "4",
+        "q4": "4",
+        "q5": "4",
+        "q6": "4"
+      }
+    },
+    {
+      "idInscricao": 43,
+      "token": "FBERKDN8",
+      "submetidoEm": "5/18/2026 11:59:28 AM",
+      "email": "mirandatocha@gmail.com",
       "autorizaContacto": false,
       "respostas": {
         "q1": "4",
