@@ -1162,12 +1162,13 @@
       "nome": "Helder Pragosa",
       "cargo": "SCh1 Adj Comando",
       "entidade": "Sapadores de Leiria",
-      "email": "",
+      "email": "helderpragosa@gmail.com",
       "temMail": false,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 80
+      "idRespostaForms": 80,
+      "autorizaContacto": false
     },
     {
       "id": 43,
@@ -2652,5 +2653,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:44:18"
+  "actualizadoEm": "2026-05-18T12:44:48"
 }
