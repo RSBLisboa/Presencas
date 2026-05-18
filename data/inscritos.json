@@ -799,12 +799,13 @@
       "nome": "Bruno Alves",
       "cargo": "Cmdt",
       "entidade": "BV Famalicenses",
-      "email": "brunoalves@bvfamalicenses.org",
+      "email": "Brunoalves@bvfamalicenses.org",
       "temMail": true,
       "estado": "Confirmado",
       "eraConvidado": true,
       "naoEnviar": false,
-      "idRespostaForms": 116
+      "idRespostaForms": 116,
+      "autorizaContacto": false
     },
     {
       "id": 17,
@@ -2642,5 +2643,5 @@
       "categoria": "Organização"
     }
   ],
-  "actualizadoEm": "2026-05-18T12:27:04"
+  "actualizadoEm": "2026-05-18T12:28:20"
 }
